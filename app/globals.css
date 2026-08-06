@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+:root {
+  --font-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+
+  --navy-deep: #0A1F3D;
+  --navy-mid: #12335E;
+  --navy-line: #24406e;
+  --red: #C81E2C;
+  --red-dark: #8f141f;
+  --sand: #F5F2EC;
+  --sand-deep: #E9E3D6;
+  --steel: #59626E;
+  --amber: #E8A33D;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Hazard stripe divider — echoes container-tape / caution-tape, the
+   visual handshake between the transport and BTP sides of the business */
+.hazard-stripe {
+  height: 10px;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--red) 0px,
+    var(--red) 18px,
+    #ffffff 18px,
+    #ffffff 36px
+  );
+}
+
+.hazard-stripe--thin {
+  height: 6px;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--navy-deep) 0px,
+    var(--navy-deep) 12px,
+    var(--amber) 12px,
+    var(--amber) 24px
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}

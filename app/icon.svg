@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <clipPath id="rounded">
+      <rect width="256" height="256" rx="56"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#rounded)">
+    <!-- fond navy (couleur de marque) -->
+    <rect width="256" height="256" fill="#0A1F3D"/>
+    <!-- barre rouge basse, écho au liseré rouge du header -->
+    <rect y="200" width="256" height="56" fill="#C81E2C"/>
+  </g>
+  <!-- monogramme G, écho au logo GOSTA TRANS -->
+  <text
+    x="128"
+    y="146.5"
+    text-anchor="middle"
+    font-family="Arial, 'Helvetica Neue', Helvetica, sans-serif"
+    font-size="132"
+    font-weight="bold"
+    fill="#FFFFFF"
+  >G</text>
+</svg>
