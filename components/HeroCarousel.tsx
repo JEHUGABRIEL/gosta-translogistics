@@ -54,7 +54,12 @@ export default function HeroCarousel({
         <div className="absolute inset-0 bg-gradient-to-t from-[var(--navy-deep)] via-[var(--navy-deep)]/45 to-[var(--navy-deep)]/15" />
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-6 pt-28 md:pt-48">
+      {/* pb-20 md:pb-28 : espace sous les boutons. Quand la barre flottante existe
+          (home, desktop), lg:pb-0 car elle assure l'espacement ; sans barre
+          flottante (sous-pages), le padding bas reste appliqué à tous les écrans. */}
+      <div
+        className={`relative mx-auto max-w-7xl px-6 pt-28 md:pt-48 pb-20 md:pb-28 ${floating ? "lg:pb-0" : ""}`}
+      >
         <AnimatePresence mode="wait">
           <motion.div
             key={index}
@@ -100,7 +105,9 @@ export default function HeroCarousel({
       </div>
 
       {floating && (
-        <div className="relative mx-auto max-w-7xl px-6 pt-10 md:pt-14">
+        /* hidden lg:block : la barre de recherche ne s'affiche que sur desktop.
+           Sur mobile, la recherche se fait via l'icône de la navbar (SearchModal). */
+        <div className="relative mx-auto max-w-7xl px-6 pt-10 md:pt-14 hidden lg:block">
           {/* translate-y-1/2 : la barre est décalée de la moitié de sa propre
               hauteur → exactement à moitié dans la hero section, à moitié dehors.
               z-10 : elle se peint par-dessus la section suivante */}

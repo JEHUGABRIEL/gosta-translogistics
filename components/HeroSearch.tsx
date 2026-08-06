@@ -1,30 +1,38 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { useRouter } from "next/navigation";
+import { useLocale, useTranslations } from "next-intl";
 import { Search } from "lucide-react";
-import { allServices, type Service } from "@/lib/services";
+import { useRouter } from "@/i18n/navigation";
+import { getServices, type Service } from "@/lib/services";
 
-const CATEGORIES = [
-  { label: "Tous les services", value: "all" },
-  { label: "Maritime", value: "logistique" },
-  { label: "Transport", value: "logistique" },
-  { label: "BTP", value: "btp" },
-];
-
-export default function HeroSearch() {
+export default function HeroSearch({
+  autoFocus = false,
+  onSubmitted,
+}: {
+  autoFocus?: boolean;
+  onSubmitted?: () => void;
+}) {
   const router = useRouter();
+  const t = useTranslations("search");
+  const locale = useLocale();
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("all");
+
+  const CATEGORIES = [
+    { label: t("all"), value: "all" },
+    { label: t("maritime"), value: "logistique" },
+    { label: t("transport"), value: "logistique" },
+    { label: t("btp"), value: "btp" },
+  ];
 
   const handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const q = query.trim().toLowerCase();
     const cat = category === "all" ? null : category; // "logistique" | "btp"
 
-    const pool = cat
-      ? allServices.filter((s) => s.category === cat)
-      : allServices;
+    const all = getServices(locale).all;
+    const pool = cat ? all.filter((s) => s.category === cat) : all;
 
     if (q) {
       // Score les résultats : le titre prime, puis le sous-titre, puis le corps
@@ -47,16 +55,19 @@ export default function HeroSearch() {
       }
       if (best) {
         router.push(`/services/${best.category}/${best.slug}`);
+        onSubmitted?.();
         return;
       }
     }
 
     if (cat) {
       router.push(`/services/${cat}`);
+      onSubmitted?.();
       return;
     }
 
     document.getElementById("services")?.scrollIntoView({ behavior: "smooth" });
+    onSubmitted?.();
   };
 
   return (
@@ -71,8 +82,9 @@ export default function HeroSearch() {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Rechercher un service… ciment, engins, construction"
-            aria-label="Rechercher un service"
+            placeholder={t("placeholder")}
+            aria-label={t("inputLabel")}
+            autoFocus={autoFocus}
             className="w-full border border-[#dcd6c7] bg-[#F5F2EC] pl-11 pr-4 py-3.5 text-[15px] text-[var(--navy-deep)] placeholder:text-[var(--steel)]/70 focus:outline-none focus:border-[var(--red)]"
           />
         </div>
@@ -80,7 +92,7 @@ export default function HeroSearch() {
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-          aria-label="Catégorie de service"
+          aria-label={t("categoryLabel")}
           className="w-full border border-[#dcd6c7] bg-[#F5F2EC] px-4 py-3.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)] cursor-pointer"
         >
           {CATEGORIES.map((c) => (
@@ -94,7 +106,7 @@ export default function HeroSearch() {
           type="submit"
           className="inline-flex items-center justify-center gap-2 bg-[var(--red)] hover:bg-[var(--red-dark)] transition-colors text-white font-display uppercase tracking-wide text-base px-8 py-3.5 cursor-pointer"
         >
-          <Search size={17} /> Rechercher
+          <Search size={17} /> {t("submit")}
         </button>
       </div>
     </form>

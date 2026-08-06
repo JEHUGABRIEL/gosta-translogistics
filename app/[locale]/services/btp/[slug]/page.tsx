@@ -1,19 +1,20 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { setRequestLocale } from "next-intl/server";
 import ServiceDetailTemplate from "@/components/ServiceDetailTemplate";
-import { btpServices } from "@/lib/services";
+import { getServiceBySlug, getServices } from "@/lib/services";
 
 export function generateStaticParams() {
-  return btpServices.map((s) => ({ slug: s.slug }));
+  return getServices("fr").btp.map((s) => ({ slug: s.slug }));
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
-  const service = btpServices.find((s) => s.slug === slug);
+  const { locale, slug } = await params;
+  const service = getServiceBySlug(locale, "btp", slug);
   if (!service) return {};
   return {
     title: `${service.title} — GOSTA TRANS Logistique & BTP`,
@@ -24,13 +25,16 @@ export async function generateMetadata({
 export default async function BtpServicePage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }) {
-  const { slug } = await params;
-  const service = btpServices.find((s) => s.slug === slug);
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
+  const service = getServiceBySlug(locale, "btp", slug);
   if (!service) notFound();
 
-  const related = btpServices.filter((s) => s.slug !== slug).slice(0, 3);
+  const related = getServices(locale)
+    .btp.filter((s) => s.slug !== slug)
+    .slice(0, 3);
 
   return <ServiceDetailTemplate base="/services/btp" service={service} related={related} />;
 }

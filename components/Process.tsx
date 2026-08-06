@@ -1,31 +1,34 @@
 import { ClipboardList, Truck, HardHat, Share2, AtSign } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import Reveal from "./Reveal";
 
-const STEPS = [
-  {
-    icon: ClipboardList,
-    title: "Demande & devis",
-    text: "Vous décrivez le besoin par téléphone, WhatsApp ou le formulaire — nous cadrons volumes, délais et accès au site.",
-  },
-  {
-    icon: Truck,
-    title: "Mobilisation",
-    text: "Camions, engins et opérateurs sont affrétés pour le transport des matériaux jusqu'au chantier.",
-  },
-  {
-    icon: HardHat,
-    title: "Exécution & suivi",
-    text: "Nos équipes prennent en charge le gros œuvre, le second œuvre ou les travaux publics jusqu'à la réception.",
-  },
-];
+export default async function Process() {
+  const t = await getTranslations("home.process");
 
-export default function Process() {
+  const STEPS = [
+    {
+      icon: ClipboardList,
+      title: t("step1Title"),
+      text: t("step1Text"),
+    },
+    {
+      icon: Truck,
+      title: t("step2Title"),
+      text: t("step2Text"),
+    },
+    {
+      icon: HardHat,
+      title: t("step3Title"),
+      text: t("step3Text"),
+    },
+  ];
+
   return (
     <section className="bg-[var(--navy-deep)] relative">
       <div className="mx-auto max-w-7xl px-6 py-12">
         <Reveal className="max-w-xl">
           <h2 className="font-display font-extrabold text-4xl md:text-5xl text-white">
-            Du premier appel à la réception
+            {t("title")}
           </h2>
         </Reveal>
 
@@ -49,7 +52,7 @@ export default function Process() {
         {/* social proof — grounded in the real Facebook presence, not invented figures */}
         <div className="mt-10 flex flex-wrap items-center gap-6 border-t border-white/10 pt-8">
           <span className="font-display uppercase tracking-wide text-[13px] text-[#b9c2d1]">
-            Suivez les chantiers en cours
+            {t("follow")}
           </span>
           <a
             href="https://www.facebook.com/search/top?q=Gosta%20Trans%20%26%20Logistique%20et%20BTP"

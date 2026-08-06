@@ -1,13 +1,14 @@
-import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import Header from "@/components/Header";
 import HeroCarousel, { type HeroSlide } from "@/components/HeroCarousel";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
+import { Link } from "@/i18n/navigation";
 import type { Service } from "@/lib/services";
 
-export default function ServiceCategoryTemplate({
+export default async function ServiceCategoryTemplate({
   base,
   heading,
   intro,
@@ -20,6 +21,8 @@ export default function ServiceCategoryTemplate({
   slides: HeroSlide[];
   services: Service[];
 }) {
+  const t = await getTranslations("services.detail");
+
   return (
     <main>
       <Header />
@@ -51,7 +54,7 @@ export default function ServiceCategoryTemplate({
                     {s.short}
                   </p>
                   <span className="flex items-center gap-1.5 font-display uppercase tracking-wide text-[13px] text-[var(--red)] mt-5">
-                    Découvrir <ChevronRight size={15} className="group-hover:translate-x-1 transition-transform" />
+                    {t("discover")} <ChevronRight size={15} className="group-hover:translate-x-1 transition-transform" />
                   </span>
                 </Link>
               </Reveal>

@@ -1,16 +1,18 @@
 import { Landmark, Truck, Building2, Package, HardHat, Ship } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import Reveal from "./Reveal";
 
-const PARTNERS = [
-  { icon: Landmark, label: "Institutions locales" },
-  { icon: Truck, label: "Transporteurs sous-traitants" },
-  { icon: Building2, label: "Promoteurs immobiliers" },
-  { icon: Package, label: "Fournisseurs de matériaux" },
-  { icon: HardHat, label: "Entreprises BTP" },
-  { icon: Ship, label: "Opérateurs portuaires" },
-];
+const PARTNER_ICONS = [Landmark, Truck, Building2, Package, HardHat, Ship];
 
-export default function Partners() {
+export default async function Partners() {
+  const t = await getTranslations("home.partners");
+  const labels = t.raw("items") as string[];
+
+  const PARTNERS = PARTNER_ICONS.map((icon, i) => ({
+    icon,
+    label: labels[i] ?? "",
+  }));
+
   const loop = [...PARTNERS, ...PARTNERS];
 
   return (
@@ -18,7 +20,7 @@ export default function Partners() {
       <div className="mx-auto max-w-7xl px-6 pt-16">
         <Reveal className="text-center">
           <h2 className="font-display font-extrabold text-3xl md:text-4xl text-[var(--navy-deep)]">
-            Nos partenaires
+            {t("title")}
           </h2>
         </Reveal>
       </div>

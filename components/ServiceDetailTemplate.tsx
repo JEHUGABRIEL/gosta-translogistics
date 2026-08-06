@@ -1,14 +1,15 @@
-import Link from "next/link";
 import { ChevronRight, CheckCircle2 } from "lucide-react";
+import { getLocale, getTranslations } from "next-intl/server";
 import Header from "@/components/Header";
 import HeroCarousel, { type HeroSlide } from "@/components/HeroCarousel";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import QuoteButton from "@/components/QuoteButton";
+import { Link } from "@/i18n/navigation";
 import type { Service } from "@/lib/services";
 
-export default function ServiceDetailTemplate({
+export default async function ServiceDetailTemplate({
   base,
   service,
   related,
@@ -17,11 +18,14 @@ export default function ServiceDetailTemplate({
   service: Service;
   related: Service[];
 }) {
+  const t = await getTranslations("services.detail");
+  const locale = await getLocale();
+
   const slides: HeroSlide[] = [
     {
       title: service.title.toUpperCase(),
-      primaryCta: { label: "Demander un devis", href: "/#devis", openQuote: true },
-      secondaryCta: { label: "Tous les services", href: base },
+      primaryCta: { label: t("quote"), href: "#devis", openQuote: true },
+      secondaryCta: { label: t("allServices"), href: `/${locale}${base}` },
     },
   ];
 
@@ -56,13 +60,13 @@ export default function ServiceDetailTemplate({
           <Reveal delay={0.15}>
             <div className="bg-[var(--navy-deep)] p-8 sticky top-28">
               <h2 className="font-display uppercase tracking-wide text-xl text-white">
-                Un besoin similaire&nbsp;?
+                {t("similar")}
               </h2>
               <p className="text-[#cfd6e0] text-[14.5px] mt-3 leading-relaxed">
-                Contactez l&apos;équipe pour un devis adapté à votre chantier.
+                {t("similarText")}
               </p>
               <QuoteButton className="inline-flex items-center justify-center w-full mt-6 bg-[var(--red)] hover:bg-[var(--red-dark)] transition-colors text-white font-display uppercase tracking-wide text-[15px] px-5 py-3 cursor-pointer">
-                Demander un devis
+                {t("quote")}
               </QuoteButton>
               <a
                 href="https://wa.me/23675200313"
@@ -70,7 +74,7 @@ export default function ServiceDetailTemplate({
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center w-full mt-3 border border-white/25 hover:border-[var(--amber)] hover:text-[var(--amber)] transition-colors text-white font-display uppercase tracking-wide text-[15px] px-5 py-3"
               >
-                WhatsApp
+                {t("whatsapp")}
               </a>
             </div>
           </Reveal>
@@ -81,7 +85,7 @@ export default function ServiceDetailTemplate({
         <div className="mx-auto max-w-7xl px-6 py-12">
           <Reveal>
             <h2 className="font-display font-extrabold text-3xl md:text-4xl text-[var(--navy-deep)]">
-              Autres services associés
+              {t("relatedTitle")}
             </h2>
           </Reveal>
 

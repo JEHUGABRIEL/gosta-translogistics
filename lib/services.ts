@@ -11,6 +11,7 @@ import {
   Anchor,
   type LucideIcon,
 } from "lucide-react";
+import { btpServicesEn, logistiqueServicesEn } from "./services-en";
 
 export type Service = {
   slug: string;
@@ -180,7 +181,33 @@ export const logistiqueServices: Service[] = [
 
 export const allServices = [...btpServices, ...logistiqueServices];
 
-export function getServiceBySlug(category: "btp" | "logistique", slug: string) {
-  const list = category === "btp" ? btpServices : logistiqueServices;
+const catalogByLocale = new Map<
+  string,
+  { btp: Service[]; logistique: Service[]; all: Service[] }
+>();
+
+/**
+ * Returns the service catalogs for the given locale (defaults to French).
+ * Slugs and categories are identical across locales — only the content differs.
+ */
+export function getServices(locale: string) {
+  const key = locale === "en" ? "en" : "fr";
+  const cached = catalogByLocale.get(key);
+  if (cached) return cached;
+
+  const btp = key === "en" ? btpServicesEn : btpServices;
+  const logistique = key === "en" ? logistiqueServicesEn : logistiqueServices;
+  const result = { btp, logistique, all: [...btp, ...logistique] };
+  catalogByLocale.set(key, result);
+  return result;
+}
+
+export function getServiceBySlug(
+  locale: string,
+  category: "btp" | "logistique",
+  slug: string
+) {
+  const { btp, logistique } = getServices(locale);
+  const list = category === "btp" ? btp : logistique;
   return list.find((s) => s.slug === slug);
 }
