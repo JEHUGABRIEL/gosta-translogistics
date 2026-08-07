@@ -193,8 +193,10 @@
       "title": "Actualités",
       "readMore": "Lire la suite",
       "posts": [
-        { "date": "Fin juillet 2026", "title": "Visite à Mme le Maire de Bangui" },
-        { "date": "10 juillet 2026", "title": "Le plafond staff, une spécialité maison" }
+        { "date": "Fin juillet 2026", "title": "Visite à Mme le Maire de Bangui" },  {
+   "date": "Août 2026",
+   "title": "Lutte contre l'insalubrité sur l'axe Gbenguewé–Marché KM5 avec les jeunes"
+  }
       ]
     },
     "cta": {

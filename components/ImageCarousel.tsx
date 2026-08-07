@@ -9,10 +9,12 @@ export default function ImageCarousel({
   images,
   alt,
   interval = 4000,
+  heightClass = "h-64",
 }: {
   images: string[];
   alt: string;
   interval?: number;
+  heightClass?: string;
 }) {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -32,7 +34,7 @@ export default function ImageCarousel({
 
   return (
     <div
-      className="relative h-64 group/carousel"
+      className={`relative ${heightClass} group/carousel`}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >

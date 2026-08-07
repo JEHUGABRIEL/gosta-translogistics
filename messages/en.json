@@ -193,8 +193,10 @@
       "title": "News",
       "readMore": "Read more",
       "posts": [
-        { "date": "End of July 2026", "title": "Visit to the Mayor of Bangui" },
-        { "date": "10 July 2026", "title": "Coffered ceilings, a house specialty" }
+        { "date": "End of July 2026", "title": "Visit to the Mayor of Bangui" },  {
+   "date": "August 2026",
+   "title": "Fighting insalubrity on the Gbenguewé–Marché KM5 axis with young people"
+  }
       ]
     },
     "cta": {

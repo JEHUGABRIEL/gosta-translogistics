@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Calendar, ChevronRight, PaintRoller, Users } from "lucide-react";
+import { Calendar, ChevronRight, Shovel, Users } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import ImageCarousel from "./ImageCarousel";
 import Reveal from "./Reveal";
@@ -7,13 +7,22 @@ import Reveal from "./Reveal";
 const U = (id: string) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=900&q=70`;
 
-const POST_ICONS = [Users, PaintRoller];
+const POST_ICONS = [Users, Shovel];
 
 // Vraies photos de la visite à Mme le Maire de Bangui (portrait 3:4)
 const VISIT_GALLERY = [
   "/actualites/visite_le_maire/759752022_122106265874483606_7580724467324769210_n.jpg",
   "/actualites/visite_le_maire/760105526_122106265904483606_6123224770020097206_n.jpg",
 ];
+
+// Vraies photos de la lutte contre l'insalubrité axe Gbenguewé–Marché KM5
+const CLEANUP_GALLERY = [
+  "/actualites/lutte_contre_insalubrite/salubrite-1.png",
+  "/actualites/lutte_contre_insalubrite/salubrite-2.png",
+];
+
+// Chaque article affiche sa propre galerie de photos
+const GALLERIES = [VISIT_GALLERY, CLEANUP_GALLERY];
 
 type NewsPost = {
   date: string;
@@ -36,8 +45,8 @@ export default async function News() {
         <div className="grid md:grid-cols-2 gap-8 mt-8">
           {posts.map(({ date, title }, i) => {
             const Icon = POST_ICONS[i % POST_ICONS.length];
-            // Le premier article (visite à Mme le Maire) affiche les vraies photos
-            const gallery = i === 0 ? VISIT_GALLERY : undefined;
+            // Chaque article affiche ses vraies photos en carrousel
+            const gallery = GALLERIES[i % GALLERIES.length];
             const image =
               i % 2 === 0
                 ? U("photo-1521737604893-d14cc237f11d")

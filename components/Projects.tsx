@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import {
@@ -14,19 +14,28 @@ import {
   ChevronRight,
 } from "lucide-react";
 import Reveal from "./Reveal";
-
-const U = (id: string) =>
-  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=900&q=70`;
+import ImageCarousel from "./ImageCarousel";
 
 const PROJECT_ICONS = [PaintRoller, Landmark, Route, Warehouse, Anchor, Wrench];
 
-const PROJECT_IMAGES = [
-  U("photo-1600607687939-ce8a6c25118c"),
-  U("photo-1545324418-cc1a3fa10c00"),
-  U("photo-1540959733332-eab4deabeeaf"),
-  U("photo-1586528116311-ad8dd3c8310d"),
-  U("photo-1494412574643-ff11b0a5c1c3"),
-  U("photo-1560518883-ce09059eeffa"),
+// Une image (ou plusieurs pour les cartes en carrousel) par carte de réalisation
+const PROJECT_GALLERIES: string[][] = [
+  // Plafond staff — 3 photos de plafonds
+  [
+    "/realisations/plafonds/plafond-1.png",
+    "/realisations/plafonds/plafond-2.png",
+    "/realisations/realisations-3.png",
+  ],
+  // Immeubles résidentiels & commerciaux — maison avec colonnes
+  ["/realisations/realisations-1.png"],
+  // Voirie & aménagement urbain — chantier urbain
+  ["/realisations/realisations-5.png"],
+  // Bâtiments industriels — structure métallique
+  ["/realisations/pergolats/pergola-1.jpg"],
+  // Approvisionnement de chantiers — pose sur site
+  ["/realisations/pergolats/pergola-2.jpg"],
+  // Rénovation & réhabilitation — bâtiment en travaux
+  ["/realisations/realisations-5.png"],
 ];
 
 type ProjectItem = {
@@ -34,14 +43,37 @@ type ProjectItem = {
   tag: string;
 };
 
+const CARD_GAP = 24; // gap-6
+
 export default function Projects() {
   const track = useRef<HTMLDivElement>(null);
+  const [paused, setPaused] = useState(false);
   const t = useTranslations("home.projects");
   const items = t.raw("items") as ProjectItem[];
 
   const scroll = (dir: 1 | -1) => {
     track.current?.scrollBy({ left: dir * 450, behavior: "smooth" });
   };
+
+  // Défilement automatique : avance d'une carte toutes les 4s, puis revient au début
+  useEffect(() => {
+    const el = track.current;
+    if (!el) return;
+
+    const interval = setInterval(() => {
+      if (paused) return;
+      const first = el.firstElementChild as HTMLElement | null;
+      const step = first ? first.offsetWidth + CARD_GAP : 474;
+      const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 10;
+      if (atEnd) {
+        el.scrollTo({ left: 0, behavior: "smooth" });
+      } else {
+        el.scrollBy({ left: step, behavior: "smooth" });
+      }
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [paused]);
 
   return (
     <section id="realisations" className="bg-[#F5F2EC]">
@@ -73,10 +105,13 @@ export default function Projects() {
 
         <div
           ref={track}
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
           className="flex gap-6 mt-8 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
         >
           {items.map(({ title, tag }, i) => {
             const Icon = PROJECT_ICONS[i % PROJECT_ICONS.length];
+            const gallery = PROJECT_GALLERIES[i % PROJECT_GALLERIES.length];
             return (
               <Reveal
                 key={title}
@@ -84,13 +119,21 @@ export default function Projects() {
                 className="group snap-start shrink-0 w-[450px] bg-white border border-[#e4e0d5] hover:border-[var(--red)] hover:-translate-y-1.5 transition-all duration-300 overflow-hidden"
               >
                 <div className="overflow-hidden">
-                  <Image
-                    src={PROJECT_IMAGES[i % PROJECT_IMAGES.length]}
-                    alt={title}
-                    width={900}
-                    height={506}
-                    className="h-80 w-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
+                  {gallery.length > 1 ? (
+                    <ImageCarousel
+                      images={gallery}
+                      alt={title}
+                      heightClass="h-80"
+                    />
+                  ) : (
+                    <Image
+                      src={gallery[0]}
+                      alt={title}
+                      width={900}
+                      height={506}
+                      className="h-80 w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  )}
                 </div>
                 <div className="p-7">
                   <div className="flex items-center justify-between">
