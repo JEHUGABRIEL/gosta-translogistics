@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import ServiceDetailTemplate from "@/components/ServiceDetailTemplate";
 import { getServiceBySlug, getServices } from "@/lib/services";
+import { pageMetadata } from "@/lib/seo";
 
 export function generateStaticParams() {
   return getServices("fr").logistique.map((s) => ({ slug: s.slug }));
@@ -16,10 +17,12 @@ export async function generateMetadata({
   const { locale, slug } = await params;
   const service = getServiceBySlug(locale, "logistique", slug);
   if (!service) return {};
-  return {
+  return pageMetadata({
     title: `${service.title} — GOSTA TRANS Logistique & BTP`,
     description: service.short,
-  };
+    pathname: `/services/logistique/${slug}`,
+    locale,
+  });
 }
 
 export default async function LogistiqueServicePage({

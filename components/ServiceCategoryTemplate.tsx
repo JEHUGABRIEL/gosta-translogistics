@@ -28,7 +28,7 @@ export default async function ServiceCategoryTemplate({
       <Header />
       <HeroCarousel slides={slides} />
 
-      <section className="bg-[#F5F2EC]">
+      <section className="bg-[var(--sand)]">
         <div className="mx-auto max-w-7xl px-6 py-12">
           <Reveal className="max-w-2xl">
             <h1 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)]">
@@ -42,7 +42,7 @@ export default async function ServiceCategoryTemplate({
               <Reveal key={s.slug} delay={i * 0.06}>
                 <Link
                   href={`${base}/${s.slug}`}
-                  className="group flex flex-col h-full bg-white border border-[#e4e0d5] hover:border-[var(--red)] hover:-translate-y-1.5 transition-all duration-300 p-7"
+                  className="group flex flex-col h-full bg-white shadow-[0_1px_3px_rgba(0,0,0,0.08)] hover:shadow-[0_20px_40px_-20px_rgba(0,0,0,0.3)] hover:-translate-y-1.5 transition-all duration-300 rounded-2xl p-7"
                 >
                   <div className="h-12 w-12 flex items-center justify-center bg-[var(--sand-deep)] text-[var(--navy-deep)] group-hover:bg-[var(--navy-deep)] group-hover:text-[var(--amber)] transition-colors">
                     <s.icon size={22} />

@@ -1,14 +1,15 @@
 "use client";
 
 import { useEffect, useState, type ReactNode } from "react";
+import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import HeroScene from "./HeroScene";
 import { useQuoteModal } from "./QuoteModalProvider";
 
 export type HeroSlide = {
   title: ReactNode;
+  image?: { src: string; alt: string };
   primaryCta?: { label: string; href: string; openQuote?: boolean };
-  secondaryCta?: { label: string; href: string };
 };
 
 export default function HeroCarousel({
@@ -35,9 +36,12 @@ export default function HeroCarousel({
   const slide = slides[index];
 
   return (
+    /* -mt-[var(--header-h)] : la hero remonte derrière le header sticky.
+       Le header étant transparent en haut de page, sa navbar affiche alors
+       le fond de la hero (image + dégradé navy) au lieu du fond du body. */
     <section
       id={id}
-      className="relative bg-[var(--navy-deep)]"
+      className="relative bg-[var(--navy-deep)] -mt-[var(--header-h)]"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
@@ -49,16 +53,31 @@ export default function HeroCarousel({
           transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
           className="absolute inset-0"
         >
-          <HeroScene />
+          {slide.image ? (
+            <Image
+              src={slide.image.src}
+              alt={slide.image.alt}
+              fill
+              sizes="100vw"
+              loading="eager"
+              style={{ objectFit: "cover" }}
+            />
+          ) : (
+            <HeroScene />
+          )}
         </motion.div>
-        <div className="absolute inset-0 bg-gradient-to-t from-[var(--navy-deep)] via-[var(--navy-deep)]/45 to-[var(--navy-deep)]/15" />
+        {/* Voile noir simple (style de la section devis) : assombrit
+            uniformément l'image, sans dégradé ni flou. */}
+        <div className="absolute inset-0 bg-black/75" />
       </div>
 
-      {/* pb-20 md:pb-28 : espace sous les boutons. Quand la barre flottante existe
+      {/* pb-24 md:pb-32 : espace sous les boutons. Quand la barre flottante existe
           (home, desktop), lg:pb-0 car elle assure l'espacement ; sans barre
           flottante (sous-pages), le padding bas reste appliqué à tous les écrans. */}
+      {/* Le padding top compense -mt-[var(--header-h)] pour que le contenu
+          reste exactement à la même position qu'avant le chevauchement. */}
       <div
-        className={`relative mx-auto max-w-7xl px-6 pt-28 md:pt-48 pb-20 md:pb-28 ${floating ? "lg:pb-0" : ""}`}
+        className={`relative mx-auto max-w-7xl px-6 pt-[calc(var(--header-h)+8rem)] md:pt-[calc(var(--header-h)+12rem)] pb-24 md:pb-48 ${floating ? "lg:pb-0" : ""}`}
       >
         <AnimatePresence mode="wait">
           <motion.div
@@ -78,26 +97,18 @@ export default function HeroCarousel({
                   <button
                     type="button"
                     onClick={openQuote}
-                    className="bg-[var(--red)] hover:bg-[var(--red-dark)] transition-colors text-white font-display uppercase tracking-wide text-base px-7 py-3.5 cursor-pointer"
+                    className="btn-liquid bg-[var(--navy-deep)] text-white font-display uppercase tracking-wide text-base px-7 py-3.5 cursor-pointer"
                   >
-                    {slide.primaryCta.label}
+                    <span className="relative z-10">{slide.primaryCta.label}</span>
                   </button>
                 ) : (
                   <a
                     href={slide.primaryCta.href}
-                    className="bg-[var(--red)] hover:bg-[var(--red-dark)] transition-colors text-white font-display uppercase tracking-wide text-base px-7 py-3.5"
+                    className="btn-liquid inline-block bg-[var(--navy-deep)] text-white font-display uppercase tracking-wide text-base px-7 py-3.5"
                   >
-                    {slide.primaryCta.label}
+                    <span className="relative z-10">{slide.primaryCta.label}</span>
                   </a>
                 ))}
-              {slide.secondaryCta && (
-                <a
-                  href={slide.secondaryCta.href}
-                  className="border border-white/40 hover:border-white transition-colors text-white font-display uppercase tracking-wide text-base px-7 py-3.5"
-                >
-                  {slide.secondaryCta.label}
-                </a>
-              )}
             </div>
           </motion.div>
         </AnimatePresence>

@@ -27,8 +27,8 @@ export default function Testimonials() {
   }, [comments.length]);
 
   return (
-    <section className="bg-[#F5F2EC]">
-      <div className="mx-auto max-w-7xl px-6 py-12">
+    <section className="bg-[var(--sand)]">
+      <div className="mx-auto max-w-7xl px-6 py-20">
         <Reveal>
           <h2 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)]">
             {t("title")}
@@ -40,7 +40,7 @@ export default function Testimonials() {
           <button
             aria-label={t("prev")}
             onClick={() => setIndex((i) => (i - 1 + comments.length) % comments.length)}
-            className="shrink-0 h-11 w-11 lg:h-12 lg:w-12 flex items-center justify-center border border-[#c9c2ad] text-[var(--navy-deep)] hover:border-[var(--red)] hover:text-[var(--red)] transition-colors"
+            className="shrink-0 h-11 w-11 lg:h-12 lg:w-12 flex items-center justify-center border border-[#D1D1D1] text-[var(--navy-deep)] hover:border-[var(--red)] hover:text-[var(--red)] transition-colors"
           >
             <ChevronLeft size={20} />
           </button>
@@ -71,7 +71,7 @@ export default function Testimonials() {
           <button
             aria-label={t("next")}
             onClick={() => setIndex((i) => (i + 1) % comments.length)}
-            className="shrink-0 h-11 w-11 lg:h-12 lg:w-12 flex items-center justify-center border border-[#c9c2ad] text-[var(--navy-deep)] hover:border-[var(--red)] hover:text-[var(--red)] transition-colors"
+            className="shrink-0 h-11 w-11 lg:h-12 lg:w-12 flex items-center justify-center border border-[#D1D1D1] text-[var(--navy-deep)] hover:border-[var(--red)] hover:text-[var(--red)] transition-colors"
           >
             <ChevronRight size={20} />
           </button>
@@ -84,7 +84,7 @@ export default function Testimonials() {
               key={i}
               aria-label={t("commentLabel", { n: i + 1 })}
               onClick={() => setIndex(i)}
-              className={`h-1.5 w-8 transition-colors ${i === index ? "bg-[var(--red)]" : "bg-[#dcd6c7]"}`}
+              className={`h-1.5 w-8 transition-colors ${i === index ? "bg-[var(--red)]" : "bg-[#E1E1E1]"}`}
             />
           ))}
         </div>

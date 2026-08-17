@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { pageMetadata } from "@/lib/seo";
 import {
   MapPin,
   Phone,
@@ -28,10 +29,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "contact" });
-  return {
+  return pageMetadata({
     title: t("metadataTitle"),
     description: t("metadataDescription"),
-  };
+    pathname: "/contact",
+    locale,
+  });
 }
 
 const CONTACT_ITEMS: {
@@ -112,7 +115,7 @@ export default async function ContactPage({
       <About />
 
       {/* ===== Contact ===== */}
-      <section className="bg-[#F5F2EC]">
+      <section className="bg-[var(--sand)]">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20 grid lg:grid-cols-2 gap-12 items-start">
           <div>
             <Reveal>
@@ -127,7 +130,7 @@ export default async function ContactPage({
             <div className="grid sm:grid-cols-2 gap-4 mt-9">
               {CONTACT_ITEMS.map((item, i) => {
                 const inner = (
-                  <div className="h-full bg-white border border-[#e4e0d5] p-5 flex flex-col transition-all duration-300 group-hover:border-[var(--red)] group-hover:shadow-lg">
+                  <div className="h-full bg-white shadow-[0_1px_3px_rgba(0,0,0,0.08)] rounded-2xl p-5 flex flex-col transition-all duration-300 group-hover:shadow-[0_16px_32px_-16px_rgba(0,0,0,0.25)]">
                     <div className="h-11 w-11 flex items-center justify-center bg-[var(--sand-deep)] text-[var(--navy-deep)] transition-colors group-hover:bg-[var(--navy-deep)] group-hover:text-[var(--amber)]">
                       <item.icon size={20} />
                     </div>
@@ -180,7 +183,7 @@ export default async function ContactPage({
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={tSocial(labelKey)}
-                    className="h-11 w-11 flex items-center justify-center bg-white border border-[#e4e0d5] text-[var(--navy-deep)] hover:border-[var(--red)] hover:text-[var(--red)] hover:-translate-y-0.5 transition-all"
+                    className="h-11 w-11 flex items-center justify-center bg-white border border-[#E8E8E8] text-[var(--navy-deep)] hover:border-[var(--red)] hover:text-[var(--red)] hover:-translate-y-0.5 transition-all"
                   >
                     <Icon size={18} />
                   </a>
@@ -198,7 +201,7 @@ export default async function ContactPage({
           </div>
 
           <Reveal delay={0.1} className="lg:sticky lg:top-32">
-            <div className="bg-white border-t-4 border-[var(--red)] shadow-2xl p-7 md:p-10">
+            <div className="bg-white border-t-4 border-[var(--red)] shadow-2xl rounded-2xl p-7 md:p-10">
               <h3 className="font-display uppercase text-2xl text-[var(--navy-deep)]">
                 {t("formTitle")}
               </h3>
@@ -226,7 +229,7 @@ export default async function ContactPage({
           </Reveal>
 
           <Reveal delay={0.1} className="mt-9">
-            <div className="relative border border-[#e4e0d5] shadow-xl">
+            <div className="relative border border-[#E8E8E8] shadow-xl rounded-2xl overflow-hidden">
               <iframe
                 title={t("findTitle")}
                 src="https://www.google.com/maps?q=PK14+Route+de+Boali+Bangui+RCA&output=embed"

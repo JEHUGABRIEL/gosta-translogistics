@@ -56,7 +56,7 @@ export default async function News() {
               <Reveal
                 key={title}
                 delay={i * 0.1}
-                className="group border border-[#e4e0d5] hover:border-[var(--red)] transition-colors overflow-hidden"
+                className="group bg-white shadow-[0_1px_3px_rgba(0,0,0,0.08)] hover:shadow-[0_20px_40px_-20px_rgba(0,0,0,0.3)] transition-shadow rounded-2xl overflow-hidden"
               >
                 {gallery ? (
                   <ImageCarousel images={gallery} alt={title} />

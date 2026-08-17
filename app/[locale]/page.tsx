@@ -1,17 +1,32 @@
+import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { pageMetadata } from "@/lib/seo";
 import Header from "@/components/Header";
 import HeroCarousel from "@/components/HeroCarousel";
-import HeroSearch from "@/components/HeroSearch";
 import Services from "@/components/Services";
 import QuoteSection from "@/components/QuoteSection";
 import About from "@/components/About";
-import Process from "@/components/Process";
 import Projects from "@/components/Projects";
 import Testimonials from "@/components/Testimonials";
 import Partners from "@/components/Partners";
 import News from "@/components/News";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "metadata" });
+  return pageMetadata({
+    title: t("title"),
+    description: t("description"),
+    pathname: "/",
+    locale,
+  });
+}
 
 export default async function HomePage({
   params,
@@ -22,56 +37,54 @@ export default async function HomePage({
   setRequestLocale(locale);
   const t = await getTranslations("home");
 
-  const slides = [
-    {
-      title: (
-        <>
-          {t("hero.slide1.line1")}
-          <br />
-          {t("hero.slide1.line2")}
-        </>
-      ),
-      primaryCta: { label: t("hero.quote"), href: "#devis", openQuote: true },
-      secondaryCta: { label: t("hero.seeRealisations"), href: "#realisations" },
+  const slides = Array.from({ length: 8 }, (_, i) => ({
+    title: [
+      <>
+        {t("hero.slide1.line1")}
+        <br />
+        {t("hero.slide1.line2")}
+      </>,
+      <>
+        {t("hero.slide2.line1")}
+        <br />
+        {t("hero.slide2.line2")}
+      </>,
+      <>
+        {t("hero.slide3.line1")}
+        <br />
+        {t("hero.slide3.line2")}
+      </>,
+    ][i % 3],
+    image: {
+      src: `/hero_section/hero-${i + 1}.png`,
+      alt: "GOSTA TRANS — activités logistiques et BTP",
     },
-    {
-      title: (
-        <>
-          {t("hero.slide2.line1")}
-          <br />
-          {t("hero.slide2.line2")}
-        </>
-      ),
-      primaryCta: {
-        label: t("hero.seeLogistique"),
-        href: `/${locale}/services/logistique`,
+    ...[
+      {
+        primaryCta: { label: t("hero.quote"), href: "#devis", openQuote: true },
       },
-      secondaryCta: { label: t("hero.writeUs"), href: "#contact" },
-    },
-    {
-      title: (
-        <>
-          {t("hero.slide3.line1")}
-          <br />
-          {t("hero.slide3.line2")}
-        </>
-      ),
-      primaryCta: {
-        label: t("hero.seeBtp"),
-        href: `/${locale}/services/btp`,
+      {
+        primaryCta: {
+          label: t("hero.seeLogistique"),
+          href: `/${locale}/services/logistique`,
+        },
       },
-      secondaryCta: { label: t("hero.writeUs"), href: "#contact" },
-    },
-  ];
+      {
+        primaryCta: {
+          label: t("hero.seeBtp"),
+          href: `/${locale}/services/btp`,
+        },
+      },
+    ][i % 3],
+  }));
 
   return (
     <main>
       <Header />
-      <HeroCarousel id="accueil" slides={slides} floating={<HeroSearch />} />
+      <HeroCarousel id="accueil" slides={slides} />
+      <About />
       <Services />
       <QuoteSection />
-      <About />
-      <Process />
       <Projects />
       <Testimonials />
       <Partners />

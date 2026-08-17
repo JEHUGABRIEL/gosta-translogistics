@@ -62,7 +62,7 @@ export default function QuoteForm() {
         <select
           name="service"
           required
-          className="w-full border border-[#c9c2ad] bg-white px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)]"
+          className="w-full border border-[#D1D1D1] bg-white px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)]"
         >
           <option value="">{t("select")}</option>
           {options.map((o) => (
@@ -78,7 +78,7 @@ export default function QuoteForm() {
           name="message"
           rows={4}
           placeholder={t("detailsPlaceholder")}
-          className="w-full border border-[#c9c2ad] bg-white px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)] resize-none"
+          className="w-full border border-[#D1D1D1] bg-white px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)] resize-none"
         />
       </div>
       <button
@@ -90,11 +90,11 @@ export default function QuoteForm() {
       </button>
 
       <div className="flex items-center gap-4 my-1">
-        <span className="flex-1 h-px bg-[#e4e0d5]" />
+        <span className="flex-1 h-px bg-[#E8E8E8]" />
         <span className="font-mono text-[12px] uppercase tracking-[0.2em] text-[var(--steel)] shrink-0">
           {t("or")}
         </span>
-        <span className="flex-1 h-px bg-[#e4e0d5]" />
+        <span className="flex-1 h-px bg-[#E8E8E8]" />
       </div>
 
       <div className="grid grid-cols-2 gap-3">
@@ -110,7 +110,7 @@ export default function QuoteForm() {
         </a>
         <a
           href="tel:+23670120025"
-          className="inline-flex items-center justify-center gap-2 bg-[var(--navy-deep)] hover:bg-[#081729] transition-colors text-white font-display uppercase tracking-wide text-sm px-4 py-3"
+          className="inline-flex items-center justify-center gap-2 bg-[var(--navy-deep)] hover:bg-black transition-colors text-white font-display uppercase tracking-wide text-sm px-4 py-3"
         >
           <Phone size={16} /> {t("callUs")}
         </a>
@@ -139,7 +139,7 @@ function Field({
         name={name}
         placeholder={placeholder}
         required={required}
-        className="w-full border border-[#c9c2ad] bg-white px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)]"
+        className="w-full border border-[#D1D1D1] bg-white px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)]"
       />
     </div>
   );

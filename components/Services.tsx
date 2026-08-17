@@ -23,7 +23,7 @@ export default async function Services() {
   const travauxItems = t.raw("travauxItems") as string[];
 
   return (
-    <section id="services" className="bg-[#F5F2EC]">
+    <section id="services" className="bg-[var(--sand)]">
       <div className="mx-auto max-w-7xl px-6 pt-20 pb-12">
         <Reveal className="max-w-2xl">
           <h2 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)]">
@@ -35,12 +35,9 @@ export default async function Services() {
         </Reveal>
 
         {/* Mobile : cartes empilées avec un vrai espace (space-y-4).
-            md+ : grille 3 colonnes séparées par le filet de 1px (gap-px). */}
-        <div
-          id="domaines"
-          className="grid md:grid-cols-3 gap-0 md:gap-px space-y-4 md:space-y-0 bg-[#dcd6c7] mt-8 border border-[#dcd6c7]"
-        >
-          <Reveal delay={0} className="relative overflow-hidden bg-white p-8">
+            md+ : grille 3 colonnes — séparation par l'ombre, sans filet. */}
+        <div id="domaines" className="grid md:grid-cols-3 gap-5 md:gap-6 mt-8">
+          <Reveal delay={0} className="relative overflow-hidden bg-white shadow-[0_1px_3px_rgba(0,0,0,0.08)] rounded-2xl p-8">
             <Ship
               size={170}
               strokeWidth={0.8}
@@ -62,7 +59,7 @@ export default async function Services() {
             </Link>
           </Reveal>
 
-          <Reveal delay={0.08} className="relative overflow-hidden bg-white p-8">
+          <Reveal delay={0.08} className="relative overflow-hidden bg-white shadow-[0_1px_3px_rgba(0,0,0,0.08)] rounded-2xl p-8">
             <Building2
               size={170}
               strokeWidth={0.8}
@@ -84,7 +81,7 @@ export default async function Services() {
             </Link>
           </Reveal>
 
-          <Reveal delay={0.16} className="relative overflow-hidden bg-white p-8">
+          <Reveal delay={0.16} className="relative overflow-hidden bg-white shadow-[0_1px_3px_rgba(0,0,0,0.08)] rounded-2xl p-8">
             <Construction
               size={170}
               strokeWidth={0.8}

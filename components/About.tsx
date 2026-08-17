@@ -1,9 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { Truck } from "lucide-react";
 import Reveal from "./Reveal";
 
 type TabKey = "presentation" | "methode" | "engagement";
@@ -19,48 +18,50 @@ export default function About() {
   ];
 
   return (
-    <section className="bg-white">
-      {/* pt-16 md:pt-20 : laisse de la place au formulaire de la section devis
-          qui déborde sur mobile/tablette ; lg:pt-12 conserve le rythme desktop */}
-      <div className="mx-auto max-w-7xl px-6 py-12 pt-16 md:pt-20 lg:pt-12 grid lg:grid-cols-2 gap-16 items-center">
+    <section className="bg-white overflow-x-clip">
+      <div className="mx-auto max-w-7xl px-6 py-12 md:py-16 grid lg:grid-cols-2 gap-16 items-center">
+        {/* Deux photos superposées : la 1re sur la 2e, débord de ~25 % */}
         <Reveal className="relative">
-          <motion.div
-            initial={{ scale: 0.94, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="bg-[var(--navy-deep)] aspect-[4/5] max-w-md flex items-center justify-center relative overflow-hidden"
-          >
-            <Truck size={120} className="text-[var(--amber)]/90" strokeWidth={1.2} />
-            <div className="absolute inset-0 border-[10px] border-white/5" />
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6, delay: 0.25, ease: "easeOut" }}
-            className="flex absolute -bottom-8 -right-4 md:right-8 bg-[var(--red)] text-white px-6 sm:px-7 py-5 sm:py-6 max-w-[200px] sm:max-w-[220px] flex-col gap-1 shadow-xl"
-          >
-            <span className="font-display text-4xl font-extrabold leading-none">
-              {t("badgeNumber")}
-            </span>
-            <span className="font-display uppercase tracking-wide text-[13px]">
-              {t("badgeText")}
-            </span>
-          </motion.div>
+          <div className="relative max-w-md mb-20">
+            {/* 2e image — la base, pleine cadre */}
+            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl shadow-[0_30px_60px_-20px_rgba(0,0,0,0.35)]">
+              <Image
+                src="/hero_section/hero-5.png"
+                alt="GOSTA TRANS — chantier"
+                fill
+                sizes="(max-width: 1024px) 100vw, 448px"
+                className="object-cover"
+              />
+            </div>
+
+            {/* 1re image — superposée sur la 2e, déborde de ~25 % à droite
+                (60 % de largeur, décalée de 15 % → 15/60 = 25 %) et en bas
+                (-bottom-[20 %] → 20/80 = 25 % de sa hauteur) */}
+            <div className="absolute -bottom-[20%] -right-[15%] w-[60%] aspect-[3/4] overflow-hidden rounded-2xl shadow-[0_20px_40px_-12px_rgba(0,0,0,0.4)]">
+              <Image
+                src="/hero_section/hero-2.png"
+                alt="GOSTA TRANS — Logistique & BTP"
+                fill
+                sizes="280px"
+                className="object-cover"
+              />
+            </div>
+          </div>
         </Reveal>
 
+        {/* Texte */}
         <Reveal delay={0.1}>
           <h2 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)]">
             {t("title")}
           </h2>
 
-          <div className="flex gap-1 mt-8 border-b border-[#e4e0d5]">
+          {/* Onglets : soulignement rouge aligné sur le filet (pas de décroché) */}
+          <div className="flex gap-2 mt-10 border-b border-[#E8E8E8]">
             {TABS.map((tab) => (
               <button
                 key={tab.key}
                 onClick={() => setActive(tab.key)}
-                className={`font-display uppercase tracking-wide text-[15px] px-4 py-3 border-b-2 transition-colors ${
+                className={`font-display uppercase tracking-wide text-[15px] px-5 py-3.5 border-b-2 -mb-px transition-colors ${
                   active === tab.key
                     ? "border-[var(--red)] text-[var(--navy-deep)]"
                     : "border-transparent text-[var(--steel)] hover:text-[var(--navy-deep)]"
@@ -71,7 +72,8 @@ export default function About() {
             ))}
           </div>
 
-          <p className="text-[var(--steel)] leading-relaxed mt-6 min-h-[110px]">
+          {/* Texte : corps plus grand, interligne généreux, colonne de lecture confortable */}
+          <p className="text-[16.5px] leading-[1.85] text-[var(--steel)] max-w-xl mt-8 min-h-[180px]">
             {t(active)}
           </p>
         </Reveal>

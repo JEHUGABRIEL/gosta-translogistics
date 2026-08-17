@@ -17,22 +17,11 @@ export default function HeroSearch({
   const t = useTranslations("search");
   const locale = useLocale();
   const [query, setQuery] = useState("");
-  const [category, setCategory] = useState("all");
-
-  const CATEGORIES = [
-    { label: t("all"), value: "all" },
-    { label: t("maritime"), value: "logistique" },
-    { label: t("transport"), value: "logistique" },
-    { label: t("btp"), value: "btp" },
-  ];
 
   const handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const q = query.trim().toLowerCase();
-    const cat = category === "all" ? null : category; // "logistique" | "btp"
-
     const all = getServices(locale).all;
-    const pool = cat ? all.filter((s) => s.category === cat) : all;
 
     if (q) {
       // Score les résultats : le titre prime, puis le sous-titre, puis le corps
@@ -46,7 +35,7 @@ export default function HeroSearch({
 
       let best: Service | null = null;
       let bestScore = 0;
-      for (const s of pool) {
+      for (const s of all) {
         const sc = score(s);
         if (sc > bestScore) {
           best = s;
@@ -60,23 +49,20 @@ export default function HeroSearch({
       }
     }
 
-    if (cat) {
-      router.push(`/services/${cat}`);
-      onSubmitted?.();
-      return;
-    }
-
     document.getElementById("services")?.scrollIntoView({ behavior: "smooth" });
     onSubmitted?.();
   };
 
   return (
-    <form onSubmit={handleSearch} className="bg-white shadow-2xl">
-      <div className="grid md:grid-cols-[1fr_230px_auto] gap-3 p-5 md:p-6">
+    <form
+      onSubmit={handleSearch}
+      className="bg-black/70 backdrop-blur-xl border border-white/10 shadow-2xl rounded-2xl"
+    >
+      <div className="grid md:grid-cols-[1fr_auto] gap-3 p-5 md:p-6">
         <div className="relative">
           <Search
             size={18}
-            className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--steel)] pointer-events-none"
+            className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--amber)] pointer-events-none"
           />
           <input
             type="text"
@@ -85,22 +71,10 @@ export default function HeroSearch({
             placeholder={t("placeholder")}
             aria-label={t("inputLabel")}
             autoFocus={autoFocus}
-            className="w-full border border-[#dcd6c7] bg-[#F5F2EC] pl-11 pr-4 py-3.5 text-[15px] text-[var(--navy-deep)] placeholder:text-[var(--steel)]/70 focus:outline-none focus:border-[var(--red)]"
+            className="w-full border border-white/15 bg-white/5 pl-11 pr-4 py-3.5 text-[15px] text-white placeholder:text-[#8a93a5] focus:outline-none focus:border-[var(--red)] transition-colors"
           />
         </div>
 
-        <select
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          aria-label={t("categoryLabel")}
-          className="w-full border border-[#dcd6c7] bg-[#F5F2EC] px-4 py-3.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)] cursor-pointer"
-        >
-          {CATEGORIES.map((c) => (
-            <option key={c.value + c.label} value={c.value}>
-              {c.label}
-            </option>
-          ))}
-        </select>
 
         <button
           type="submit"

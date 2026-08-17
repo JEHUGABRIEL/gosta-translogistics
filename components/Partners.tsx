@@ -16,8 +16,9 @@ export default async function Partners() {
   const loop = [...PARTNERS, ...PARTNERS];
 
   return (
-    <section className="bg-white border-y border-[#e4e0d5] overflow-hidden">
-      <div className="mx-auto max-w-7xl px-6 pt-16">
+    <section className="bg-white overflow-hidden">
+      {/* Séparation par l'espacement (py-20) plutôt que par un filet */}
+      <div className="mx-auto max-w-7xl px-6 py-20">
         <Reveal className="text-center">
           <h2 className="font-display font-extrabold text-3xl md:text-4xl text-[var(--navy-deep)]">
             {t("title")}

@@ -1,19 +1,27 @@
 @import "tailwindcss";
 
 :root {
-  --font-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
-  --font-body: 'Inter', system-ui, sans-serif;
+  --font-display: 'Manrope', system-ui, sans-serif;
+  --font-body: 'Manrope', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', 'Courier New', monospace;
 
-  --navy-deep: #0A1F3D;
-  --navy-mid: #12335E;
-  --navy-line: #24406e;
+  --navy-deep: #000000;
+  --navy-mid: #111111;
+  --navy-line: #222222;
   --red: #C81E2C;
   --red-dark: #8f141f;
-  --sand: #F5F2EC;
-  --sand-deep: #E9E3D6;
+  /* Fond « papier » du site — passé en blanc */
+  --sand: #FFFFFF;
+  /* Accent neutre (gris) — la teinte crème donnait un rendu « papier » */
+  --sand-deep: #ECECEC;
   --steel: #59626E;
   --amber: #E8A33D;
+
+  /* Hauteurs du header sticky — la hero section s'étend derrière lui via
+     -mt-[var(--header-h)] pour que la navbar transparente hérite de son fond */
+  --topbar-h: 36px;
+  --header-nav-h: 68px;
+  --header-h: calc(var(--topbar-h) + var(--header-nav-h));
 }
 
 html {
@@ -71,4 +79,38 @@ body {
   to {
     transform: translateX(-50%);
   }
+}
+
+/* Bouton « Demander un devis » — au repos le bouton est plein de rouge ;
+   au survol le rouge se VIDE vers le bas comme un liquide (le niveau
+   descend) et laisse apparaître le fond noir (navy).
+
+   Une seule couche rouge, plus haute que le bouton (150 %) avec un léger
+   arc en haut (la surface du liquide) : au repos l'arc est caché au-dessus
+   du bouton → le bouton est pleinement rouge, sans arc ni noir dans les
+   coins ; au survol la couche glisse vers le bas (bottom: 0 → -150 %,
+   transition 1 s) et sort entièrement du bouton, l'arc dessinant la
+   surface liquide qui descend. */
+.btn-liquid {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.btn-liquid::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 150%;
+  border-radius: 50% 50% 0 0 / 30% 30% 0 0;
+  background: var(--liquid-fill, var(--red));
+  z-index: -1;
+  transition: bottom 1s cubic-bezier(0.65, 0.05, 0.36, 1);
+}
+
+.btn-liquid:hover::before,
+.btn-liquid:focus-visible::before {
+  bottom: -150%;
 }

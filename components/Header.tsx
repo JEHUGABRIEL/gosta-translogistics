@@ -53,7 +53,7 @@ function DesktopDropdown({
     >
       <Link
         href={base}
-        className="flex items-center gap-1 font-display text-[15px] uppercase tracking-wide text-[#dfe4ec] hover:text-[var(--amber)] transition-colors py-2"
+        className="h-full flex items-center gap-1 font-display font-semibold text-[15px] uppercase tracking-wide text-[#dfe4ec] hover:text-[var(--amber)] transition-colors"
       >
         {label}
         <ChevronDown
@@ -75,7 +75,7 @@ function DesktopDropdown({
                 <Link
                   key={item.slug}
                   href={`${base}/${item.slug}`}
-                  className="flex items-start gap-3 px-5 py-3 hover:bg-[#F5F2EC] transition-colors group"
+                  className="flex items-start gap-3 px-5 py-3 hover:bg-[var(--sand)] transition-colors group"
                 >
                   <item.icon
                     size={18}
@@ -93,7 +93,7 @@ function DesktopDropdown({
               ))}
               <Link
                 href={base}
-                className="flex items-center justify-between px-5 py-3 mt-1 border-t border-[#eee9dc] font-display uppercase tracking-wide text-[13px] text-[var(--red)]"
+                className="flex items-center justify-between px-5 py-3 mt-1 border-t border-[#EEEEEE] font-display uppercase tracking-wide text-[13px] text-[var(--red)]"
               >
                 {t("allServices")} <ChevronRight size={15} />
               </Link>
@@ -123,7 +123,7 @@ function MobileAccordion({
     <div className="border-b border-white/10">
       <button
         onClick={() => setOpen((o) => !o)}
-        className="w-full flex items-center justify-between py-4 font-display text-lg uppercase tracking-wide text-white"
+        className="w-full flex items-center justify-between py-4 font-display font-semibold text-lg uppercase tracking-wide text-white"
       >
         {label}
         <ChevronDown
@@ -171,6 +171,7 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [phoneIndex, setPhoneIndex] = useState(0);
+  const [scrolled, setScrolled] = useState(false);
   const { openQuote } = useQuoteModal();
   const locale = useLocale();
   const t = useTranslations("nav");
@@ -186,6 +187,14 @@ export default function Header() {
       3500
     );
     return () => clearInterval(t);
+  }, []);
+
+  // Le fond bleu du header n'apparaît qu'une fois la page scrollée
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 16);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   // Bloque le scroll de la page tant que le menu mobile est ouvert
@@ -216,11 +225,11 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50">
-      {/* top info bar */}
+      {/* top info bar — fond bleu permanent */}
       <div className="bg-[var(--navy-deep)] text-[#cfd6e0] font-mono text-[12.5px]">
         {/* justify-between : numéros à gauche, réseaux sociaux à droite,
             y compris sur mobile */}
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 flex flex-wrap items-center justify-between gap-x-6 gap-y-1 py-2 md:py-0 md:min-h-9">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 flex flex-wrap items-center justify-between gap-x-6 gap-y-1 py-2 md:py-0 md:min-h-[var(--topbar-h)]">
           <div className="flex items-center gap-4 md:gap-6">
             <span className="flex items-center gap-1.5 whitespace-nowrap shrink-0">
               <Phone size={13} className="text-[var(--amber)]" />
@@ -279,13 +288,18 @@ export default function Header() {
                 <WhatsAppIcon size={14} />
               </a>
             </div>
+            {/* Langue dans la topbar, après les réseaux sociaux */}
+            <span className="hidden sm:block h-4 w-px bg-white/15" />
+            <LanguageSwitcher />
           </div>
         </div>
       </div>
 
-      {/* main nav */}
-      <div className="bg-[var(--navy-mid)]/95 backdrop-blur border-b-2 border-[var(--red)]">
-        <div className="mx-auto max-w-7xl px-6 flex items-center justify-between h-[68px]">
+      {/* main nav — transparent en haut de page, fond bleu au scroll */}
+      <div
+        className={`${scrolled ? "bg-[var(--navy-mid)]/95 backdrop-blur" : "bg-transparent"} border-b-2 border-transparent transition-colors duration-300`}
+      >
+        <div className="mx-auto max-w-7xl px-6 flex items-center justify-between h-[var(--header-nav-h)]">
           <Link href="/" className="flex flex-col justify-center gap-0.5">
             <span className="font-display font-extrabold text-2xl tracking-wide text-white leading-none">
               GOSTA <span className="text-[var(--red)]">TRANS</span>
@@ -295,10 +309,10 @@ export default function Header() {
             </span>
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-8">
+          <nav className="hidden lg:flex h-full items-stretch gap-8">
             <Link
               href="/"
-              className="font-display text-[15px] uppercase tracking-wide text-[#dfe4ec] hover:text-[var(--amber)] transition-colors"
+              className="h-full flex items-center font-display font-semibold text-[15px] uppercase tracking-wide text-[#dfe4ec] hover:text-[var(--amber)] transition-colors"
             >
               {t("home")}
             </Link>
@@ -312,21 +326,31 @@ export default function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="font-display text-[15px] uppercase tracking-wide text-[#dfe4ec] hover:text-[var(--amber)] transition-colors"
+                className="h-full flex items-center font-display font-semibold text-[15px] uppercase tracking-wide text-[#dfe4ec] hover:text-[var(--amber)] transition-colors"
               >
                 {t(item.key)}
               </Link>
             ))}
-            <LanguageSwitcher />
           </nav>
 
-          <button
-            type="button"
-            onClick={openQuote}
-            className="hidden lg:inline-flex items-center bg-[var(--red)] hover:bg-[var(--red-dark)] transition-colors text-white font-display uppercase tracking-wide text-[15px] px-5 py-2.5 cursor-pointer"
-          >
-            {t("quote")}
-          </button>
+          {/* Recherche + devis, à droite de la navbar */}
+          <div className="hidden lg:flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => setSearchOpen(true)}
+              aria-label={t("search")}
+              className="text-white hover:text-[var(--amber)] transition-colors p-1.5"
+            >
+              <Search size={20} />
+            </button>
+            <button
+              type="button"
+              onClick={openQuote}
+              className="btn-liquid inline-flex items-center bg-[var(--navy-deep)] text-white font-display uppercase tracking-wide text-[15px] px-5 py-2.5 cursor-pointer"
+            >
+              <span className="relative z-10">{t("quote")}</span>
+            </button>
+          </div>
 
           <div className="flex items-center gap-2.5 sm:gap-4 lg:hidden">
             <button
@@ -340,8 +364,6 @@ export default function Header() {
             >
               <Search size={23} />
             </button>
-            {/* Langue à côté de la recherche (hors du drawer mobile) */}
-            <LanguageSwitcher />
             <button
               className="text-white z-50"
               onClick={() => setOpen((o) => !o)}
@@ -382,7 +404,7 @@ export default function Header() {
                 <Link
                   href="/"
                   onClick={() => setOpen(false)}
-                  className="py-4 border-b border-white/10 font-display text-lg uppercase tracking-wide text-white"
+                  className="py-4 border-b border-white/10 font-display font-semibold text-lg uppercase tracking-wide text-white"
                 >
                   {t("home")}
                 </Link>
@@ -403,22 +425,36 @@ export default function Header() {
                     key={item.href}
                     href={item.href}
                     onClick={() => setOpen(false)}
-                    className="py-4 border-b border-white/10 font-display text-lg uppercase tracking-wide text-white"
+                    className="py-4 border-b border-white/10 font-display font-semibold text-lg uppercase tracking-wide text-white"
                   >
                     {t(item.key)}
                   </Link>
                 ))}
 
-                <button
-                  type="button"
-                  onClick={() => {
-                    setOpen(false);
-                    openQuote();
-                  }}
-                  className="inline-flex items-center justify-center bg-[var(--red)] text-white font-display uppercase tracking-wide text-[15px] px-5 py-3.5 mt-8 cursor-pointer"
-                >
-                  {t("quote")}
-                </button>
+                <div className="flex items-center gap-3 mt-8">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setOpen(false);
+                      openQuote();
+                    }}
+                    className="btn-liquid inline-flex items-center justify-center bg-[var(--navy-deep)] text-white font-display uppercase tracking-wide text-[15px] px-5 py-3.5 cursor-pointer"
+                  >
+                    <span className="relative z-10">{t("quote")}</span>
+                  </button>
+                  {/* Recherche à la place du sélecteur de langue (déplacé en topbar) */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setOpen(false);
+                      setSearchOpen(true);
+                    }}
+                    aria-label={t("search")}
+                    className="text-white hover:text-[var(--amber)] transition-colors p-1.5"
+                  >
+                    <Search size={22} />
+                  </button>
+                </div>
 
                 <div className="mt-8 pt-6 border-t border-white/10 font-mono text-[13px] text-[#9aa5b5] space-y-2">
                   <p className="flex items-center gap-2">

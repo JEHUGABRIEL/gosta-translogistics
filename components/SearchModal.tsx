@@ -54,7 +54,7 @@ export default function SearchModal({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -16, scale: 0.98 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full max-w-2xl bg-white border-t-4 border-[var(--red)] shadow-2xl"
+            className="relative w-full max-w-2xl bg-[var(--navy-deep)] border-t-4 border-[var(--red)] shadow-2xl rounded-2xl"
           >
             <button
               onClick={onClose}

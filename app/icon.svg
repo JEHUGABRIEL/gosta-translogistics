@@ -5,8 +5,8 @@
     </clipPath>
   </defs>
   <g clip-path="url(#rounded)">
-    <!-- fond navy (couleur de marque) -->
-    <rect width="256" height="256" fill="#0A1F3D"/>
+    <!-- fond noir (couleur de marque) -->
+    <rect width="256" height="256" fill="#000000"/>
     <!-- barre rouge basse, écho au liseré rouge du header -->
     <rect y="200" width="256" height="56" fill="#C81E2C"/>
   </g>

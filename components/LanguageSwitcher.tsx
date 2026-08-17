@@ -138,8 +138,8 @@ export default function LanguageSwitcher({
                 }}
                 className={`w-full flex items-center justify-between gap-3 px-4 py-2.5 font-display text-[14px] tracking-wide transition-colors cursor-pointer ${
                   locale === l
-                    ? "text-[var(--red)] bg-[#F5F2EC]"
-                    : "text-[var(--navy-deep)] hover:bg-[#F5F2EC] hover:text-[var(--navy-deep)]"
+                    ? "text-[var(--red)] bg-[var(--sand)]"
+                    : "text-[var(--navy-deep)] hover:bg-[var(--sand)] hover:text-[var(--navy-deep)]"
                 }`}
               >
                 {LABELS[l]}

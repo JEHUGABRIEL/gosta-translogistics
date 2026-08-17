@@ -25,7 +25,6 @@ export default async function ServiceDetailTemplate({
     {
       title: service.title.toUpperCase(),
       primaryCta: { label: t("quote"), href: "#devis", openQuote: true },
-      secondaryCta: { label: t("allServices"), href: `/${locale}${base}` },
     },
   ];
 
@@ -49,7 +48,7 @@ export default async function ServiceDetailTemplate({
 
             <Reveal delay={0.1} className="grid sm:grid-cols-2 gap-4 mt-8">
               {service.bullets.map((b) => (
-                <div key={b} className="flex items-start gap-3 bg-[#F5F2EC] p-4">
+                <div key={b} className="flex items-start gap-3 bg-[var(--sand)] rounded-lg p-4">
                   <CheckCircle2 size={18} className="text-[var(--red)] mt-0.5 shrink-0" />
                   <span className="text-[14.5px] text-[var(--navy-deep)] leading-snug">{b}</span>
                 </div>
@@ -58,15 +57,15 @@ export default async function ServiceDetailTemplate({
           </div>
 
           <Reveal delay={0.15}>
-            <div className="bg-[var(--navy-deep)] p-8 sticky top-28">
+            <div className="bg-[var(--navy-deep)] rounded-2xl p-8 sticky top-28">
               <h2 className="font-display uppercase tracking-wide text-xl text-white">
                 {t("similar")}
               </h2>
               <p className="text-[#cfd6e0] text-[14.5px] mt-3 leading-relaxed">
                 {t("similarText")}
               </p>
-              <QuoteButton className="inline-flex items-center justify-center w-full mt-6 bg-[var(--red)] hover:bg-[var(--red-dark)] transition-colors text-white font-display uppercase tracking-wide text-[15px] px-5 py-3 cursor-pointer">
-                {t("quote")}
+              <QuoteButton className="btn-liquid inline-flex items-center justify-center w-full mt-6 bg-[var(--navy-deep)] text-white font-display uppercase tracking-wide text-[15px] px-5 py-3 cursor-pointer">
+                <span className="relative z-10">{t("quote")}</span>
               </QuoteButton>
               <a
                 href="https://wa.me/23675200313"
@@ -81,8 +80,9 @@ export default async function ServiceDetailTemplate({
         </div>
       </section>
 
-      <section className="bg-[#F5F2EC] border-t border-[#e4e0d5]">
-        <div className="mx-auto max-w-7xl px-6 py-12">
+      {/* Même fond que la section précédente — séparée par l'espacement */}
+      <section className="bg-[var(--sand)]">
+        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
           <Reveal>
             <h2 className="font-display font-extrabold text-3xl md:text-4xl text-[var(--navy-deep)]">
               {t("relatedTitle")}
@@ -94,7 +94,7 @@ export default async function ServiceDetailTemplate({
               <Reveal key={s.slug} delay={i * 0.06}>
                 <Link
                   href={`${base}/${s.slug}`}
-                  className="group flex items-center gap-4 bg-white border border-[#e4e0d5] hover:border-[var(--red)] transition-colors p-5"
+                  className="group flex items-center gap-4 bg-white shadow-[0_1px_3px_rgba(0,0,0,0.08)] hover:shadow-[0_16px_32px_-16px_rgba(0,0,0,0.25)] transition-shadow rounded-2xl p-5"
                 >
                   <div className="h-11 w-11 flex items-center justify-center bg-[var(--sand-deep)] text-[var(--navy-deep)] group-hover:bg-[var(--navy-deep)] group-hover:text-[var(--amber)] transition-colors shrink-0">
                     <s.icon size={20} />

@@ -76,8 +76,11 @@ export default function Projects() {
   }, [paused]);
 
   return (
-    <section id="realisations" className="bg-[#F5F2EC]">
-      <div className="mx-auto max-w-7xl px-6 py-12">
+    <section id="realisations" className="bg-[var(--sand)]">
+      {/* pt-24 lg:pt-40 : laisse la place au formulaire de la section devis,
+          qui déborde désormais par-dessus cette section (Process ne la suit
+          plus). */}
+      <div className="mx-auto max-w-7xl px-6 py-12 pt-24 lg:pt-40">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <Reveal className="max-w-xl">
             <h2 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)]">
@@ -89,14 +92,14 @@ export default function Projects() {
             <button
               onClick={() => scroll(-1)}
               aria-label={t("prev")}
-              className="h-10 w-10 flex items-center justify-center border border-[#c9c2ad] hover:border-[var(--red)] hover:text-[var(--red)] text-[var(--navy-deep)] transition-colors"
+              className="h-10 w-10 flex items-center justify-center border border-[#D1D1D1] hover:border-[var(--red)] hover:text-[var(--red)] text-[var(--navy-deep)] transition-colors"
             >
               <ChevronLeft size={18} />
             </button>
             <button
               onClick={() => scroll(1)}
               aria-label={t("next")}
-              className="h-10 w-10 flex items-center justify-center border border-[#c9c2ad] hover:border-[var(--red)] hover:text-[var(--red)] text-[var(--navy-deep)] transition-colors"
+              className="h-10 w-10 flex items-center justify-center border border-[#D1D1D1] hover:border-[var(--red)] hover:text-[var(--red)] text-[var(--navy-deep)] transition-colors"
             >
               <ChevronRight size={18} />
             </button>
@@ -116,7 +119,7 @@ export default function Projects() {
               <Reveal
                 key={title}
                 delay={i * 0.06}
-                className="group snap-start shrink-0 w-[450px] bg-white border border-[#e4e0d5] hover:border-[var(--red)] hover:-translate-y-1.5 transition-all duration-300 overflow-hidden"
+                className="group snap-start shrink-0 w-[450px] bg-white shadow-[0_1px_3px_rgba(0,0,0,0.08)] hover:shadow-[0_20px_40px_-20px_rgba(0,0,0,0.3)] hover:-translate-y-1.5 transition-all duration-300 rounded-2xl overflow-hidden"
               >
                 <div className="overflow-hidden">
                   {gallery.length > 1 ? (

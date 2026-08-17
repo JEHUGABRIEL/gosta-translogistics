@@ -1,8 +1,8 @@
-{
-  "metadata": {
-    "title": "GOSTA TRANS — Logistics & Construction | Bangui, CAR",
-    "description": "GOSTA TRANS LOGISTICS & BTP — Maritime, transport and construction-site logistics in Bangui. Equipment rental, structural works, finishing works, roadworks and public works."
-  },
+{ "metadata": {
+  "title": "GOSTA TRANS — Logistics & Construction | Bangui, CAR",
+  "description": "GOSTA TRANS LOGISTICS & BTP — Maritime, transport and construction-site logistics in Bangui. Equipment rental, structural works, finishing works, roadworks and public works.",
+  "keywords": "GOSTA TRANS, logistics Bangui, building materials transport, equipment rental, construction Central African Republic, structural works, finishing works, suspended ceilings, roadworks, public works, CAR"
+ },
   "nav": {
     "home": "Home",
     "btp": "BTP",
@@ -130,16 +130,6 @@
       "presentation": "GOSTA TRANS LOGISTICS & BTP is a Central African company based in Bangui, at PK14 Boali Road. It brings together under one structure materials transport, equipment rental with operator and construction works — from structural to finishing works.",
       "methode": "Every request follows the same thread: receiving the need, mobilising resources (trucks, equipment, teams), then supervised execution on site. This continuity between logistics and construction limits delays caused by supply breaks.",
       "engagement": "The team works on individual houses as well as residential, commercial or industrial buildings, and on roadworks and urban sanitation projects — with the reliability of a single point of contact from start to finish."
-    },
-    "process": {
-      "title": "From the first call to handover",
-      "step1Title": "Request & quote",
-      "step1Text": "You describe your need by phone, WhatsApp or the form — we scope volumes, deadlines and site access.",
-      "step2Title": "Mobilisation",
-      "step2Text": "Trucks, equipment and operators are mobilised to transport materials to the site.",
-      "step3Title": "Execution & follow-up",
-      "step3Text": "Our teams handle structural works, finishing works or public works until handover.",
-      "follow": "Follow our ongoing projects"
     },
     "projects": {
       "title": "Our projects",

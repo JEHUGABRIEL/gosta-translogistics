@@ -1,8 +1,8 @@
-{
-  "metadata": {
-    "title": "GOSTA TRANS — Logistique & BTP | Bangui, RCA",
-    "description": "GOSTA TRANS LOGISTIQUE & BTP — Maritime, transport et logistique de chantier à Bangui. Location d'engins, gros œuvre, second œuvre, voirie et travaux publics."
-  },
+{ "metadata": {
+  "title": "GOSTA TRANS — Logistique & BTP | Bangui, RCA",
+  "description": "GOSTA TRANS LOGISTIQUE & BTP — Maritime, transport et logistique de chantier à Bangui. Location d'engins, gros œuvre, second œuvre, voirie et travaux publics.",
+  "keywords": "GOSTA TRANS, logistique Bangui, transport de matériaux, location d'engins, BTP Centrafrique, gros œuvre, second œuvre, plafond staff, voirie, travaux publics, RCA"
+ },
   "nav": {
     "home": "Accueil",
     "btp": "BTP",
@@ -130,16 +130,6 @@
       "presentation": "GOSTA TRANS LOGISTIQUE & BTP est une entreprise centrafricaine basée à Bangui, au PK14 route de Boali. Elle réunit sous une même structure le transport de matériaux, la location d'engins avec opérateur et l'exécution de travaux de construction — du gros œuvre aux finitions.",
       "methode": "Chaque demande suit le même fil : réception du besoin, mobilisation des moyens (camions, engins, équipes), puis exécution suivie sur le terrain. Cette continuité entre logistique et chantier limite les retards liés aux ruptures d'approvisionnement.",
       "engagement": "L'équipe intervient aussi bien sur des maisons individuelles que sur des bâtiments résidentiels, commerciaux ou industriels, ainsi que sur des chantiers de voirie et d'assainissement urbain — avec la rigueur d'un même interlocuteur du début à la fin."
-    },
-    "process": {
-      "title": "Du premier appel à la réception",
-      "step1Title": "Demande & devis",
-      "step1Text": "Vous décrivez le besoin par téléphone, WhatsApp ou le formulaire — nous cadrons volumes, délais et accès au site.",
-      "step2Title": "Mobilisation",
-      "step2Text": "Camions, engins et opérateurs sont affrétés pour le transport des matériaux jusqu'au chantier.",
-      "step3Title": "Exécution & suivi",
-      "step3Text": "Nos équipes prennent en charge le gros œuvre, le second œuvre ou les travaux publics jusqu'à la réception.",
-      "follow": "Suivez les chantiers en cours"
     },
     "projects": {
       "title": "Nos réalisations",

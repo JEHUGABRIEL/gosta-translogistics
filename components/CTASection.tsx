@@ -29,7 +29,7 @@ export default function CTASection() {
           <button
             type="button"
             onClick={openQuote}
-            className="inline-flex items-center justify-center gap-2 bg-[var(--navy-deep)] hover:bg-[#081729] transition-colors text-white font-display uppercase tracking-wide text-sm px-4 py-3 sm:text-base sm:px-7 sm:py-3.5 cursor-pointer"
+            className="inline-flex items-center justify-center gap-2 bg-[var(--navy-deep)] hover:bg-black transition-colors text-white font-display uppercase tracking-wide text-sm px-4 py-3 sm:text-base sm:px-7 sm:py-3.5 cursor-pointer"
           >
             <Phone size={17} /> {t("quote")}
           </button>
