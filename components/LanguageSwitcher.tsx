@@ -91,7 +91,7 @@ export default function LanguageSwitcher({
         aria-expanded={open}
         aria-controls={listboxId}
         aria-label="Choisir la langue — Choose language"
-        className="flex items-center gap-2 cursor-pointer bg-[var(--navy-mid)] border border-white/25 text-[var(--amber)] hover:border-[var(--amber)] focus:border-[var(--amber)] focus:outline-none font-mono text-[12.5px] uppercase tracking-wide px-3 py-1.5 transition-colors"
+        className="flex items-center gap-2 cursor-pointer bg-[var(--navy-mid)] border border-white/25 text-[var(--amber)] hover:border-[var(--red)] focus:border-[var(--amber)] focus:outline-none font-mono text-[12.5px] uppercase tracking-wide px-3 py-1.5 transition-colors"
       >
         {/* Globe masqué sur mobile (< sm), visible dès la tablette */}
         <Globe size={13} className="hidden sm:block" />

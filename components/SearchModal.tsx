@@ -59,7 +59,7 @@ export default function SearchModal({
             <button
               onClick={onClose}
               aria-label={t("close")}
-              className="absolute -top-12 right-0 h-10 w-10 flex items-center justify-center border border-white/30 text-white hover:border-[var(--amber)] hover:text-[var(--amber)] transition-colors bg-black/20"
+              className="absolute -top-12 right-0 h-10 w-10 flex items-center justify-center border border-white/30 text-white hover:border-[var(--red)] hover:text-[var(--red)] transition-colors bg-black/20"
             >
               <X size={20} />
             </button>

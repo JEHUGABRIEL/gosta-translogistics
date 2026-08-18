@@ -80,7 +80,7 @@ export default async function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={t("facebook")}
-              className="h-10 w-10 flex items-center justify-center border border-white/20 text-[#cfd6e0] hover:border-[var(--amber)] hover:text-[var(--amber)] hover:-translate-y-0.5 transition-all"
+              className="h-10 w-10 flex items-center justify-center border border-white/20 text-[#cfd6e0] hover:border-[var(--red)] hover:text-[var(--red)] hover:-translate-y-0.5 transition-all"
             >
               <FacebookIcon size={18} />
             </a>
@@ -89,7 +89,7 @@ export default async function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={t("instagram")}
-              className="h-10 w-10 flex items-center justify-center border border-white/20 text-[#cfd6e0] hover:border-[var(--amber)] hover:text-[var(--amber)] hover:-translate-y-0.5 transition-all"
+              className="h-10 w-10 flex items-center justify-center border border-white/20 text-[#cfd6e0] hover:border-[var(--red)] hover:text-[var(--red)] hover:-translate-y-0.5 transition-all"
             >
               <InstagramIcon size={18} />
             </a>
@@ -98,7 +98,7 @@ export default async function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="WhatsApp — Gosta Trans"
-              className="h-10 w-10 flex items-center justify-center border border-white/20 text-[#cfd6e0] hover:border-[var(--amber)] hover:text-[var(--amber)] hover:-translate-y-0.5 transition-all"
+              className="h-10 w-10 flex items-center justify-center border border-white/20 text-[#cfd6e0] hover:border-[var(--red)] hover:text-[var(--red)] hover:-translate-y-0.5 transition-all"
             >
               <WhatsAppIcon size={18} />
             </a>
@@ -108,7 +108,7 @@ export default async function Footer() {
             href={SOCIAL_LINKS.googleMaps}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 mt-6 border border-white/25 hover:border-[var(--amber)] px-4 py-2.5 text-[13px] uppercase font-display tracking-wide transition-colors"
+            className="inline-flex items-center gap-2 mt-6 border border-white/25 hover:border-[var(--red)] px-4 py-2.5 text-[13px] uppercase font-display tracking-wide transition-colors"
           >
             <MapPin size={15} /> {t("maps")}
           </a>

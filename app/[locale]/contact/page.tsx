@@ -101,7 +101,7 @@ export default async function ContactPage({
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 border border-white/40 hover:border-[var(--amber)] hover:text-[var(--amber)] transition-colors text-white font-display uppercase tracking-wide text-base px-7 py-3.5"
+                className="inline-flex items-center justify-center gap-2 border border-white/40 hover:border-[var(--red)] hover:text-[var(--red)] transition-colors text-white font-display uppercase tracking-wide text-base px-7 py-3.5"
               >
                 <WhatsAppIcon size={18} /> {t("whatsapp")}
               </a>

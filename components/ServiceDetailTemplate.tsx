@@ -71,7 +71,7 @@ export default async function ServiceDetailTemplate({
                 href="https://wa.me/23675200313"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center w-full mt-3 border border-white/25 hover:border-[var(--amber)] hover:text-[var(--amber)] transition-colors text-white font-display uppercase tracking-wide text-[15px] px-5 py-3"
+                className="inline-flex items-center justify-center w-full mt-3 border border-white/25 hover:border-[var(--red)] hover:text-[var(--red)] transition-colors text-white font-display uppercase tracking-wide text-[15px] px-5 py-3"
               >
                 {t("whatsapp")}
               </a>

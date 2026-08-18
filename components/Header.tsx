@@ -53,7 +53,7 @@ function DesktopDropdown({
     >
       <Link
         href={base}
-        className="h-full flex items-center gap-1 font-display font-semibold text-[15px] uppercase tracking-wide text-[#dfe4ec] hover:text-[var(--amber)] transition-colors"
+        className="h-full flex items-center gap-1 font-display font-semibold text-[15px] uppercase tracking-wide text-[#dfe4ec] hover:text-[var(--red)] transition-colors"
       >
         {label}
         <ChevronDown
@@ -140,13 +140,13 @@ function MobileAccordion({
           <span className="font-mono text-[12px] text-[var(--red)]">
             {String(index + 1).padStart(2, "0")}
           </span>
-          <span className="font-display font-extrabold text-4xl uppercase tracking-wide text-white group-hover:text-[var(--amber)] transition-colors">
+          <span className="font-display font-extrabold text-4xl uppercase tracking-wide text-white group-hover:text-[var(--red)] transition-colors">
             {label}
           </span>
         </span>
         <span
           className={`shrink-0 transition-all duration-300 ${
-            open ? "rotate-180 text-[var(--amber)]" : "text-white/40 group-hover:text-[var(--amber)]"
+            open ? "rotate-180 text-[var(--amber)]" : "text-white/40 group-hover:text-[var(--red)]"
           }`}
         >
           <ChevronDown size={22} />
@@ -172,7 +172,7 @@ function MobileAccordion({
                   <Link
                     href={`${base}/${item.slug}`}
                     onClick={onNavigate}
-                    className="flex items-center gap-3 py-3 text-[#cfd6e0] hover:text-[var(--amber)] transition-colors"
+                    className="flex items-center gap-3 py-3 text-[#cfd6e0] hover:text-[var(--red)] transition-colors"
                   >
                     <item.icon size={18} className="text-[var(--amber)] shrink-0" />
                     <span className="font-display text-lg">{item.title}</span>
@@ -298,7 +298,7 @@ export default function Header() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={tSocial("facebook")}
-                className="text-[#cfd6e0] hover:text-[var(--amber)] transition-colors p-1 -m-1"
+                className="text-[#cfd6e0] hover:text-[var(--red)] transition-colors p-1 -m-1"
               >
                 <FacebookIcon size={14} />
               </a>
@@ -307,7 +307,7 @@ export default function Header() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={tSocial("instagram")}
-                className="text-[#cfd6e0] hover:text-[var(--amber)] transition-colors p-1 -m-1"
+                className="text-[#cfd6e0] hover:text-[var(--red)] transition-colors p-1 -m-1"
               >
                 <InstagramIcon size={14} />
               </a>
@@ -316,7 +316,7 @@ export default function Header() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={tSocial("whatsapp")}
-                className="text-[#cfd6e0] hover:text-[var(--amber)] transition-colors p-1 -m-1"
+                className="text-[#cfd6e0] hover:text-[var(--red)] transition-colors p-1 -m-1"
               >
                 <WhatsAppIcon size={14} />
               </a>
@@ -345,7 +345,7 @@ export default function Header() {
           <nav className="hidden lg:flex h-full items-stretch gap-8">
             <Link
               href="/"
-              className="h-full flex items-center font-display font-semibold text-[15px] uppercase tracking-wide text-[#dfe4ec] hover:text-[var(--amber)] transition-colors"
+              className="h-full flex items-center font-display font-semibold text-[15px] uppercase tracking-wide text-[#dfe4ec] hover:text-[var(--red)] transition-colors"
             >
               {t("home")}
             </Link>
@@ -359,7 +359,7 @@ export default function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="h-full flex items-center font-display font-semibold text-[15px] uppercase tracking-wide text-[#dfe4ec] hover:text-[var(--amber)] transition-colors"
+                className="h-full flex items-center font-display font-semibold text-[15px] uppercase tracking-wide text-[#dfe4ec] hover:text-[var(--red)] transition-colors"
               >
                 {t(item.key)}
               </Link>
@@ -372,7 +372,7 @@ export default function Header() {
               type="button"
               onClick={() => setSearchOpen(true)}
               aria-label={t("search")}
-              className="text-white hover:text-[var(--amber)] transition-colors p-1.5"
+              className="text-white hover:text-[var(--red)] transition-colors p-1.5"
             >
               <Search size={20} />
             </button>
@@ -393,7 +393,7 @@ export default function Header() {
                 setSearchOpen(true);
               }}
               aria-label={t("search")}
-              className="text-white hover:text-[var(--amber)] transition-colors p-1.5"
+              className="text-white hover:text-[var(--red)] transition-colors p-1.5"
             >
               <Search size={23} />
             </button>
@@ -445,7 +445,7 @@ export default function Header() {
                   <button
                     onClick={() => setOpen(false)}
                     aria-label={t("closeMenu")}
-                    className="h-10 w-10 flex items-center justify-center border border-white/25 text-white hover:border-[var(--amber)] hover:text-[var(--amber)] transition-colors"
+                    className="h-10 w-10 flex items-center justify-center border border-white/25 text-white hover:border-[var(--red)] hover:text-[var(--red)] transition-colors"
                   >
                     <X size={22} />
                   </button>
@@ -466,7 +466,7 @@ export default function Header() {
                     className="flex items-baseline gap-4 py-5 group"
                   >
                     <span className="font-mono text-[12px] text-[var(--red)]">01</span>
-                    <span className="font-display font-extrabold text-4xl uppercase tracking-wide text-white group-hover:text-[var(--amber)] transition-colors">
+                    <span className="font-display font-extrabold text-4xl uppercase tracking-wide text-white group-hover:text-[var(--red)] transition-colors">
                       {t("home")}
                     </span>
                   </Link>
@@ -497,7 +497,7 @@ export default function Header() {
                     className="flex items-baseline gap-4 py-5 group"
                   >
                     <span className="font-mono text-[12px] text-[var(--red)]">04</span>
-                    <span className="font-display font-extrabold text-4xl uppercase tracking-wide text-white group-hover:text-[var(--amber)] transition-colors">
+                    <span className="font-display font-extrabold text-4xl uppercase tracking-wide text-white group-hover:text-[var(--red)] transition-colors">
                       {t("contact")}
                     </span>
                   </Link>
@@ -527,7 +527,7 @@ export default function Header() {
                       setSearchOpen(true);
                     }}
                     aria-label={t("search")}
-                    className="h-12 w-12 flex items-center justify-center border border-white/25 text-white hover:border-[var(--amber)] hover:text-[var(--amber)] transition-colors"
+                    className="h-12 w-12 flex items-center justify-center border border-white/25 text-white hover:border-[var(--red)] hover:text-[var(--red)] transition-colors"
                   >
                     <Search size={20} />
                   </button>
@@ -555,7 +555,7 @@ export default function Header() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={tSocial("facebook")}
-                    className="h-9 w-9 flex items-center justify-center border border-white/20 text-[#cfd6e0] hover:border-[var(--amber)] hover:text-[var(--amber)] transition-colors"
+                    className="h-9 w-9 flex items-center justify-center border border-white/20 text-[#cfd6e0] hover:border-[var(--red)] hover:text-[var(--red)] transition-colors"
                   >
                     <FacebookIcon size={16} />
                   </a>
@@ -564,7 +564,7 @@ export default function Header() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={tSocial("instagram")}
-                    className="h-9 w-9 flex items-center justify-center border border-white/20 text-[#cfd6e0] hover:border-[var(--amber)] hover:text-[var(--amber)] transition-colors"
+                    className="h-9 w-9 flex items-center justify-center border border-white/20 text-[#cfd6e0] hover:border-[var(--red)] hover:text-[var(--red)] transition-colors"
                   >
                     <InstagramIcon size={16} />
                   </a>
@@ -573,7 +573,7 @@ export default function Header() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={tSocial("whatsapp")}
-                    className="h-9 w-9 flex items-center justify-center border border-white/20 text-[#cfd6e0] hover:border-[var(--amber)] hover:text-[var(--amber)] transition-colors"
+                    className="h-9 w-9 flex items-center justify-center border border-white/20 text-[#cfd6e0] hover:border-[var(--red)] hover:text-[var(--red)] transition-colors"
                   >
                     <WhatsAppIcon size={16} />
                   </a>

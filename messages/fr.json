@@ -1,6 +1,6 @@
 { "metadata": {
-  "title": "GOSTA TRANS — Logistique & BTP | Bangui, RCA",
-  "description": "GOSTA TRANS LOGISTIQUE & BTP — Maritime, transport et logistique de chantier à Bangui. Location d'engins, gros œuvre, second œuvre, voirie et travaux publics.",
+  "title": "GOSTA TRANS Logistique & BTP | Bangui, RCA",
+  "description": "GOSTA TRANS LOGISTIQUE & BTP : maritime, transport et logistique de chantier à Bangui. Location d'engins, gros œuvre, second œuvre, voirie et travaux publics.",
   "keywords": "GOSTA TRANS, logistique Bangui, transport de matériaux, location d'engins, BTP Centrafrique, gros œuvre, second œuvre, plafond staff, voirie, travaux publics, RCA"
  },
   "nav": {
@@ -20,9 +20,9 @@
     "addressSuffix": " · PK14 Route de Boali, Bangui"
   },
   "social": {
-    "facebook": "Facebook — Gosta Trans",
-    "instagram": "Instagram — Gosta Trans",
-    "whatsapp": "WhatsApp — Gosta Trans"
+    "facebook": "Facebook · Gosta Trans",
+    "instagram": "Instagram · Gosta Trans",
+    "whatsapp": "WhatsApp · Gosta Trans"
   },
   "search": {
     "dialogLabel": "Rechercher un service",
@@ -38,7 +38,7 @@
   },
   "quote": {
     "modalTitle": "Demander un devis",
-    "modalText": "Transport, location d'engins ou chantier de construction — décrivez votre besoin, on s'occupe du reste. Réponse sous 24h ouvrées.",
+    "modalText": "Transport, location d'engins ou chantier de construction : décrivez votre besoin, on s'occupe du reste. Réponse sous 24h ouvrées.",
     "whatsapp": "Discuter sur WhatsApp",
     "or": "ou",
     "fillForm": "Remplir le formulaire",
@@ -66,7 +66,7 @@
     "writeUs": "Nous écrire",
     "callUs": "Nous appeler",
     "successTitle": "Demande prête !",
-    "successText": "Votre demande s'ouvre dans WhatsApp — il ne reste qu'à l'envoyer. On vous répond sous 24h ouvrées.",
+    "successText": "Votre demande s'ouvre dans WhatsApp, il ne reste qu'à l'envoyer. On vous répond sous 24h ouvrées.",
     "defaultMessage": "Bonjour GOSTA TRANS, je souhaite demander un devis."
   },
   "home": {
@@ -91,7 +91,7 @@
     },
     "services": {
       "title": "Un partenaire, deux métiers",
-      "subtitle": "Du quai au chantier, GOSTA TRANS coordonne le fret et la construction sous un même toit — moins d'intermédiaires, plus de maîtrise sur les délais.",
+      "subtitle": "Du quai au chantier, GOSTA TRANS coordonne le fret et la construction sous un même toit : moins d'intermédiaires, plus de maîtrise sur les délais.",
   "learnMore": "En savoir plus",
       "maritimeTitle": "Services maritimes & transport",
       "maritimeItems": [
@@ -125,16 +125,16 @@
     },
     "quote": {
       "title": "Demandez votre devis",
-      "text": "Décrivez votre besoin — transport, location d'engins ou travaux de construction — et notre équipe vous revient avec une estimation adaptée au terrain centrafricain."
+      "text": "Décrivez votre besoin (transport, location d'engins ou travaux de construction) et notre équipe vous revient avec une estimation adaptée au terrain centrafricain."
     },
     "about": {
       "title": "À propos de GOSTA TRANS",
       "badgeNumber": "2",
       "badgeText": "métiers, un seul interlocuteur",
       "contactUs": "Nous contacter",
-      "presentation": "GOSTA TRANS LOGISTIQUE & BTP est une entreprise centrafricaine basée à Bangui, au PK14 route de Boali. Elle réunit sous une même structure le transport de matériaux, la location d'engins avec opérateur et l'exécution de travaux de construction — du gros œuvre aux finitions.",
+      "presentation": "GOSTA TRANS LOGISTIQUE & BTP est une entreprise centrafricaine basée à Bangui, au PK14 route de Boali. Elle réunit sous une même structure le transport de matériaux, la location d'engins avec opérateur et l'exécution de travaux de construction, du gros œuvre aux finitions.",
       "methode": "Chaque demande suit le même fil : réception du besoin, mobilisation des moyens (camions, engins, équipes), puis exécution suivie sur le terrain. Cette continuité entre logistique et chantier limite les retards liés aux ruptures d'approvisionnement.",
-      "engagement": "L'équipe intervient aussi bien sur des maisons individuelles que sur des bâtiments résidentiels, commerciaux ou industriels, ainsi que sur des chantiers de voirie et d'assainissement urbain — avec la rigueur d'un même interlocuteur du début à la fin."
+      "engagement": "L'équipe intervient aussi bien sur des maisons individuelles que sur des bâtiments résidentiels, commerciaux ou industriels, ainsi que sur des chantiers de voirie et d'assainissement urbain, avec la rigueur d'un même interlocuteur du début à la fin."
     },
     "projects": {
       "title": "Nos réalisations",
@@ -196,7 +196,7 @@
     },
     "cta": {
       "title": "Prêt à parler de votre projet ?",
-      "text": "Transport, location d'engins ou chantier de construction — décrivez votre besoin, on s'occupe du reste.",
+      "text": "Transport, location d'engins ou chantier de construction : décrivez votre besoin, on s'occupe du reste.",
       "quote": "Demander un devis",
       "whatsapp": "WhatsApp"
     }
