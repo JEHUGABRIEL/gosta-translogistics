@@ -4,6 +4,7 @@ import { pageMetadata } from "@/lib/seo";
 import Header from "@/components/Header";
 import HeroCarousel from "@/components/HeroCarousel";
 import Services from "@/components/Services";
+import ServiceShowcase from "@/components/ServiceShowcase";
 import QuoteSection from "@/components/QuoteSection";
 import About from "@/components/About";
 import Projects from "@/components/Projects";
@@ -84,6 +85,7 @@ export default async function HomePage({
       <HeroCarousel id="accueil" slides={slides} />
       <About />
       <Services />
+      <ServiceShowcase />
       <QuoteSection />
       <Projects />
       <Testimonials />

@@ -116,6 +116,13 @@
         "Rénovation & réhabilitation"
       ]
     },
+    "serviceShowcase": {
+      "btpTitle": "Nos services BTP",
+      "logistiqueTitle": "Nos services Logistique",
+      "btpText": "Du gros œuvre aux finitions, en passant par la voirie et les travaux publics.",
+      "logistiqueText": "Transport de matériaux, location d'engins et coordination complète de vos flux.",
+      "seeAll": "Voir tous nos services"
+    },
     "quote": {
       "title": "Demandez votre devis",
       "text": "Décrivez votre besoin — transport, location d'engins ou travaux de construction — et notre équipe vous revient avec une estimation adaptée au terrain centrafricain."
@@ -124,9 +131,7 @@
       "title": "À propos de GOSTA TRANS",
       "badgeNumber": "2",
       "badgeText": "métiers, un seul interlocuteur",
-      "tabPresentation": "Présentation",
-      "tabMethode": "Méthode",
-      "tabEngagement": "Engagement",
+      "contactUs": "Nous contacter",
       "presentation": "GOSTA TRANS LOGISTIQUE & BTP est une entreprise centrafricaine basée à Bangui, au PK14 route de Boali. Elle réunit sous une même structure le transport de matériaux, la location d'engins avec opérateur et l'exécution de travaux de construction — du gros œuvre aux finitions.",
       "methode": "Chaque demande suit le même fil : réception du besoin, mobilisation des moyens (camions, engins, équipes), puis exécution suivie sur le terrain. Cette continuité entre logistique et chantier limite les retards liés aux ruptures d'approvisionnement.",
       "engagement": "L'équipe intervient aussi bien sur des maisons individuelles que sur des bâtiments résidentiels, commerciaux ou industriels, ainsi que sur des chantiers de voirie et d'assainissement urbain — avec la rigueur d'un même interlocuteur du début à la fin."

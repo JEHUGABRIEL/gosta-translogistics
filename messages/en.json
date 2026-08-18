@@ -116,6 +116,13 @@
         "Renovation & rehabilitation"
       ]
     },
+    "serviceShowcase": {
+      "btpTitle": "Our BTP services",
+      "logistiqueTitle": "Our logistics services",
+      "btpText": "From structural works to finishing works, including roadworks and public works.",
+      "logistiqueText": "Materials transport, equipment rental and complete coordination of your flows.",
+      "seeAll": "View all our services"
+    },
     "quote": {
       "title": "Request your quote",
       "text": "Describe your needs — transport, equipment rental or construction works — and our team will get back to you with an estimate tailored to the Central African context."
@@ -124,9 +131,7 @@
       "title": "About GOSTA TRANS",
       "badgeNumber": "2",
       "badgeText": "trades, one single contact",
-      "tabPresentation": "Overview",
-      "tabMethode": "Method",
-      "tabEngagement": "Commitment",
+      "contactUs": "Contact us",
       "presentation": "GOSTA TRANS LOGISTICS & BTP is a Central African company based in Bangui, at PK14 Boali Road. It brings together under one structure materials transport, equipment rental with operator and construction works — from structural to finishing works.",
       "methode": "Every request follows the same thread: receiving the need, mobilising resources (trucks, equipment, teams), then supervised execution on site. This continuity between logistics and construction limits delays caused by supply breaks.",
       "engagement": "The team works on individual houses as well as residential, commercial or industrial buildings, and on roadworks and urban sanitation projects — with the reliability of a single point of contact from start to finish."

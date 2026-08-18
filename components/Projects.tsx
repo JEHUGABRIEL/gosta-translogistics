@@ -52,7 +52,12 @@ export default function Projects() {
   const items = t.raw("items") as ProjectItem[];
 
   const scroll = (dir: 1 | -1) => {
-    track.current?.scrollBy({ left: dir * 450, behavior: "smooth" });
+    const el = track.current;
+    const first = el?.firstElementChild as HTMLElement | null;
+    el?.scrollBy({
+      left: dir * (first ? first.offsetWidth + CARD_GAP : 450),
+      behavior: "smooth",
+    });
   };
 
   // Défilement automatique : avance d'une carte toutes les 4s, puis revient au début
@@ -119,9 +124,10 @@ export default function Projects() {
               <Reveal
                 key={title}
                 delay={i * 0.06}
-                className="group snap-start shrink-0 w-[450px] bg-white shadow-[0_1px_3px_rgba(0,0,0,0.08)] hover:shadow-[0_20px_40px_-20px_rgba(0,0,0,0.3)] hover:-translate-y-1.5 transition-all duration-300 rounded-2xl overflow-hidden"
+                className="snap-start shrink-0 w-[calc(100vw-3rem)] sm:w-[450px]"
               >
-                <div className="overflow-hidden">
+                <div className="group h-full bg-white border border-black/[0.06] shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_28px_-18px_rgba(0,0,0,0.22)] hover:-translate-y-[3px] hover:shadow-[0_2px_4px_rgba(0,0,0,0.05),0_24px_44px_-22px_rgba(0,0,0,0.34)] transition-[transform,box-shadow] duration-300 ease-[cubic-bezier(0.2,0.7,0.2,1)] rounded-2xl overflow-hidden">
+                  <div className="overflow-hidden">
                   {gallery.length > 1 ? (
                     <ImageCarousel
                       images={gallery}
@@ -140,8 +146,8 @@ export default function Projects() {
                 </div>
                 <div className="p-7">
                   <div className="flex items-center justify-between">
-                    <div className="h-12 w-12 flex items-center justify-center bg-[var(--sand-deep)] text-[var(--navy-deep)] group-hover:bg-[var(--navy-deep)] group-hover:text-[var(--amber)] transition-colors">
-                      <Icon size={22} />
+                    <div className="h-10 w-10 flex items-center justify-center bg-[var(--navy-deep)] text-[var(--amber)] rounded-xl">
+                      <Icon size={20} />
                     </div>
                     <span className="font-mono text-[12px] uppercase tracking-wide text-[var(--red)]">
                       {tag}
@@ -157,6 +163,7 @@ export default function Projects() {
                       className="transition-transform duration-200 group-hover:translate-x-1"
                     />
                   </span>
+                </div>
                 </div>
               </Reveal>
             );

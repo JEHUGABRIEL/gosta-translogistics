@@ -110,26 +110,47 @@ function MobileAccordion({
   base,
   items,
   onNavigate,
+  index,
 }: {
   label: string;
   base: string;
   items: Service[];
   onNavigate: () => void;
+  index: number;
 }) {
   const [open, setOpen] = useState(false);
   const t = useTranslations("nav");
 
   return (
-    <div className="border-b border-white/10">
+    <motion.div
+      initial={{ opacity: 0, y: 28 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+        delay: 0.12 + index * 0.07,
+        duration: 0.55,
+        ease: [0.16, 1, 0.3, 1],
+      }}
+      className="border-b border-white/10"
+    >
       <button
         onClick={() => setOpen((o) => !o)}
-        className="w-full flex items-center justify-between py-4 font-display font-semibold text-lg uppercase tracking-wide text-white"
+        className="w-full flex items-center justify-between gap-4 py-5 text-left group"
       >
-        {label}
-        <ChevronDown
-          size={18}
-          className={`transition-transform duration-200 ${open ? "rotate-180 text-[var(--amber)]" : ""}`}
-        />
+        <span className="flex items-baseline gap-4">
+          <span className="font-mono text-[12px] text-[var(--red)]">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+          <span className="font-display font-extrabold text-4xl uppercase tracking-wide text-white group-hover:text-[var(--amber)] transition-colors">
+            {label}
+          </span>
+        </span>
+        <span
+          className={`shrink-0 transition-all duration-300 ${
+            open ? "rotate-180 text-[var(--amber)]" : "text-white/40 group-hover:text-[var(--amber)]"
+          }`}
+        >
+          <ChevronDown size={22} />
+        </span>
       </button>
       <AnimatePresence initial={false}>
         {open && (
@@ -137,33 +158,45 @@ function MobileAccordion({
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25, ease: "easeInOut" }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <div className="flex flex-col pb-3">
-              {items.map((item) => (
-                <Link
+            <div className="flex flex-col pb-5 pl-10">
+              {items.map((item, i) => (
+                <motion.div
                   key={item.slug}
-                  href={`${base}/${item.slug}`}
-                  onClick={onNavigate}
-                  className="flex items-center gap-3 py-2.5 pl-2 text-[#cfd6e0] hover:text-[var(--amber)] transition-colors"
+                  initial={{ opacity: 0, x: -14 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.05 + i * 0.05, duration: 0.3 }}
                 >
-                  <item.icon size={16} className="text-[var(--amber)] shrink-0" />
-                  <span className="text-[15px]">{item.title}</span>
-                </Link>
+                  <Link
+                    href={`${base}/${item.slug}`}
+                    onClick={onNavigate}
+                    className="flex items-center gap-3 py-3 text-[#cfd6e0] hover:text-[var(--amber)] transition-colors"
+                  >
+                    <item.icon size={18} className="text-[var(--amber)] shrink-0" />
+                    <span className="font-display text-lg">{item.title}</span>
+                  </Link>
+                </motion.div>
               ))}
-              <Link
-                href={base}
-                onClick={onNavigate}
-                className="font-mono text-[12.5px] uppercase tracking-wide text-[var(--amber)] pl-2 pt-2"
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.05 + items.length * 0.05, duration: 0.3 }}
               >
-                {t("allServices")} →
-              </Link>
+                <Link
+                  href={base}
+                  onClick={onNavigate}
+                  className="inline-flex items-center gap-2 font-mono text-[12.5px] uppercase tracking-wide text-[var(--amber)] pt-2"
+                >
+                  {t("allServices")} →
+                </Link>
+              </motion.div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </motion.div>
   );
 }
 
@@ -387,62 +420,106 @@ export default function Header() {
               className="fixed inset-0 bg-black/50 z-40 lg:hidden"
             />
             <motion.div
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
-              className="fixed top-0 right-0 bottom-0 w-[85%] max-w-sm bg-[var(--navy-deep)] z-40 lg:hidden overflow-y-auto"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.28, ease: "easeOut" }}
+              className="fixed inset-0 z-40 lg:hidden bg-[var(--navy-deep)] flex flex-col overflow-y-auto"
             >
-              <button
-                onClick={() => setOpen(false)}
-                aria-label={t("closeMenu")}
-                className="absolute top-5 right-5 z-50 h-10 w-10 flex items-center justify-center border border-white/25 text-white hover:border-[var(--amber)] hover:text-[var(--amber)] transition-colors"
-              >
-                <X size={22} />
-              </button>
-              <div className="px-6 pt-24 pb-10 flex flex-col">
+              {/* Bandeau : logo à gauche, langue + fermer à droite */}
+              <div className="shrink-0 flex items-center justify-between gap-3 px-5 sm:px-6 h-[var(--header-nav-h)]">
                 <Link
                   href="/"
                   onClick={() => setOpen(false)}
-                  className="py-4 border-b border-white/10 font-display font-semibold text-lg uppercase tracking-wide text-white"
+                  className="flex flex-col justify-center gap-0.5"
                 >
-                  {t("home")}
+                  <span className="font-display font-extrabold text-xl tracking-wide text-white leading-none">
+                    GOSTA <span className="text-[var(--red)]">TRANS</span>
+                  </span>
+                  <span className="font-display text-[11px] uppercase tracking-[0.18em] text-[var(--amber)] leading-none">
+                    {t("tagline")}
+                  </span>
                 </Link>
+                <div className="flex items-center gap-2.5 sm:gap-3">
+                  <LanguageSwitcher />
+                  <button
+                    onClick={() => setOpen(false)}
+                    aria-label={t("closeMenu")}
+                    className="h-10 w-10 flex items-center justify-center border border-white/25 text-white hover:border-[var(--amber)] hover:text-[var(--amber)] transition-colors"
+                  >
+                    <X size={22} />
+                  </button>
+                </div>
+              </div>
+
+              {/* Liens géants en cascade */}
+              <nav className="flex-1 px-5 sm:px-6 pt-6 pb-10">
+                <motion.div
+                  initial={{ opacity: 0, y: 28 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.05, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                  className="border-b border-white/10"
+                >
+                  <Link
+                    href="/"
+                    onClick={() => setOpen(false)}
+                    className="flex items-baseline gap-4 py-5 group"
+                  >
+                    <span className="font-mono text-[12px] text-[var(--red)]">01</span>
+                    <span className="font-display font-extrabold text-4xl uppercase tracking-wide text-white group-hover:text-[var(--amber)] transition-colors">
+                      {t("home")}
+                    </span>
+                  </Link>
+                </motion.div>
                 <MobileAccordion
                   label={t("btp")}
                   base="/services/btp"
                   items={btp}
                   onNavigate={() => setOpen(false)}
+                  index={1}
                 />
                 <MobileAccordion
                   label={t("logistique")}
                   base="/services/logistique"
                   items={logistique}
                   onNavigate={() => setOpen(false)}
+                  index={2}
                 />
-                {SIMPLE_NAV.slice(1).map((item) => (
+                <motion.div
+                  initial={{ opacity: 0, y: 28 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.12 + 3 * 0.07, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                  className="border-b border-white/10"
+                >
                   <Link
-                    key={item.href}
-                    href={item.href}
+                    href="/contact"
                     onClick={() => setOpen(false)}
-                    className="py-4 border-b border-white/10 font-display font-semibold text-lg uppercase tracking-wide text-white"
+                    className="flex items-baseline gap-4 py-5 group"
                   >
-                    {t(item.key)}
+                    <span className="font-mono text-[12px] text-[var(--red)]">04</span>
+                    <span className="font-display font-extrabold text-4xl uppercase tracking-wide text-white group-hover:text-[var(--amber)] transition-colors">
+                      {t("contact")}
+                    </span>
                   </Link>
-                ))}
+                </motion.div>
 
-                <div className="flex items-center gap-3 mt-8">
+                {/* CTA devis + recherche */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  className="flex items-center gap-3 mt-10"
+                >
                   <button
                     type="button"
                     onClick={() => {
                       setOpen(false);
                       openQuote();
                     }}
-                    className="btn-liquid inline-flex items-center justify-center bg-[var(--navy-deep)] text-white font-display uppercase tracking-wide text-[15px] px-5 py-3.5 cursor-pointer"
+                    className="btn-liquid inline-flex items-center justify-center bg-[var(--navy-deep)] text-white font-display uppercase tracking-wide text-[15px] px-6 py-3.5 cursor-pointer"
                   >
                     <span className="relative z-10">{t("quote")}</span>
                   </button>
-                  {/* Recherche à la place du sélecteur de langue (déplacé en topbar) */}
                   <button
                     type="button"
                     onClick={() => {
@@ -450,13 +527,21 @@ export default function Header() {
                       setSearchOpen(true);
                     }}
                     aria-label={t("search")}
-                    className="text-white hover:text-[var(--amber)] transition-colors p-1.5"
+                    className="h-12 w-12 flex items-center justify-center border border-white/25 text-white hover:border-[var(--amber)] hover:text-[var(--amber)] transition-colors"
                   >
-                    <Search size={22} />
+                    <Search size={20} />
                   </button>
-                </div>
+                </motion.div>
+              </nav>
 
-                <div className="mt-8 pt-6 border-t border-white/10 font-mono text-[13px] text-[#9aa5b5] space-y-2">
+              {/* Pied : coordonnées + réseaux sociaux */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.6, duration: 0.4 }}
+                className="shrink-0 px-5 sm:px-6 py-6 border-t border-white/10 space-y-4"
+              >
+                <div className="font-mono text-[13px] text-[#9aa5b5] space-y-2">
                   <p className="flex items-center gap-2">
                     <Phone size={14} className="text-[var(--amber)]" /> 70 12 00 25 / 72 60 05 33
                   </p>
@@ -464,7 +549,36 @@ export default function Header() {
                     <Mail size={14} className="text-[var(--amber)]" /> gostatranslogistiquebtp@outlook.fr
                   </p>
                 </div>
-              </div>
+                <div className="flex items-center gap-3">
+                  <a
+                    href={SOCIAL_LINKS.facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={tSocial("facebook")}
+                    className="h-9 w-9 flex items-center justify-center border border-white/20 text-[#cfd6e0] hover:border-[var(--amber)] hover:text-[var(--amber)] transition-colors"
+                  >
+                    <FacebookIcon size={16} />
+                  </a>
+                  <a
+                    href={SOCIAL_LINKS.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={tSocial("instagram")}
+                    className="h-9 w-9 flex items-center justify-center border border-white/20 text-[#cfd6e0] hover:border-[var(--amber)] hover:text-[var(--amber)] transition-colors"
+                  >
+                    <InstagramIcon size={16} />
+                  </a>
+                  <a
+                    href={SOCIAL_LINKS.whatsapp}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={tSocial("whatsapp")}
+                    className="h-9 w-9 flex items-center justify-center border border-white/20 text-[#cfd6e0] hover:border-[var(--amber)] hover:text-[var(--amber)] transition-colors"
+                  >
+                    <WhatsAppIcon size={16} />
+                  </a>
+                </div>
+              </motion.div>
             </motion.div>
           </>
         )}

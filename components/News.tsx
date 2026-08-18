@@ -53,11 +53,8 @@ export default async function News() {
                 : U("photo-1560448204-e02f11c3d0e2");
 
             return (
-              <Reveal
-                key={title}
-                delay={i * 0.1}
-                className="group bg-white shadow-[0_1px_3px_rgba(0,0,0,0.08)] hover:shadow-[0_20px_40px_-20px_rgba(0,0,0,0.3)] transition-shadow rounded-2xl overflow-hidden"
-              >
+              <Reveal key={title} delay={i * 0.1} className="h-full">
+                <div className="group h-full bg-white border border-black/[0.06] shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_28px_-18px_rgba(0,0,0,0.22)] hover:-translate-y-[3px] hover:shadow-[0_2px_4px_rgba(0,0,0,0.05),0_24px_44px_-22px_rgba(0,0,0,0.34)] transition-[transform,box-shadow] duration-300 ease-[cubic-bezier(0.2,0.7,0.2,1)] rounded-2xl overflow-hidden">
                 {gallery ? (
                   <ImageCarousel images={gallery} alt={title} />
                 ) : (
@@ -77,8 +74,8 @@ export default async function News() {
                     {date}
                   </div>
                   <div className="flex items-start gap-4 mt-4">
-                    <div className="shrink-0 h-11 w-11 flex items-center justify-center bg-[var(--sand-deep)] text-[var(--navy-deep)]">
-                      <Icon size={20} />
+                    <div className="shrink-0 h-10 w-10 flex items-center justify-center bg-[var(--navy-deep)] text-[var(--amber)] rounded-xl">
+                      <Icon size={18} />
                     </div>
                     <h3 className="font-display uppercase tracking-wide text-xl text-[var(--navy-deep)] leading-snug">
                       {title}
@@ -91,6 +88,7 @@ export default async function News() {
                       className="transition-transform duration-200 group-hover:translate-x-1"
                     />
                   </span>
+                </div>
                 </div>
               </Reveal>
             );

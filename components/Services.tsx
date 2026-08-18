@@ -5,7 +5,7 @@ import Reveal from "./Reveal";
 
 function List({ items }: { items: string[] }) {
   return (
-    <ul className="space-y-3 mt-6">
+    <ul className="space-y-3 mt-6 flex-1">
       {items.map((item) => (
         <li key={item} className="flex items-start gap-2.5 text-[15px] text-[var(--steel)]">
           <ChevronRight size={16} className="mt-0.5 shrink-0 text-[var(--red)]" />
@@ -37,14 +37,14 @@ export default async function Services() {
         {/* Mobile : cartes empilées avec un vrai espace (space-y-4).
             md+ : grille 3 colonnes — séparation par l'ombre, sans filet. */}
         <div id="domaines" className="grid md:grid-cols-3 gap-5 md:gap-6 mt-8">
-          <Reveal delay={0} className="relative overflow-hidden bg-white shadow-[0_1px_3px_rgba(0,0,0,0.08)] rounded-2xl p-8">
+          <Reveal delay={0} className="group relative overflow-hidden bg-white border border-black/[0.06] shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_28px_-18px_rgba(0,0,0,0.22)] rounded-2xl p-8">
             <Ship
               size={170}
               strokeWidth={0.8}
               aria-hidden="true"
               className="absolute -bottom-7 -right-7 text-[var(--navy-deep)] opacity-[0.07] pointer-events-none select-none"
             />
-            <div className="h-12 w-12 flex items-center justify-center bg-[var(--navy-deep)] text-[var(--amber)]">
+            <div className="h-12 w-12 flex items-center justify-center bg-[var(--navy-deep)] text-[var(--amber)] rounded-xl">
               <Ship size={24} />
             </div>
             <h3 className="font-display uppercase tracking-wide text-2xl text-[var(--navy-deep)] mt-5">
@@ -53,20 +53,20 @@ export default async function Services() {
             <List items={maritimeItems} />
             <Link
               href="/services/logistique"
-              className="inline-flex items-center gap-2 mt-8 border-2 border-[var(--navy-deep)] hover:bg-[var(--navy-deep)] text-[var(--navy-deep)] hover:text-white font-display uppercase tracking-wide text-[13.5px] px-5 py-2.5 transition-colors"
+              className="inline-flex items-center gap-1.5 font-display uppercase tracking-wide text-[13.5px] text-[var(--red)] mt-8"
             >
-              {t("learnMore")} <ChevronRight size={15} />
+              {t("learnMore")} <ChevronRight size={15} className="transition-transform duration-200 group-hover:translate-x-1" />
             </Link>
           </Reveal>
 
-          <Reveal delay={0.08} className="relative overflow-hidden bg-white shadow-[0_1px_3px_rgba(0,0,0,0.08)] rounded-2xl p-8">
+          <Reveal delay={0.08} className="group relative overflow-hidden bg-white border border-black/[0.06] shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_28px_-18px_rgba(0,0,0,0.22)] rounded-2xl p-8">
             <Building2
               size={170}
               strokeWidth={0.8}
               aria-hidden="true"
               className="absolute -bottom-7 -right-7 text-[var(--navy-deep)] opacity-[0.07] pointer-events-none select-none"
             />
-            <div className="h-12 w-12 flex items-center justify-center bg-[var(--navy-deep)] text-[var(--amber)]">
+            <div className="h-12 w-12 flex items-center justify-center bg-[var(--navy-deep)] text-[var(--amber)] rounded-xl">
               <Building2 size={24} />
             </div>
             <h3 className="font-display uppercase tracking-wide text-2xl text-[var(--navy-deep)] mt-5">
@@ -75,20 +75,20 @@ export default async function Services() {
             <List items={domainesItems} />
             <Link
               href="/services/btp"
-              className="inline-flex items-center gap-2 mt-8 border-2 border-[var(--navy-deep)] hover:bg-[var(--navy-deep)] text-[var(--navy-deep)] hover:text-white font-display uppercase tracking-wide text-[13.5px] px-5 py-2.5 transition-colors"
+              className="inline-flex items-center gap-1.5 font-display uppercase tracking-wide text-[13.5px] text-[var(--red)] mt-8"
             >
-              {t("learnMore")} <ChevronRight size={15} />
+              {t("learnMore")} <ChevronRight size={15} className="transition-transform duration-200 group-hover:translate-x-1" />
             </Link>
           </Reveal>
 
-          <Reveal delay={0.16} className="relative overflow-hidden bg-white shadow-[0_1px_3px_rgba(0,0,0,0.08)] rounded-2xl p-8">
+          <Reveal delay={0.16} className="group relative overflow-hidden bg-white border border-black/[0.06] shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_28px_-18px_rgba(0,0,0,0.22)] rounded-2xl p-8">
             <Construction
               size={170}
               strokeWidth={0.8}
               aria-hidden="true"
               className="absolute -bottom-7 -right-7 text-[var(--navy-deep)] opacity-[0.07] pointer-events-none select-none"
             />
-            <div className="h-12 w-12 flex items-center justify-center bg-[var(--navy-deep)] text-[var(--amber)]">
+            <div className="h-12 w-12 flex items-center justify-center bg-[var(--navy-deep)] text-[var(--amber)] rounded-xl">
               <Construction size={24} />
             </div>
             <h3 className="font-display uppercase tracking-wide text-2xl text-[var(--navy-deep)] mt-5">
@@ -97,9 +97,9 @@ export default async function Services() {
             <List items={travauxItems} />
             <Link
               href="/services/btp"
-              className="inline-flex items-center gap-2 mt-8 border-2 border-[var(--navy-deep)] hover:bg-[var(--navy-deep)] text-[var(--navy-deep)] hover:text-white font-display uppercase tracking-wide text-[13.5px] px-5 py-2.5 transition-colors"
+              className="inline-flex items-center gap-1.5 font-display uppercase tracking-wide text-[13.5px] text-[var(--red)] mt-8"
             >
-              {t("learnMore")} <ChevronRight size={15} />
+              {t("learnMore")} <ChevronRight size={15} className="transition-transform duration-200 group-hover:translate-x-1" />
             </Link>
           </Reveal>
         </div>
