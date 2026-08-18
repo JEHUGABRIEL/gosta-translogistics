@@ -77,7 +77,6 @@ export default async function ContactPage({
       {/* ===== Hero ===== */}
       <section className="relative bg-[var(--navy-deep)] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-[var(--navy-mid)]/70 via-[var(--navy-deep)] to-[var(--navy-deep)]" />
-        <div className="absolute -right-24 -top-24 h-96 w-96 rounded-full bg-[var(--red)]/10 blur-3xl" />
         <div className="relative mx-auto max-w-7xl px-6 py-20 md:py-28">
           <Reveal>
             <span className="font-mono text-[12.5px] uppercase tracking-[0.25em] text-[var(--amber)]">
@@ -130,7 +129,7 @@ export default async function ContactPage({
             <div className="grid sm:grid-cols-2 gap-4 mt-9">
               {CONTACT_ITEMS.map((item, i) => {
                 const inner = (
-                  <div className="h-full bg-white border border-black/[0.06] rounded-2xl p-5 flex flex-col shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_28px_-18px_rgba(0,0,0,0.22)] hover:-translate-y-[3px] hover:shadow-[0_2px_4px_rgba(0,0,0,0.05),0_24px_44px_-22px_rgba(0,0,0,0.34)] transition-[transform,box-shadow] duration-300 ease-[cubic-bezier(0.2,0.7,0.2,1)]">
+                  <div className="h-full bg-white border border-black/[0.06] rounded-2xl p-5 flex flex-col shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_28px_-18px_rgba(0,0,0,0.22)]">
                     <div className="h-10 w-10 flex items-center justify-center bg-[var(--navy-deep)] text-[var(--amber)] rounded-xl">
                       <item.icon size={20} />
                     </div>
@@ -162,12 +161,14 @@ export default async function ContactPage({
                             ? "noopener noreferrer"
                             : undefined
                         }
-                        className="block h-full group"
+                        className="block h-full group hover:-translate-y-[3px] hover:shadow-[0_2px_4px_rgba(0,0,0,0.05),0_24px_44px_-22px_rgba(0,0,0,0.34)] transition-[transform,box-shadow] duration-300 ease-[cubic-bezier(0.2,0.7,0.2,1)]"
                       >
                         {inner}
                       </a>
                     ) : (
-                      <div className="block h-full group">{inner}</div>
+                      <div className="block h-full group hover:-translate-y-[3px] hover:shadow-[0_2px_4px_rgba(0,0,0,0.05),0_24px_44px_-22px_rgba(0,0,0,0.34)] transition-[transform,box-shadow] duration-300 ease-[cubic-bezier(0.2,0.7,0.2,1)]">
+                        {inner}
+                      </div>
                     )}
                   </Reveal>
                 );

@@ -61,7 +61,7 @@ export default function Testimonials() {
                     &laquo; {comments[index]?.quote} &raquo;
                   </p>
                   <p className="font-mono text-[13px] uppercase tracking-wide text-[var(--red)] mt-5">
-                    {comments[index]?.role} — {comments[index]?.context}
+                    {comments[index]?.role} · {comments[index]?.context}
                   </p>
                 </motion.div>
               </AnimatePresence>
