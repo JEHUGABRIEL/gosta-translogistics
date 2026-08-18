@@ -136,14 +136,9 @@ function MobileAccordion({
         onClick={() => setOpen((o) => !o)}
         className="w-full flex items-center justify-between gap-4 py-5 text-left group"
       >
-        <span className="flex items-baseline gap-4">
-          <span className="font-mono text-[12px] text-[var(--red)]">
-            {String(index + 1).padStart(2, "0")}
-          </span>
-          <span className="font-display font-extrabold text-4xl uppercase tracking-wide text-white group-hover:text-[var(--red)] transition-colors">
+        <span className="font-display font-extrabold text-4xl uppercase tracking-wide text-white group-hover:text-[var(--red)] transition-colors">
             {label}
           </span>
-        </span>
         <span
           className={`shrink-0 transition-all duration-300 ${
             open ? "rotate-180 text-[var(--amber)]" : "text-white/40 group-hover:text-[var(--red)]"
@@ -442,13 +437,6 @@ export default function Header() {
                 </Link>
                 <div className="flex items-center gap-2.5 sm:gap-3">
                   <LanguageSwitcher />
-                  <button
-                    onClick={() => setOpen(false)}
-                    aria-label={t("closeMenu")}
-                    className="h-10 w-10 flex items-center justify-center border border-white/25 text-white hover:border-[var(--red)] hover:text-[var(--red)] transition-colors"
-                  >
-                    <X size={22} />
-                  </button>
                 </div>
               </div>
 
@@ -465,7 +453,6 @@ export default function Header() {
                     onClick={() => setOpen(false)}
                     className="flex items-baseline gap-4 py-5 group"
                   >
-                    <span className="font-mono text-[12px] text-[var(--red)]">01</span>
                     <span className="font-display font-extrabold text-4xl uppercase tracking-wide text-white group-hover:text-[var(--red)] transition-colors">
                       {t("home")}
                     </span>
@@ -476,14 +463,14 @@ export default function Header() {
                   base="/services/btp"
                   items={btp}
                   onNavigate={() => setOpen(false)}
-                  index={1}
+                  index={0}
                 />
                 <MobileAccordion
                   label={t("logistique")}
                   base="/services/logistique"
                   items={logistique}
                   onNavigate={() => setOpen(false)}
-                  index={2}
+                  index={1}
                 />
                 <motion.div
                   initial={{ opacity: 0, y: 28 }}
@@ -496,7 +483,6 @@ export default function Header() {
                     onClick={() => setOpen(false)}
                     className="flex items-baseline gap-4 py-5 group"
                   >
-                    <span className="font-mono text-[12px] text-[var(--red)]">04</span>
                     <span className="font-display font-extrabold text-4xl uppercase tracking-wide text-white group-hover:text-[var(--red)] transition-colors">
                       {t("contact")}
                     </span>
@@ -541,10 +527,7 @@ export default function Header() {
                 transition={{ delay: 0.6, duration: 0.4 }}
                 className="shrink-0 px-5 sm:px-6 py-6 border-t border-white/10 space-y-4"
               >
-                <div className="font-mono text-[13px] text-[#9aa5b5] space-y-2">
-                  <p className="flex items-center gap-2">
-                    <Phone size={14} className="text-[var(--amber)]" /> 70 12 00 25 / 72 60 05 33
-                  </p>
+                <div className="font-mono text-[13px] text-[#9aa5b5]">
                   <p className="flex items-center gap-2">
                     <Mail size={14} className="text-[var(--amber)]" /> gostatranslogistiquebtp@outlook.fr
                   </p>
