@@ -53,7 +53,7 @@ export default async function ServiceShowcase() {
           <Reveal delay={0.2} className="mt-10">
             <Link
               href="/services/btp"
-              className="inline-flex items-center gap-2 border-2 border-[var(--navy-deep)] hover:bg-[var(--navy-deep)] hover:text-white transition-colors text-[var(--navy-deep)] font-display uppercase tracking-wide text-[14px] px-6 py-3"
+              className="inline-flex items-center gap-2 bg-[var(--red)] hover:bg-[var(--red-dark)] text-white transition-colors font-display uppercase tracking-wide text-[14px] px-6 py-3"
             >
               {t("seeAll")} <ArrowRight size={15} />
             </Link>
@@ -103,7 +103,7 @@ export default async function ServiceShowcase() {
           <Reveal delay={0.2} className="mt-10">
             <Link
               href="/services/logistique"
-              className="inline-flex items-center gap-2 border-2 border-[var(--navy-deep)] hover:bg-[var(--navy-deep)] hover:text-white transition-colors text-[var(--navy-deep)] font-display uppercase tracking-wide text-[14px] px-6 py-3"
+              className="inline-flex items-center gap-2 bg-[var(--red)] hover:bg-[var(--red-dark)] text-white transition-colors font-display uppercase tracking-wide text-[14px] px-6 py-3"
             >
               {t("seeAll")} <ArrowRight size={15} />
             </Link>

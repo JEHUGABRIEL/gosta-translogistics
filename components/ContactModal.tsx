@@ -111,7 +111,7 @@ export default function ContactModal({
                     <button
                       type="button"
                       onClick={() => setView("form")}
-                      className="inline-flex items-center justify-center w-full border-2 border-[var(--navy-deep)] hover:bg-[var(--navy-deep)] hover:text-white transition-colors text-[var(--navy-deep)] font-display uppercase tracking-wide text-base px-6 py-3.5 cursor-pointer"
+                      className="inline-flex items-center justify-center w-full bg-[var(--red)] hover:bg-[var(--red-dark)] text-white transition-colors font-display uppercase tracking-wide text-base px-6 py-3.5 cursor-pointer"
                     >
                       {t("fillForm")}
                     </button>

@@ -193,7 +193,7 @@ export default async function ContactPage({
                   href={SOCIAL_LINKS.googleMaps}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 ml-1 border border-[var(--navy-deep)] hover:bg-[var(--navy-deep)] hover:text-white transition-colors text-[var(--navy-deep)] font-display uppercase tracking-wide text-[13px] px-4 py-3"
+                  className="inline-flex items-center gap-2 ml-1 bg-[var(--red)] hover:bg-[var(--red-dark)] text-white transition-colors font-display uppercase tracking-wide text-[13px] px-4 py-3"
                 >
                   <MapPin size={15} /> {t("maps")}
                 </a>

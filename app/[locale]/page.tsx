@@ -58,7 +58,7 @@ export default async function HomePage({
     ][i % 3],
     image: {
       src: `/hero_section/hero-${i + 1}.png`,
-      alt: "GOSTA TRANS — activités logistiques et BTP",
+      alt: "GOSTA TRANS, activités logistiques et BTP",
     },
     ...[
       {

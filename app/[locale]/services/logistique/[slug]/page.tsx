@@ -18,7 +18,7 @@ export async function generateMetadata({
   const service = getServiceBySlug(locale, "logistique", slug);
   if (!service) return {};
   return pageMetadata({
-    title: `${service.title} — GOSTA TRANS Logistique & BTP`,
+    title: `${service.title} | GOSTA TRANS Logistique & BTP`,
     description: service.short,
     pathname: `/services/logistique/${slug}`,
     locale,

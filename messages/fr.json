@@ -212,7 +212,7 @@
     "copyright": "Votre partenaire de confiance en transport et logistique"
   },
   "contact": {
-    "metadataTitle": "Contact — GOSTA TRANS | Logistique & BTP, Bangui",
+    "metadataTitle": "Contact | GOSTA TRANS Logistique & BTP, Bangui",
     "metadataDescription": "Contactez GOSTA TRANS LOGISTIQUE & BTP à Bangui : transport de matériaux, location d'engins et construction. Téléphone, WhatsApp, email et plan d'accès.",
     "eyebrow": "À propos & contact",
     "title": "CONTACT",
@@ -220,7 +220,7 @@
     "call": "Nous appeler",
     "whatsapp": "WhatsApp",
     "sectionTitle": "Parlons de votre projet",
-    "sectionText": "Transport de matériaux, location d'engins, gros œuvre ou finitions — décrivez votre besoin, on s'occupe du reste.",
+    "sectionText": "Transport de matériaux, location d'engins, gros œuvre ou finitions : décrivez votre besoin, on s'occupe du reste.",
     "items": {
       "address": { "label": "Adresse", "value": "PK14 Route de Boali, Bangui, RCA" },
       "phone": { "label": "Téléphone", "value": "70 12 00 25 / 72 60 05 33" },
@@ -232,24 +232,24 @@
     "formTitle": "Écrivez-nous",
     "formText": "Remplissez le formulaire : votre demande s'ouvre directement dans WhatsApp, prête à être envoyée.",
     "findTitle": "Nous trouver",
-    "findText": "PK14 Route de Boali, Bangui — République Centrafricaine. Une équipe mobile sur l'ensemble de la région de Bangui."
+    "findText": "PK14 Route de Boali, Bangui, République Centrafricaine. Une équipe mobile sur l'ensemble de la région de Bangui."
   },
   "services": {
     "btp": {
-      "metadataTitle": "Services BTP — GOSTA TRANS Logistique & BTP",
-      "metadataDescription": "Gros œuvre, second œuvre, voirie, terrassement et rénovation à Bangui — les services BTP de GOSTA TRANS.",
+      "metadataTitle": "Services BTP | GOSTA TRANS Logistique & BTP",
+      "metadataDescription": "Gros œuvre, second œuvre, voirie, terrassement et rénovation à Bangui : les services BTP de GOSTA TRANS.",
       "heading": "Services BTP",
-      "intro": "Du gros œuvre aux finitions, en passant par les travaux publics — chaque service peut être mobilisé seul ou combiné avec le transport de matériaux.",
+      "intro": "Du gros œuvre aux finitions, en passant par les travaux publics : chaque service peut être mobilisé seul ou combiné avec le transport de matériaux.",
       "slide1": { "line1": "DU GROS ŒUVRE", "line2": "AUX FINITIONS." },
       "slide2": { "line1": "VOIRIE, TERRASSEMENT,", "line2": "ASSAINISSEMENT." },
       "seeLogistique": "Voir la logistique",
       "seeRealisations": "Nos réalisations"
     },
     "logistique": {
-      "metadataTitle": "Services Logistique — GOSTA TRANS Logistique & BTP",
-      "metadataDescription": "Transport de matériaux, location d'engins, gestion logistique et approvisionnement de chantiers à Bangui — les services logistique de GOSTA TRANS.",
+      "metadataTitle": "Services Logistique | GOSTA TRANS Logistique & BTP",
+      "metadataDescription": "Transport de matériaux, location d'engins, gestion logistique et approvisionnement de chantiers à Bangui : les services logistique de GOSTA TRANS.",
       "heading": "Services logistique",
-      "intro": "Transport, location d'engins et coordination de chantier — mobilisables séparément ou comme prestation complète, en lien direct avec le volet BTP.",
+      "intro": "Transport, location d'engins et coordination de chantier : mobilisables séparément ou comme prestation complète, en lien direct avec le volet BTP.",
       "slide1": { "line1": "VOS MATÉRIAUX,", "line2": "LIVRÉS SANS RUPTURE." },
       "slide2": { "line1": "DU PORT", "line2": "AU CHANTIER." },
       "seeBtp": "Voir le BTP",

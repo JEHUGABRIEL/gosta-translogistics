@@ -1,6 +1,6 @@
 { "metadata": {
-  "title": "GOSTA TRANS — Logistics & Construction | Bangui, CAR",
-  "description": "GOSTA TRANS LOGISTICS & BTP — Maritime, transport and construction-site logistics in Bangui. Equipment rental, structural works, finishing works, roadworks and public works.",
+  "title": "GOSTA TRANS Logistics & Construction | Bangui, CAR",
+  "description": "GOSTA TRANS LOGISTICS & BTP: maritime, transport and construction-site logistics in Bangui. Equipment rental, structural works, finishing works, roadworks and public works.",
   "keywords": "GOSTA TRANS, logistics Bangui, building materials transport, equipment rental, construction Central African Republic, structural works, finishing works, suspended ceilings, roadworks, public works, CAR"
  },
   "nav": {
@@ -20,9 +20,9 @@
     "addressSuffix": " · PK14 Boali Road, Bangui"
   },
   "social": {
-    "facebook": "Facebook — Gosta Trans",
-    "instagram": "Instagram — Gosta Trans",
-    "whatsapp": "WhatsApp — Gosta Trans"
+    "facebook": "Facebook · Gosta Trans",
+    "instagram": "Instagram · Gosta Trans",
+    "whatsapp": "WhatsApp · Gosta Trans"
   },
   "search": {
     "dialogLabel": "Search a service",
@@ -38,7 +38,7 @@
   },
   "quote": {
     "modalTitle": "Get a quote",
-    "modalText": "Transport, equipment rental or a construction site — describe your needs, we'll handle the rest. Reply within 24 business hours.",
+    "modalText": "Transport, equipment rental or a construction site: describe your needs, we'll handle the rest. Reply within 24 business hours.",
     "whatsapp": "Chat on WhatsApp",
     "or": "or",
     "fillForm": "Fill in the form",
@@ -66,7 +66,7 @@
     "writeUs": "Write to us",
     "callUs": "Call us",
     "successTitle": "Request ready!",
-    "successText": "Your request opens in WhatsApp — just send it. We'll get back to you within 24 business hours.",
+    "successText": "Your request opens in WhatsApp, just send it. We'll get back to you within 24 business hours.",
     "defaultMessage": "Hello GOSTA TRANS, I would like to request a quote."
   },
   "home": {
@@ -91,7 +91,7 @@
     },
     "services": {
       "title": "One partner, two trades",
-      "subtitle": "From the dock to the site, GOSTA TRANS coordinates freight and construction under one roof — fewer intermediaries, more control over deadlines.",
+      "subtitle": "From the dock to the site, GOSTA TRANS coordinates freight and construction under one roof: fewer intermediaries, more control over deadlines.",
   "learnMore": "Learn more",
       "maritimeTitle": "Maritime services & transport",
       "maritimeItems": [
@@ -125,16 +125,16 @@
     },
     "quote": {
       "title": "Request your quote",
-      "text": "Describe your needs — transport, equipment rental or construction works — and our team will get back to you with an estimate tailored to the Central African context."
+      "text": "Describe your needs (transport, equipment rental or construction works) and our team will get back to you with an estimate tailored to the Central African context."
     },
     "about": {
       "title": "About GOSTA TRANS",
       "badgeNumber": "2",
       "badgeText": "trades, one single contact",
       "contactUs": "Contact us",
-      "presentation": "GOSTA TRANS LOGISTICS & BTP is a Central African company based in Bangui, at PK14 Boali Road. It brings together under one structure materials transport, equipment rental with operator and construction works — from structural to finishing works.",
+      "presentation": "GOSTA TRANS LOGISTICS & BTP is a Central African company based in Bangui, at PK14 Boali Road. It brings together under one structure materials transport, equipment rental with operator and construction works, from structural to finishing works.",
       "methode": "Every request follows the same thread: receiving the need, mobilising resources (trucks, equipment, teams), then supervised execution on site. This continuity between logistics and construction limits delays caused by supply breaks.",
-      "engagement": "The team works on individual houses as well as residential, commercial or industrial buildings, and on roadworks and urban sanitation projects — with the reliability of a single point of contact from start to finish."
+      "engagement": "The team works on individual houses as well as residential, commercial or industrial buildings, and on roadworks and urban sanitation projects, with the reliability of a single point of contact from start to finish."
     },
     "projects": {
       "title": "Our projects",
@@ -196,7 +196,7 @@
     },
     "cta": {
       "title": "Ready to talk about your project?",
-      "text": "Transport, equipment rental or a construction site — describe your needs, we'll handle the rest.",
+      "text": "Transport, equipment rental or a construction site: describe your needs, we'll handle the rest.",
       "quote": "Get a quote",
       "whatsapp": "WhatsApp"
     }
@@ -212,7 +212,7 @@
     "copyright": "Your trusted partner in transport and logistics"
   },
   "contact": {
-    "metadataTitle": "Contact — GOSTA TRANS | Logistics & Construction, Bangui",
+    "metadataTitle": "Contact | GOSTA TRANS Logistics & Construction, Bangui",
     "metadataDescription": "Contact GOSTA TRANS LOGISTICS & BTP in Bangui: materials transport, equipment rental and construction. Phone, WhatsApp, email and access map.",
     "eyebrow": "About & contact",
     "title": "CONTACT",
@@ -220,7 +220,7 @@
     "call": "Call us",
     "whatsapp": "WhatsApp",
     "sectionTitle": "Let's talk about your project",
-    "sectionText": "Materials transport, equipment rental, structural or finishing works — describe your needs, we'll handle the rest.",
+    "sectionText": "Materials transport, equipment rental, structural or finishing works: describe your needs, we'll handle the rest.",
     "items": {
       "address": { "label": "Address", "value": "PK14 Boali Road, Bangui, CAR" },
       "phone": { "label": "Phone", "value": "70 12 00 25 / 72 60 05 33" },
@@ -232,24 +232,24 @@
     "formTitle": "Write to us",
     "formText": "Fill in the form: your request opens directly in WhatsApp, ready to be sent.",
     "findTitle": "Find us",
-    "findText": "PK14 Boali Road, Bangui — Central African Republic. A team that travels across the whole Bangui area."
+    "findText": "PK14 Boali Road, Bangui, Central African Republic. A team that travels across the whole Bangui area."
   },
   "services": {
     "btp": {
-      "metadataTitle": "BTP Services — GOSTA TRANS Logistics & Construction",
-      "metadataDescription": "Structural works, finishing works, roadworks, earthworks and renovation in Bangui — GOSTA TRANS's construction services.",
+      "metadataTitle": "BTP Services | GOSTA TRANS Logistics & Construction",
+      "metadataDescription": "Structural works, finishing works, roadworks, earthworks and renovation in Bangui: GOSTA TRANS's construction services.",
       "heading": "BTP services",
-      "intro": "From structural works to finishing works, including public works — each service can be mobilised alone or combined with materials transport.",
+      "intro": "From structural works to finishing works, including public works: each service can be mobilised alone or combined with materials transport.",
       "slide1": { "line1": "FROM STRUCTURAL", "line2": "TO FINISHING WORKS." },
       "slide2": { "line1": "ROADWORKS, EARTHWORKS,", "line2": "SANITATION." },
       "seeLogistique": "See logistics",
       "seeRealisations": "Our projects"
     },
     "logistique": {
-      "metadataTitle": "Logistics Services — GOSTA TRANS Logistics & Construction",
-      "metadataDescription": "Materials transport, equipment rental, logistics management and site supply in Bangui — GOSTA TRANS's logistics services.",
+      "metadataTitle": "Logistics Services | GOSTA TRANS Logistics & Construction",
+      "metadataDescription": "Materials transport, equipment rental, logistics management and site supply in Bangui: GOSTA TRANS's logistics services.",
       "heading": "Logistics services",
-      "intro": "Transport, equipment rental and site coordination — available separately or as a full service, in direct link with the construction side.",
+      "intro": "Transport, equipment rental and site coordination: available separately or as a full service, in direct link with the construction side.",
       "slide1": { "line1": "YOUR MATERIALS,", "line2": "DELIVERED WITHOUT BREAKS." },
       "slide2": { "line1": "FROM THE PORT", "line2": "TO THE SITE." },
       "seeBtp": "See BTP",

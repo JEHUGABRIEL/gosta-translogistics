@@ -58,7 +58,7 @@ const jsonLd = {
   "@type": "LocalBusiness",
   name: COMPANY.name,
   description:
-    "GOSTA TRANS LOGISTIQUE & BTP — Maritime, transport et logistique de chantier à Bangui. Location d'engins, gros œuvre, second œuvre, voirie et travaux publics.",
+    "GOSTA TRANS LOGISTIQUE & BTP : maritime, transport et logistique de chantier à Bangui. Location d'engins, gros œuvre, second œuvre, voirie et travaux publics.",
   url: SITE_URL,
   telephone: COMPANY.phones[0],
   email: COMPANY.email,

@@ -40,7 +40,7 @@ export default async function Footer() {
             </li>
             <li className="flex items-start gap-3">
               <MessageCircle size={17} className="text-[var(--amber)] mt-0.5 shrink-0" />
-              <span className="font-mono">WhatsApp — 75 20 03 13</span>
+              <span className="font-mono">WhatsApp · 75 20 03 13</span>
             </li>
             <li className="flex items-start gap-3">
               <Mail size={17} className="text-[var(--amber)] mt-0.5 shrink-0" />
@@ -97,7 +97,7 @@ export default async function Footer() {
               href={SOCIAL_LINKS.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="WhatsApp — Gosta Trans"
+              aria-label="WhatsApp · Gosta Trans"
               className="h-10 w-10 flex items-center justify-center border border-white/20 text-[#cfd6e0] hover:border-[var(--red)] hover:text-[var(--red)] hover:-translate-y-0.5 transition-all"
             >
               <WhatsAppIcon size={18} />
@@ -117,7 +117,7 @@ export default async function Footer() {
 
       <div className="border-t border-white/10">
         <div className="mx-auto max-w-7xl px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-[13px] font-mono text-[#8b96a8]">
-          <span>© {new Date().getFullYear()} GOSTA TRANS LOGISTIQUE &amp; BTP — Bangui, RCA</span>
+          <span>© {new Date().getFullYear()} GOSTA TRANS LOGISTIQUE &amp; BTP · Bangui, RCA</span>
           <span className="text-[var(--red)]">{t("copyright")}</span>
         </div>
       </div>

@@ -22,7 +22,7 @@ export default function About() {
             <div className="relative aspect-[4/5] overflow-hidden rounded-2xl shadow-[0_30px_60px_-20px_rgba(0,0,0,0.35)]">
               <Image
                 src="/hero_section/hero-5.png"
-                alt="GOSTA TRANS — chantier"
+                alt="GOSTA TRANS, chantier"
                 fill
                 sizes="(max-width: 1024px) 100vw, 448px"
                 className="object-cover"
@@ -40,7 +40,7 @@ export default function About() {
             <div className="absolute -bottom-[6%] right-0 lg:-right-[15%] w-[55%] aspect-[3/4] overflow-hidden rounded-2xl shadow-[0_20px_40px_-12px_rgba(0,0,0,0.4)]">
               <Image
                 src="/hero_section/hero-2.png"
-                alt="GOSTA TRANS — Logistique & BTP"
+                alt="GOSTA TRANS Logistique & BTP"
                 fill
                 sizes="280px"
                 className="object-cover"
@@ -70,7 +70,7 @@ export default function About() {
 
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 mt-8 border-2 border-[var(--navy-deep)] hover:bg-[var(--navy-deep)] text-[var(--navy-deep)] hover:text-white font-display uppercase tracking-wide text-[14px] px-6 py-3 transition-colors"
+            className="inline-flex items-center gap-2 mt-8 bg-[var(--red)] hover:bg-[var(--red-dark)] text-white font-display uppercase tracking-wide text-[14px] px-6 py-3 transition-colors"
           >
             {t("contactUs")}
             <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-1" />

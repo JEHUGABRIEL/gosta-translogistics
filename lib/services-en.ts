@@ -21,7 +21,7 @@ export const btpServicesEn: Service[] = [
     short: "Foundations, masonry and structure",
     icon: Building2,
     description:
-      "From the foundations to the load-bearing structure, the GOSTA TRANS team handles the structural works of individual houses, residential, commercial and industrial buildings — with direct coordination with the materials supply.",
+      "From the foundations to the load-bearing structure, the GOSTA TRANS team handles the structural works of individual houses, residential, commercial and industrial buildings, with direct coordination with the materials supply.",
     bullets: [
       "Foundations and initial earthworks",
       "Masonry and raising of load-bearing walls",
@@ -36,7 +36,7 @@ export const btpServicesEn: Service[] = [
     short: "Coffered ceilings, electrical, plumbing",
     icon: PaintRoller,
     description:
-      "Finishing works cover the details that make a building liveable and functional — including coffered ceilings, one of the team's most requested services, as well as basic electrical and plumbing installations.",
+      "Finishing works cover the details that make a building liveable and functional, including coffered ceilings, one of the team's most requested services, as well as basic electrical and plumbing installations.",
     bullets: [
       "Installation of suspended ceilings (coffered ceilings)",
       "Electrical installations and plumbing",
@@ -51,7 +51,7 @@ export const btpServicesEn: Service[] = [
     short: "Roads, sidewalks, public spaces",
     icon: Route,
     description:
-      "GOSTA TRANS works on roadworks and urban development projects — a natural extension of its transport activity, allowing it to quickly mobilise materials and equipment on road networks.",
+      "GOSTA TRANS works on roadworks and urban development projects, a natural extension of its transport activity, allowing it to quickly mobilise materials and equipment on road networks.",
     bullets: [
       "Opening and restoration of roads",
       "Development of sidewalks and public spaces",
@@ -66,7 +66,7 @@ export const btpServicesEn: Service[] = [
     short: "Grading, drainage, networks",
     icon: Shovel,
     description:
-      "Before any construction or road refurbishment, earthworks prepare the ground and sanitation secures water drainage — two stages that GOSTA TRANS manages with its own equipment.",
+      "Before any construction or road refurbishment, earthworks prepare the ground and sanitation secures water drainage: two stages that GOSTA TRANS manages with its own equipment.",
     bullets: [
       "Grading and land preparation",
       "Excavation and installation of drainage networks",
@@ -81,7 +81,7 @@ export const btpServicesEn: Service[] = [
     short: "Upgrading existing buildings",
     icon: Wrench,
     description:
-      "For existing buildings, the team handles structural rehabilitation as well as the upgrade of finishes — electrical, plumbing, ceilings — to extend the lifespan of a property.",
+      "For existing buildings, the team handles structural rehabilitation as well as the upgrade of finishes (electrical, plumbing, ceilings) to extend the lifespan of a property.",
     bullets: [
       "Pre-works assessment",
       "Structural and masonry repairs",
@@ -129,7 +129,7 @@ export const logistiqueServicesEn: Service[] = [
     short: "Site equipment, operator included",
     icon: WrenchIcon,
     description:
-      "GOSTA TRANS provides construction equipment accompanied by a qualified operator — a solution for companies and individuals who do not have their own fleet.",
+      "GOSTA TRANS provides construction equipment accompanied by a qualified operator: a solution for companies and individuals who do not have their own fleet.",
     bullets: [
       "Equipment for earthworks, grading, handling",
       "Qualified operator included",

@@ -31,7 +31,7 @@ export const btpServices: Service[] = [
     short: "Fondations, maçonnerie et structure",
     icon: Building2,
     description:
-      "De la fondation à la structure porteuse, l'équipe GOSTA TRANS prend en charge le gros œuvre des maisons individuelles, immeubles résidentiels, commerciaux et bâtiments industriels — avec une coordination directe avec l'approvisionnement en matériaux.",
+      "De la fondation à la structure porteuse, l'équipe GOSTA TRANS prend en charge le gros œuvre des maisons individuelles, immeubles résidentiels, commerciaux et bâtiments industriels, avec une coordination directe avec l'approvisionnement en matériaux.",
     bullets: [
       "Fondations et terrassement de départ",
       "Maçonnerie et élévation des murs porteurs",
@@ -46,7 +46,7 @@ export const btpServices: Service[] = [
     short: "Plafond staff, électricité, plomberie",
     icon: PaintRoller,
     description:
-      "Le second œuvre couvre les finitions qui rendent un bâtiment habitable et fonctionnel — dont le plafond staff, l'une des prestations les plus demandées de l'équipe, ainsi que l'électricité et la plomberie de base.",
+      "Le second œuvre couvre les finitions qui rendent un bâtiment habitable et fonctionnel, dont le plafond staff, l'une des prestations les plus demandées de l'équipe, ainsi que l'électricité et la plomberie de base.",
     bullets: [
       "Pose de plafonds suspendus (plafond staff)",
       "Installations électriques et plomberie",
@@ -61,7 +61,7 @@ export const btpServices: Service[] = [
     short: "Routes, trottoirs, espaces publics",
     icon: Route,
     description:
-      "GOSTA TRANS intervient sur les chantiers de voirie et d'aménagement urbain — un prolongement naturel de son activité de transport, qui lui permet de mobiliser rapidement matériaux et engins sur les axes de circulation.",
+      "GOSTA TRANS intervient sur les chantiers de voirie et d'aménagement urbain, un prolongement naturel de son activité de transport, qui lui permet de mobiliser rapidement matériaux et engins sur les axes de circulation.",
     bullets: [
       "Ouverture et remise en état de voies",
       "Aménagement de trottoirs et espaces publics",
@@ -76,7 +76,7 @@ export const btpServices: Service[] = [
     short: "Nivellement, drainage, réseaux",
     icon: Shovel,
     description:
-      "Avant toute construction ou réfection de voirie, le terrassement prépare le terrain et l'assainissement sécurise l'évacuation des eaux — deux étapes que GOSTA TRANS pilote avec ses propres engins.",
+      "Avant toute construction ou réfection de voirie, le terrassement prépare le terrain et l'assainissement sécurise l'évacuation des eaux : deux étapes que GOSTA TRANS pilote avec ses propres engins.",
     bullets: [
       "Nivellement et préparation de terrain",
       "Creusement et pose de réseaux de drainage",
@@ -91,7 +91,7 @@ export const btpServices: Service[] = [
     short: "Remise à niveau de bâtiments existants",
     icon: Wrench,
     description:
-      "Pour les bâtiments existants, l'équipe intervient sur la réhabilitation structurelle comme sur la remise à niveau des finitions — électricité, plomberie, plafonds — afin de prolonger la durée de vie d'un bien.",
+      "Pour les bâtiments existants, l'équipe intervient sur la réhabilitation structurelle comme sur la remise à niveau des finitions (électricité, plomberie, plafonds) afin de prolonger la durée de vie d'un bien.",
     bullets: [
       "Diagnostic avant travaux",
       "Reprise de structure et de maçonnerie",
@@ -139,7 +139,7 @@ export const logistiqueServices: Service[] = [
     short: "Engins de chantier, opérateur inclus",
     icon: WrenchIcon,
     description:
-      "GOSTA TRANS met à disposition des engins de chantier accompagnés d'un opérateur qualifié — une solution pour les entreprises et particuliers qui n'ont pas leur propre parc matériel.",
+      "GOSTA TRANS met à disposition des engins de chantier accompagnés d'un opérateur qualifié : une solution pour les entreprises et particuliers qui n'ont pas leur propre parc matériel.",
     bullets: [
       "Engins pour terrassement, nivellement, manutention",
       "Opérateur qualifié inclus",

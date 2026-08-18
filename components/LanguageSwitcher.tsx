@@ -90,7 +90,7 @@ export default function LanguageSwitcher({
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-controls={listboxId}
-        aria-label="Choisir la langue — Choose language"
+        aria-label="Choisir la langue / Choose language"
         className="flex items-center gap-2 cursor-pointer bg-[var(--navy-mid)] border border-white/25 text-[var(--amber)] hover:border-[var(--red)] focus:border-[var(--amber)] focus:outline-none font-mono text-[12.5px] uppercase tracking-wide px-3 py-1.5 transition-colors"
       >
         {/* Globe masqué sur mobile (< sm), visible dès la tablette */}
@@ -109,7 +109,7 @@ export default function LanguageSwitcher({
           <motion.div
             id={listboxId}
             role="listbox"
-            aria-label="Choisir la langue — Choose language"
+            aria-label="Choisir la langue / Choose language"
             initial={{ opacity: 0, y: 6, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 6, scale: 0.97 }}
