@@ -66,11 +66,11 @@ export default function HeroScene() {
       </g>
       {/* containers */}
       <g>
-        <rect x="20" y="470" width="70" height="34" fill="#C81E2C" />
+        <rect x="20" y="470" width="70" height="34" fill="#9E3B42" />
         <rect x="94" y="470" width="70" height="34" fill="#000000" stroke="#2e2e2e" />
         <rect x="20" y="436" width="70" height="34" fill="#111111" stroke="#2e2e2e" />
-        <rect x="168" y="470" width="70" height="34" fill="#C81E2C" />
-        <rect x="168" y="436" width="70" height="34" fill="#8f141f" />
+        <rect x="168" y="470" width="70" height="34" fill="#9E3B42" />
+        <rect x="168" y="436" width="70" height="34" fill="#6E2A30" />
       </g>
       {/* ship hull hint */}
       <path d="M240 560 L400 560 L380 590 L260 590 Z" fill="#080808" stroke="#2e2e2e" />
@@ -81,10 +81,10 @@ export default function HeroScene() {
       <g>
         {/* trailer */}
         <rect x="470" y="500" width="180" height="70" rx="4" fill="#f5f2ec" stroke="#000000" strokeWidth="3" />
-        <text x="480" y="540" fontFamily="var(--font-display)" fontSize="20" fill="#C81E2C" fontWeight="700">GOSTA TRANS</text>
+        <text x="480" y="540" fontFamily="var(--font-display)" fontSize="20" fill="#9E3B42" fontWeight="700">GOSTA TRANS</text>
         <text x="480" y="558" fontFamily="var(--font-body)" fontSize="10" fill="#111111">LOGISTIQUE &amp; BTP</text>
         {/* cab */}
-        <path d="M650 500 L700 500 L718 528 L718 570 L650 570 Z" fill="#C81E2C" stroke="#8f141f" strokeWidth="2" />
+        <path d="M650 500 L700 500 L718 528 L718 570 L650 570 Z" fill="#9E3B42" stroke="#6E2A30" strokeWidth="2" />
         <rect x="662" y="510" width="30" height="20" rx="2" fill="#d2d2d2" opacity="0.8" />
         {/* wheels */}
         <circle cx="510" cy="574" r="16" fill="#12141a" />

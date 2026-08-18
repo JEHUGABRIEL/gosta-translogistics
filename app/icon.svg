@@ -8,7 +8,7 @@
     <!-- fond noir (couleur de marque) -->
     <rect width="256" height="256" fill="#000000"/>
     <!-- barre rouge basse, écho au liseré rouge du header -->
-    <rect y="200" width="256" height="56" fill="#C81E2C"/>
+    <rect y="200" width="256" height="56" fill="#9E3B42"/>
   </g>
   <!-- monogramme G, écho au logo GOSTA TRANS -->
   <text
