@@ -293,7 +293,7 @@ export default function Header() {
 
       {/* main nav — transparent en haut de page, fond bleu au scroll */}
       <div
-        className={`${scrolled ? "bg-[var(--navy-mid)]/95 backdrop-blur" : "bg-transparent"} border-b-2 border-transparent transition-colors duration-300`}
+        className={`${scrolled ? "bg-[var(--navy-mid)]/95 backdrop-blur" : "bg-[var(--navy-deep)]"} transition-colors duration-300`}
       >
         <div className="mx-auto max-w-7xl px-6 flex items-center justify-between h-[var(--header-nav-h)]">
           <Link href="/" className="flex items-center">
