@@ -78,7 +78,7 @@ export default function HeroSearch({
 
         <button
           type="submit"
-          className="inline-flex items-center justify-center gap-2 bg-[var(--red)] hover:bg-[var(--red-dark)] transition-colors text-white font-display uppercase tracking-wide text-base px-8 py-3.5 cursor-pointer"
+          className="btn-liquid inline-flex items-center justify-center gap-2 bg-[var(--navy-deep)] text-white font-display uppercase tracking-wide text-base px-8 py-3.5 cursor-pointer"
         >
           <Search size={17} /> {t("submit")}
         </button>

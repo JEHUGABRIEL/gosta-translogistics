@@ -63,7 +63,7 @@ export default async function Footer() {
             <div className="flex flex-wrap gap-3 mt-7">
               <a
                 href="tel:+23670120025"
-                className="inline-flex items-center gap-2 bg-[var(--red)] hover:bg-[var(--red-dark)] transition-colors text-white font-display uppercase tracking-wide text-[13px] px-5 py-3"
+                className="btn-liquid inline-flex items-center gap-2 bg-[var(--navy-deep)] text-white font-display uppercase tracking-wide text-[13px] px-5 py-3"
               >
                 <Phone size={16} /> {t("call")}
               </a>

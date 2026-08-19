@@ -73,7 +73,7 @@ export default function About() {
 
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 mt-8 bg-[var(--red)] hover:bg-[var(--red-dark)] text-white font-display uppercase tracking-wide text-[14px] px-6 py-3 transition-colors"
+            className="btn-liquid inline-flex items-center gap-2 mt-8 bg-[var(--navy-deep)] text-white font-display uppercase tracking-wide text-[14px] px-6 py-3"
           >
             {t("contactUs")}
             <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-1" />

@@ -113,7 +113,7 @@ export default function QuoteForm() {
           )}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center gap-2 bg-[var(--red)] hover:bg-[var(--red-dark)] transition-colors text-white font-display uppercase tracking-wide text-sm px-4 py-3"
+          className="btn-liquid inline-flex items-center justify-center gap-2 bg-[var(--navy-deep)] text-white font-display uppercase tracking-wide text-sm px-4 py-3"
         >
           <MessageCircle size={16} /> {t("writeUs")}
         </a>
