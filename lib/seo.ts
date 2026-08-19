@@ -7,8 +7,11 @@ export const SITE_URL = "https://gosta-trans.vercel.app";
 export const COMPANY = {
   name: "GOSTA TRANS LOGISTIQUE & BTP",
   shortName: "GOSTA TRANS",
+  // Siège social légal (JSON-LD, mentions légales, confidentialité). L'entreprise
+  // exploite aussi 2 autres sites (PK14 et PK20, route de Boali) — voir SITES
+  // dans lib/social.ts pour l'ensemble des adresses affichées sur le site.
   address: {
-    streetAddress: "PK14 Route de Boali",
+    streetAddress: "SICA II, 2e arrondissement",
     addressLocality: "Bangui",
     addressCountry: "CF",
   },

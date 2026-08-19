@@ -2,7 +2,7 @@
 
 import { useEffect, useState, type ReactNode } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import HeroScene from "./HeroScene";
 import { useQuoteModal } from "./QuoteModalProvider";
 
@@ -24,14 +24,16 @@ export default function HeroCarousel({
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const { openQuote } = useQuoteModal();
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
-    if (slides.length < 2 || paused) return;
+    // Respecte « réduire les animations » : pas de défilement auto (WCAG 2.2.2)
+    if (slides.length < 2 || paused || reduceMotion) return;
     const t = setInterval(() => {
       setIndex((i) => (i + 1) % slides.length);
     }, 6000);
     return () => clearInterval(t);
-  }, [slides.length, paused]);
+  }, [slides.length, paused, reduceMotion]);
 
   const slide = slides[index];
 
@@ -68,7 +70,11 @@ export default function HeroCarousel({
         </motion.div>
         {/* Voile noir simple (style de la section devis) : assombrit
             uniformément l'image, sans dégradé ni flou. */}
-        <div className="absolute inset-0 bg-black/75" />
+        <div className="absolute inset-0 bg-black/60" />
+        {/* Scrim haut : le noir plein du topbar (#000) se prolonge derrière la
+            navbar transparente puis s'estompe sur la photo. Supprime la couture
+            qui séparait visuellement le topbar de la navbar. */}
+        <div className="absolute inset-x-0 top-0 h-44 bg-gradient-to-b from-black from-[35%] to-transparent" />
       </div>
 
       {/* pb-24 md:pb-32 : espace sous les boutons. Quand la barre flottante existe
@@ -87,7 +93,7 @@ export default function HeroCarousel({
             exit={{ opacity: 0, y: -14 }}
             transition={{ duration: 0.55, ease: "easeOut" }}
           >
-            <h1 className="font-display font-extrabold text-white leading-[0.95] text-[13vw] sm:text-6xl md:text-7xl max-w-4xl">
+            <h1 className="font-display font-extrabold text-white leading-[0.95] text-[clamp(2.5rem,13vw,4.5rem)] max-w-4xl">
               {slide.title}
             </h1>
 

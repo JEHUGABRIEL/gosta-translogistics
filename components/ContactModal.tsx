@@ -73,7 +73,7 @@ export default function ContactModal({
               onClick={onClose}
               autoFocus
               aria-label={t("close")}
-              className="absolute top-4 right-4 h-10 w-10 flex items-center justify-center border border-[#D1D1D1] text-[var(--navy-deep)] hover:border-[var(--red)] hover:text-[var(--red)] transition-colors bg-white"
+              className="absolute top-4 right-4 h-10 w-10 flex items-center justify-center border border-[var(--line)] text-[var(--navy-deep)] hover:border-[var(--red)] hover:text-[var(--red)] transition-colors bg-white"
             >
               <X size={20} />
             </button>
@@ -101,11 +101,11 @@ export default function ContactModal({
                     </a>
 
                     <div className="flex items-center gap-4 my-5">
-                      <span className="flex-1 h-px bg-[#E8E8E8]" />
+                      <span className="flex-1 h-px bg-[var(--line-soft)]" />
                       <span className="font-mono text-[12px] uppercase tracking-[0.2em] text-[var(--steel)]">
                         {t("or")}
                       </span>
-                      <span className="flex-1 h-px bg-[#E8E8E8]" />
+                      <span className="flex-1 h-px bg-[var(--line-soft)]" />
                     </div>
 
                     <button
@@ -116,7 +116,7 @@ export default function ContactModal({
                       {t("fillForm")}
                     </button>
 
-                    <div className="mt-6 pt-5 border-t border-[#E8E8E8] flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-6 text-[13.5px] font-mono text-[var(--navy-deep)]">
+                    <div className="mt-6 pt-5 border-t border-[var(--line-soft)] flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-6 text-[13.5px] font-mono text-[var(--navy-deep)]">
                       <a
                         href="tel:+23670120025"
                         className="flex items-center gap-2 hover:text-[var(--red)] transition-colors"

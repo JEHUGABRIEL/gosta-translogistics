@@ -11,7 +11,7 @@ export default function About() {
 
   return (
     <section className="bg-white overflow-x-clip">
-      <div className="mx-auto max-w-7xl px-6 py-12 md:py-16 grid lg:grid-cols-2 gap-16 items-center">
+      <div className="mx-auto max-w-7xl px-6 py-16 md:py-20 grid lg:grid-cols-2 gap-16 items-center">
         {/* Deux photos superposées : la 1re sur la 2e, débord de ~25 %.
             Sur mobile le texte passe devant (order-1), l'image en dessous
             (order-2) ; sur lg l'image repasse à gauche. */}

@@ -17,7 +17,7 @@
   },
   "topbar": {
     "hours": "Mon – Sat · 07:30 – 18:00",
-    "addressSuffix": " · PK14 Boali Road, Bangui"
+    "addressSuffix": " · HQ SICA II, Bangui"
   },
   "social": {
     "facebook": "Facebook · Gosta Trans",
@@ -132,7 +132,7 @@
       "badgeNumber": "2",
       "badgeText": "trades, one single contact",
       "contactUs": "Contact us",
-      "presentation": "GOSTA TRANS LOGISTICS & BTP is a Central African company based in Bangui, at PK14 Boali Road. It brings together under one structure materials transport, equipment rental with operator and construction works, from structural to finishing works.",
+      "presentation": "GOSTA TRANS LOGISTICS & BTP is a Central African company based in Bangui, headquartered at SICA II with two operating sites on Boali Road (PK14 and PK20). It brings together under one structure materials transport, equipment rental with operator and construction works, from structural to finishing works.",
       "methode": "Every request follows the same thread: receiving the need, mobilising resources (trucks, equipment, teams), then supervised execution on site. This continuity between logistics and construction limits delays caused by supply breaks.",
       "engagement": "The team works on individual houses as well as residential, commercial or industrial buildings, and on roadworks and urban sanitation projects, with the reliability of a single point of contact from start to finish."
     },
@@ -204,12 +204,24 @@
   "footer": {
     "tagline": "Logistics & Construction",
     "text": "Maritime, transport and construction for individuals, companies and institutions in the Bangui area.",
+    "copyright": "Your trusted partner in transport and logistics",
+    "call": "Call",
+    "navTitle": "Navigation",
+    "realisations": "Projects",
+    "news": "News",
     "contactTitle": "Contact & location",
+    "hoursValue": "Mon – Sat · 7:30am – 6:00pm",
     "followTitle": "Follow the projects",
     "facebook": "Gosta Trans & Logistique et BTP",
     "instagram": "@Gosta_trans_Logistique_et_BTP",
     "maps": "Open in Google Maps",
-    "copyright": "Your trusted partner in transport and logistics"
+    "sites": {
+      "sica": { "label": "HQ — SICA II", "value": "2nd district, Bangui" },
+      "pk14": { "label": "PK14 site", "value": "Boali Road, Bangui" },
+      "pk20": { "label": "PK20 site", "value": "Boali Road, Bangui" }
+    },
+    "mentions": "Legal notice",
+    "privacy": "Privacy policy"
   },
   "contact": {
     "metadataTitle": "Contact | GOSTA TRANS Logistics & Construction, Bangui",
@@ -222,7 +234,7 @@
     "sectionTitle": "Let's talk about your project",
     "sectionText": "Materials transport, equipment rental, structural or finishing works: describe your needs, we'll handle the rest.",
     "items": {
-      "address": { "label": "Address", "value": "PK14 Boali Road, Bangui, CAR" },
+      "address": { "label": "Addresses", "value": "3 sites in Bangui" },
       "phone": { "label": "Phone", "value": "70 12 00 25 / 72 60 05 33" },
       "whatsapp": { "label": "WhatsApp", "value": "75 20 03 13" },
       "email": { "label": "Email", "value": "gostatranslogistiquebtp@outlook.fr" },
@@ -232,7 +244,12 @@
     "formTitle": "Write to us",
     "formText": "Fill in the form: your request opens directly in WhatsApp, ready to be sent.",
     "findTitle": "Find us",
-    "findText": "PK14 Boali Road, Bangui, Central African Republic. A team that travels across the whole Bangui area."
+    "findText": "Three sites in Bangui: our headquarters at SICA II (2nd district) and two operating sites on Boali Road, at PK14 and PK20.",
+    "sites": {
+      "sica": { "label": "HQ — SICA II", "value": "SICA II, 2nd district, Bangui, CAR" },
+      "pk14": { "label": "PK14 site", "value": "PK14, Boali Road, Bangui, CAR" },
+      "pk20": { "label": "PK20 site", "value": "PK20, Boali Road, Bangui, CAR" }
+    }
   },
   "services": {
     "btp": {
@@ -263,6 +280,124 @@
       "whatsapp": "WhatsApp",
       "relatedTitle": "Other related services",
       "discover": "Discover"
+    }
+  },
+  "legal": {
+    "disclaimer": "This document is a template provided for guidance only. It must be completed and reviewed by a legal professional before publication. The bracketed [TO COMPLETE] passages must be filled in with your information.",
+    "backToSite": "Back to home",
+    "mentions": {
+      "metadataTitle": "Legal notice | GOSTA TRANS Logistics & Construction",
+      "metadataDescription": "Legal notice for the GOSTA TRANS LOGISTICS & BTP website: publisher, host and terms of use.",
+      "eyebrow": "Legal information",
+      "title": "Legal notice",
+      "updated": "Last updated: [TO COMPLETE: date]",
+      "sections": [
+        {
+          "heading": "Site publisher",
+          "body": [
+            "This website is published by GOSTA TRANS LOGISTIQUE & BTP, whose registered office is located at SICA II, 2nd district, Bangui, Central African Republic.",
+            "Legal form: [TO COMPLETE: legal form]. Registration number (RCCM): [TO COMPLETE: RCCM number]. Tax identification number: [TO COMPLETE: tax ID].",
+            "Phone: 70 12 00 25 / 72 60 05 33. WhatsApp: 75 20 03 13. Email: gostatranslogistiquebtp@outlook.fr."
+          ]
+        },
+        {
+          "heading": "Publication director",
+          "body": [
+            "The publication director is [TO COMPLETE: name and title of the person responsible for publication]."
+          ]
+        },
+        {
+          "heading": "Hosting",
+          "body": [
+            "The site is hosted by Vercel Inc., 340 S Lemon Ave #4133, Walnut, CA 91789, United States (vercel.com).",
+            "[TO COMPLETE: confirm the host if the site is deployed elsewhere.]"
+          ]
+        },
+        {
+          "heading": "Intellectual property",
+          "body": [
+            "All content on this site (text, photographs, logos, graphic elements and layout) is protected by intellectual property law.",
+            "Any reproduction, representation or distribution, in whole or in part, without the prior written consent of GOSTA TRANS LOGISTIQUE & BTP is prohibited."
+          ]
+        },
+        {
+          "heading": "Liability",
+          "body": [
+            "The information published on this site is provided for guidance only and may change. GOSTA TRANS LOGISTIQUE & BTP strives to ensure its accuracy but cannot guarantee it in all circumstances.",
+            "The site may contain links to third-party sites whose content GOSTA TRANS LOGISTIQUE & BTP does not control and for which it cannot be held responsible."
+          ]
+        },
+        {
+          "heading": "Personal data",
+          "body": [
+            "The processing of personal data is described in the privacy policy, accessible from the footer.",
+            "The quote form does not store any data on a server: it prepares a message that you send yourself via WhatsApp."
+          ]
+        },
+        {
+          "heading": "Governing law",
+          "body": [
+            "This site and its use are governed by the law of the Central African Republic.",
+            "[TO COMPLETE: competent jurisdiction in the event of a dispute.]"
+          ]
+        }
+      ]
+    },
+    "privacy": {
+      "metadataTitle": "Privacy policy | GOSTA TRANS Logistics & Construction",
+      "metadataDescription": "Privacy policy for the GOSTA TRANS LOGISTICS & BTP website: data collected, purposes and your rights.",
+      "eyebrow": "Your data",
+      "title": "Privacy policy",
+      "updated": "Last updated: [TO COMPLETE: date]",
+      "sections": [
+        {
+          "heading": "Data controller",
+          "body": [
+            "The data controller is GOSTA TRANS LOGISTIQUE & BTP, SICA II, 2nd district, Bangui, Central African Republic.",
+            "For any question about your data: gostatranslogistiquebtp@outlook.fr."
+          ]
+        },
+        {
+          "heading": "Data we collect",
+          "body": [
+            "This is a showcase website. It does not create user accounts and does not request any online payment.",
+            "When you use the quote form, the information you enter (for example your name, contact details and a description of your needs) is used to compose a WhatsApp message that you choose to send. This information then passes through WhatsApp, under that service's own terms."
+          ]
+        },
+        {
+          "heading": "Purposes",
+          "body": [
+            "The information you send us is used solely to respond to your quote, enquiry or contact requests."
+          ]
+        },
+        {
+          "heading": "Hosting and technical logs",
+          "body": [
+            "The site host may automatically collect technical data (for example IP address and connection logs) needed for the operation and security of the site.",
+            "[TO COMPLETE: describe the processing carried out by the host and link to its privacy policy.]"
+          ]
+        },
+        {
+          "heading": "Cookies",
+          "body": [
+            "As of the publication date, the site does not include any audience-measurement tool or advertising cookies.",
+            "[TO COMPLETE: update this section if an analytics or tracking tool is added.]"
+          ]
+        },
+        {
+          "heading": "Retention period",
+          "body": [
+            "[TO COMPLETE: how long requests received, for example by email or WhatsApp, are kept.]"
+          ]
+        },
+        {
+          "heading": "Your rights",
+          "body": [
+            "You can request access to, correction of, or deletion of the information you have sent us by writing to gostatranslogistiquebtp@outlook.fr.",
+            "[TO COMPLETE: name the competent supervisory authority and the applicable data-protection framework.]"
+          ]
+        }
+      ]
     }
   },
   "whatsappInfo": "Hello GOSTA TRANS, I would like some information."

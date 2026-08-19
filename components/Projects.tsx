@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import {
@@ -12,6 +13,7 @@ import {
   Wrench,
   ChevronLeft,
   ChevronRight,
+  ArrowRight,
 } from "lucide-react";
 import Reveal from "./Reveal";
 import ImageCarousel from "./ImageCarousel";
@@ -48,6 +50,7 @@ const CARD_GAP = 24; // gap-6
 export default function Projects() {
   const track = useRef<HTMLDivElement>(null);
   const [paused, setPaused] = useState(false);
+  const reduceMotion = useReducedMotion();
   const t = useTranslations("home.projects");
   const items = t.raw("items") as ProjectItem[];
 
@@ -63,7 +66,8 @@ export default function Projects() {
   // Défilement automatique : avance d'une carte toutes les 4s, puis revient au début
   useEffect(() => {
     const el = track.current;
-    if (!el) return;
+    // Respecte « réduire les animations » : pas de défilement auto (WCAG 2.2.2)
+    if (!el || reduceMotion) return;
 
     const interval = setInterval(() => {
       if (paused) return;
@@ -78,14 +82,14 @@ export default function Projects() {
     }, 4000);
 
     return () => clearInterval(interval);
-  }, [paused]);
+  }, [paused, reduceMotion]);
 
   return (
     <section id="realisations" className="bg-[var(--sand)]">
       {/* pt-24 lg:pt-40 : laisse la place au formulaire de la section devis,
           qui déborde désormais par-dessus cette section (Process ne la suit
           plus). */}
-      <div className="mx-auto max-w-7xl px-6 py-12 pt-24 lg:pt-40">
+      <div className="mx-auto max-w-7xl px-6 pb-16 md:pb-20 pt-24 lg:pt-40">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <Reveal className="max-w-xl">
             <h2 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)]">
@@ -97,14 +101,14 @@ export default function Projects() {
             <button
               onClick={() => scroll(-1)}
               aria-label={t("prev")}
-              className="h-10 w-10 flex items-center justify-center border border-[#D1D1D1] hover:border-[var(--red)] hover:text-[var(--red)] text-[var(--navy-deep)] transition-colors"
+              className="h-10 w-10 flex items-center justify-center border border-[var(--line)] hover:border-[var(--red)] hover:text-[var(--red)] text-[var(--navy-deep)] transition-colors"
             >
               <ChevronLeft size={18} />
             </button>
             <button
               onClick={() => scroll(1)}
               aria-label={t("next")}
-              className="h-10 w-10 flex items-center justify-center border border-[#D1D1D1] hover:border-[var(--red)] hover:text-[var(--red)] text-[var(--navy-deep)] transition-colors"
+              className="h-10 w-10 flex items-center justify-center border border-[var(--line)] hover:border-[var(--red)] hover:text-[var(--red)] text-[var(--navy-deep)] transition-colors"
             >
               <ChevronRight size={18} />
             </button>
@@ -158,7 +162,7 @@ export default function Projects() {
                   </h3>
                   <span className="inline-flex items-center gap-1.5 font-display uppercase tracking-wide text-[14px] text-[var(--red)] mt-5">
                     {t("readMore")}
-                    <ChevronRight
+                    <ArrowRight
                       size={16}
                       className="transition-transform duration-200 group-hover:translate-x-1"
                     />

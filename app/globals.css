@@ -10,12 +10,18 @@
   --navy-line: #222222;
   --red: #9E3B42;
   --red-dark: #6E2A30;
-  /* Fond « papier » du site — passé en blanc */
-  --sand: #FFFFFF;
+  /* Fond des sections « claires » — gris très clair, PAS blanc pur, pour que
+     l'alternance de sections (bg-white / bg-[var(--sand)]) soit enfin visible.
+     La teinte crème « papier » avait été rejetée : on reste sur du gris neutre. */
+  --sand: #F5F5F5;
   /* Accent neutre (gris) — la teinte crème donnait un rendu « papier » */
   --sand-deep: #ECECEC;
   --steel: #59626E;
   --amber: #E8A33D;
+  /* Filets & bordures d'UI claire (bordures de champs, flèches de carrousel,
+     points indicateurs) — un seul jeu de neutres au lieu de gris codés en dur */
+  --line: #D1D1D1;
+  --line-soft: #E1E1E1;
 
   /* Hauteurs du header sticky — la hero section s'étend derrière lui via
      -mt-[var(--header-h)] pour que la navbar transparente hérite de son fond */
@@ -30,6 +36,16 @@ html {
 
 body {
   font-family: var(--font-body);
+}
+
+/* Anneau de focus clavier global (WCAG 2.4.7). Les éléments qui posent
+   explicitement `outline-none` (champs de formulaire, qui gèrent leur propre
+   focus par changement de bordure) l'emportent par spécificité — cette règle
+   ne couvre donc que les liens/boutons/flèches qui n'en définissaient aucun.
+   Rouge #9E3B42 : contraste ≥ 3:1 sur clair comme sur sombre (WCAG 1.4.11). */
+:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 2px;
 }
 
 .font-display {

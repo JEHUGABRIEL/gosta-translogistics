@@ -1,4 +1,4 @@
-import { Ship, Building2, Construction, ChevronRight } from "lucide-react";
+import { Ship, Building2, Construction, ChevronRight, ArrowRight } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import Reveal from "./Reveal";
@@ -24,7 +24,7 @@ export default async function Services() {
 
   return (
     <section id="services" className="bg-[var(--sand)]">
-      <div className="mx-auto max-w-7xl px-6 pt-20 pb-12">
+      <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
         <Reveal className="max-w-2xl">
           <h2 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)]">
             {t("title")}
@@ -55,7 +55,7 @@ export default async function Services() {
               href="/services/logistique"
               className="inline-flex items-center gap-1.5 font-display uppercase tracking-wide text-[13.5px] text-[var(--red)] mt-8"
             >
-              {t("learnMore")} <ChevronRight size={15} className="transition-transform duration-200 group-hover:translate-x-1" />
+              {t("learnMore")} <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-1" />
             </Link>
           </Reveal>
 
@@ -77,7 +77,7 @@ export default async function Services() {
               href="/services/btp"
               className="inline-flex items-center gap-1.5 font-display uppercase tracking-wide text-[13.5px] text-[var(--red)] mt-8"
             >
-              {t("learnMore")} <ChevronRight size={15} className="transition-transform duration-200 group-hover:translate-x-1" />
+              {t("learnMore")} <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-1" />
             </Link>
           </Reveal>
 
@@ -99,7 +99,7 @@ export default async function Services() {
               href="/services/btp"
               className="inline-flex items-center gap-1.5 font-display uppercase tracking-wide text-[13.5px] text-[var(--red)] mt-8"
             >
-              {t("learnMore")} <ChevronRight size={15} className="transition-transform duration-200 group-hover:translate-x-1" />
+              {t("learnMore")} <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-1" />
             </Link>
           </Reveal>
         </div>

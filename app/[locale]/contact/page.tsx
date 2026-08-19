@@ -20,7 +20,7 @@ import {
   InstagramIcon,
   WhatsAppIcon,
 } from "@/components/SocialIcons";
-import { SOCIAL_LINKS } from "@/lib/social";
+import { SOCIAL_LINKS, SITES } from "@/lib/social";
 
 export async function generateMetadata({
   params,
@@ -42,7 +42,8 @@ const CONTACT_ITEMS: {
   icon: LucideIcon;
   href?: string;
 }[] = [
-  { id: "address", icon: MapPin, href: SOCIAL_LINKS.googleMaps },
+  // 3 sites (voir la section « Nous trouver » plus bas) : pas de lien unique ici.
+  { id: "address", icon: MapPin },
   { id: "phone", icon: Phone, href: "tel:+23670120025" },
   { id: "whatsapp", icon: MessageCircle, href: SOCIAL_LINKS.whatsapp },
   {
@@ -184,7 +185,7 @@ export default async function ContactPage({
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={tSocial(labelKey)}
-                    className="h-11 w-11 flex items-center justify-center bg-white border border-[#E8E8E8] text-[var(--navy-deep)] hover:border-[var(--red)] hover:text-[var(--red)] hover:-translate-y-0.5 transition-all"
+                    className="h-11 w-11 flex items-center justify-center bg-white border border-[var(--line-soft)] text-[var(--navy-deep)] hover:border-[var(--red)] hover:text-[var(--red)] hover:-translate-y-0.5 transition-all"
                   >
                     <Icon size={18} />
                   </a>
@@ -229,26 +230,31 @@ export default async function ContactPage({
             </p>
           </Reveal>
 
-          <Reveal delay={0.1} className="mt-9">
-            <div className="relative border border-[#E8E8E8] shadow-xl rounded-2xl overflow-hidden">
-              <iframe
-                title={t("findTitle")}
-                src="https://www.google.com/maps?q=PK14+Route+de+Boali+Bangui+RCA&output=embed"
-                className="w-full h-[380px] md:h-[460px] block"
-                loading="lazy"
-                allowFullScreen
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-            </div>
-            <a
-              href={SOCIAL_LINKS.googleMaps}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 mt-6 bg-[var(--red)] hover:bg-[var(--red-dark)] transition-colors text-white font-display uppercase tracking-wide text-[15px] px-6 py-3"
-            >
-              {t("maps")} <ArrowUpRight size={16} />
-            </a>
-          </Reveal>
+          <div className="grid sm:grid-cols-3 gap-5 mt-9">
+            {SITES.map((site, i) => (
+              <Reveal key={site.id} delay={0.1 + i * 0.05}>
+                <a
+                  href={site.mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group block h-full bg-white border border-[var(--line-soft)] shadow-xl rounded-2xl p-6 hover:-translate-y-[3px] transition-transform duration-300 ease-[cubic-bezier(0.2,0.7,0.2,1)]"
+                >
+                  <div className="h-10 w-10 flex items-center justify-center bg-[var(--navy-deep)] text-[var(--amber)] rounded-xl">
+                    <MapPin size={20} />
+                  </div>
+                  <span className="block font-display uppercase tracking-wide text-[16px] text-[var(--navy-deep)] mt-4 group-hover:text-[var(--red)] transition-colors">
+                    {t(`sites.${site.id}.label`)}
+                  </span>
+                  <span className="block text-[var(--steel)] text-[14.5px] mt-1">
+                    {t(`sites.${site.id}.value`)}
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 mt-4 font-mono text-[12px] uppercase tracking-wide text-[var(--red)]">
+                    {t("maps")} <ArrowUpRight size={13} />
+                  </span>
+                </a>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 

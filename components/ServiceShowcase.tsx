@@ -43,7 +43,7 @@ export default async function ServiceShowcase() {
                   </p>
                   <span className="inline-flex items-center gap-1.5 font-display uppercase tracking-wide text-[13px] text-[var(--red)] mt-5">
                     {t("seeAll")}
-                    <ChevronRightInline />
+                    <ArrowRightInline />
                   </span>
                 </Link>
               </Reveal>
@@ -93,7 +93,7 @@ export default async function ServiceShowcase() {
                   </p>
                   <span className="inline-flex items-center gap-1.5 font-display uppercase tracking-wide text-[13px] text-[var(--red)] mt-5">
                     {t("seeAll")}
-                    <ChevronRightInline />
+                    <ArrowRightInline />
                   </span>
                 </Link>
               </Reveal>
@@ -114,7 +114,7 @@ export default async function ServiceShowcase() {
   );
 }
 
-function ChevronRightInline() {
+function ArrowRightInline() {
   return (
     <ArrowRight
       size={14}

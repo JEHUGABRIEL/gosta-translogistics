@@ -18,7 +18,7 @@ export default async function QuoteSection() {
         style={{ objectFit: "cover" }}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-[var(--navy-deep)] via-[var(--navy-deep)]/45 to-[var(--navy-deep)]/15" />
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
       <div className="absolute inset-x-0 top-0 h-44 bg-gradient-to-b from-[var(--navy-deep)]/90 via-[var(--navy-deep)]/40 to-transparent" />
 
       {/* pb-0 + translate-y-16/20 : le formulaire déborde du bas de la section sur

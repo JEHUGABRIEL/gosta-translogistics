@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Calendar, ChevronRight, Shovel, Users } from "lucide-react";
+import { Calendar, ArrowRight, Shovel, Users } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import ImageCarousel from "./ImageCarousel";
 import Reveal from "./Reveal";
@@ -35,7 +35,7 @@ export default async function News() {
 
   return (
     <section id="actualites" className="bg-white">
-      <div className="mx-auto max-w-7xl px-6 py-12">
+      <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
         <Reveal>
           <h2 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)]">
             {t("title")}
@@ -83,7 +83,7 @@ export default async function News() {
                   </div>
                   <span className="inline-flex items-center gap-1.5 font-display uppercase tracking-wide text-[13px] text-[var(--red)] mt-5">
                     {t("readMore")}
-                    <ChevronRight
+                    <ArrowRight
                       size={15}
                       className="transition-transform duration-200 group-hover:translate-x-1"
                     />

@@ -37,7 +37,7 @@ export default function CTASection() {
             href="https://wa.me/23675200313"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 bg-white hover:bg-[#f0ede4] transition-colors text-[var(--red)] font-display uppercase tracking-wide text-sm px-4 py-3 sm:text-base sm:px-7 sm:py-3.5"
+            className="inline-flex items-center justify-center gap-2 bg-white hover:bg-[var(--sand-deep)] transition-colors text-[var(--red)] font-display uppercase tracking-wide text-sm px-4 py-3 sm:text-base sm:px-7 sm:py-3.5"
           >
             <MessageCircle size={17} /> {t("whatsapp")}
           </a>

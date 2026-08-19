@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { Quote, ChevronLeft, ChevronRight } from "lucide-react";
 import Reveal from "./Reveal";
@@ -16,19 +16,28 @@ export default function Testimonials() {
   const t = useTranslations("home.testimonials");
   const comments = t.raw("comments") as Comment[];
   const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
-    if (comments.length < 2) return;
+    // Respecte « réduire les animations » + pause au survol/focus (WCAG 2.2.2)
+    if (comments.length < 2 || paused || reduceMotion) return;
     const timer = setInterval(
       () => setIndex((i) => (i + 1) % comments.length),
       7000
     );
     return () => clearInterval(timer);
-  }, [comments.length]);
+  }, [comments.length, paused, reduceMotion]);
 
   return (
-    <section className="bg-[var(--sand)]">
-      <div className="mx-auto max-w-7xl px-6 py-20">
+    <section
+      className="bg-[var(--sand)]"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocusCapture={() => setPaused(true)}
+      onBlurCapture={() => setPaused(false)}
+    >
+      <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
         <Reveal>
           <h2 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)]">
             {t("title")}
@@ -40,7 +49,7 @@ export default function Testimonials() {
           <button
             aria-label={t("prev")}
             onClick={() => setIndex((i) => (i - 1 + comments.length) % comments.length)}
-            className="shrink-0 h-11 w-11 lg:h-12 lg:w-12 flex items-center justify-center border border-[#D1D1D1] text-[var(--navy-deep)] hover:border-[var(--red)] hover:text-[var(--red)] transition-colors"
+            className="shrink-0 h-11 w-11 lg:h-12 lg:w-12 flex items-center justify-center border border-[var(--line)] text-[var(--navy-deep)] hover:border-[var(--red)] hover:text-[var(--red)] transition-colors"
           >
             <ChevronLeft size={20} />
           </button>
@@ -71,7 +80,7 @@ export default function Testimonials() {
           <button
             aria-label={t("next")}
             onClick={() => setIndex((i) => (i + 1) % comments.length)}
-            className="shrink-0 h-11 w-11 lg:h-12 lg:w-12 flex items-center justify-center border border-[#D1D1D1] text-[var(--navy-deep)] hover:border-[var(--red)] hover:text-[var(--red)] transition-colors"
+            className="shrink-0 h-11 w-11 lg:h-12 lg:w-12 flex items-center justify-center border border-[var(--line)] text-[var(--navy-deep)] hover:border-[var(--red)] hover:text-[var(--red)] transition-colors"
           >
             <ChevronRight size={20} />
           </button>
@@ -84,7 +93,7 @@ export default function Testimonials() {
               key={i}
               aria-label={t("commentLabel", { n: i + 1 })}
               onClick={() => setIndex(i)}
-              className={`h-1.5 w-8 transition-colors ${i === index ? "bg-[var(--red)]" : "bg-[#E1E1E1]"}`}
+              className={`h-1.5 w-8 transition-colors ${i === index ? "bg-[var(--red)]" : "bg-[var(--line-soft)]"}`}
             />
           ))}
         </div>

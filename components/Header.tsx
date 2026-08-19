@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
 import {
   Phone,
@@ -93,7 +94,7 @@ function DesktopDropdown({
               ))}
               <Link
                 href={base}
-                className="flex items-center justify-between px-5 py-3 mt-1 border-t border-[#EEEEEE] font-display uppercase tracking-wide text-[13px] text-[var(--red)]"
+                className="flex items-center justify-between px-5 py-3 mt-1 border-t border-[var(--line-soft)] font-display uppercase tracking-wide text-[13px] text-[var(--red)]"
               >
                 {t("allServices")} <ChevronRight size={15} />
               </Link>
@@ -105,7 +106,7 @@ function DesktopDropdown({
   );
 }
 
-function MobileAccordion({
+function MobileServiceGroup({
   label,
   base,
   items,
@@ -118,9 +119,8 @@ function MobileAccordion({
   onNavigate: () => void;
   index: number;
 }) {
-  const [open, setOpen] = useState(false);
-  const t = useTranslations("nav");
-
+  // Affichage « à plat » : le pôle est un titre cliquable (vers sa page
+  // récapitulative) et ses services restent listés en dessous, sans repli.
   return (
     <motion.div
       initial={{ opacity: 0, y: 28 }}
@@ -130,67 +130,32 @@ function MobileAccordion({
         duration: 0.55,
         ease: [0.16, 1, 0.3, 1],
       }}
-      className="border-b border-white/10"
+      className="border-b border-white/10 py-5"
     >
-      <button
-        onClick={() => setOpen((o) => !o)}
-        className="w-full flex items-center justify-between gap-4 py-5 text-left group"
+      <Link
+        href={base}
+        onClick={onNavigate}
+        className="group inline-flex items-baseline gap-4"
       >
         <span className="font-display font-extrabold text-4xl uppercase tracking-wide text-white group-hover:text-[var(--red)] transition-colors">
-            {label}
-          </span>
-        <span
-          className={`shrink-0 transition-all duration-300 ${
-            open ? "rotate-180 text-[var(--amber)]" : "text-white/40 group-hover:text-[var(--red)]"
-          }`}
-        >
-          <ChevronDown size={22} />
+          {label}
         </span>
-      </button>
-      <AnimatePresence initial={false}>
-        {open && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="overflow-hidden"
-          >
-            <div className="flex flex-col pb-5 pl-10">
-              {items.map((item, i) => (
-                <motion.div
-                  key={item.slug}
-                  initial={{ opacity: 0, x: -14 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.05 + i * 0.05, duration: 0.3 }}
-                >
-                  <Link
-                    href={`${base}/${item.slug}`}
-                    onClick={onNavigate}
-                    className="flex items-center gap-3 py-3 text-[#cfd6e0] hover:text-[var(--red)] transition-colors"
-                  >
-                    <item.icon size={18} className="text-[var(--amber)] shrink-0" />
-                    <span className="font-display text-lg">{item.title}</span>
-                  </Link>
-                </motion.div>
-              ))}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.05 + items.length * 0.05, duration: 0.3 }}
-              >
-                <Link
-                  href={base}
-                  onClick={onNavigate}
-                  className="inline-flex items-center gap-2 font-mono text-[12.5px] uppercase tracking-wide text-[var(--amber)] pt-2"
-                >
-                  {t("allServices")} →
-                </Link>
-              </motion.div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      </Link>
+
+      <ul className="mt-3 flex flex-col">
+        {items.map((item) => (
+          <li key={item.slug}>
+            <Link
+              href={`${base}/${item.slug}`}
+              onClick={onNavigate}
+              className="flex items-center gap-3 py-2.5 text-[#cfd6e0] hover:text-[var(--red)] transition-colors"
+            >
+              <item.icon size={18} className="text-[var(--amber)] shrink-0" />
+              <span className="font-display text-lg">{item.title}</span>
+            </Link>
+          </li>
+        ))}
+      </ul>
     </motion.div>
   );
 }
@@ -200,6 +165,7 @@ export default function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [phoneIndex, setPhoneIndex] = useState(0);
   const [scrolled, setScrolled] = useState(false);
+  const reduceMotion = useReducedMotion();
   const { openQuote } = useQuoteModal();
   const locale = useLocale();
   const t = useTranslations("nav");
@@ -210,12 +176,14 @@ export default function Header() {
 
   // Fait défiler les numéros du bandeau, un à la fois
   useEffect(() => {
+    // Respecte « réduire les animations » (WCAG 2.2.2)
+    if (reduceMotion) return;
     const t = setInterval(
       () => setPhoneIndex((i) => (i + 1) % PHONES.length),
       3500
     );
     return () => clearInterval(t);
-  }, []);
+  }, [reduceMotion]);
 
   // Le fond bleu du header n'apparaît qu'une fois la page scrollée
   useEffect(() => {
@@ -328,12 +296,22 @@ export default function Header() {
         className={`${scrolled ? "bg-[var(--navy-mid)]/95 backdrop-blur" : "bg-transparent"} border-b-2 border-transparent transition-colors duration-300`}
       >
         <div className="mx-auto max-w-7xl px-6 flex items-center justify-between h-[var(--header-nav-h)]">
-          <Link href="/" className="flex flex-col justify-center gap-0.5">
-            <span className="font-display font-extrabold text-2xl tracking-wide text-white leading-none">
-              GOSTA <span className="text-[var(--red)]">TRANS</span>
-            </span>
-            <span className="font-display text-[13px] uppercase tracking-[0.18em] text-[var(--amber)] leading-none">
-              {t("tagline")}
+          <Link href="/" className="flex items-center gap-2.5">
+            <Image
+              src="/brand/logo-mark.png"
+              alt=""
+              width={44}
+              height={44}
+              priority
+              className="h-10 w-10 shrink-0"
+            />
+            <span className="flex flex-col justify-center gap-0.5">
+              <span className="font-display font-extrabold text-2xl tracking-wide text-white leading-none">
+                GOSTA <span className="text-[var(--red)]">TRANS</span>
+              </span>
+              <span className="font-display text-[13px] uppercase tracking-[0.18em] text-[var(--amber)] leading-none">
+                {t("tagline")}
+              </span>
             </span>
           </Link>
 
@@ -426,13 +404,22 @@ export default function Header() {
                 <Link
                   href="/"
                   onClick={() => setOpen(false)}
-                  className="flex flex-col justify-center gap-0.5"
+                  className="flex items-center gap-2.5"
                 >
-                  <span className="font-display font-extrabold text-xl tracking-wide text-white leading-none">
-                    GOSTA <span className="text-[var(--red)]">TRANS</span>
-                  </span>
-                  <span className="font-display text-[11px] uppercase tracking-[0.18em] text-[var(--amber)] leading-none">
-                    {t("tagline")}
+                  <Image
+                    src="/brand/logo-mark.png"
+                    alt=""
+                    width={40}
+                    height={40}
+                    className="h-9 w-9 shrink-0"
+                  />
+                  <span className="flex flex-col justify-center gap-0.5">
+                    <span className="font-display font-extrabold text-xl tracking-wide text-white leading-none">
+                      GOSTA <span className="text-[var(--red)]">TRANS</span>
+                    </span>
+                    <span className="font-display text-[11px] uppercase tracking-[0.18em] text-[var(--amber)] leading-none">
+                      {t("tagline")}
+                    </span>
                   </span>
                 </Link>
                 <div className="flex items-center gap-2.5 sm:gap-3">
@@ -458,14 +445,14 @@ export default function Header() {
                     </span>
                   </Link>
                 </motion.div>
-                <MobileAccordion
+                <MobileServiceGroup
                   label={t("btp")}
                   base="/services/btp"
                   items={btp}
                   onNavigate={() => setOpen(false)}
                   index={0}
                 />
-                <MobileAccordion
+                <MobileServiceGroup
                   label={t("logistique")}
                   base="/services/logistique"
                   items={logistique}
