@@ -52,7 +52,10 @@ export default function About() {
         {/* Texte — un seul bloc, sans onglets : les trois contenus
             (présentation, méthode, engagement) s'enchaînent à la suite. */}
         <Reveal delay={0.1} className="order-1 lg:order-2">
-          <h2 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)]">
+          <span className="block font-mono text-[12.5px] uppercase tracking-[0.25em] text-[var(--red)]">
+            {t("eyebrow")}
+          </span>
+          <h2 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)] mt-3">
             {t("title")}
           </h2>
 

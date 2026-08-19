@@ -37,7 +37,10 @@ export default async function News() {
     <section id="actualites" className="bg-white">
       <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
         <Reveal>
-          <h2 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)]">
+          <span className="block font-mono text-[12.5px] uppercase tracking-[0.25em] text-[var(--red)]">
+            {t("eyebrow")}
+          </span>
+          <h2 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)] mt-3">
             {t("title")}
           </h2>
         </Reveal>

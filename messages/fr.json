@@ -8,6 +8,7 @@
     "btp": "BTP",
     "logistique": "Logistique",
     "contact": "Contact",
+    "faq": "FAQ",
     "quote": "Demander un devis",
     "openMenu": "Ouvrir le menu",
     "closeMenu": "Fermer le menu",
@@ -37,6 +38,7 @@
     "submit": "Rechercher"
   },
   "quote": {
+    "modalEyebrow": "Devis gratuit",
     "modalTitle": "Demander un devis",
     "modalText": "Transport, location d'engins ou chantier de construction : décrivez votre besoin, on s'occupe du reste. Réponse sous 24h ouvrées.",
     "whatsapp": "Discuter sur WhatsApp",
@@ -90,6 +92,7 @@
       "writeUs": "Nous écrire"
     },
     "services": {
+      "eyebrow": "Notre expertise",
       "title": "Un partenaire, deux métiers",
       "subtitle": "Du quai au chantier, GOSTA TRANS coordonne le fret et la construction sous un même toit : moins d'intermédiaires, plus de maîtrise sur les délais.",
   "learnMore": "En savoir plus",
@@ -117,7 +120,9 @@
       ]
     },
     "serviceShowcase": {
+      "btpEyebrow": "Pôle construction",
       "btpTitle": "Nos services BTP",
+      "logistiqueEyebrow": "Pôle logistique",
       "logistiqueTitle": "Nos services Logistique",
       "btpText": "Du gros œuvre aux finitions, en passant par la voirie et les travaux publics.",
       "logistiqueText": "Transport de matériaux, location d'engins et coordination complète de vos flux.",
@@ -128,6 +133,7 @@
       "text": "Décrivez votre besoin (transport, location d'engins ou travaux de construction) et notre équipe vous revient avec une estimation adaptée au terrain centrafricain."
     },
     "about": {
+      "eyebrow": "Notre entreprise",
       "title": "À propos de GOSTA TRANS",
       "badgeNumber": "2",
       "badgeText": "métiers, un seul interlocuteur",
@@ -137,6 +143,7 @@
       "engagement": "L'équipe intervient aussi bien sur des maisons individuelles que sur des bâtiments résidentiels, commerciaux ou industriels, ainsi que sur des chantiers de voirie et d'assainissement urbain, avec la rigueur d'un même interlocuteur du début à la fin."
     },
     "projects": {
+      "eyebrow": "Portfolio",
       "title": "Nos réalisations",
       "prev": "Précédent",
       "next": "Suivant",
@@ -151,6 +158,7 @@
       ]
     },
     "testimonials": {
+      "eyebrow": "Avis clients",
       "title": "Commentaires",
       "prev": "Commentaire précédent",
       "next": "Commentaire suivant",
@@ -174,6 +182,7 @@
       ]
     },
     "partners": {
+      "eyebrow": "Ils nous font confiance",
       "title": "Nos partenaires",
       "items": [
         "Institutions locales",
@@ -185,6 +194,7 @@
       ]
     },
     "news": {
+      "eyebrow": "Vie de l'entreprise",
       "title": "Actualités",
       "readMore": "Lire la suite",
       "posts": [
@@ -232,6 +242,7 @@
     "intro": "Une question, un projet de transport ou de construction ? Notre équipe vous répond sous 24h ouvrées.",
     "call": "Nous appeler",
     "whatsapp": "WhatsApp",
+    "sectionEyebrow": "Coordonnées",
     "sectionTitle": "Parlons de votre projet",
     "sectionText": "Transport de matériaux, location d'engins, gros œuvre ou finitions : décrivez votre besoin, on s'occupe du reste.",
     "items": {
@@ -244,6 +255,7 @@
     "maps": "Ouvrir dans Google Maps",
     "formTitle": "Écrivez-nous",
     "formText": "Remplissez le formulaire : votre demande s'ouvre directement dans WhatsApp, prête à être envoyée.",
+    "findEyebrow": "Localisation",
     "findTitle": "Nous trouver",
     "findText": "Trois sites à Bangui : le siège social à SICA II (2e arrondissement) et deux sites d'exploitation sur la route de Boali, au PK14 et au PK20.",
     "sites": {
@@ -256,6 +268,7 @@
     "btp": {
       "metadataTitle": "Services BTP | GOSTA TRANS Logistique & BTP",
       "metadataDescription": "Gros œuvre, second œuvre, voirie, terrassement et rénovation à Bangui : les services BTP de GOSTA TRANS.",
+      "categoryEyebrow": "Catalogue BTP",
       "heading": "Services BTP",
       "intro": "Du gros œuvre aux finitions, en passant par les travaux publics : chaque service peut être mobilisé seul ou combiné avec le transport de matériaux.",
       "slide1": { "line1": "DU GROS ŒUVRE", "line2": "AUX FINITIONS." },
@@ -266,6 +279,7 @@
     "logistique": {
       "metadataTitle": "Services Logistique | GOSTA TRANS Logistique & BTP",
       "metadataDescription": "Transport de matériaux, location d'engins, gestion logistique et approvisionnement de chantiers à Bangui : les services logistique de GOSTA TRANS.",
+      "categoryEyebrow": "Catalogue Logistique",
       "heading": "Services logistique",
       "intro": "Transport, location d'engins et coordination de chantier : mobilisables séparément ou comme prestation complète, en lien direct avec le volet BTP.",
       "slide1": { "line1": "VOS MATÉRIAUX,", "line2": "LIVRÉS SANS RUPTURE." },
@@ -276,9 +290,11 @@
     "detail": {
       "quote": "Demander un devis",
       "allServices": "Tous les services",
+      "detailEyebrow": "Détail du service",
       "similar": "Un besoin similaire ?",
       "similarText": "Contactez l'équipe pour un devis adapté à votre chantier.",
       "whatsapp": "WhatsApp",
+      "relatedEyebrow": "À explorer",
       "relatedTitle": "Autres services associés",
       "discover": "Découvrir"
     }
@@ -401,5 +417,56 @@
       ]
     }
   },
-  "whatsappInfo": "Bonjour GOSTA TRANS, je souhaite avoir des informations."
+  "whatsappInfo": "Bonjour GOSTA TRANS, je souhaite avoir des informations.",
+  "faq": {
+    "metadataTitle": "Questions fréquentes | GOSTA TRANS Logistique & BTP",
+    "metadataDescription": "Devis, délais, zones d'intervention, location d'engins, paiement : les réponses aux questions les plus fréquentes sur GOSTA TRANS Logistique & BTP à Bangui.",
+    "eyebrow": "Questions fréquentes",
+    "title": "FAQ",
+    "intro": "Les réponses aux questions les plus courantes sur nos services de transport, de location d'engins et de construction. Une autre question ? Contactez-nous directement.",
+    "ctaText": "Vous ne trouvez pas la réponse à votre question ?",
+    "ctaButton": "Nous contacter",
+    "items": [
+      {
+        "question": "Comment obtenir un devis ?",
+        "answer": "Remplissez le formulaire « Demander un devis » sur le site ou écrivez-nous directement sur WhatsApp en décrivant votre besoin (transport, location d'engins ou travaux). Nous revenons vers vous sous 24h ouvrées avec une estimation adaptée."
+      },
+      {
+        "question": "Dans quelles zones intervenez-vous ?",
+        "answer": "Nous intervenons principalement à Bangui et sa région, depuis nos trois sites : le siège SICA II (2e arrondissement) et nos deux sites d'exploitation au PK14 et au PK20, route de Boali. Pour un chantier en dehors de cette zone, contactez-nous pour vérifier la faisabilité."
+      },
+      {
+        "question": "Quels types d'engins proposez-vous à la location ?",
+        "answer": "Notre parc couvre les besoins courants de chantier : camions pour le transport de matériaux, engins de terrassement et de manutention, avec opérateur qualifié inclus. Le détail des engins disponibles vous est communiqué au moment du devis."
+      },
+      {
+        "question": "Proposez-vous à la fois le transport et les travaux de construction ?",
+        "answer": "Oui, c'est notre spécificité : GOSTA TRANS réunit sous une même structure le transport de matériaux, la location d'engins et l'exécution de travaux de construction, du gros œuvre aux finitions. Un seul interlocuteur suit votre projet de bout en bout."
+      },
+      {
+        "question": "Quels sont vos délais d'intervention ?",
+        "answer": "Les délais dépendent de la nature du besoin (transport ponctuel, location d'engins ou chantier complet). Nous vous communiquons un délai précis dès l'étude de votre demande, généralement sous 24h ouvrées."
+      },
+      {
+        "question": "Quels sont vos horaires et moyens de contact ?",
+        "answer": "Notre équipe est joignable du lundi au samedi, de 07h30 à 18h00, par téléphone, WhatsApp ou email. En dehors de ces horaires, laissez-nous un message : nous vous répondons dès la reprise."
+      },
+      {
+        "question": "Comment se déroule le paiement ?",
+        "answer": "Les modalités de paiement (acompte, échéancier, règlement à la livraison ou à la réception des travaux) sont définies ensemble au moment du devis, selon la nature et la durée de la prestation."
+      },
+      {
+        "question": "Travaillez-vous avec des particuliers et des entreprises ?",
+        "answer": "Oui, nous intervenons aussi bien pour des particuliers (maisons individuelles) que pour des entreprises, promoteurs immobiliers et institutions publiques, sur des projets résidentiels, commerciaux, industriels ou de voirie."
+      }
+    ]
+  },
+  "floatingContact": {
+    "toggle": "Nous contacter",
+    "close": "Fermer",
+    "call": "Appeler",
+    "whatsapp": "WhatsApp",
+    "quote": "Demander un devis",
+    "scrollTop": "Retour en haut"
+  }
 }

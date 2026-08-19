@@ -55,6 +55,7 @@ export default async function LogistiquePage({
   return (
     <ServiceCategoryTemplate
       base="/services/logistique"
+      eyebrow={t("logistique.categoryEyebrow")}
       heading={t("logistique.heading")}
       intro={t("logistique.intro")}
       slides={slides}

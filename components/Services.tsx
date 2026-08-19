@@ -26,7 +26,10 @@ export default async function Services() {
     <section id="services" className="bg-[var(--sand)]">
       <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
         <Reveal className="max-w-2xl">
-          <h2 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)]">
+          <span className="block font-mono text-[12.5px] uppercase tracking-[0.25em] text-[var(--red)]">
+            {t("eyebrow")}
+          </span>
+          <h2 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)] mt-3">
             {t("title")}
           </h2>
           <p className="text-[var(--steel)] mt-4 leading-relaxed">

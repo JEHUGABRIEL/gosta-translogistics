@@ -92,7 +92,10 @@ export default function Projects() {
       <div className="mx-auto max-w-7xl px-6 pb-16 md:pb-20 pt-24 lg:pt-40">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <Reveal className="max-w-xl">
-            <h2 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)]">
+            <span className="block font-mono text-[12.5px] uppercase tracking-[0.25em] text-[var(--red)]">
+              {t("eyebrow")}
+            </span>
+            <h2 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)] mt-3">
               {t("title")}
             </h2>
           </Reveal>

@@ -55,6 +55,7 @@ export default async function BtpPage({
   return (
     <ServiceCategoryTemplate
       base="/services/btp"
+      eyebrow={t("btp.categoryEyebrow")}
       heading={t("btp.heading")}
       intro={t("btp.intro")}
       slides={slides}

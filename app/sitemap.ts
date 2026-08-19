@@ -6,6 +6,7 @@ import { localizedPath, SITE_URL } from "@/lib/seo";
 const STATIC_PATHS = [
   { path: "/", priority: 1, changeFrequency: "weekly" as const },
   { path: "/contact", priority: 0.6, changeFrequency: "monthly" as const },
+  { path: "/faq", priority: 0.5, changeFrequency: "monthly" as const },
   { path: "/services/logistique", priority: 0.8, changeFrequency: "monthly" as const },
   { path: "/services/btp", priority: 0.8, changeFrequency: "monthly" as const },
 ];

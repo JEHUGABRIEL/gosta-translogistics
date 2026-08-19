@@ -20,7 +20,10 @@ export default async function Partners() {
       {/* Séparation par l'espacement (py-16) plutôt que par un filet */}
       <div className="mx-auto max-w-7xl px-6 py-16">
         <Reveal className="text-center">
-          <h2 className="font-display font-extrabold text-3xl md:text-4xl text-[var(--navy-deep)]">
+          <span className="block font-mono text-[12.5px] uppercase tracking-[0.25em] text-[var(--red)]">
+            {t("eyebrow")}
+          </span>
+          <h2 className="font-display font-extrabold text-3xl md:text-4xl text-[var(--navy-deep)] mt-3">
             {t("title")}
           </h2>
         </Reveal>

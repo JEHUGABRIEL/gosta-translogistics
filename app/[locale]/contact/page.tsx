@@ -122,7 +122,10 @@ export default async function ContactPage({
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20 grid lg:grid-cols-2 gap-12 items-start">
           <div>
             <Reveal>
-              <h2 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)]">
+              <span className="block font-mono text-[12.5px] uppercase tracking-[0.25em] text-[var(--red)]">
+                {t("sectionEyebrow")}
+              </span>
+              <h2 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)] mt-3">
                 {t("sectionTitle")}
               </h2>
               <p className="text-[var(--steel)] mt-4 leading-relaxed max-w-md">
@@ -225,7 +228,10 @@ export default async function ContactPage({
       <section className="bg-white">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
           <Reveal>
-            <h2 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)]">
+            <span className="block font-mono text-[12.5px] uppercase tracking-[0.25em] text-[var(--red)]">
+              {t("findEyebrow")}
+            </span>
+            <h2 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)] mt-3">
               {t("findTitle")}
             </h2>
             <p className="text-[var(--steel)] mt-4 leading-relaxed max-w-xl">

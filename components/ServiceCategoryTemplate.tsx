@@ -10,12 +10,14 @@ import type { Service } from "@/lib/services";
 
 export default async function ServiceCategoryTemplate({
   base,
+  eyebrow,
   heading,
   intro,
   slides,
   services,
 }: {
   base: string;
+  eyebrow: string;
   heading: string;
   intro: string;
   slides: HeroSlide[];
@@ -31,7 +33,10 @@ export default async function ServiceCategoryTemplate({
       <section className="bg-[var(--sand)]">
         <div className="mx-auto max-w-7xl px-6 py-12">
           <Reveal className="max-w-2xl">
-            <h1 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)]">
+            <span className="block font-mono text-[12.5px] uppercase tracking-[0.25em] text-[var(--red)]">
+              {eyebrow}
+            </span>
+            <h1 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)] mt-3">
               {heading}
             </h1>
             <p className="text-[var(--steel)] mt-4 leading-relaxed">{intro}</p>

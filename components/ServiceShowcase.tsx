@@ -14,14 +14,28 @@ export default async function ServiceShowcase() {
       {/* ===== Nos services BTP ===== */}
       <section className="bg-white">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
-          <Reveal className="max-w-2xl">
-            <h2 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)]">
-              {t("btpTitle")}
-            </h2>
-            <p className="text-[var(--steel)] mt-4 leading-relaxed">
-              {t("btpText")}
-            </p>
-          </Reveal>
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <Reveal className="max-w-2xl">
+              <span className="block font-mono text-[12.5px] uppercase tracking-[0.25em] text-[var(--red)]">
+                {t("btpEyebrow")}
+              </span>
+              <h2 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)] mt-3">
+                {t("btpTitle")}
+              </h2>
+              <p className="text-[var(--steel)] mt-4 leading-relaxed">
+                {t("btpText")}
+              </p>
+            </Reveal>
+
+            <Reveal delay={0.1}>
+              <Link
+                href="/services/btp"
+                className="inline-flex items-center gap-2 bg-[var(--red)] hover:bg-[var(--red-dark)] text-white transition-colors font-display uppercase tracking-wide text-[14px] px-6 py-3 shrink-0"
+              >
+                {t("seeAll")} <ArrowRight size={15} />
+              </Link>
+            </Reveal>
+          </div>
 
           {/* Seulement 3 cartes affichées — le bouton « Voir tous nos
               services » mène au catalogue complet. */}
@@ -49,29 +63,34 @@ export default async function ServiceShowcase() {
               </Reveal>
             ))}
           </div>
-
-          <Reveal delay={0.2} className="mt-10">
-            <Link
-              href="/services/btp"
-              className="inline-flex items-center gap-2 bg-[var(--red)] hover:bg-[var(--red-dark)] text-white transition-colors font-display uppercase tracking-wide text-[14px] px-6 py-3"
-            >
-              {t("seeAll")} <ArrowRight size={15} />
-            </Link>
-          </Reveal>
         </div>
       </section>
 
       {/* ===== Nos services Logistique ===== */}
       <section className="bg-[var(--sand)]">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
-          <Reveal className="max-w-2xl">
-            <h2 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)]">
-              {t("logistiqueTitle")}
-            </h2>
-            <p className="text-[var(--steel)] mt-4 leading-relaxed">
-              {t("logistiqueText")}
-            </p>
-          </Reveal>
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <Reveal className="max-w-2xl">
+              <span className="block font-mono text-[12.5px] uppercase tracking-[0.25em] text-[var(--red)]">
+                {t("logistiqueEyebrow")}
+              </span>
+              <h2 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)] mt-3">
+                {t("logistiqueTitle")}
+              </h2>
+              <p className="text-[var(--steel)] mt-4 leading-relaxed">
+                {t("logistiqueText")}
+              </p>
+            </Reveal>
+
+            <Reveal delay={0.1}>
+              <Link
+                href="/services/logistique"
+                className="inline-flex items-center gap-2 bg-[var(--red)] hover:bg-[var(--red-dark)] text-white transition-colors font-display uppercase tracking-wide text-[14px] px-6 py-3 shrink-0"
+              >
+                {t("seeAll")} <ArrowRight size={15} />
+              </Link>
+            </Reveal>
+          </div>
 
           {/* Seulement 3 cartes affichées — le bouton « Voir tous nos
               services » mène au catalogue complet. */}
@@ -99,15 +118,6 @@ export default async function ServiceShowcase() {
               </Reveal>
             ))}
           </div>
-
-          <Reveal delay={0.2} className="mt-10">
-            <Link
-              href="/services/logistique"
-              className="inline-flex items-center gap-2 bg-[var(--red)] hover:bg-[var(--red-dark)] text-white transition-colors font-display uppercase tracking-wide text-[14px] px-6 py-3"
-            >
-              {t("seeAll")} <ArrowRight size={15} />
-            </Link>
-          </Reveal>
         </div>
       </section>
     </>

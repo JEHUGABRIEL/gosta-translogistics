@@ -37,7 +37,10 @@ export default async function ServiceDetailTemplate({
         <div className="mx-auto max-w-7xl px-6 py-12 grid lg:grid-cols-[2fr_1fr] gap-16">
           <div>
             <Reveal>
-              <h1 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)]">
+              <span className="block font-mono text-[12.5px] uppercase tracking-[0.25em] text-[var(--red)]">
+                {t("detailEyebrow")}
+              </span>
+              <h1 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)] mt-3">
                 {service.title}
               </h1>
               <p
@@ -84,7 +87,10 @@ export default async function ServiceDetailTemplate({
       <section className="bg-[var(--sand)]">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
           <Reveal>
-            <h2 className="font-display font-extrabold text-3xl md:text-4xl text-[var(--navy-deep)]">
+            <span className="block font-mono text-[12.5px] uppercase tracking-[0.25em] text-[var(--red)]">
+              {t("relatedEyebrow")}
+            </span>
+            <h2 className="font-display font-extrabold text-3xl md:text-4xl text-[var(--navy-deep)] mt-3">
               {t("relatedTitle")}
             </h2>
           </Reveal>

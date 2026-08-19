@@ -8,6 +8,7 @@
     "btp": "BTP",
     "logistique": "Logistics",
     "contact": "Contact",
+    "faq": "FAQ",
     "quote": "Get a quote",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
@@ -37,6 +38,7 @@
     "submit": "Search"
   },
   "quote": {
+    "modalEyebrow": "Free quote",
     "modalTitle": "Get a quote",
     "modalText": "Transport, equipment rental or a construction site: describe your needs, we'll handle the rest. Reply within 24 business hours.",
     "whatsapp": "Chat on WhatsApp",
@@ -90,6 +92,7 @@
       "writeUs": "Write to us"
     },
     "services": {
+      "eyebrow": "Our expertise",
       "title": "One partner, two trades",
       "subtitle": "From the dock to the site, GOSTA TRANS coordinates freight and construction under one roof: fewer intermediaries, more control over deadlines.",
   "learnMore": "Learn more",
@@ -117,7 +120,9 @@
       ]
     },
     "serviceShowcase": {
+      "btpEyebrow": "Construction division",
       "btpTitle": "Our BTP services",
+      "logistiqueEyebrow": "Logistics division",
       "logistiqueTitle": "Our logistics services",
       "btpText": "From structural works to finishing works, including roadworks and public works.",
       "logistiqueText": "Materials transport, equipment rental and complete coordination of your flows.",
@@ -128,6 +133,7 @@
       "text": "Describe your needs (transport, equipment rental or construction works) and our team will get back to you with an estimate tailored to the Central African context."
     },
     "about": {
+      "eyebrow": "Our company",
       "title": "About GOSTA TRANS",
       "badgeNumber": "2",
       "badgeText": "trades, one single contact",
@@ -137,6 +143,7 @@
       "engagement": "The team works on individual houses as well as residential, commercial or industrial buildings, and on roadworks and urban sanitation projects, with the reliability of a single point of contact from start to finish."
     },
     "projects": {
+      "eyebrow": "Portfolio",
       "title": "Our projects",
       "prev": "Previous",
       "next": "Next",
@@ -151,6 +158,7 @@
       ]
     },
     "testimonials": {
+      "eyebrow": "Client feedback",
       "title": "Testimonials",
       "prev": "Previous testimonial",
       "next": "Next testimonial",
@@ -174,6 +182,7 @@
       ]
     },
     "partners": {
+      "eyebrow": "Trusted by",
       "title": "Our partners",
       "items": [
         "Local institutions",
@@ -185,6 +194,7 @@
       ]
     },
     "news": {
+      "eyebrow": "Company news",
       "title": "News",
       "readMore": "Read more",
       "posts": [
@@ -232,6 +242,7 @@
     "intro": "A question, a transport or construction project? Our team replies within 24 business hours.",
     "call": "Call us",
     "whatsapp": "WhatsApp",
+    "sectionEyebrow": "Get in touch",
     "sectionTitle": "Let's talk about your project",
     "sectionText": "Materials transport, equipment rental, structural or finishing works: describe your needs, we'll handle the rest.",
     "items": {
@@ -244,6 +255,7 @@
     "maps": "Open in Google Maps",
     "formTitle": "Write to us",
     "formText": "Fill in the form: your request opens directly in WhatsApp, ready to be sent.",
+    "findEyebrow": "Location",
     "findTitle": "Find us",
     "findText": "Three sites in Bangui: our headquarters at SICA II (2nd district) and two operating sites on Boali Road, at PK14 and PK20.",
     "sites": {
@@ -256,6 +268,7 @@
     "btp": {
       "metadataTitle": "BTP Services | GOSTA TRANS Logistics & Construction",
       "metadataDescription": "Structural works, finishing works, roadworks, earthworks and renovation in Bangui: GOSTA TRANS's construction services.",
+      "categoryEyebrow": "BTP catalog",
       "heading": "BTP services",
       "intro": "From structural works to finishing works, including public works: each service can be mobilised alone or combined with materials transport.",
       "slide1": { "line1": "FROM STRUCTURAL", "line2": "TO FINISHING WORKS." },
@@ -266,6 +279,7 @@
     "logistique": {
       "metadataTitle": "Logistics Services | GOSTA TRANS Logistics & Construction",
       "metadataDescription": "Materials transport, equipment rental, logistics management and site supply in Bangui: GOSTA TRANS's logistics services.",
+      "categoryEyebrow": "Logistics catalog",
       "heading": "Logistics services",
       "intro": "Transport, equipment rental and site coordination: available separately or as a full service, in direct link with the construction side.",
       "slide1": { "line1": "YOUR MATERIALS,", "line2": "DELIVERED WITHOUT BREAKS." },
@@ -276,9 +290,11 @@
     "detail": {
       "quote": "Get a quote",
       "allServices": "All services",
+      "detailEyebrow": "Service details",
       "similar": "A similar need?",
       "similarText": "Contact the team for a quote tailored to your site.",
       "whatsapp": "WhatsApp",
+      "relatedEyebrow": "Explore more",
       "relatedTitle": "Other related services",
       "discover": "Discover"
     }
@@ -401,5 +417,56 @@
       ]
     }
   },
-  "whatsappInfo": "Hello GOSTA TRANS, I would like some information."
+  "whatsappInfo": "Hello GOSTA TRANS, I would like some information.",
+  "faq": {
+    "metadataTitle": "Frequently Asked Questions | GOSTA TRANS Logistics & BTP",
+    "metadataDescription": "Quotes, timelines, service areas, equipment rental, payment: answers to the most frequent questions about GOSTA TRANS Logistics & BTP in Bangui.",
+    "eyebrow": "Frequently asked questions",
+    "title": "FAQ",
+    "intro": "Answers to the most common questions about our transport, equipment rental and construction services. Still have a question? Contact us directly.",
+    "ctaText": "Can't find the answer to your question?",
+    "ctaButton": "Contact us",
+    "items": [
+      {
+        "question": "How do I get a quote?",
+        "answer": "Fill in the \"Get a quote\" form on the site or write to us directly on WhatsApp describing your need (transport, equipment rental or construction works). We get back to you within 24 business hours with a tailored estimate."
+      },
+      {
+        "question": "Which areas do you cover?",
+        "answer": "We mainly operate in Bangui and its surrounding area, from our three sites: the SICA II headquarters (2nd district) and our two operating sites at PK14 and PK20 on Boali Road. For a site outside this area, contact us to check feasibility."
+      },
+      {
+        "question": "What kind of equipment do you rent out?",
+        "answer": "Our fleet covers common site needs: trucks for materials transport, earthmoving and handling equipment, with a qualified operator included. Available equipment details are shared with you at quote stage."
+      },
+      {
+        "question": "Do you offer both transport and construction works?",
+        "answer": "Yes, that's what sets us apart: GOSTA TRANS brings together materials transport, equipment rental and construction works, from structural to finishing works, under one structure. A single point of contact follows your project from start to finish."
+      },
+      {
+        "question": "What are your response times?",
+        "answer": "Timelines depend on the nature of the request (one-off transport, equipment rental or a full construction project). We give you a precise timeline once we've reviewed your request, generally within 24 business hours."
+      },
+      {
+        "question": "What are your hours and how can I reach you?",
+        "answer": "Our team is available Monday to Saturday, 07:30 to 18:00, by phone, WhatsApp or email. Outside these hours, leave us a message: we'll reply as soon as we're back."
+      },
+      {
+        "question": "How does payment work?",
+        "answer": "Payment terms (deposit, installments, payment on delivery or on completion of works) are agreed together at quote stage, depending on the nature and duration of the service."
+      },
+      {
+        "question": "Do you work with individuals and companies?",
+        "answer": "Yes, we work with individuals (private houses) as well as companies, property developers and public institutions, on residential, commercial, industrial or roadworks projects."
+      }
+    ]
+  },
+  "floatingContact": {
+    "toggle": "Contact us",
+    "close": "Close",
+    "call": "Call",
+    "whatsapp": "WhatsApp",
+    "quote": "Get a quote",
+    "scrollTop": "Back to top"
+  }
 }

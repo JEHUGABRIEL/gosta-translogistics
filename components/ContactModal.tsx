@@ -79,7 +79,10 @@ export default function ContactModal({
             </button>
 
             <div className="p-7 md:p-10">
-              <h2 className="font-display font-extrabold text-3xl md:text-4xl text-[var(--navy-deep)] leading-tight">
+              <span className="block font-mono text-[12px] uppercase tracking-[0.25em] text-[var(--red)]">
+                {t("modalEyebrow")}
+              </span>
+              <h2 className="font-display font-extrabold text-3xl md:text-4xl text-[var(--navy-deep)] leading-tight mt-2">
                 {t("modalTitle")}
               </h2>
               <p className="text-[var(--steel)] text-[14.5px] mt-3 leading-relaxed">
