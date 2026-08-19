@@ -29,9 +29,11 @@ type NewsPost = {
   title: string;
 };
 
-export default async function News() {
+export default async function News({ extra = [] }: { extra?: NewsPost[] }) {
   const t = await getTranslations("home.news");
-  const posts = t.raw("posts") as NewsPost[];
+  // Actualités ajoutées depuis le dashboard admin, affichées à la suite des
+  // articles d'origine — n'affecte rien si `extra` est vide (par défaut).
+  const posts = [...(t.raw("posts") as NewsPost[]), ...extra];
 
   return (
     <section id="actualites" className="bg-white">
@@ -48,8 +50,11 @@ export default async function News() {
         <div className="grid md:grid-cols-2 gap-8 mt-8">
           {posts.map(({ date, title }, i) => {
             const Icon = POST_ICONS[i % POST_ICONS.length];
-            // Chaque article affiche ses vraies photos en carrousel
-            const gallery = GALLERIES[i % GALLERIES.length];
+            // Chaque article statique affiche ses vraies photos en carrousel ;
+            // au-delà (articles ajoutés depuis le dashboard admin), on retombe
+            // sur l'image générique ci-dessous plutôt que de réutiliser à tort
+            // les photos des deux premiers articles.
+            const gallery = i < GALLERIES.length ? GALLERIES[i] : undefined;
             const image =
               i % 2 === 0
                 ? U("photo-1521737604893-d14cc237f11d")

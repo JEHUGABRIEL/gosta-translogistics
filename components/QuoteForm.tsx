@@ -33,6 +33,15 @@ export default function QuoteForm() {
       "noopener,noreferrer"
     );
     setSent(true);
+
+    // Best-effort : conserve aussi la demande côté serveur pour le dashboard
+    // admin. N'affecte jamais l'expérience utilisateur si ça échoue —
+    // WhatsApp s'est déjà ouvert au-dessus.
+    fetch("/api/quote", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, phone, service, message: details }),
+    }).catch(() => {});
   };
 
   if (sent) {

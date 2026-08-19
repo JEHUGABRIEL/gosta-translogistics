@@ -4,6 +4,5 @@ import { routing } from "./i18n/routing";
 export default createMiddleware(routing);
 
 export const config = {
-  // Skip all paths that should not be internationalized
-  matcher: ["/((?!api|trpc|_next|_vercel|.*\\..*).*)"],
+  matcher: ["/((?!api|admin|trpc|_next|_vercel|.*\\..*).*)"],
 };

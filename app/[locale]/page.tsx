@@ -13,6 +13,7 @@ import Partners from "@/components/Partners";
 import News from "@/components/News";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
+import { listNewsPosts, listTestimonials } from "@/lib/db/queries";
 
 export async function generateMetadata({
   params,
@@ -79,6 +80,29 @@ export default async function HomePage({
     ][i % 3],
   }));
 
+  // Contenu ajouté depuis le dashboard admin (facultatif) : la BD peut être
+  // absente/non configurée, le site public ne doit jamais en dépendre.
+  const [testimonialsResult, newsResult] = await Promise.allSettled([
+    listTestimonials(true),
+    listNewsPosts(true),
+  ]);
+  const isEn = locale === "en";
+  const extraTestimonials =
+    testimonialsResult.status === "fulfilled"
+      ? testimonialsResult.value.map((row) => ({
+          role: isEn ? row.role_en : row.role_fr,
+          context: isEn ? row.context_en : row.context_fr,
+          quote: isEn ? row.quote_en : row.quote_fr,
+        }))
+      : [];
+  const extraNews =
+    newsResult.status === "fulfilled"
+      ? newsResult.value.map((row) => ({
+          date: isEn ? row.date_label_en : row.date_label_fr,
+          title: isEn ? row.title_en : row.title_fr,
+        }))
+      : [];
+
   return (
     <main>
       <Header />
@@ -88,9 +112,9 @@ export default async function HomePage({
       <ServiceShowcase />
       <QuoteSection />
       <Projects />
-      <Testimonials />
+      <Testimonials extra={extraTestimonials} />
       <Partners />
-      <News />
+      <News extra={extraNews} />
       <CTASection />
       <Footer />
     </main>

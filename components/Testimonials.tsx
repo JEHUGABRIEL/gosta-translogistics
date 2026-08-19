@@ -12,9 +12,11 @@ type Comment = {
   quote: string;
 };
 
-export default function Testimonials() {
+export default function Testimonials({ extra = [] }: { extra?: Comment[] }) {
   const t = useTranslations("home.testimonials");
-  const comments = t.raw("comments") as Comment[];
+  // Témoignages ajoutés depuis le dashboard admin, affichés à la suite des
+  // témoignages d'origine — n'affecte rien si `extra` est vide (par défaut).
+  const comments = [...(t.raw("comments") as Comment[]), ...extra];
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const reduceMotion = useReducedMotion();

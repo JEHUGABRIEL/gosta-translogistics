@@ -5,30 +5,18 @@
   --font-body: 'Manrope', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', 'Courier New', monospace;
 
-  /* Charte alignée sur le logo officiel : bleu marine à la place du noir,
-     orange à la place du rouge. Les noms de variables (--red, --navy-deep…)
-     sont restés inchangés pour ne pas toucher les ~110 usages dans les
-     composants — seule la valeur change. */
   --navy-deep: #0A2540;
   --navy-mid: #123A5C;
   --navy-line: #1D4A73;
   --red: #C2410C;
   --red-dark: #9A3412;
-  /* Fond des sections « claires » — gris très clair, PAS blanc pur, pour que
-     l'alternance de sections (bg-white / bg-[var(--sand)]) soit enfin visible.
-     La teinte crème « papier » avait été rejetée : on reste sur du gris neutre. */
   --sand: #F5F5F5;
-  /* Accent neutre (gris) — la teinte crème donnait un rendu « papier » */
   --sand-deep: #ECECEC;
   --steel: #59626E;
   --amber: #E8A33D;
-  /* Filets & bordures d'UI claire (bordures de champs, flèches de carrousel,
-     points indicateurs) — un seul jeu de neutres au lieu de gris codés en dur */
   --line: #D1D1D1;
   --line-soft: #E1E1E1;
 
-  /* Hauteurs du header sticky — la hero section s'étend derrière lui via
-     -mt-[var(--header-h)] pour que la navbar transparente hérite de son fond */
   --topbar-h: 36px;
   --header-nav-h: 68px;
   --header-h: calc(var(--topbar-h) + var(--header-nav-h));
@@ -42,11 +30,21 @@ body {
   font-family: var(--font-body);
 }
 
-/* Anneau de focus clavier global (WCAG 2.4.7). Les éléments qui posent
-   explicitement `outline-none` (champs de formulaire, qui gèrent leur propre
-   focus par changement de bordure) l'emportent par spécificité — cette règle
-   ne couvre donc que les liens/boutons/flèches qui n'en définissaient aucun.
-   Orange #C2410C : contraste ≥ 4.5:1 sur clair comme sur sombre (WCAG 1.4.11). */
+fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2359626E' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  padding-right: 2rem;
+}
+
 :focus-visible {
   outline: 2px solid var(--red);
   outline-offset: 2px;
@@ -60,8 +58,6 @@ body {
   font-family: var(--font-mono);
 }
 
-/* Hazard stripe divider — echoes container-tape / caution-tape, the
-   visual handshake between the transport and BTP sides of the business */
 .hazard-stripe {
   height: 10px;
   background-image: repeating-linear-gradient(
@@ -101,16 +97,6 @@ body {
   }
 }
 
-/* Bouton « Demander un devis » — au repos le bouton est plein de rouge ;
-   au survol le rouge se VIDE vers le bas comme un liquide (le niveau
-   descend) et laisse apparaître le fond noir (navy).
-
-   Une seule couche rouge, plus haute que le bouton (150 %) avec un léger
-   arc en haut (la surface du liquide) : au repos l'arc est caché au-dessus
-   du bouton → le bouton est pleinement rouge, sans arc ni noir dans les
-   coins ; au survol la couche glisse vers le bas (bottom: 0 → -150 %,
-   transition 1 s) et sort entièrement du bouton, l'arc dessinant la
-   surface liquide qui descend. */
 .btn-liquid {
   position: relative;
   overflow: hidden;
