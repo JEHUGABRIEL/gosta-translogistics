@@ -33,11 +33,12 @@ export default async function Footer() {
   return (
     <footer id="contact" className="bg-[var(--navy-deep)] text-[#cfd6e0]">
       <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
-        {/* Grille volontairement asymétrique (5 / 3 / 4) : la marque porte
-            l'espace, la navigation et les coordonnées restent compactes. */}
+        {/* Grille volontairement asymétrique (4 / 2 / 3 / 3) : la marque porte
+            l'espace, la navigation reste compacte, contact et localisation
+            sont deux blocs distincts de taille égale. */}
         <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-12 lg:gap-10">
           {/* ===== Marque + actions ===== */}
-          <div className="sm:col-span-2 lg:col-span-5">
+          <div className="sm:col-span-2 lg:col-span-4">
             <Link href="/" className="inline-flex flex-col items-start">
               <Image
                 src="/brand/logo-full.png"
@@ -99,7 +100,7 @@ export default async function Footer() {
           </div>
 
           {/* ===== Navigation ===== */}
-          <nav aria-label={t("navTitle")} className="lg:col-span-3">
+          <nav aria-label={t("navTitle")} className="lg:col-span-2">
             <h2 className="font-mono text-[12px] uppercase tracking-[0.25em] text-[var(--amber)]">
               {t("navTitle")}
             </h2>
@@ -117,31 +118,12 @@ export default async function Footer() {
             </ul>
           </nav>
 
-          {/* ===== Coordonnées ===== */}
-          <div className="lg:col-span-4">
+          {/* ===== Contact ===== */}
+          <div className="lg:col-span-3">
             <h2 className="font-mono text-[12px] uppercase tracking-[0.25em] text-[var(--amber)]">
               {t("contactTitle")}
             </h2>
             <ul className="mt-5 space-y-4 text-[14.5px]">
-              <li className="flex gap-3">
-                <MapPin size={17} className="text-[var(--amber)] mt-0.5 shrink-0" />
-                <div className="space-y-3">
-                  {SITES.map((site) => (
-                    <div key={site.id}>
-                      <p className="text-white">{t(`sites.${site.id}.label`)}</p>
-                      <p>{t(`sites.${site.id}.value`)}</p>
-                      <a
-                        href={site.mapsUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 mt-1 font-mono text-[12px] uppercase tracking-wide text-[var(--amber)] hover:text-white transition-colors"
-                      >
-                        {t("maps")} <ArrowUpRight size={13} />
-                      </a>
-                    </div>
-                  ))}
-                </div>
-              </li>
               <li className="flex gap-3">
                 <Phone size={17} className="text-[var(--amber)] mt-0.5 shrink-0" />
                 <div className="flex flex-col font-mono">
@@ -177,6 +159,32 @@ export default async function Footer() {
                 <Clock size={17} className="text-[var(--amber)] mt-0.5 shrink-0" />
                 <span>{t("hoursValue")}</span>
               </li>
+            </ul>
+          </div>
+
+          {/* ===== Localisation ===== */}
+          <div className="lg:col-span-3">
+            <h2 className="font-mono text-[12px] uppercase tracking-[0.25em] text-[var(--amber)]">
+              {t("locationTitle")}
+            </h2>
+            <ul className="mt-5 space-y-4 text-[14.5px]">
+              {SITES.map((site) => (
+                <li key={site.id} className="flex gap-3">
+                  <MapPin size={17} className="text-[var(--amber)] mt-0.5 shrink-0" />
+                  <div>
+                    <p className="text-white">{t(`sites.${site.id}.label`)}</p>
+                    <p>{t(`sites.${site.id}.value`)}</p>
+                    <a
+                      href={site.mapsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 mt-1 font-mono text-[12px] uppercase tracking-wide text-[var(--amber)] hover:text-white transition-colors"
+                    >
+                      {t("maps")} <ArrowUpRight size={13} />
+                    </a>
+                  </div>
+                </li>
+              ))}
             </ul>
           </div>
         </div>

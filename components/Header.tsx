@@ -300,10 +300,10 @@ export default function Header() {
             <Image
               src="/brand/logo-mark.png"
               alt=""
-              width={44}
-              height={44}
+              width={540}
+              height={210}
               priority
-              className="h-10 w-10 shrink-0"
+              className="h-10 w-auto shrink-0"
             />
             <span className="flex flex-col justify-center gap-0.5">
               <span className="font-display font-extrabold text-2xl tracking-wide text-white leading-none">
@@ -409,9 +409,9 @@ export default function Header() {
                   <Image
                     src="/brand/logo-mark.png"
                     alt=""
-                    width={40}
-                    height={40}
-                    className="h-9 w-9 shrink-0"
+                    width={540}
+                    height={210}
+                    className="h-9 w-auto shrink-0"
                   />
                   <span className="flex flex-col justify-center gap-0.5">
                     <span className="font-display font-extrabold text-xl tracking-wide text-white leading-none">

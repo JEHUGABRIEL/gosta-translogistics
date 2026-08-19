@@ -5,11 +5,15 @@
   --font-body: 'Manrope', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', 'Courier New', monospace;
 
-  --navy-deep: #000000;
-  --navy-mid: #111111;
-  --navy-line: #222222;
-  --red: #9E3B42;
-  --red-dark: #6E2A30;
+  /* Charte alignée sur le logo officiel : bleu marine à la place du noir,
+     orange à la place du rouge. Les noms de variables (--red, --navy-deep…)
+     sont restés inchangés pour ne pas toucher les ~110 usages dans les
+     composants — seule la valeur change. */
+  --navy-deep: #0A2540;
+  --navy-mid: #123A5C;
+  --navy-line: #1D4A73;
+  --red: #C2410C;
+  --red-dark: #9A3412;
   /* Fond des sections « claires » — gris très clair, PAS blanc pur, pour que
      l'alternance de sections (bg-white / bg-[var(--sand)]) soit enfin visible.
      La teinte crème « papier » avait été rejetée : on reste sur du gris neutre. */
@@ -42,7 +46,7 @@ body {
    explicitement `outline-none` (champs de formulaire, qui gèrent leur propre
    focus par changement de bordure) l'emportent par spécificité — cette règle
    ne couvre donc que les liens/boutons/flèches qui n'en définissaient aucun.
-   Rouge #9E3B42 : contraste ≥ 3:1 sur clair comme sur sombre (WCAG 1.4.11). */
+   Orange #C2410C : contraste ≥ 4.5:1 sur clair comme sur sombre (WCAG 1.4.11). */
 :focus-visible {
   outline: 2px solid var(--red);
   outline-offset: 2px;
