@@ -76,9 +76,12 @@ export default async function ContactPage({
       <Header />
 
       {/* ===== Hero ===== */}
-      <section className="relative bg-[var(--navy-deep)] overflow-hidden">
+      {/* -mt-[var(--header-h)] : même chevauchement que HeroCarousel, pour que
+          le header transparent hérite de ce fond sombre au lieu du fond clair
+          du body — uniforme avec l'accueil et les pages services. */}
+      <section className="relative bg-[var(--navy-deep)] overflow-hidden -mt-[var(--header-h)]">
         <div className="absolute inset-0 bg-gradient-to-br from-[var(--navy-mid)]/70 via-[var(--navy-deep)] to-[var(--navy-deep)]" />
-        <div className="relative mx-auto max-w-7xl px-6 py-20 md:py-28">
+        <div className="relative mx-auto max-w-7xl px-6 pt-[calc(var(--header-h)+5rem)] md:pt-[calc(var(--header-h)+7rem)] pb-20 md:pb-28">
           <Reveal>
             <span className="font-mono text-[12.5px] uppercase tracking-[0.25em] text-[var(--amber)]">
               {t("eyebrow")}
