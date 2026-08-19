@@ -95,11 +95,7 @@ export default function ConfirmModal({
           <button
             type="button"
             onClick={onConfirm}
-            className={`px-5 py-2.5 text-[13px] font-display uppercase tracking-wide text-white transition-colors cursor-pointer ${
-              danger
-                ? "bg-[var(--red)] hover:bg-[var(--red-dark)]"
-                : "bg-[var(--navy-deep)] hover:bg-[var(--navy-mid)]"
-            }`}
+            className="btn-liquid px-5 py-2.5 text-[13px] font-display uppercase tracking-wide text-white bg-[var(--navy-deep)] cursor-pointer"
           >
             {confirmLabel}
           </button>

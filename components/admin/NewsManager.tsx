@@ -23,7 +23,7 @@ export default function NewsManager({ items }: { items: NewsPost[] }) {
         <button
           type="button"
           onClick={() => setShowForm((v) => !v)}
-          className="inline-flex items-center gap-2 bg-[var(--red)] hover:bg-[var(--red-dark)] text-white transition-colors font-display uppercase tracking-wide text-[13px] px-4 py-2.5 cursor-pointer"
+          className="btn-liquid inline-flex items-center gap-2 bg-[var(--navy-deep)] text-white font-display uppercase tracking-wide text-[13px] px-4 py-2.5 cursor-pointer"
         >
           {showForm ? <X size={15} /> : <Plus size={15} />}
           {showForm ? "Annuler" : "Ajouter une actualité"}

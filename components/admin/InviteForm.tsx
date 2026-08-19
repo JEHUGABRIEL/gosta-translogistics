@@ -22,7 +22,7 @@ export default function InviteForm() {
         <button
           type="submit"
           disabled={pending}
-          className="inline-flex items-center justify-center gap-2 bg-[var(--red)] hover:bg-[var(--red-dark)] disabled:opacity-60 transition-colors text-white font-display uppercase tracking-wide text-[13px] px-5 py-2.5 cursor-pointer shrink-0"
+          className="btn-liquid inline-flex items-center justify-center gap-2 bg-[var(--navy-deep)] disabled:opacity-60 text-white font-display uppercase tracking-wide text-[13px] px-5 py-2.5 cursor-pointer shrink-0"
         >
           <Send size={15} />
           {pending ? "Envoi…" : "Inviter"}
