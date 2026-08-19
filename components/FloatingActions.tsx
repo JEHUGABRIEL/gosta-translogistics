@@ -118,7 +118,7 @@ export default function FloatingActions() {
           onClick={() => setMenuOpen((v) => !v)}
           aria-label={menuOpen ? t("close") : t("toggle")}
           aria-expanded={menuOpen}
-          className="btn-liquid h-14 w-14 flex items-center justify-center rounded-full bg-[var(--navy-deep)] text-white shadow-[0_8px_24px_-6px_rgba(0,0,0,0.4)] cursor-pointer"
+          className="h-14 w-14 flex items-center justify-center rounded-full bg-[var(--red)] hover:bg-[var(--red-dark)] text-white shadow-[0_8px_24px_-6px_rgba(0,0,0,0.4)] transition-colors cursor-pointer"
         >
           <motion.span
             animate={{ rotate: menuOpen ? 90 : 0 }}
