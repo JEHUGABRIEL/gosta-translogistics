@@ -296,23 +296,15 @@ export default function Header() {
         className={`${scrolled ? "bg-[var(--navy-mid)]/95 backdrop-blur" : "bg-transparent"} border-b-2 border-transparent transition-colors duration-300`}
       >
         <div className="mx-auto max-w-7xl px-6 flex items-center justify-between h-[var(--header-nav-h)]">
-          <Link href="/" className="flex items-center gap-2.5">
+          <Link href="/" className="flex items-center">
             <Image
               src="/brand/logo-mark.png"
-              alt=""
-              width={540}
-              height={210}
+              alt="GOSTA TRANS"
+              width={588}
+              height={258}
               priority
-              className="h-10 w-auto shrink-0"
+              className="h-14 w-auto shrink-0"
             />
-            <span className="flex flex-col justify-center gap-0.5">
-              <span className="font-display font-extrabold text-2xl tracking-wide text-white leading-none">
-                GOSTA <span className="text-[var(--red)]">TRANS</span>
-              </span>
-              <span className="font-display text-[13px] uppercase tracking-[0.18em] text-[var(--amber)] leading-none">
-                {t("tagline")}
-              </span>
-            </span>
           </Link>
 
           <nav className="hidden lg:flex h-full items-stretch gap-8">
@@ -404,23 +396,15 @@ export default function Header() {
                 <Link
                   href="/"
                   onClick={() => setOpen(false)}
-                  className="flex items-center gap-2.5"
+                  className="flex items-center"
                 >
                   <Image
                     src="/brand/logo-mark.png"
-                    alt=""
-                    width={540}
-                    height={210}
-                    className="h-9 w-auto shrink-0"
+                    alt="GOSTA TRANS"
+                    width={588}
+                    height={258}
+                    className="h-12 w-auto shrink-0"
                   />
-                  <span className="flex flex-col justify-center gap-0.5">
-                    <span className="font-display font-extrabold text-xl tracking-wide text-white leading-none">
-                      GOSTA <span className="text-[var(--red)]">TRANS</span>
-                    </span>
-                    <span className="font-display text-[11px] uppercase tracking-[0.18em] text-[var(--amber)] leading-none">
-                      {t("tagline")}
-                    </span>
-                  </span>
                 </Link>
                 <div className="flex items-center gap-2.5 sm:gap-3">
                   <LanguageSwitcher />
