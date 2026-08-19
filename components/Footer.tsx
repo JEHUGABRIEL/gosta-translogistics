@@ -22,7 +22,6 @@ export default async function Footer() {
     { href: "/#realisations", label: t("realisations") },
     { href: "/#actualites", label: t("news") },
     { href: "/contact", label: tNav("contact") },
-    { href: "/faq", label: tNav("faq") },
   ] as const;
 
   const socials = [

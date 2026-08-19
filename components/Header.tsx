@@ -29,7 +29,6 @@ import { Link } from "@/i18n/navigation";
 const SIMPLE_NAV = [
   { key: "home", href: "/" },
   { key: "contact", href: "/contact" },
-  { key: "faq", href: "/faq" },
 ];
 
 // Numéros du bandeau, affichés un à la fois à tour de rôle
@@ -457,22 +456,6 @@ export default function Header() {
                   >
                     <span className="font-display font-extrabold text-4xl uppercase tracking-wide text-white group-hover:text-[var(--red)] transition-colors">
                       {t("contact")}
-                    </span>
-                  </Link>
-                </motion.div>
-                <motion.div
-                  initial={{ opacity: 0, y: 28 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.12 + 4 * 0.07, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-                  className="border-b border-white/10"
-                >
-                  <Link
-                    href="/faq"
-                    onClick={() => setOpen(false)}
-                    className="flex items-baseline gap-4 py-5 group"
-                  >
-                    <span className="font-display font-extrabold text-4xl uppercase tracking-wide text-white group-hover:text-[var(--red)] transition-colors">
-                      {t("faq")}
                     </span>
                   </Link>
                 </motion.div>

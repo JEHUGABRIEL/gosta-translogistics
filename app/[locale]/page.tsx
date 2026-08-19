@@ -13,6 +13,8 @@ import Partners from "@/components/Partners";
 import News from "@/components/News";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
+import FAQAccordion from "@/components/FAQAccordion";
+import Reveal from "@/components/Reveal";
 import { listNewsPosts, listTestimonials } from "@/lib/db/queries";
 
 export async function generateMetadata({
@@ -115,8 +117,42 @@ export default async function HomePage({
       <Testimonials extra={extraTestimonials} />
       <Partners />
       <News extra={extraNews} />
+
+      <FAQSection locale={locale} />
+
       <CTASection />
       <Footer />
     </main>
+  );
+}
+
+async function FAQSection({ locale }: { locale: string }) {
+  const t = await getTranslations({ locale, namespace: "faq" });
+  const items = t.raw("items") as { question: string; answer: string }[];
+
+  return (
+    <section className="bg-white">
+      <div className="mx-auto max-w-4xl px-6 py-16 md:py-20">
+        <Reveal>
+          <span className="font-mono text-[12.5px] uppercase tracking-[0.25em] text-[var(--red)]">
+            {t("eyebrow")}
+          </span>
+          <h2 className="font-display font-extrabold text-3xl md:text-4xl text-[var(--navy-deep)] mt-3">
+            {t("title")}
+          </h2>
+          <p className="text-[var(--steel)] mt-3 max-w-xl leading-relaxed">
+            {t("intro")}
+          </p>
+        </Reveal>
+
+        <div className="mt-10">
+          <FAQAccordion items={items} />
+        </div>
+
+        <Reveal delay={0.1} className="mt-10 text-center">
+          <p className="text-[var(--steel)]">{t("ctaText")}</p>
+        </Reveal>
+      </div>
+    </section>
   );
 }
