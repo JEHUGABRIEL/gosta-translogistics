@@ -97,10 +97,15 @@ select {
   }
 }
 
+button, a[role="button"] {
+  border-radius: 9999px;
+}
+
 .btn-liquid {
   position: relative;
   overflow: hidden;
   isolation: isolate;
+  border-radius: 9999px;
 }
 
 .btn-liquid::before {
