@@ -54,7 +54,7 @@ export default function Testimonials({ extra = [] }: { extra?: Comment[] }) {
           <button
             aria-label={t("prev")}
             onClick={() => setIndex((i) => (i - 1 + comments.length) % comments.length)}
-            className="shrink-0 h-11 w-11 lg:h-12 lg:w-12 flex items-center justify-center border border-[var(--line)] text-[var(--navy-deep)] hover:border-[var(--red)] hover:text-[var(--red)] transition-colors"
+            className="shrink-0 h-11 w-11 lg:h-12 lg:w-12 flex items-center justify-center rounded-full border border-[var(--line)] text-[var(--navy-deep)] hover:border-[var(--red)] hover:text-[var(--red)] transition-colors"
           >
             <ChevronLeft size={20} />
           </button>
@@ -85,7 +85,7 @@ export default function Testimonials({ extra = [] }: { extra?: Comment[] }) {
           <button
             aria-label={t("next")}
             onClick={() => setIndex((i) => (i + 1) % comments.length)}
-            className="shrink-0 h-11 w-11 lg:h-12 lg:w-12 flex items-center justify-center border border-[var(--line)] text-[var(--navy-deep)] hover:border-[var(--red)] hover:text-[var(--red)] transition-colors"
+            className="shrink-0 h-11 w-11 lg:h-12 lg:w-12 flex items-center justify-center rounded-full border border-[var(--line)] text-[var(--navy-deep)] hover:border-[var(--red)] hover:text-[var(--red)] transition-colors"
           >
             <ChevronRight size={20} />
           </button>

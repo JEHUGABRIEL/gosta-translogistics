@@ -73,7 +73,7 @@ export default function ContactModal({
               onClick={onClose}
               autoFocus
               aria-label={t("close")}
-              className="absolute top-4 right-4 h-10 w-10 flex items-center justify-center border border-[var(--line)] text-[var(--navy-deep)] hover:border-[var(--red)] hover:text-[var(--red)] transition-colors bg-white"
+              className="absolute top-4 right-4 h-10 w-10 flex items-center justify-center rounded-full border border-[var(--line)] text-[var(--navy-deep)] hover:border-[var(--red)] hover:text-[var(--red)] transition-colors bg-white"
             >
               <X size={20} />
             </button>

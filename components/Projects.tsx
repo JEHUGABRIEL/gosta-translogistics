@@ -104,14 +104,14 @@ export default function Projects() {
             <button
               onClick={() => scroll(-1)}
               aria-label={t("prev")}
-              className="h-10 w-10 flex items-center justify-center border border-[var(--line)] hover:border-[var(--red)] hover:text-[var(--red)] text-[var(--navy-deep)] transition-colors"
+              className="h-10 w-10 flex items-center justify-center rounded-full border border-[var(--line)] hover:border-[var(--red)] hover:text-[var(--red)] text-[var(--navy-deep)] transition-colors"
             >
               <ChevronLeft size={18} />
             </button>
             <button
               onClick={() => scroll(1)}
               aria-label={t("next")}
-              className="h-10 w-10 flex items-center justify-center border border-[var(--line)] hover:border-[var(--red)] hover:text-[var(--red)] text-[var(--navy-deep)] transition-colors"
+              className="h-10 w-10 flex items-center justify-center rounded-full border border-[var(--line)] hover:border-[var(--red)] hover:text-[var(--red)] text-[var(--navy-deep)] transition-colors"
             >
               <ChevronRight size={18} />
             </button>

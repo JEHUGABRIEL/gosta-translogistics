@@ -501,7 +501,7 @@ export default function Header() {
                       setSearchOpen(true);
                     }}
                     aria-label={t("search")}
-                    className="h-12 w-12 flex items-center justify-center border border-white/25 text-white hover:border-[var(--red)] hover:text-[var(--red)] transition-colors"
+                    className="h-12 w-12 flex items-center justify-center rounded-full border border-white/25 text-white hover:border-[var(--red)] hover:text-[var(--red)] transition-colors"
                   >
                     <Search size={20} />
                   </button>

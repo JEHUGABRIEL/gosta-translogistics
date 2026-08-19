@@ -51,7 +51,7 @@ export default function FloatingActions() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 12, scale: 0.9 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="h-11 w-11 flex items-center justify-center bg-white border border-[var(--line)] text-[var(--navy-deep)] hover:border-[var(--red)] hover:text-[var(--red)] shadow-[0_4px_14px_-4px_rgba(0,0,0,0.25)] transition-colors cursor-pointer"
+            className="h-11 w-11 flex items-center justify-center rounded-full bg-white border border-[var(--line)] text-[var(--navy-deep)] hover:border-[var(--red)] hover:text-[var(--red)] shadow-[0_4px_14px_-4px_rgba(0,0,0,0.25)] transition-colors cursor-pointer"
           >
             <ArrowUp size={18} />
           </motion.button>
@@ -81,10 +81,10 @@ export default function FloatingActions() {
                   transition={{ duration: 0.2, delay: reduceMotion ? 0 : i * 0.05 }}
                   className="group flex items-center gap-3"
                 >
-                  <span className="bg-[var(--navy-deep)] text-white text-[13px] font-display uppercase tracking-wide px-3 py-1.5 shadow-[0_4px_14px_-4px_rgba(0,0,0,0.3)] whitespace-nowrap">
+                  <span className="bg-[var(--navy-deep)] text-white text-[13px] font-display uppercase tracking-wide px-3 py-1.5 rounded-full shadow-[0_4px_14px_-4px_rgba(0,0,0,0.3)] whitespace-nowrap">
                     {label}
                   </span>
-                  <span className="h-12 w-12 flex items-center justify-center bg-white border border-[var(--line)] text-[var(--navy-deep)] group-hover:border-[var(--red)] group-hover:text-[var(--red)] shadow-[0_4px_14px_-4px_rgba(0,0,0,0.25)] transition-colors shrink-0">
+                  <span className="h-12 w-12 flex items-center justify-center rounded-full bg-white border border-[var(--line)] text-[var(--navy-deep)] group-hover:border-[var(--red)] group-hover:text-[var(--red)] shadow-[0_4px_14px_-4px_rgba(0,0,0,0.25)] transition-colors shrink-0">
                     <Icon size={20} />
                   </span>
                 </motion.a>
@@ -102,10 +102,10 @@ export default function FloatingActions() {
                 transition={{ duration: 0.2, delay: reduceMotion ? 0 : 2 * 0.05 }}
                 className="group flex items-center gap-3 cursor-pointer"
               >
-                <span className="bg-[var(--navy-deep)] text-white text-[13px] font-display uppercase tracking-wide px-3 py-1.5 shadow-[0_4px_14px_-4px_rgba(0,0,0,0.3)] whitespace-nowrap">
+                <span className="bg-[var(--navy-deep)] text-white text-[13px] font-display uppercase tracking-wide px-3 py-1.5 rounded-full shadow-[0_4px_14px_-4px_rgba(0,0,0,0.3)] whitespace-nowrap">
                   {t("quote")}
                 </span>
-                <span className="h-12 w-12 flex items-center justify-center bg-white border border-[var(--line)] text-[var(--navy-deep)] group-hover:border-[var(--red)] group-hover:text-[var(--red)] shadow-[0_4px_14px_-4px_rgba(0,0,0,0.25)] transition-colors shrink-0">
+                <span className="h-12 w-12 flex items-center justify-center rounded-full bg-white border border-[var(--line)] text-[var(--navy-deep)] group-hover:border-[var(--red)] group-hover:text-[var(--red)] shadow-[0_4px_14px_-4px_rgba(0,0,0,0.25)] transition-colors shrink-0">
                   <FileText size={18} />
                 </span>
               </motion.button>
@@ -118,7 +118,7 @@ export default function FloatingActions() {
           onClick={() => setMenuOpen((v) => !v)}
           aria-label={menuOpen ? t("close") : t("toggle")}
           aria-expanded={menuOpen}
-          className="h-14 w-14 flex items-center justify-center bg-[var(--red)] hover:bg-[var(--red-dark)] text-white shadow-[0_8px_24px_-6px_rgba(0,0,0,0.4)] transition-colors cursor-pointer"
+          className="h-14 w-14 flex items-center justify-center rounded-full bg-[var(--red)] hover:bg-[var(--red-dark)] text-white shadow-[0_8px_24px_-6px_rgba(0,0,0,0.4)] transition-colors cursor-pointer"
         >
           <motion.span
             animate={{ rotate: menuOpen ? 90 : 0 }}

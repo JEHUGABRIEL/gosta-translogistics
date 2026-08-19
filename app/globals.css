@@ -101,6 +101,10 @@ button, a[role="button"] {
   border-radius: 9999px;
 }
 
+a.inline-flex[class*="px-"][class*="py-"] {
+  border-radius: 9999px;
+}
+
 .btn-liquid {
   position: relative;
   overflow: hidden;
