@@ -109,18 +109,14 @@ function DesktopDropdown({
 function MobileServiceGroup({
   label,
   base,
-  items,
   onNavigate,
   index,
 }: {
   label: string;
   base: string;
-  items: Service[];
   onNavigate: () => void;
   index: number;
 }) {
-  // Affichage « à plat » : le pôle est un titre cliquable (vers sa page
-  // récapitulative) et ses services restent listés en dessous, sans repli.
   return (
     <motion.div
       initial={{ opacity: 0, y: 28 }}
@@ -141,21 +137,6 @@ function MobileServiceGroup({
           {label}
         </span>
       </Link>
-
-      <ul className="mt-3 flex flex-col">
-        {items.map((item) => (
-          <li key={item.slug}>
-            <Link
-              href={`${base}/${item.slug}`}
-              onClick={onNavigate}
-              className="flex items-center gap-3 py-2.5 text-[#cfd6e0] hover:text-[var(--red)] transition-colors"
-            >
-              <item.icon size={18} className="text-[var(--amber)] shrink-0" />
-              <span className="font-display text-lg">{item.title}</span>
-            </Link>
-          </li>
-        ))}
-      </ul>
     </motion.div>
   );
 }
@@ -432,14 +413,12 @@ export default function Header() {
                 <MobileServiceGroup
                   label={t("btp")}
                   base="/services/btp"
-                  items={btp}
                   onNavigate={() => setOpen(false)}
                   index={0}
                 />
                 <MobileServiceGroup
                   label={t("logistique")}
                   base="/services/logistique"
-                  items={logistique}
                   onNavigate={() => setOpen(false)}
                   index={1}
                 />
@@ -498,18 +477,13 @@ export default function Header() {
                 transition={{ delay: 0.6, duration: 0.4 }}
                 className="shrink-0 px-5 sm:px-6 py-6 border-t border-white/10 space-y-4"
               >
-                <div className="font-mono text-[13px] text-[#9aa5b5]">
-                  <p className="flex items-center gap-2">
-                    <Mail size={14} className="text-[var(--amber)]" /> gostatranslogistiquebtp@outlook.fr
-                  </p>
-                </div>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center justify-center gap-3">
                   <a
                     href={SOCIAL_LINKS.facebook}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={tSocial("facebook")}
-                    className="h-9 w-9 flex items-center justify-center border border-white/20 text-[#cfd6e0] hover:border-[var(--red)] hover:text-[var(--red)] transition-colors"
+                    className="h-9 w-9 flex items-center justify-center rounded-full border border-white/20 text-[#cfd6e0] hover:border-[var(--red)] hover:text-[var(--red)] transition-colors"
                   >
                     <FacebookIcon size={16} />
                   </a>
@@ -518,7 +492,7 @@ export default function Header() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={tSocial("instagram")}
-                    className="h-9 w-9 flex items-center justify-center border border-white/20 text-[#cfd6e0] hover:border-[var(--red)] hover:text-[var(--red)] transition-colors"
+                    className="h-9 w-9 flex items-center justify-center rounded-full border border-white/20 text-[#cfd6e0] hover:border-[var(--red)] hover:text-[var(--red)] transition-colors"
                   >
                     <InstagramIcon size={16} />
                   </a>
@@ -527,7 +501,7 @@ export default function Header() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={tSocial("whatsapp")}
-                    className="h-9 w-9 flex items-center justify-center border border-white/20 text-[#cfd6e0] hover:border-[var(--red)] hover:text-[var(--red)] transition-colors"
+                    className="h-9 w-9 flex items-center justify-center rounded-full border border-white/20 text-[#cfd6e0] hover:border-[var(--red)] hover:text-[var(--red)] transition-colors"
                   >
                     <WhatsAppIcon size={16} />
                   </a>

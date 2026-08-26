@@ -1,8 +1,21 @@
 import { getLocale, getTranslations } from "next-intl/server";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import Reveal from "./Reveal";
 import { Link } from "@/i18n/navigation";
 import { getServices } from "@/lib/services";
+
+const btpImages: Record<string, string> = {
+  "gros-oeuvre": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&h=400&fit=crop",
+  "second-oeuvre": "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=600&h=400&fit=crop",
+  "voirie-amenagement-urbain": "https://images.unsplash.com/photo-1513467535987-fd81bc7d62f8?w=600&h=400&fit=crop",
+};
+
+const logistiqueImages: Record<string, string> = {
+  "transport-materiaux": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&h=400&fit=crop",
+  "livraison-rapide": "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=600&h=400&fit=crop",
+  "location-engins": "https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=600&h=400&fit=crop",
+};
 
 export default async function ServiceShowcase() {
   const t = await getTranslations("home.serviceShowcase");
@@ -44,21 +57,32 @@ export default async function ServiceShowcase() {
               <Reveal key={s.slug} delay={i * 0.06}>
                 <Link
                   href={`/services/btp/${s.slug}`}
-                  className="group flex flex-col h-full bg-white border border-black/[0.06] shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_28px_-18px_rgba(0,0,0,0.22)] hover:-translate-y-[3px] hover:shadow-[0_2px_4px_rgba(0,0,0,0.05),0_24px_44px_-22px_rgba(0,0,0,0.34)] transition-[transform,box-shadow] duration-300 ease-[cubic-bezier(0.2,0.7,0.2,1)] rounded-2xl p-6"
+                  className="group flex flex-col h-full bg-white border border-black/[0.06] shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_28px_-18px_rgba(0,0,0,0.22)] hover:-translate-y-[3px] hover:shadow-[0_2px_4px_rgba(0,0,0,0.05),0_24px_44px_-22px_rgba(0,0,0,0.34)] transition-[transform,box-shadow] duration-300 ease-[cubic-bezier(0.2,0.7,0.2,1)] rounded-2xl overflow-hidden"
                 >
-                  <div className="h-12 w-12 flex items-center justify-center bg-[var(--navy-deep)] text-[var(--amber)] rounded-xl">
-                    <s.icon size={22} />
+                  <div className="relative h-44 w-full">
+                    <Image
+                      src={btpImages[s.slug] || "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&h=400&fit=crop"}
+                      alt={s.title}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
                   </div>
-                  <h3 className="font-display uppercase tracking-wide text-[17px] text-[var(--navy-deep)] mt-5 leading-snug">
-                    {s.title}
-                  </h3>
-                  <p className="text-[14px] text-[var(--steel)] leading-relaxed mt-2 flex-1">
-                    {s.short}
-                  </p>
-                  <span className="inline-flex items-center gap-1.5 font-display uppercase tracking-wide text-[13px] text-[var(--red)] mt-5">
-                    {t("seeAll")}
-                    <ArrowRightInline />
-                  </span>
+                  <div className="p-6 flex flex-col flex-1">
+                    <div className="h-12 w-12 flex items-center justify-center bg-[var(--navy-deep)] text-[var(--amber)] rounded-xl">
+                      <s.icon size={22} />
+                    </div>
+                    <h3 className="font-display uppercase tracking-wide text-[17px] text-[var(--navy-deep)] mt-5 leading-snug">
+                      {s.title}
+                    </h3>
+                    <p className="text-[14px] text-[var(--steel)] leading-relaxed mt-2 flex-1">
+                      {s.short}
+                    </p>
+                    <span className="inline-flex items-center gap-1.5 font-display uppercase tracking-wide text-[13px] text-[var(--red)] mt-5">
+                      {t("seeAll")}
+                      <ArrowRightInline />
+                    </span>
+                  </div>
                 </Link>
               </Reveal>
             ))}
@@ -99,21 +123,32 @@ export default async function ServiceShowcase() {
               <Reveal key={s.slug} delay={i * 0.06}>
                 <Link
                   href={`/services/logistique/${s.slug}`}
-                  className="group flex flex-col h-full bg-white border border-black/[0.06] shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_28px_-18px_rgba(0,0,0,0.22)] hover:-translate-y-[3px] hover:shadow-[0_2px_4px_rgba(0,0,0,0.05),0_24px_44px_-22px_rgba(0,0,0,0.34)] transition-[transform,box-shadow] duration-300 ease-[cubic-bezier(0.2,0.7,0.2,1)] rounded-2xl p-6"
+                  className="group flex flex-col h-full bg-white border border-black/[0.06] shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_28px_-18px_rgba(0,0,0,0.22)] hover:-translate-y-[3px] hover:shadow-[0_2px_4px_rgba(0,0,0,0.05),0_24px_44px_-22px_rgba(0,0,0,0.34)] transition-[transform,box-shadow] duration-300 ease-[cubic-bezier(0.2,0.7,0.2,1)] rounded-2xl overflow-hidden"
                 >
-                  <div className="h-12 w-12 flex items-center justify-center bg-[var(--navy-deep)] text-[var(--amber)] rounded-xl">
-                    <s.icon size={22} />
+                  <div className="relative h-44 w-full">
+                    <Image
+                      src={logistiqueImages[s.slug] || "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&h=400&fit=crop"}
+                      alt={s.title}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
                   </div>
-                  <h3 className="font-display uppercase tracking-wide text-[17px] text-[var(--navy-deep)] mt-5 leading-snug">
-                    {s.title}
-                  </h3>
-                  <p className="text-[14px] text-[var(--steel)] leading-relaxed mt-2 flex-1">
-                    {s.short}
-                  </p>
-                  <span className="inline-flex items-center gap-1.5 font-display uppercase tracking-wide text-[13px] text-[var(--red)] mt-5">
-                    {t("seeAll")}
-                    <ArrowRightInline />
-                  </span>
+                  <div className="p-6 flex flex-col flex-1">
+                    <div className="h-12 w-12 flex items-center justify-center bg-[var(--navy-deep)] text-[var(--amber)] rounded-xl">
+                      <s.icon size={22} />
+                    </div>
+                    <h3 className="font-display uppercase tracking-wide text-[17px] text-[var(--navy-deep)] mt-5 leading-snug">
+                      {s.title}
+                    </h3>
+                    <p className="text-[14px] text-[var(--steel)] leading-relaxed mt-2 flex-1">
+                      {s.short}
+                    </p>
+                    <span className="inline-flex items-center gap-1.5 font-display uppercase tracking-wide text-[13px] text-[var(--red)] mt-5">
+                      {t("seeAll")}
+                      <ArrowRightInline />
+                    </span>
+                  </div>
                 </Link>
               </Reveal>
             ))}

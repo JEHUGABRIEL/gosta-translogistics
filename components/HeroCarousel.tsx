@@ -3,6 +3,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { Mouse } from "lucide-react";
 import HeroScene from "./HeroScene";
 import { useQuoteModal } from "./QuoteModalProvider";
 
@@ -120,6 +121,22 @@ export default function HeroCarousel({
         </AnimatePresence>
 
       </div>
+
+      {/* Scroll indicator — mouse icon */}
+      <motion.div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5, duration: 0.8 }}
+      >
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
+          className="flex flex-col items-center gap-2"
+        >
+          <Mouse className="w-5 h-5 text-white/70" strokeWidth={1.5} />
+        </motion.div>
+      </motion.div>
 
       {floating && (
         /* hidden lg:block : la barre de recherche ne s'affiche que sur desktop.
