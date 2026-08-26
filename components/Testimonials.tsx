@@ -56,7 +56,7 @@ export default function Testimonials({ extra = [] }: { extra?: Comment[] }) {
             onClick={() => setIndex((i) => (i - 1 + comments.length) % comments.length)}
             className="shrink-0 h-11 w-11 lg:h-12 lg:w-12 flex items-center justify-center rounded-full border border-[var(--line)] text-[var(--navy-deep)] hover:border-[var(--red)] hover:text-[var(--red)] transition-colors"
           >
-            <ChevronLeft size={20} />
+            <ChevronLeft size={20} strokeWidth={2} />
           </button>
 
           <div className="flex-1 min-w-0 grid lg:grid-cols-[auto_1fr] gap-10 items-center">
@@ -87,7 +87,7 @@ export default function Testimonials({ extra = [] }: { extra?: Comment[] }) {
             onClick={() => setIndex((i) => (i + 1) % comments.length)}
             className="shrink-0 h-11 w-11 lg:h-12 lg:w-12 flex items-center justify-center rounded-full border border-[var(--line)] text-[var(--navy-deep)] hover:border-[var(--red)] hover:text-[var(--red)] transition-colors"
           >
-            <ChevronRight size={20} />
+            <ChevronRight size={20} strokeWidth={2} />
           </button>
         </div>
 

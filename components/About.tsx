@@ -10,7 +10,7 @@ export default function About() {
   const t = useTranslations("home.about");
 
   return (
-    <section className="bg-white overflow-x-clip">
+    <section className="bg-[var(--white-warm)] overflow-x-clip">
       <div className="mx-auto max-w-7xl px-6 py-16 md:py-20 grid lg:grid-cols-2 gap-16 items-center">
         {/* Deux photos superposées : la 1re sur la 2e, débord de ~25 %.
             Sur mobile le texte passe devant (order-1), l'image en dessous
@@ -76,7 +76,7 @@ export default function About() {
             className="btn-liquid inline-flex items-center gap-2 mt-8 bg-[var(--navy-deep)] text-white font-display uppercase tracking-wide text-[14px] px-6 py-3"
           >
             {t("contactUs")}
-            <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-1" />
+            <ArrowRight size={16} strokeWidth={2} className="transition-transform duration-200 group-hover:translate-x-1" />
           </Link>
         </Reveal>
       </div>

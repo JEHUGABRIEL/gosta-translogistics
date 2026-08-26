@@ -49,6 +49,14 @@ const INVITE_TTL_MS = 48 * 60 * 60 * 1000;
 const OTP_TTL_MS = 10 * 60 * 1000;
 const OTP_MAX_ATTEMPTS = 5;
 
+function validatePasswordStrength(password: string): string | null {
+  if (password.length < 8) return "Le mot de passe doit faire au moins 8 caractères.";
+  if (!/[A-Z]/.test(password)) return "Le mot de passe doit contenir au moins une majuscule.";
+  if (!/[a-z]/.test(password)) return "Le mot de passe doit contenir au moins une minuscule.";
+  if (!/[0-9]/.test(password)) return "Le mot de passe doit contenir au moins un chiffre.";
+  return null;
+}
+
 export async function requireAdmin() {
   if (!(await hasValidAdminSession())) {
     redirect("/admin/login");
@@ -103,9 +111,8 @@ export async function changePasswordAction(_prevState: unknown, formData: FormDa
   if (!full || !(await verifyPassword(currentPassword, full.password_hash))) {
     return { error: "Mot de passe actuel incorrect." };
   }
-  if (newPassword.length < 8) {
-    return { error: "Le nouveau mot de passe doit faire au moins 8 caractères." };
-  }
+  const pwdError = validatePasswordStrength(newPassword);
+  if (pwdError) return { error: pwdError };
 
   const sql = getDb();
   await sql`UPDATE admin_users SET password_hash = ${await hashPassword(newPassword)} WHERE id = ${user.id}`;
@@ -124,9 +131,28 @@ export async function deleteQuoteAction(id: number) {
   revalidatePath("/admin/quotes");
 }
 
+const FIELD_MAX_LENGTHS: Record<string, number> = {
+  role_fr: 200,
+  role_en: 200,
+  context_fr: 500,
+  context_en: 500,
+  quote_fr: 2000,
+  quote_en: 2000,
+  title_fr: 300,
+  title_en: 300,
+  date_label_fr: 100,
+  date_label_en: 100,
+  content_fr: 5000,
+  content_en: 5000,
+};
+const DEFAULT_FIELD_MAX = 500;
+
 function fields(formData: FormData, names: string[]) {
   return Object.fromEntries(
-    names.map((n) => [n, String(formData.get(n) ?? "").trim()])
+    names.map((n) => {
+      const max = FIELD_MAX_LENGTHS[n] ?? DEFAULT_FIELD_MAX;
+      return [n, String(formData.get(n) ?? "").trim().slice(0, max)];
+    })
   );
 }
 
@@ -239,9 +265,8 @@ export async function submitInviteSignupAction(_prevState: unknown, formData: Fo
   if (!firstName || !lastName) {
     return { error: "Nom et prénom sont requis." };
   }
-  if (password.length < 8) {
-    return { error: "Le mot de passe doit faire au moins 8 caractères." };
-  }
+  const pwdError = validatePasswordStrength(password);
+  if (pwdError) return { error: pwdError };
   if (password !== confirmPassword) {
     return { error: "Les mots de passe ne correspondent pas." };
   }

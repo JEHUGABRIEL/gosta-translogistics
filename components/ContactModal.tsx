@@ -75,7 +75,7 @@ export default function ContactModal({
               aria-label={t("close")}
               className="absolute top-4 right-4 h-10 w-10 flex items-center justify-center rounded-full border border-[var(--line)] text-[var(--navy-deep)] hover:border-[var(--red)] hover:text-[var(--red)] transition-colors bg-white"
             >
-              <X size={20} />
+              <X size={20} strokeWidth={2} />
             </button>
 
             <div className="p-7 md:p-10">
@@ -145,7 +145,7 @@ export default function ContactModal({
                       onClick={() => setView("choice")}
                       className="inline-flex items-center gap-2 font-mono text-[12.5px] uppercase tracking-wide text-[var(--red)] hover:text-[var(--red-dark)] transition-colors cursor-pointer mb-4"
                     >
-                      <ArrowLeft size={14} /> {t("back")}
+                      <ArrowLeft size={16} strokeWidth={2} /> {t("back")}
                     </button>
                     <QuoteForm />
                   </>

@@ -131,7 +131,7 @@ async function FAQSection({ locale }: { locale: string }) {
   const items = t.raw("items") as { question: string; answer: string }[];
 
   return (
-    <section className="bg-white">
+    <section className="bg-[var(--white-warm)]">
       <div className="mx-auto max-w-4xl px-6 py-10 md:py-14">
         <Reveal>
           <span className="font-mono text-[12.5px] uppercase tracking-[0.25em] text-[var(--red)]">

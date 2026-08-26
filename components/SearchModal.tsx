@@ -61,7 +61,7 @@ export default function SearchModal({
               aria-label={t("close")}
               className="absolute -top-12 right-0 h-10 w-10 flex items-center justify-center rounded-full border border-white/30 text-white hover:border-[var(--red)] hover:text-[var(--red)] transition-colors bg-black/20"
             >
-              <X size={20} />
+              <X size={20} strokeWidth={2} />
             </button>
             <HeroSearch autoFocus onSubmitted={onClose} />
           </motion.div>

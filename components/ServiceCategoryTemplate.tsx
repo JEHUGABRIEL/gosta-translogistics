@@ -50,7 +50,7 @@ export default async function ServiceCategoryTemplate({
                   className="group flex flex-col h-full bg-white border border-black/[0.06] shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_28px_-18px_rgba(0,0,0,0.22)] hover:-translate-y-[3px] hover:shadow-[0_2px_4px_rgba(0,0,0,0.05),0_24px_44px_-22px_rgba(0,0,0,0.34)] transition-[transform,box-shadow] duration-300 ease-[cubic-bezier(0.2,0.7,0.2,1)] rounded-2xl p-7"
                 >
                   <div className="h-12 w-12 flex items-center justify-center bg-[var(--navy-deep)] text-[var(--amber)] rounded-xl">
-                    <s.icon size={22} />
+                    <s.icon size={24} strokeWidth={1.8} />
                   </div>
                   <h2 className="font-display uppercase tracking-wide text-xl text-[var(--navy-deep)] mt-5">
                     {s.title}
@@ -59,7 +59,7 @@ export default async function ServiceCategoryTemplate({
                     {s.short}
                   </p>
                   <span className="flex items-center gap-1.5 font-display uppercase tracking-wide text-[13px] text-[var(--red)] mt-5">
-                    {t("discover")} <ChevronRight size={15} className="group-hover:translate-x-1 transition-transform" />
+                    {t("discover")} <ChevronRight size={16} strokeWidth={2} className="group-hover:translate-x-1 transition-transform" />
                   </span>
                 </Link>
               </Reveal>

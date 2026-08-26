@@ -65,7 +65,7 @@ export default async function Footer() {
                 href="tel:+23670120025"
                 className="btn-liquid inline-flex items-center gap-2 bg-[var(--navy-deep)] text-white font-display uppercase tracking-wide text-[13px] px-5 py-3"
               >
-                <Phone size={16} /> {t("call")}
+                <Phone size={20} strokeWidth={2} /> {t("call")}
               </a>
               <a
                 href={SOCIAL_LINKS.whatsapp}
@@ -73,7 +73,7 @@ export default async function Footer() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 border border-white/25 text-white hover:border-[var(--red)] transition-colors font-display uppercase tracking-wide text-[13px] px-5 py-3"
               >
-                <WhatsAppIcon size={16} /> WhatsApp
+                <WhatsAppIcon size={20} /> WhatsApp
               </a>
             </div>
 
@@ -92,7 +92,7 @@ export default async function Footer() {
                     aria-label={label}
                     className="h-10 w-10 flex items-center justify-center rounded-full border border-white/20 text-[#cfd6e0] hover:border-[var(--red)] hover:text-[var(--red)] hover:-translate-y-0.5 transition-all"
                   >
-                    <Icon size={18} />
+                    <Icon size={20} />
                   </a>
                 ))}
               </div>
@@ -125,7 +125,7 @@ export default async function Footer() {
             </h2>
             <ul className="mt-5 space-y-4 text-[14.5px]">
               <li className="flex gap-3">
-                <Phone size={17} className="text-[var(--amber)] mt-0.5 shrink-0" />
+                <Phone size={20} strokeWidth={2} className="text-[var(--amber)] mt-0.5 shrink-0" />
                 <div className="flex flex-col font-mono">
                   <a href="tel:+23670120025" className="hover:text-white transition-colors">
                     70 12 00 25
@@ -136,7 +136,7 @@ export default async function Footer() {
                 </div>
               </li>
               <li className="flex gap-3">
-                <WhatsAppIcon size={17} className="text-[var(--amber)] mt-0.5 shrink-0" />
+                <WhatsAppIcon size={20} className="text-[var(--amber)] mt-0.5 shrink-0" />
                 <a
                   href={SOCIAL_LINKS.whatsapp}
                   target="_blank"
@@ -147,7 +147,7 @@ export default async function Footer() {
                 </a>
               </li>
               <li className="flex gap-3">
-                <Mail size={17} className="text-[var(--amber)] mt-0.5 shrink-0" />
+                <Mail size={20} strokeWidth={2} className="text-[var(--amber)] mt-0.5 shrink-0" />
                 <a
                   href="mailto:gostatranslogistiquebtp@outlook.fr"
                   className="hover:text-white transition-colors break-all"
@@ -156,7 +156,7 @@ export default async function Footer() {
                 </a>
               </li>
               <li className="flex gap-3">
-                <Clock size={17} className="text-[var(--amber)] mt-0.5 shrink-0" />
+                <Clock size={20} strokeWidth={2} className="text-[var(--amber)] mt-0.5 shrink-0" />
                 <span>{t("hoursValue")}</span>
               </li>
             </ul>
@@ -170,7 +170,7 @@ export default async function Footer() {
             <ul className="mt-5 space-y-4 text-[14.5px]">
               {SITES.map((site) => (
                 <li key={site.id} className="flex gap-3">
-                  <MapPin size={17} className="text-[var(--amber)] mt-0.5 shrink-0" />
+                  <MapPin size={20} strokeWidth={2} className="text-[var(--amber)] mt-0.5 shrink-0" />
                   <div>
                     <p className="text-white">{t(`sites.${site.id}.label`)}</p>
                     <p>{t(`sites.${site.id}.value`)}</p>

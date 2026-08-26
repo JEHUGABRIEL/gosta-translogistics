@@ -95,7 +95,7 @@ export default function QuoteForm() {
         className="mt-2 inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1ebe5b] transition-colors text-white font-display uppercase tracking-wide text-base px-6 py-3.5 cursor-pointer"
       >
         {t("send")}
-        <Send size={17} />
+        <Send size={20} strokeWidth={2} />
       </button>
 
       <div className="flex items-center gap-4 my-1">
@@ -115,13 +115,13 @@ export default function QuoteForm() {
           rel="noopener noreferrer"
           className="btn-liquid inline-flex items-center justify-center gap-2 bg-[var(--navy-deep)] text-white font-display uppercase tracking-wide text-sm px-4 py-3"
         >
-          <MessageCircle size={16} /> {t("writeUs")}
+          <MessageCircle size={20} strokeWidth={2} /> {t("writeUs")}
         </a>
         <a
           href="tel:+23670120025"
           className="inline-flex items-center justify-center gap-2 bg-[var(--navy-deep)] hover:bg-black transition-colors text-white font-display uppercase tracking-wide text-sm px-4 py-3"
         >
-          <Phone size={16} /> {t("callUs")}
+          <Phone size={20} strokeWidth={2} /> {t("callUs")}
         </a>
       </div>
     </form>

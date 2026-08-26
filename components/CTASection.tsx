@@ -31,7 +31,7 @@ export default function CTASection() {
             onClick={openQuote}
             className="inline-flex items-center justify-center gap-2 bg-[var(--navy-deep)] hover:bg-black transition-colors text-white font-display uppercase tracking-wide text-sm px-4 py-3 sm:text-base sm:px-7 sm:py-3.5 cursor-pointer"
           >
-            <Phone size={17} /> {t("quote")}
+            <Phone size={20} strokeWidth={2} /> {t("quote")}
           </button>
           <a
             href="https://wa.me/23675200313"
@@ -39,7 +39,7 @@ export default function CTASection() {
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1da851] transition-colors text-white font-display uppercase tracking-wide text-sm px-4 py-3 sm:text-base sm:px-7 sm:py-3.5"
           >
-            <MessageCircle size={17} /> {t("whatsapp")}
+            <MessageCircle size={20} strokeWidth={2} /> {t("whatsapp")}
           </a>
         </Reveal>
       </div>

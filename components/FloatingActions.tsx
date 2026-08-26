@@ -53,7 +53,7 @@ export default function FloatingActions() {
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
             className="h-11 w-11 flex items-center justify-center rounded-full bg-white border border-[var(--line)] text-[var(--navy-deep)] hover:border-[var(--red)] hover:text-[var(--red)] shadow-[0_4px_14px_-4px_rgba(0,0,0,0.25)] transition-colors cursor-pointer"
           >
-            <ArrowUp size={18} />
+            <ArrowUp size={20} strokeWidth={2} />
           </motion.button>
         )}
       </AnimatePresence>
@@ -85,7 +85,7 @@ export default function FloatingActions() {
                     {label}
                   </span>
                   <span className="h-12 w-12 flex items-center justify-center rounded-full bg-white border border-[var(--line)] text-[var(--navy-deep)] group-hover:border-[var(--red)] group-hover:text-[var(--red)] shadow-[0_4px_14px_-4px_rgba(0,0,0,0.25)] transition-colors shrink-0">
-                    <Icon size={20} />
+                    <Icon size={20} strokeWidth={2} />
                   </span>
                 </motion.a>
               ))}
@@ -106,7 +106,7 @@ export default function FloatingActions() {
                   {t("quote")}
                 </span>
                 <span className="h-12 w-12 flex items-center justify-center rounded-full bg-white border border-[var(--line)] text-[var(--navy-deep)] group-hover:border-[var(--red)] group-hover:text-[var(--red)] shadow-[0_4px_14px_-4px_rgba(0,0,0,0.25)] transition-colors shrink-0">
-                  <FileText size={18} />
+                  <FileText size={20} strokeWidth={2} />
                 </span>
               </motion.button>
             </motion.div>
@@ -125,7 +125,7 @@ export default function FloatingActions() {
             transition={{ duration: reduceMotion ? 0 : 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="flex"
           >
-            {menuOpen ? <X size={24} /> : <MessageCircle size={24} />}
+            {menuOpen ? <X size={24} strokeWidth={2} /> : <MessageCircle size={24} strokeWidth={2} />}
           </motion.span>
         </button>
       </div>

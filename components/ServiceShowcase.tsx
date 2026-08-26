@@ -25,7 +25,7 @@ export default async function ServiceShowcase() {
   return (
     <>
       {/* ===== Nos services BTP ===== */}
-      <section className="bg-white">
+      <section className="bg-[var(--white-warm)]">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <Reveal className="max-w-2xl">
@@ -45,7 +45,7 @@ export default async function ServiceShowcase() {
                 href="/services/btp"
                 className="btn-liquid inline-flex items-center gap-2 bg-[var(--navy-deep)] text-white font-display uppercase tracking-wide text-[14px] px-6 py-3 shrink-0"
               >
-                {t("seeAll")} <ArrowRight size={15} />
+                {t("seeAll")} <ArrowRight size={16} strokeWidth={2} />
               </Link>
             </Reveal>
           </div>
@@ -70,7 +70,7 @@ export default async function ServiceShowcase() {
                   </div>
                   <div className="p-6 flex flex-col flex-1">
                     <div className="h-12 w-12 flex items-center justify-center bg-[var(--navy-deep)] text-[var(--amber)] rounded-xl">
-                      <s.icon size={22} />
+                      <s.icon size={24} strokeWidth={1.8} />
                     </div>
                     <h3 className="font-display uppercase tracking-wide text-[17px] text-[var(--navy-deep)] mt-5 leading-snug">
                       {s.title}
@@ -111,7 +111,7 @@ export default async function ServiceShowcase() {
                 href="/services/logistique"
                 className="btn-liquid inline-flex items-center gap-2 bg-[var(--navy-deep)] text-white font-display uppercase tracking-wide text-[14px] px-6 py-3 shrink-0"
               >
-                {t("seeAll")} <ArrowRight size={15} />
+                {t("seeAll")} <ArrowRight size={16} strokeWidth={2} />
               </Link>
             </Reveal>
           </div>
@@ -136,7 +136,7 @@ export default async function ServiceShowcase() {
                   </div>
                   <div className="p-6 flex flex-col flex-1">
                     <div className="h-12 w-12 flex items-center justify-center bg-[var(--navy-deep)] text-[var(--amber)] rounded-xl">
-                      <s.icon size={22} />
+                      <s.icon size={24} strokeWidth={1.8} />
                     </div>
                     <h3 className="font-display uppercase tracking-wide text-[17px] text-[var(--navy-deep)] mt-5 leading-snug">
                       {s.title}

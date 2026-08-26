@@ -8,7 +8,7 @@ function List({ items }: { items: string[] }) {
     <ul className="space-y-3 mt-6 flex-1">
       {items.map((item) => (
         <li key={item} className="flex items-start gap-2.5 text-[15px] text-[var(--steel)]">
-          <ChevronRight size={16} className="mt-0.5 shrink-0 text-[var(--red)]" />
+          <ChevronRight size={16} strokeWidth={2} className="mt-0.5 shrink-0 text-[var(--red)]" />
           <span>{item}</span>
         </li>
       ))}
@@ -39,16 +39,16 @@ export default async function Services() {
 
         {/* Mobile : cartes empilées avec un vrai espace (space-y-4).
             md+ : grille 3 colonnes — séparation par l'ombre, sans filet. */}
-        <div id="domaines" className="grid md:grid-cols-3 gap-5 md:gap-6 mt-8">
-          <Reveal delay={0} className="group relative overflow-hidden bg-white border border-black/[0.06] shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_28px_-18px_rgba(0,0,0,0.22)] rounded-2xl p-8">
+        <div id="domaines" className="grid md:grid-cols-[1.2fr_1fr_1fr] gap-5 md:gap-6 mt-8">
+          <Reveal delay={0} className="group relative overflow-hidden bg-[var(--sand)] border border-black/[0.06] shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_28px_-18px_rgba(0,0,0,0.22)] rounded-2xl p-8 md:p-10">
             <Ship
-              size={170}
+              size={200}
               strokeWidth={0.8}
               aria-hidden="true"
               className="absolute -bottom-7 -right-7 text-[var(--navy-deep)] opacity-[0.07] pointer-events-none select-none"
             />
-            <div className="h-12 w-12 flex items-center justify-center bg-[var(--navy-deep)] text-[var(--amber)] rounded-xl">
-              <Ship size={24} />
+            <div className="h-14 w-14 flex items-center justify-center bg-[var(--navy-deep)] text-[var(--amber)] rounded-xl">
+              <Ship size={28} />
             </div>
             <h3 className="font-display uppercase tracking-wide text-2xl text-[var(--navy-deep)] mt-5">
               {t("maritimeTitle")}
@@ -58,11 +58,11 @@ export default async function Services() {
               href="/services/logistique"
               className="inline-flex items-center gap-1.5 font-display uppercase tracking-wide text-[13.5px] text-[var(--red)] mt-8"
             >
-              {t("learnMore")} <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-1" />
+              {t("learnMore")} <ArrowRight size={16} strokeWidth={2} className="transition-transform duration-200 group-hover:translate-x-1" />
             </Link>
           </Reveal>
 
-          <Reveal delay={0.08} className="group relative overflow-hidden bg-white border border-black/[0.06] shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_28px_-18px_rgba(0,0,0,0.22)] rounded-2xl p-8">
+          <Reveal delay={0.08} className="group relative overflow-hidden bg-[var(--white-warm)] border border-black/[0.06] shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_28px_-18px_rgba(0,0,0,0.22)] rounded-2xl p-8">
             <Building2
               size={170}
               strokeWidth={0.8}
@@ -80,11 +80,11 @@ export default async function Services() {
               href="/services/btp"
               className="inline-flex items-center gap-1.5 font-display uppercase tracking-wide text-[13.5px] text-[var(--red)] mt-8"
             >
-              {t("learnMore")} <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-1" />
+              {t("learnMore")} <ArrowRight size={16} strokeWidth={2} className="transition-transform duration-200 group-hover:translate-x-1" />
             </Link>
           </Reveal>
 
-          <Reveal delay={0.16} className="group relative overflow-hidden bg-white border border-black/[0.06] shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_28px_-18px_rgba(0,0,0,0.22)] rounded-2xl p-8">
+          <Reveal delay={0.16} className="group relative overflow-hidden bg-[var(--white-warm)] border border-black/[0.06] shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_28px_-18px_rgba(0,0,0,0.22)] rounded-2xl p-8">
             <Construction
               size={170}
               strokeWidth={0.8}
@@ -102,7 +102,7 @@ export default async function Services() {
               href="/services/btp"
               className="inline-flex items-center gap-1.5 font-display uppercase tracking-wide text-[13.5px] text-[var(--red)] mt-8"
             >
-              {t("learnMore")} <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-1" />
+              {t("learnMore")} <ArrowRight size={16} strokeWidth={2} className="transition-transform duration-200 group-hover:translate-x-1" />
             </Link>
           </Reveal>
         </div>

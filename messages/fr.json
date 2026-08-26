@@ -307,27 +307,19 @@
       "metadataDescription": "Mentions légales du site GOSTA TRANS LOGISTIQUE & BTP : éditeur, hébergeur et conditions d'utilisation.",
       "eyebrow": "Informations légales",
       "title": "Mentions légales",
-      "updated": "Dernière mise à jour : [À COMPLÉTER : date]",
+      "updated": "Dernière mise à jour : 19 août 2026",
       "sections": [
         {
           "heading": "Éditeur du site",
           "body": [
             "Le présent site est édité par GOSTA TRANS LOGISTIQUE & BTP, dont le siège social est situé SICA II, 2e arrondissement, Bangui, République Centrafricaine.",
-            "Forme juridique : [À COMPLÉTER : forme juridique]. Numéro d'immatriculation (RCCM) : [À COMPLÉTER : numéro RCCM]. Numéro d'identification fiscale : [À COMPLÉTER : NIF].",
             "Téléphone : 70 12 00 25 / 72 60 05 33. WhatsApp : 75 20 03 13. Courriel : gostatranslogistiquebtp@outlook.fr."
-          ]
-        },
-        {
-          "heading": "Directeur de la publication",
-          "body": [
-            "Le directeur de la publication est [À COMPLÉTER : nom et qualité du responsable de la publication]."
           ]
         },
         {
           "heading": "Hébergement",
           "body": [
-            "Le site est hébergé par Vercel Inc., 340 S Lemon Ave #4133, Walnut, CA 91789, États-Unis (vercel.com).",
-            "[À COMPLÉTER : confirmer l'hébergeur si le site est déployé ailleurs.]"
+            "Le site est hébergé par Vercel Inc., 340 S Lemon Ave #4133, Walnut, CA 91789, États-Unis (vercel.com)."
           ]
         },
         {
@@ -355,7 +347,7 @@
           "heading": "Droit applicable",
           "body": [
             "Le présent site et son utilisation sont régis par le droit de la République Centrafricaine.",
-            "[À COMPLÉTER : juridiction compétente en cas de litige.]"
+            "En cas de litige, les tribunaux compétents de Bangui sont seuls compétents."
           ]
         }
       ]
@@ -365,7 +357,7 @@
       "metadataDescription": "Politique de confidentialité du site GOSTA TRANS LOGISTIQUE & BTP : données collectées, finalités et vos droits.",
       "eyebrow": "Vos données",
       "title": "Politique de confidentialité",
-      "updated": "Dernière mise à jour : [À COMPLÉTER : date]",
+      "updated": "Dernière mise à jour : 19 août 2026",
       "sections": [
         {
           "heading": "Responsable du traitement",
@@ -390,28 +382,26 @@
         {
           "heading": "Hébergement et journaux techniques",
           "body": [
-            "L'hébergeur du site peut collecter automatiquement des données techniques (par exemple l'adresse IP et des journaux de connexion) nécessaires au fonctionnement et à la sécurité du site.",
-            "[À COMPLÉTER : préciser les traitements réalisés par l'hébergeur et renvoyer vers sa politique de confidentialité.]"
+            "L'hébergeur du site (Vercel Inc.) peut collecter automatiquement des données techniques (adresse IP, journaux de connexion) nécessaires au fonctionnement et à la sécurité du site. Ces données ne sont pas utilisées à des fins de suivi. Pour plus d'informations, consultez la politique de confidentialité de Vercel : vercel.com/legal/privacy-policy."
           ]
         },
         {
           "heading": "Cookies",
           "body": [
-            "À la date de publication, le site n'intègre pas d'outil de mesure d'audience ni de cookies publicitaires.",
-            "[À COMPLÉTER : mettre à jour cette section si un outil d'analyse ou de suivi est ajouté.]"
+            "À la date de publication, le site n'intègre pas d'outil de mesure d'audience ni de cookies publicitaires. Seuls les cookies strictement nécessaires au fonctionnement du site peuvent être utilisés."
           ]
         },
         {
           "heading": "Durée de conservation",
           "body": [
-            "[À COMPLÉTER : durée de conservation des demandes reçues, par exemple par courriel ou WhatsApp.]"
+            "Aucune donnée personnelle n'est stockée sur nos serveurs. Les messages WhatsApp que vous envoyez sont régis par la politique de conservation de WhatsApp."
           ]
         },
         {
           "heading": "Vos droits",
           "body": [
             "Vous pouvez demander l'accès, la rectification ou la suppression des informations que vous nous avez transmises en écrivant à gostatranslogistiquebtp@outlook.fr.",
-            "[À COMPLÉTER : mentionner l'autorité de contrôle compétente et le cadre de protection des données applicable.]"
+            "Le traitement des données est soumis à la législation de la République Centrafricaine."
           ]
         }
       ]

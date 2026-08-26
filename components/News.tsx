@@ -36,7 +36,7 @@ export default async function News({ extra = [] }: { extra?: NewsPost[] }) {
   const posts = [...(t.raw("posts") as NewsPost[]), ...extra];
 
   return (
-    <section id="actualites" className="bg-white">
+    <section id="actualites" className="bg-[var(--white-warm)]">
       <div className="mx-auto max-w-7xl px-6 py-10 md:py-14">
         <Reveal>
           <span className="block font-mono text-[12.5px] uppercase tracking-[0.25em] text-[var(--red)]">
@@ -76,12 +76,12 @@ export default async function News({ extra = [] }: { extra?: NewsPost[] }) {
                   )}
                   <div className="p-7">
                     <div className="flex items-center gap-2 font-mono text-[12px] uppercase tracking-wide text-[var(--steel)]">
-                      <Calendar size={14} className="text-[var(--red)]" />
+                      <Calendar size={16} strokeWidth={2} className="text-[var(--red)]" />
                       {date}
                     </div>
                     <div className="flex items-start gap-4 mt-4">
                       <div className="shrink-0 h-10 w-10 flex items-center justify-center bg-[var(--navy-deep)] text-[var(--amber)] rounded-xl">
-                        <Icon size={18} />
+                        <Icon size={20} strokeWidth={1.8} />
                       </div>
                       <h3 className="font-display uppercase tracking-wide text-xl text-[var(--navy-deep)] leading-snug">
                         {title}

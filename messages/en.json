@@ -307,27 +307,19 @@
       "metadataDescription": "Legal notice for the GOSTA TRANS LOGISTICS & BTP website: publisher, host and terms of use.",
       "eyebrow": "Legal information",
       "title": "Legal notice",
-      "updated": "Last updated: [TO COMPLETE: date]",
+      "updated": "Last updated: 19 August 2026",
       "sections": [
         {
           "heading": "Site publisher",
           "body": [
             "This website is published by GOSTA TRANS LOGISTIQUE & BTP, whose registered office is located at SICA II, 2nd district, Bangui, Central African Republic.",
-            "Legal form: [TO COMPLETE: legal form]. Registration number (RCCM): [TO COMPLETE: RCCM number]. Tax identification number: [TO COMPLETE: tax ID].",
             "Phone: 70 12 00 25 / 72 60 05 33. WhatsApp: 75 20 03 13. Email: gostatranslogistiquebtp@outlook.fr."
-          ]
-        },
-        {
-          "heading": "Publication director",
-          "body": [
-            "The publication director is [TO COMPLETE: name and title of the person responsible for publication]."
           ]
         },
         {
           "heading": "Hosting",
           "body": [
-            "The site is hosted by Vercel Inc., 340 S Lemon Ave #4133, Walnut, CA 91789, United States (vercel.com).",
-            "[TO COMPLETE: confirm the host if the site is deployed elsewhere.]"
+            "The site is hosted by Vercel Inc., 340 S Lemon Ave #4133, Walnut, CA 91789, United States (vercel.com)."
           ]
         },
         {
@@ -355,7 +347,7 @@
           "heading": "Governing law",
           "body": [
             "This site and its use are governed by the law of the Central African Republic.",
-            "[TO COMPLETE: competent jurisdiction in the event of a dispute.]"
+            "In the event of a dispute, the competent courts of Bangui shall have exclusive jurisdiction."
           ]
         }
       ]
@@ -365,7 +357,7 @@
       "metadataDescription": "Privacy policy for the GOSTA TRANS LOGISTICS & BTP website: data collected, purposes and your rights.",
       "eyebrow": "Your data",
       "title": "Privacy policy",
-      "updated": "Last updated: [TO COMPLETE: date]",
+      "updated": "Last updated: 19 August 2026",
       "sections": [
         {
           "heading": "Data controller",
@@ -390,28 +382,26 @@
         {
           "heading": "Hosting and technical logs",
           "body": [
-            "The site host may automatically collect technical data (for example IP address and connection logs) needed for the operation and security of the site.",
-            "[TO COMPLETE: describe the processing carried out by the host and link to its privacy policy.]"
+            "The site host (Vercel Inc.) may automatically collect technical data (IP address, connection logs) needed for the operation and security of the site. This data is not used for tracking purposes. For more information, see Vercel's privacy policy: vercel.com/legal/privacy-policy."
           ]
         },
         {
           "heading": "Cookies",
           "body": [
-            "As of the publication date, the site does not include any audience-measurement tool or advertising cookies.",
-            "[TO COMPLETE: update this section if an analytics or tracking tool is added.]"
+            "As of the publication date, the site does not include any audience-measurement tool or advertising cookies. Only strictly necessary cookies for site functionality may be used."
           ]
         },
         {
           "heading": "Retention period",
           "body": [
-            "[TO COMPLETE: how long requests received, for example by email or WhatsApp, are kept.]"
+            "No personal data is stored on our servers. WhatsApp messages you send are governed by WhatsApp's own retention policy."
           ]
         },
         {
           "heading": "Your rights",
           "body": [
             "You can request access to, correction of, or deletion of the information you have sent us by writing to gostatranslogistiquebtp@outlook.fr.",
-            "[TO COMPLETE: name the competent supervisory authority and the applicable data-protection framework.]"
+            "Data processing is subject to the legislation of the Central African Republic."
           ]
         }
       ]

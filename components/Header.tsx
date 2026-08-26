@@ -320,7 +320,7 @@ export default function Header() {
               aria-label={t("search")}
               className="text-white hover:text-[var(--red)] transition-colors p-1.5"
             >
-              <Search size={20} />
+              <Search size={20} strokeWidth={2} />
             </button>
             <button
               type="button"
@@ -341,14 +341,14 @@ export default function Header() {
               aria-label={t("search")}
               className="text-white hover:text-[var(--red)] transition-colors p-1.5"
             >
-              <Search size={23} />
+              <Search size={20} strokeWidth={2} />
             </button>
             <button
               className="text-white z-50"
               onClick={() => setOpen((o) => !o)}
               aria-label={open ? t("closeMenu") : t("openMenu")}
             >
-              {open ? <X size={26} /> : <Menu size={26} />}
+              {open ? <X size={24} strokeWidth={2} /> : <Menu size={24} strokeWidth={2} />}
             </button>
           </div>
         </div>
@@ -465,7 +465,7 @@ export default function Header() {
                     aria-label={t("search")}
                     className="h-12 w-12 flex items-center justify-center rounded-full border border-white/25 text-white hover:border-[var(--red)] hover:text-[var(--red)] transition-colors"
                   >
-                    <Search size={20} />
+                    <Search size={20} strokeWidth={2} />
                   </button>
                 </motion.div>
               </nav>

@@ -225,7 +225,7 @@ export default async function ContactPage({
       </section>
 
       {/* ===== Plan d'accès ===== */}
-      <section className="bg-white">
+      <section className="bg-[var(--white-warm)]">
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
           <Reveal>
             <span className="block font-mono text-[12.5px] uppercase tracking-[0.25em] text-[var(--red)]">

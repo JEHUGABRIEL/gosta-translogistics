@@ -16,7 +16,7 @@ export default async function Partners() {
   const loop = [...PARTNERS, ...PARTNERS];
 
   return (
-    <section className="bg-white overflow-hidden">
+    <section className="bg-[var(--white-warm)] overflow-hidden">
       {/* Séparation par l'espacement (py-16) plutôt que par un filet */}
       <div className="mx-auto max-w-7xl px-6 py-16">
         <Reveal className="text-center">
@@ -38,7 +38,7 @@ export default async function Partners() {
               key={`${label}-${i}`}
               className="flex items-center gap-3 text-[var(--steel)] shrink-0"
             >
-              <Icon size={22} className="text-[var(--navy-deep)]" />
+              <Icon size={24} strokeWidth={1.8} className="text-[var(--navy-deep)]" />
               <span className="font-display uppercase tracking-wide text-[15px] whitespace-nowrap">
                 {label}
               </span>

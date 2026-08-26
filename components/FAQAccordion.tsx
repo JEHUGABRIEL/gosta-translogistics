@@ -39,7 +39,7 @@ export default function FAQAccordion({ items }: { items: FAQItem[] }) {
                     transition={{ duration: reduceMotion ? 0 : 0.3, ease: [0.16, 1, 0.3, 1] }}
                     className="flex"
                   >
-                    <Plus size={16} />
+                    <Plus size={20} strokeWidth={2} />
                   </motion.span>
                 </span>
               </button>

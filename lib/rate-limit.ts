@@ -68,3 +68,45 @@ export function lockoutRemaining(email: string): number {
   const remaining = Math.ceil((entry.lockedUntil - Date.now()) / 1000);
   return remaining > 0 ? remaining : 0;
 }
+
+// ── Generic IP-based rate limiter ──────────────────────────────────
+interface IpAttempt {
+  count: number;
+  resetAt: number;
+}
+
+const ipStore = new Map<string, IpAttempt>();
+
+let ipLastCleanup = Date.now();
+function ipCleanup() {
+  const now = Date.now();
+  if (now - ipLastCleanup < CLEANUP_INTERVAL) return;
+  ipLastCleanup = now;
+  for (const [key, entry] of ipStore) {
+    if (entry.resetAt < now) ipStore.delete(key);
+  }
+}
+
+/**
+ * Returns true if the request should be blocked.
+ * @param ip  Client IP address
+n * @param maxRequests  Max requests allowed in the window
+ * @param windowMs     Time window in milliseconds
+ */
+export function isRateLimited(
+  ip: string,
+  maxRequests: number,
+  windowMs: number
+): boolean {
+  ipCleanup();
+  const now = Date.now();
+  const entry = ipStore.get(ip);
+
+  if (!entry || entry.resetAt < now) {
+    ipStore.set(ip, { count: 1, resetAt: now + windowMs });
+    return false;
+  }
+
+  entry.count += 1;
+  return entry.count > maxRequests;
+}
