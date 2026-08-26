@@ -84,7 +84,7 @@ export default function HeroCarousel({
       {/* Le padding top compense -mt-[var(--header-h)] pour que le contenu
           reste exactement à la même position qu'avant le chevauchement. */}
       <div
-        className={`relative mx-auto max-w-7xl px-6 pt-[calc(var(--header-h)+8rem)] md:pt-[calc(var(--header-h)+12rem)] pb-24 md:pb-48 ${floating ? "lg:pb-0" : ""}`}
+        className={`relative mx-auto max-w-7xl px-6 pt-[calc(var(--header-h)+8rem)] md:pt-[calc(var(--header-h)+12rem)] pb-12 md:pb-24 ${floating ? "lg:pb-0" : ""}`}
       >
         <AnimatePresence mode="wait">
           <motion.div

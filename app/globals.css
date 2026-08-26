@@ -206,3 +206,12 @@ a.inline-flex[class*="px-"][class*="py-"] {
 .btn-liquid-white:focus-visible::before {
   bottom: -150%;
 }
+
+/* Hide scrollbar for sliders */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
