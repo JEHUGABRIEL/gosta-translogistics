@@ -18,7 +18,7 @@ export default async function AcceptInvitePage({
       <AuthCard subtitle="Invitation">
         <p className="text-[14.5px] text-[var(--steel)]">
           Ce lien d&apos;invitation n&apos;est plus valide. Il a peut-être expiré ou déjà été
-          utilisé — demandez une nouvelle invitation à un administrateur.
+          utilisé : demandez une nouvelle invitation à un administrateur.
         </p>
       </AuthCard>
     );

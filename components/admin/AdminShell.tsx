@@ -10,6 +10,8 @@ import {
   LogOut,
   UserCircle,
   Users,
+  Inbox,
+  HelpCircle,
 } from "lucide-react";
 import { logoutAction } from "@/app/admin/actions";
 import ConfirmModal from "./ConfirmModal";
@@ -17,8 +19,10 @@ import ConfirmModal from "./ConfirmModal";
 const NAV = [
   { href: "/admin", label: "Vue d'ensemble", icon: LayoutDashboard, exact: true },
   { href: "/admin/quotes", label: "Demandes de devis", icon: MessageSquareText, exact: false },
+  { href: "/admin/messages", label: "Messages de contact", icon: Inbox, exact: false },
   { href: "/admin/testimonials", label: "Témoignages", icon: MessageSquareText, exact: false },
   { href: "/admin/news", label: "Actualités", icon: Newspaper, exact: false },
+  { href: "/admin/faq", label: "FAQ", icon: HelpCircle, exact: false },
   { href: "/admin/team", label: "Équipe", icon: Users, exact: false },
   { href: "/admin/account", label: "Mon compte", icon: UserCircle, exact: false },
 ] as const;
@@ -77,7 +81,7 @@ export default function AdminShell({
       </aside>
 
       <div className="flex-1 min-w-0">
-        <header className="bg-white border-b border-[var(--line-soft)] px-8 py-5">
+        <header className="bg-[var(--surface)] border-b border-[var(--line-soft)] px-8 py-5">
           <h1 className="font-display font-extrabold text-2xl text-[var(--navy-deep)]">
             {title}
           </h1>

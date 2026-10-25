@@ -7,6 +7,9 @@
     "home": "Home",
     "btp": "BTP",
     "logistique": "Logistics",
+    "services": "Our services",
+    "viewPole": "View area",
+    "about": "About",
     "contact": "Contact",
     "faq": "FAQ",
     "quote": "Get a quote",
@@ -18,7 +21,7 @@
   },
   "topbar": {
     "hours": "Mon – Sat · 07:30 – 18:00",
-    "addressSuffix": " · HQ SICA II, Bangui"
+    "addressSuffix": " · Gré-Vapendé PK16, Bangui"
   },
   "social": {
     "facebook": "Facebook · Gosta Trans",
@@ -38,7 +41,6 @@
     "submit": "Search"
   },
   "quote": {
-    "modalEyebrow": "Free quote",
     "modalTitle": "Get a quote",
     "modalText": "Transport, equipment rental or a construction site: describe your needs, we'll handle the rest. Reply within 24 business hours.",
     "whatsapp": "Chat on WhatsApp",
@@ -55,11 +57,13 @@
     "serviceType": "Type of need",
     "select": "Select…",
     "options": [
-      "Construction materials transport",
-      "Equipment rental with operator",
-      "Structural works / construction",
-      "Finishing works / renovation",
-      "Roadworks & public works"
+      "Road transport",
+      "Logistics & supply",
+      "Construction",
+      "Electrical",
+      "Air conditioning",
+      "Solar panels",
+      "Facility cleaning"
     ],
     "details": "Project details",
     "detailsPlaceholder": "Location, volume, expected deadlines…",
@@ -89,61 +93,65 @@
       "seeRealisations": "See our projects",
       "seeLogistique": "See logistics services",
       "seeBtp": "See BTP services",
-      "writeUs": "Write to us"
+      "writeUs": "Write to us",
+      "contact": "Contact us"
     },
-    "services": {
-      "eyebrow": "Our expertise",
-      "title": "One partner, two trades",
-      "subtitle": "From the dock to the site, GOSTA TRANS coordinates freight and construction under one roof: fewer intermediaries, more control over deadlines.",
-  "learnMore": "Learn more",
-      "maritimeTitle": "Maritime services & transport",
-      "maritimeItems": [
-        "Transport of construction materials",
-        "Fast and secure delivery",
-        "Equipment rental with operator",
-        "Complete logistics management",
-        "Site supply"
-      ],
-      "domainesTitle": "Areas of expertise",
-      "domainesItems": [
-        "Individual houses",
-        "Residential & commercial buildings",
-        "Industrial buildings",
-        "Structural works (foundations, masonry…)",
-        "Finishing works (electrical, plumbing, coffered ceilings…)"
-      ],
-      "travauxTitle": "Public works & renovation",
-      "travauxItems": [
-        "Roadworks & urban development",
-        "Earthworks & sanitation",
-        "Renovation & rehabilitation"
+    "featured": {
+      "title": "Seven service areas, one team",
+      "intro": "Transport, construction, energy and cleaning: services combine on the same project, with a single contact from quote to delivery.",
+      "hint": "Hover for details",
+      "discover": "Learn more",
+      "contact": "Contact us",
+      "seeAll": "All services"
+    },
+    "why": {
+      "title": "Why us",
+      "intro": "What clients compare most often between two providers on a project.",
+      "items": [
+        {
+          "title": "A single point of contact",
+          "text": "Transport, logistics, construction and energy sit under one structure: you are not coordinating five companies, and follow-up stays continuous."
+        },
+        {
+          "title": "Own machinery and operators",
+          "text": "Trucks, tippers and site machinery are mobilised with a qualified operator, so you do not depend on your own fleet."
+        },
+        {
+          "title": "Responsive on site",
+          "text": "Urgent deliveries, short-notice mobilisation and 24/7 electrical repairs to keep the schedule when the unexpected happens."
+        },
+        {
+          "title": "From port to site",
+          "text": "Freight receipt, customs clearance, haulage and tracked delivery: goods stay followed from entry point to site."
+        }
       ]
     },
-    "serviceShowcase": {
-      "btpEyebrow": "Construction division",
-      "btpTitle": "Our BTP services",
-      "logistiqueEyebrow": "Logistics division",
-      "logistiqueTitle": "Our logistics services",
-      "btpText": "From structural works to finishing works, including roadworks and public works.",
-      "logistiqueText": "Materials transport, equipment rental and complete coordination of your flows.",
-      "seeAll": "View all our services"
+    "team": {
+      "title": "Our team",
+      "intro": "Drivers, site supervisors, machine operators, electricians, air-conditioning technicians and cleaning staff: every area is run by specialists of their own trade, working with the same point of contact.",
+      "photo1": "GOSTA TRANS team on site",
+      "photo2": "Site supervision and plans",
+      "roles": [
+        "Transport & logistics",
+        "Construction & earthworks",
+        "Electrical & air conditioning",
+        "Solar panels & facility cleaning"
+      ]
     },
     "quote": {
       "title": "Request your quote",
       "text": "Describe your needs (transport, equipment rental or construction works) and our team will get back to you with an estimate tailored to the Central African context."
     },
     "about": {
-      "eyebrow": "Our company",
       "title": "About GOSTA TRANS",
       "badgeNumber": "2",
       "badgeText": "trades, one single contact",
       "contactUs": "Contact us",
-      "presentation": "GOSTA TRANS LOGISTICS & BTP is a Central African company based in Bangui, headquartered at SICA II with two operating sites on Boali Road (PK14 and PK20). It brings together under one structure materials transport, equipment rental with operator and construction works, from structural to finishing works.",
+      "presentation": "GOSTA TRANS LOGISTICS & BTP is a Central African company based in Bangui, in the Gré-Vapendé district at PK16 on Boali Road. It brings together under one structure materials transport, equipment rental with operator and construction works, from structural to finishing works.",
       "methode": "Every request follows the same thread: receiving the need, mobilising resources (trucks, equipment, teams), then supervised execution on site. This continuity between logistics and construction limits delays caused by supply breaks.",
       "engagement": "The team works on individual houses as well as residential, commercial or industrial buildings, and on roadworks and urban sanitation projects, with the reliability of a single point of contact from start to finish."
     },
     "projects": {
-      "eyebrow": "Portfolio",
       "title": "Our projects",
       "prev": "Previous",
       "next": "Next",
@@ -158,7 +166,6 @@
       ]
     },
     "testimonials": {
-      "eyebrow": "Client feedback",
       "title": "Testimonials",
       "prev": "Previous testimonial",
       "next": "Next testimonial",
@@ -166,13 +173,13 @@
       "comments": [
         {
           "role": "Private client",
-          "context": "House construction — Bangui",
+          "context": "House construction, Bangui",
           "quote": "Materials delivery and coffered ceiling installation handled by the same team, without having to coordinate several providers."
         },
         {
           "role": "Partner company",
           "context": "Commercial site",
-          "quote": "The team mobilises equipment quickly when an unexpected issue delays the schedule — that's what you expect from a logistics partner."
+          "quote": "The team mobilises equipment quickly when an unexpected issue delays the schedule, that's what you expect from a logistics partner."
         },
         {
           "role": "Public institution",
@@ -182,7 +189,6 @@
       ]
     },
     "partners": {
-      "eyebrow": "Trusted by",
       "title": "Our partners",
       "items": [
         "Local institutions",
@@ -194,7 +200,6 @@
       ]
     },
     "news": {
-      "eyebrow": "Company news",
       "title": "News",
       "readMore": "Read more",
       "posts": [
@@ -227,48 +232,104 @@
     "instagram": "@Gosta_trans_Logistique_et_BTP",
     "maps": "Open in Google Maps",
     "sites": {
-      "sica": { "label": "HQ — SICA II", "value": "2nd district, Bangui" },
-      "pk14": { "label": "PK14 site", "value": "Boali Road, Bangui" },
-      "pk20": { "label": "PK20 site", "value": "Boali Road, Bangui" }
+      "vapende": { "label": "Gré-Vapendé district, PK16", "value": "Boali Road, Bangui" }
     },
+    "about": "About us",
     "mentions": "Legal notice",
     "privacy": "Privacy policy"
   },
   "contact": {
     "metadataTitle": "Contact | GOSTA TRANS Logistics & Construction, Bangui",
     "metadataDescription": "Contact GOSTA TRANS LOGISTICS & BTP in Bangui: materials transport, equipment rental and construction. Phone, WhatsApp, email and access map.",
-    "eyebrow": "About & contact",
     "title": "CONTACT",
     "intro": "A question, a transport or construction project? Our team replies within 24 business hours.",
     "call": "Call us",
     "whatsapp": "WhatsApp",
-    "sectionEyebrow": "Get in touch",
     "sectionTitle": "Let's talk about your project",
     "sectionText": "Materials transport, equipment rental, structural or finishing works: describe your needs, we'll handle the rest.",
     "items": {
-      "address": { "label": "Addresses", "value": "3 sites in Bangui" },
-      "phone": { "label": "Phone", "value": "70 12 00 25 / 72 60 05 33" },
+      "address": { "label": "Address", "value": "Gré-Vapendé district, PK16 Boali Road" },
+      "phone": { "label": "Phone", "value": "75 20 03 13 / 70 12 00 25 / 72 60 05 33" },
       "whatsapp": { "label": "WhatsApp", "value": "75 20 03 13" },
-      "email": { "label": "Email", "value": "gostatranslogistiquebtp@outlook.fr" },
+      "email": { "label": "Email", "value": "gostatranslogistiquelp@outlook.fr" },
       "hours": { "label": "Hours", "value": "Mon – Sat · 07:30 – 18:00" }
     },
     "maps": "Open in Google Maps",
     "formTitle": "Write to us",
     "formText": "Fill in the form: your request opens directly in WhatsApp, ready to be sent.",
-    "findEyebrow": "Location",
     "findTitle": "Find us",
-    "findText": "Three sites in Bangui: our headquarters at SICA II (2nd district) and two operating sites on Boali Road, at PK14 and PK20.",
+    "findText": "The company is based in the Gré-Vapendé district, at PK16 on Boali Road in Bangui: a single site bringing together the head office and operations.",
     "sites": {
-      "sica": { "label": "HQ — SICA II", "value": "SICA II, 2nd district, Bangui, CAR" },
-      "pk14": { "label": "PK14 site", "value": "PK14, Boali Road, Bangui, CAR" },
-      "pk20": { "label": "PK20 site", "value": "PK20, Boali Road, Bangui, CAR" }
+      "vapende": { "label": "Gré-Vapendé district, PK16", "value": "Boali Road, Bangui, CAR" }
     }
   },
+  "about": {
+    "metadataTitle": "About | GOSTA TRANS Logistics & Construction",
+    "metadataDescription": "GOSTA TRANS LOGISTICS & BTP in Bangui: transport, logistics, construction, electrical, air conditioning, solar panels and cleaning. One team, one point of contact.",
+    "title": "About GOSTA TRANS",
+    "intro": "Transport, construction, energy and cleaning brought together under one structure in Bangui.",
+    "factsTitle": "Key facts",
+    "facts": [
+      { "label": "Head office", "value": "Gré-Vapendé district, PK16 Boali Road, Bangui" },
+      { "label": "Hours", "value": "Monday to Saturday, 7:30am – 6:00pm" },
+      { "label": "Phones", "value": "75 20 03 13 / 70 12 00 25 / 72 60 05 33" },
+      { "label": "Email", "value": "gostatranslogistiquelp@outlook.fr" },
+      { "label": "Trade register", "value": "CA/BG/2025A2261" },
+      { "label": "Tax ID", "value": "2362025P255049" }
+    ]
+  },
+  "values": {
+    "eyebrow": "Our commitments",
+    "title": "Our values",
+    "intro": "Four commitments that hold up on the ground, from loading to the last coat of paint.",
+    "items": [
+      {
+        "title": "Reliability",
+        "text": "Promised deadlines are met: a load leaves on time, a site keeps to schedule, with one contact following the job from quote to delivery."
+      },
+      {
+        "title": "Safety",
+        "text": "Trained crews, maintained equipment, secured cargo: the safety of people and loads comes before speed."
+      },
+      {
+        "title": "Local roots",
+        "text": "Based in Bangui, we know the roads, the seasons and the realities of the terrain — and we mobilise fast, including outside the capital."
+      },
+      {
+        "title": "Transparency",
+        "text": "A detailed quote before work starts, prices that hold, and a progress update at every stage."
+      }
+    ]
+  },
+  "contactForm": {
+    "title": "Have a question for us?",
+    "intro": "A question that is not about a quote? Write to us here: your message lands straight in our dashboard.",
+    "name": "Name",
+    "namePlaceholder": "Your name",
+    "email": "Email",
+    "emailPlaceholder": "you@example.com",
+    "phone": "Phone",
+    "phonePlaceholder": "75 00 00 00",
+    "message": "Message",
+    "messagePlaceholder": "Your question…",
+    "contactOptional": "Email or phone: at least one of the two, so we can reply.",
+    "send": "Send message",
+    "sending": "Sending…",
+    "success": "Message received. We will get back to you as soon as possible.",
+    "error": "Sending failed. Try again or reach us on WhatsApp."
+  },
   "services": {
+    "hub": {
+      "metadataTitle": "Our services | GOSTA TRANS Logistics & Construction",
+      "metadataDescription": "Road transport, logistics, construction, electrical, air conditioning, solar panels and facility cleaning: GOSTA TRANS's seven service areas in Bangui.",
+      "title": "Seven service areas, one team",
+      "intro": "Transport, construction, energy and cleaning: GOSTA TRANS services combine on the same project, with a single point of contact.",
+      "seePole": "View area",
+      "seeService": "View details"
+    },
     "btp": {
       "metadataTitle": "BTP Services | GOSTA TRANS Logistics & Construction",
       "metadataDescription": "Structural works, finishing works, roadworks, earthworks and renovation in Bangui: GOSTA TRANS's construction services.",
-      "categoryEyebrow": "BTP catalog",
       "heading": "BTP services",
       "intro": "From structural works to finishing works, including public works: each service can be mobilised alone or combined with materials transport.",
       "slide1": { "line1": "FROM STRUCTURAL", "line2": "TO FINISHING WORKS." },
@@ -279,7 +340,6 @@
     "logistique": {
       "metadataTitle": "Logistics Services | GOSTA TRANS Logistics & Construction",
       "metadataDescription": "Materials transport, equipment rental, logistics management and site supply in Bangui: GOSTA TRANS's logistics services.",
-      "categoryEyebrow": "Logistics catalog",
       "heading": "Logistics services",
       "intro": "Transport, equipment rental and site coordination: available separately or as a full service, in direct link with the construction side.",
       "slide1": { "line1": "YOUR MATERIALS,", "line2": "DELIVERED WITHOUT BREAKS." },
@@ -290,11 +350,9 @@
     "detail": {
       "quote": "Get a quote",
       "allServices": "All services",
-      "detailEyebrow": "Service details",
       "similar": "A similar need?",
       "similarText": "Contact the team for a quote tailored to your site.",
       "whatsapp": "WhatsApp",
-      "relatedEyebrow": "Explore more",
       "relatedTitle": "Other related services",
       "discover": "Discover"
     }
@@ -305,15 +363,15 @@
     "mentions": {
       "metadataTitle": "Legal notice | GOSTA TRANS Logistics & Construction",
       "metadataDescription": "Legal notice for the GOSTA TRANS LOGISTICS & BTP website: publisher, host and terms of use.",
-      "eyebrow": "Legal information",
       "title": "Legal notice",
       "updated": "Last updated: 19 August 2026",
       "sections": [
         {
           "heading": "Site publisher",
           "body": [
-            "This website is published by GOSTA TRANS LOGISTIQUE & BTP, whose registered office is located at SICA II, 2nd district, Bangui, Central African Republic.",
-            "Phone: 70 12 00 25 / 72 60 05 33. WhatsApp: 75 20 03 13. Email: gostatranslogistiquebtp@outlook.fr."
+            "This website is published by GOSTA TRANS LOGISTIQUE & BTP, whose registered office is located in the Gré-Vapendé district, PK16 Boali Road, Bangui, Central African Republic.",
+            "Trade register (RCCM): CA/BG/2025A2261. Unique identification number (NIU): 2362025P255049.",
+            "Phone: 75 20 03 13 / 70 12 00 25 / 72 60 05 33. WhatsApp: 75 20 03 13. Email: gostatranslogistiquelp@outlook.fr."
           ]
         },
         {
@@ -355,15 +413,14 @@
     "privacy": {
       "metadataTitle": "Privacy policy | GOSTA TRANS Logistics & Construction",
       "metadataDescription": "Privacy policy for the GOSTA TRANS LOGISTICS & BTP website: data collected, purposes and your rights.",
-      "eyebrow": "Your data",
       "title": "Privacy policy",
       "updated": "Last updated: 19 August 2026",
       "sections": [
         {
           "heading": "Data controller",
           "body": [
-            "The data controller is GOSTA TRANS LOGISTIQUE & BTP, SICA II, 2nd district, Bangui, Central African Republic.",
-            "For any question about your data: gostatranslogistiquebtp@outlook.fr."
+            "The data controller is GOSTA TRANS LOGISTIQUE & BTP, Gré-Vapendé district, PK16 Boali Road, Bangui, Central African Republic.",
+            "For any question about your data: gostatranslogistiquelp@outlook.fr."
           ]
         },
         {
@@ -400,7 +457,7 @@
         {
           "heading": "Your rights",
           "body": [
-            "You can request access to, correction of, or deletion of the information you have sent us by writing to gostatranslogistiquebtp@outlook.fr.",
+            "You can request access to, correction of, or deletion of the information you have sent us by writing to gostatranslogistiquelp@outlook.fr.",
             "Data processing is subject to the legislation of the Central African Republic."
           ]
         }
@@ -411,7 +468,6 @@
   "faq": {
     "metadataTitle": "Frequently Asked Questions | GOSTA TRANS Logistics & BTP",
     "metadataDescription": "Quotes, timelines, service areas, equipment rental, payment: answers to the most frequent questions about GOSTA TRANS Logistics & BTP in Bangui.",
-    "eyebrow": "Frequently asked questions",
     "title": "FAQ",
     "intro": "Answers to the most common questions about our transport, equipment rental and construction services. Still have a question? Contact us directly.",
     "ctaText": "Can't find the answer to your question?",
@@ -423,7 +479,7 @@
       },
       {
         "question": "Which areas do you cover?",
-        "answer": "We mainly operate in Bangui and its surrounding area, from our three sites: the SICA II headquarters (2nd district) and our two operating sites at PK14 and PK20 on Boali Road. For a site outside this area, contact us to check feasibility."
+        "answer": "We mainly operate in Bangui and its surrounding area from our site in the Gré-Vapendé district, at PK16 on Boali Road. For a site outside this area, contact us to check feasibility."
       },
       {
         "question": "What kind of equipment do you rent out?",
@@ -450,6 +506,9 @@
         "answer": "Yes, we work with individuals (private houses) as well as companies, property developers and public institutions, on residential, commercial, industrial or roadworks projects."
       }
     ]
+  },
+  "loading": {
+    "page": "Loading the page"
   },
   "floatingContact": {
     "toggle": "Contact us",

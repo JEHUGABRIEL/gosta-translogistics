@@ -30,22 +30,29 @@ component is used. Only skip the survey when the request is purely a question.
 ## Stack
 
 Next.js 16 (App Router, Turbopack) · React 19 · TypeScript (strict) · Tailwind CSS v4 ·
-next-intl 4 · framer-motion · lucide-react · Neon serverless driver (`@neondatabase/serverless`).
-Tests: Vitest 4 (`vitest.config.ts`, `test/`). No component library, no state manager —
-component state and URL/locale routing only.
+next-intl 4 · framer-motion · lucide-react · Neon serverless driver (`@neondatabase/serverless`)
+· TanStack Query 5 (`@tanstack/react-query`).
+Tests: Vitest 4 (`vitest.config.ts`, `test/`). No component library; Query est la seule
+couche de données côté client.
 
 ## Where things live
 
 | Path | Role |
 |---|---|
 | `app/[locale]/` | Public site, one segment per locale (`fr`, `en`). Home page composes the section components. |
-| `app/[locale]/services/{btp,logistique}/` | Category listing + `[slug]` detail pages, driven by the service catalogs. |
-| `app/admin/` | Dashboard (login, quotes, testimonials, news, team, account). Outside `[locale]`. Protected pages live in the `(protected)` route group, which carries a session guard layout. |
-| `app/api/quote/route.ts` | Only API route: POST quote request, IP rate-limited, field-truncated. |
+| `app/[locale]/services/` | Hub « Nos prestations » (les 7 pôles) ; `[pole]` liste un pôle ; `[pole]/[slug]` détail d'une prestation. Les anciennes URL `/services/btp/...` et `/services/logistique/...` restent valides (ce sont des pôles). |
+| `app/admin/` | Dashboard (login, quotes, contact messages, FAQ, testimonials, news, team, account). Outside `[locale]`. Protected pages live in the `(protected)` route group, which carries a session guard layout. |
+| `app/api/quote/route.ts` | POST quote request, IP rate-limited, field-truncated. |
+| `app/api/contact/route.ts` | POST free-form contact message (honeypot + IP rate limit), lue dans `/admin/messages`. |
+| `lib/mfa.ts` | TOTP (otpauth) : enrôlement sur `/admin/account`, défi intermédiaire (`admin_mfa_challenges`) avant la session. |
 | `components/` | Public site sections (`Header`, `HeroCarousel`, `Services`, `Projects`, `QuoteForm`, …) and `components/admin/` for the dashboard. |
 | `lib/db/schema.sql` | Whole DB schema; applied by `scripts/migrate.mjs`. |
 | `lib/db/queries.ts` | All SQL, one function per operation. `lib/db/client.ts` exposes `getDb()`. |
-| `lib/services.ts` / `lib/services-en.ts` | FR and EN service catalogs (same slugs/categories). Use `getServices(locale)` / `getServiceBySlug(locale, category, slug)`. |
+| `lib/services.ts` / `lib/services-en.ts` | FR and EN catalogs: 7 pôles (`transport`, `logistique`, `btp`, `electricite`, `climatisation`, `solaire`, `nettoyage`) et 33 prestations au total, slugs identiques dans les deux langues. Use `getServices(locale)` → `{ poles, byPole, all }`, `getServiceBySlug(locale, slug)` (slug globalement unique), `getServicesByPole`, `getPole`, `isPoleId`. Les slugs existants (`gros-oeuvre`, `location-engins`, …) ne doivent pas changer : ils sont indexés. |
+| `lib/services-payload.ts` + `app/api/services/route.ts` | Forme sérialisable du catalogue (sans icônes) servie en JSON, consommée par `FeaturedServices` via Query. |
+| `components/FeaturedServices.tsx` | Cartes vedette à retournement (7 pôles) : survol/focus sur desktop, IntersectionObserver + tap sur mobile, deux actions (« En savoir plus », « Nous contacter »). La face avant garde l'image du pôle (`Pole.image`, photo réelle du dépôt). |
+| `components/QueryProvider.tsx` | `QueryClient` par arbre (jamais un singleton module). Monté dans le layout public **et** dans le layout admin. |
+| `app/api/admin/quotes/route.ts` | Liste des devis pour le dashboard (`requireAdmin` → 401 si non authentifié), consommée par `QuotesBoard`. |
 | `lib/admin-auth.ts` | scrypt password hashing, sessions, OTP/invite tokens (node:crypto only). |
 | `lib/email.ts` | Resend REST calls via `fetch` — no SDK. Bilingual-ish French HTML templates. |
 | `lib/rate-limit.ts` | Throttling backed by the Neon `rate_limits` table (login lockout, IP limits). `lib/request-ip.ts` resolves the client IP from forwarded headers. |
@@ -114,9 +121,10 @@ Rules that matter:
 - `RESEND_API_KEY` — required for invite and OTP emails.
 - `RESEND_FROM_EMAIL` — optional sender; defaults to `onboarding@resend.dev` (Resend free
   tier without a verified domain).
-- `CLOUDINARY_CLOUD_NAME` / `CLOUDINARY_API_KEY` / `CLOUDINARY_API_SECRET` — documented in
-  `.env.example`, **not read by any code yet**: there is no image upload. Don't assume upload
-  support exists; news/team/testimonial images are URLs typed into the admin forms.
+- `CLOUDINARY_CLOUD_NAME` / `CLOUDINARY_API_KEY` / `CLOUDINARY_API_SECRET` — utilisés par
+  `uploadNewsImageAction` (Server Action) pour le visuel d'une actualité : envoi signé côté
+  serveur, le secret ne quitte jamais le serveur. Sans ces variables, l'upload échoue avec un
+  message explicite ; les autres images du site restent des URL statiques.
 
 ## Conventions & gotchas
 
@@ -171,6 +179,19 @@ Rules that matter:
 - **`server-only` guards the data layer.** `lib/db/client.ts`, `lib/db/queries.ts`,
   `lib/admin-auth.ts`, `lib/rate-limit.ts` and `lib/request-ip.ts` import `"server-only"`;
   client components may only import their **types** (`import type`).
+- **Coordonnées : une seule source à mettre à jour.** `lib/seo.ts` (`COMPANY` : adresse
+  Gré-Vapendé PK16, 3 numéros, email `gostatranslogistiquelp@outlook.fr`, RCCM/NIU),
+  `lib/social.ts` (`SITES` : un seul site, lien Maps), `components/Header.tsx` (`PHONES`,
+  email du bandeau) et les messages `footer.sites.*` / `contact.*` / `legal.*`. Aligné sur
+  le flyer de l'entreprise ; toute modification doit toucher les quatre endroits.
+- **TanStack Query ne remplace pas le rendu serveur.** Les cartes vedette et la liste de
+  devis reçoivent un `initialData` rendu côté serveur ; Query ne sert qu'au rafraîchissement
+  en arrière-plan (`staleTime` 5 min, pas de refetch au focus). Ne pas transformer une page
+  publique en écran de chargement.
+- **Cartes à retournement :** les deux faces sont dans le DOM (le verso reste lisible au
+  clavier), la carte se retourne aussi sur `focus-within`, et un tap visant un lien ou un
+  bouton n'est jamais intercepté. `prefers-reduced-motion` neutralise la transition via
+  `globals.css`.
 - **`SITE_URL` is hardcoded** in `lib/seo.ts` (`https://gosta-trans.vercel.app`). Change it
   there when a custom domain is attached — canonicals, hreflang, sitemap, OG tags and invite
   links all derive from it.

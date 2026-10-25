@@ -73,15 +73,12 @@ export default function ContactModal({
               onClick={onClose}
               autoFocus
               aria-label={t("close")}
-              className="absolute top-4 right-4 h-10 w-10 flex items-center justify-center rounded-full border border-[var(--line)] text-[var(--navy-deep)] hover:border-[var(--red)] hover:text-[var(--red)] transition-colors bg-white"
+              className="absolute top-4 right-4 h-10 w-10 flex items-center justify-center rounded-full border border-[var(--line)] text-[var(--navy-deep)] hover:border-[var(--red)] hover:text-[var(--red)] transition-colors bg-[var(--surface)]"
             >
               <X size={20} strokeWidth={2} />
             </button>
 
             <div className="p-7 md:p-10">
-              <span className="block font-mono text-[12px] uppercase tracking-[0.25em] text-[var(--red)]">
-                {t("modalEyebrow")}
-              </span>
               <h2 className="font-display font-extrabold text-3xl md:text-4xl text-[var(--navy-deep)] leading-tight mt-2">
                 {t("modalTitle")}
               </h2>
@@ -98,7 +95,7 @@ export default function ContactModal({
                       )}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-3 w-full bg-[#25D366] hover:bg-[#1ebe5b] transition-colors text-white font-display uppercase tracking-wide text-lg px-6 py-4"
+                      className="inline-flex items-center justify-center gap-3 w-full bg-[var(--green)] hover:bg-[var(--green-dark)] transition-colors text-white font-display uppercase tracking-wide text-lg px-6 py-4"
                     >
                       <WhatsAppIcon size={24} /> {t("whatsapp")}
                     </a>
@@ -124,7 +121,7 @@ export default function ContactModal({
                         href="tel:+23670120025"
                         className="flex items-center gap-2 hover:text-[var(--red)] transition-colors"
                       >
-                        <Phone size={15} className="text-[var(--amber)]" /> 70 12 00 25
+                        <Phone size={15} className="text-[var(--red)]" /> 70 12 00 25
                       </a>
                       <a
                         href={`${SOCIAL_LINKS.whatsapp}?text=${encodeURIComponent(
@@ -134,7 +131,7 @@ export default function ContactModal({
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 hover:text-[var(--red)] transition-colors"
                       >
-                        <WhatsAppIcon size={15} className="text-[var(--amber)]" /> 75 20 03 13
+                        <WhatsAppIcon size={15} className="text-[var(--red)]" /> 75 20 03 13
                       </a>
                     </div>
                   </>

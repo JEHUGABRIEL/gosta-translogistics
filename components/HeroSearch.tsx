@@ -43,20 +43,20 @@ export default function HeroSearch({
         }
       }
       if (best) {
-        router.push(`/services/${best.category}/${best.slug}`);
+        router.push(`/services/${best.pole}/${best.slug}`);
         onSubmitted?.();
         return;
       }
     }
 
-    document.getElementById("services")?.scrollIntoView({ behavior: "smooth" });
+    document.getElementById("prestations")?.scrollIntoView({ behavior: "smooth" });
     onSubmitted?.();
   };
 
   return (
     <form
       onSubmit={handleSearch}
-      className="bg-black/70 backdrop-blur-xl border border-white/10 shadow-2xl rounded-2xl"
+      className="bg-black/80 border border-white/10 shadow-2xl rounded-2xl"
     >
       <div className="grid md:grid-cols-[1fr_auto] gap-3 p-5 md:p-6">
         <div className="relative">

@@ -89,6 +89,27 @@ vi.mock("@/lib/db/queries", () => {
     refreshInviteOtp: fn(),
     incrementInviteOtpAttempts: fn(),
     acceptInvite: fn(),
+    // FAQ
+    listFaqs: fn(),
+    createFaq: fn(),
+    updateFaq: fn(),
+    setFaqPublished: fn(),
+    deleteFaq: fn(),
+    // messages de contact
+    createContactMessage: fn(),
+    listContactMessages: fn(),
+    updateContactMessageStatus: fn(),
+    deleteContactMessage: fn(),
+    // double authentification
+    getAdminMfaState: fn(),
+    setAdminMfaSecret: fn(),
+    enableAdminMfa: fn(),
+    disableAdminMfa: fn(),
+    createMfaChallenge: fn(),
+    findMfaChallenge: fn(),
+    incrementMfaChallengeAttempts: fn(),
+    deleteMfaChallenge: fn(),
+    deleteMfaChallengesForUser: fn(),
     // sessions / compte
     deleteExpiredSessions: fn(),
     listSessionsForUser: fn(),
@@ -105,6 +126,16 @@ vi.mock("@/lib/db/queries", () => {
     purgeStaleRateLimits: fn(),
   };
 });
+
+vi.mock("@/lib/mfa", () => ({
+  startMfaChallenge: vi.fn(async () => {}),
+  verifyTotp: vi.fn(() => true),
+  readMfaChallengeToken: vi.fn(async () => null),
+  clearMfaChallengeCookie: vi.fn(async () => {}),
+  generateTotpSecret: vi.fn(() => "JBSWY3DPEHPK3PXP"),
+  buildTotpUri: vi.fn(() => "otpauth://totp/test"),
+  MFA_MAX_ATTEMPTS: 5,
+}));
 
 vi.mock("@/lib/admin-auth", async (importOriginal) => {
   const actual = await importOriginal<typeof import("@/lib/admin-auth")>();
@@ -131,6 +162,7 @@ import {
   verifyAgainstDummyHash,
 } from "@/lib/admin-auth";
 import { sendEmail } from "@/lib/email";
+import { readMfaChallengeToken, startMfaChallenge, verifyTotp } from "@/lib/mfa";
 import {
   clearLoginFailures,
   isLoginIpRateLimited,
@@ -194,6 +226,15 @@ const WRITE_QUERIES = [
   queries.deleteSessionById,
   queries.deleteSessionsForUser,
   queries.updateAdminPassword,
+  queries.createFaq,
+  queries.updateFaq,
+  queries.setFaqPublished,
+  queries.deleteFaq,
+  queries.updateContactMessageStatus,
+  queries.deleteContactMessage,
+  queries.setAdminMfaSecret,
+  queries.enableAdminMfa,
+  queries.disableAdminMfa,
   sendEmail,
 ];
 
@@ -450,6 +491,91 @@ describe("loginAction", () => {
 
     expect(clearLoginFailures).toHaveBeenCalledWith(ADMIN.email, "203.0.113.7");
     expect(createSession).toHaveBeenCalledWith(ADMIN.id);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Double authentification
+// ---------------------------------------------------------------------------
+
+describe("double authentification", () => {
+  const challenge = {
+    id: 7,
+    user_id: ADMIN.id,
+    attempts: 0,
+    expires_at: new Date(Date.now() + 10 * 60_000).toISOString(),
+  };
+
+  it("exige le code TOTP quand MFA est activée (pas de session)", async () => {
+    vi.mocked(findUserByEmail).mockResolvedValue({
+      id: ADMIN.id,
+      email: ADMIN.email,
+      password_hash: await hashPassword("BonMdp123"),
+    });
+    vi.mocked(queries.getAdminMfaState).mockResolvedValue({
+      mfa_secret: "SECRET",
+      mfa_enabled: true,
+    });
+
+    await expectRedirectTo(
+      () =>
+        actions.loginAction(
+          null,
+          form({ email: ADMIN.email, password: "BonMdp123" })
+        ),
+      "/admin/login/verify"
+    );
+
+    expect(startMfaChallenge).toHaveBeenCalledWith(ADMIN.id);
+    expect(createSession).not.toHaveBeenCalled();
+  });
+
+  it("refuse un défi absent", async () => {
+    const result = await actions.verifyMfaLoginAction(null, form({ code: "123456" }));
+
+    expect(result).toEqual({ error: "Session expirée. Reconnectez-vous." });
+    expect(createSession).not.toHaveBeenCalled();
+  });
+
+  it("refuse un code incorrect et compte la tentative", async () => {
+    vi.mocked(readMfaChallengeToken).mockResolvedValue("token");
+    vi.mocked(queries.findMfaChallenge).mockResolvedValue(challenge);
+    vi.mocked(queries.getAdminMfaState).mockResolvedValue({
+      mfa_secret: "SECRET",
+      mfa_enabled: true,
+    });
+    vi.mocked(verifyTotp).mockReturnValue(false);
+
+    const result = await actions.verifyMfaLoginAction(null, form({ code: "000000" }));
+
+    expect(result).toEqual({ error: "Code incorrect." });
+    expect(queries.incrementMfaChallengeAttempts).toHaveBeenCalledWith(challenge.id);
+    expect(createSession).not.toHaveBeenCalled();
+  });
+
+  it("ferme le défi et ouvre la session quand le code est valide", async () => {
+    vi.mocked(readMfaChallengeToken).mockResolvedValue("token");
+    vi.mocked(queries.findMfaChallenge).mockResolvedValue(challenge);
+    vi.mocked(queries.getAdminMfaState).mockResolvedValue({
+      mfa_secret: "SECRET",
+      mfa_enabled: true,
+    });
+    vi.mocked(verifyTotp).mockReturnValue(true);
+
+    await expectRedirectTo(
+      () => actions.verifyMfaLoginAction(null, form({ code: "123456" })),
+      "/admin"
+    );
+
+    expect(queries.deleteMfaChallenge).toHaveBeenCalledWith(challenge.id);
+    expect(createSession).toHaveBeenCalledWith(ADMIN.id);
+  });
+
+  it("exige une session pour enrôler un second facteur", async () => {
+    vi.mocked(getSessionUser).mockResolvedValue(null);
+
+    await expectRedirectTo(() => actions.startMfaEnrollmentAction());
+    expect(queries.setAdminMfaSecret).not.toHaveBeenCalled();
   });
 });
 

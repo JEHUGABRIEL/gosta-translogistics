@@ -92,10 +92,7 @@ export default function Projects() {
       <div className="mx-auto max-w-7xl px-6 pb-16 md:pb-20 pt-24 lg:pt-40">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <Reveal className="max-w-xl">
-            <span className="block font-mono text-[12.5px] uppercase tracking-[0.25em] text-[var(--red)]">
-              {t("eyebrow")}
-            </span>
-            <h2 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)] mt-3">
+            <h2 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)]">
               {t("title")}
             </h2>
           </Reveal>
@@ -133,7 +130,7 @@ export default function Projects() {
                 delay={i * 0.06}
                 className="snap-start shrink-0 w-[calc(100vw-3rem)] sm:w-[450px]"
               >
-                <div className="group h-full bg-white border border-black/[0.06] shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_28px_-18px_rgba(0,0,0,0.22)] hover:-translate-y-[3px] hover:shadow-[0_2px_4px_rgba(0,0,0,0.05),0_24px_44px_-22px_rgba(0,0,0,0.34)] transition-[transform,box-shadow] duration-300 ease-[cubic-bezier(0.2,0.7,0.2,1)] rounded-2xl overflow-hidden">
+                <div className="h-full bg-[var(--surface)] border border-black/[0.06] rounded-2xl overflow-hidden">
                   <div className="overflow-hidden">
                   {gallery.length > 1 ? (
                     <ImageCarousel
@@ -147,13 +144,13 @@ export default function Projects() {
                       alt={title}
                       width={900}
                       height={506}
-                      className="h-80 w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="h-80 w-full object-cover"
                     />
                   )}
                 </div>
                 <div className="p-7">
                   <div className="flex items-center justify-between">
-                    <div className="h-10 w-10 flex items-center justify-center bg-[var(--navy-deep)] text-[var(--amber)] rounded-xl">
+                    <div className="h-10 w-10 flex items-center justify-center bg-[var(--navy-deep)] text-[var(--amber)] rounded-md">
                       <Icon size={20} />
                     </div>
                     <span className="font-mono text-[12px] uppercase tracking-wide text-[var(--red)]">
@@ -165,10 +162,7 @@ export default function Projects() {
                   </h3>
                   <span className="inline-flex items-center gap-1.5 font-display uppercase tracking-wide text-[14px] text-[var(--red)] mt-5">
                     {t("readMore")}
-                    <ArrowRight
-                      size={16}
-                      className="transition-transform duration-200 group-hover:translate-x-1"
-                    />
+                    <ArrowRight size={16} />
                   </span>
                 </div>
                 </div>

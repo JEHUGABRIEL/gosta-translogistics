@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/seo";
+import QueryProvider from "@/components/QueryProvider";
 import "../globals.css";
 
 export const metadata: Metadata = {
@@ -18,7 +19,7 @@ export default function AdminLayout({
   return (
     <html lang="fr">
       <body className="antialiased bg-[var(--sand)] text-[#1B2430] font-sans">
-        {children}
+        <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
   );

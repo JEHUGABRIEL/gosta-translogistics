@@ -7,6 +7,7 @@ import {
 } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+import QueryProvider from "@/components/QueryProvider";
 import { QuoteModalProvider } from "@/components/QuoteModalProvider";
 import FloatingActions from "@/components/FloatingActions";
 import { COMPANY, SITE_URL } from "@/lib/seo";
@@ -123,10 +124,12 @@ export default async function LocaleLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <QuoteModalProvider>
-            {children}
-            <FloatingActions />
-          </QuoteModalProvider>
+          <QueryProvider>
+            <QuoteModalProvider>
+              {children}
+              <FloatingActions />
+            </QuoteModalProvider>
+          </QueryProvider>
         </NextIntlClientProvider>
       </body>
     </html>

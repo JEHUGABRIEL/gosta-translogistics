@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { pageMetadata } from "@/lib/seo";
 import {
@@ -13,6 +14,7 @@ import {
 import Header from "@/components/Header";
 import About from "@/components/About";
 import QuoteForm from "@/components/QuoteForm";
+import ContactMessageForm from "@/components/ContactMessageForm";
 import Reveal from "@/components/Reveal";
 import Footer from "@/components/Footer";
 import {
@@ -21,6 +23,7 @@ import {
   WhatsAppIcon,
 } from "@/components/SocialIcons";
 import { SOCIAL_LINKS, SITES } from "@/lib/social";
+import { CONTACT_HERO_IMAGE } from "@/lib/hero-images";
 
 export async function generateMetadata({
   params,
@@ -42,14 +45,14 @@ const CONTACT_ITEMS: {
   icon: LucideIcon;
   href?: string;
 }[] = [
-  // 3 sites (voir la section « Nous trouver » plus bas) : pas de lien unique ici.
+  // Un seul site depuis l'alignement sur le flyer : pas de lien unique ici.
   { id: "address", icon: MapPin },
-  { id: "phone", icon: Phone, href: "tel:+23670120025" },
+  { id: "phone", icon: Phone, href: "tel:+23675200313" },
   { id: "whatsapp", icon: MessageCircle, href: SOCIAL_LINKS.whatsapp },
   {
     id: "email",
     icon: Mail,
-    href: "mailto:gostatranslogistiquebtp@outlook.fr",
+    href: "mailto:gostatranslogistiquelp@outlook.fr",
   },
   { id: "hours", icon: Clock },
 ];
@@ -70,6 +73,7 @@ export default async function ContactPage({
   const t = await getTranslations("contact");
   const tSocial = await getTranslations("social");
   const tInfo = await getTranslations();
+  const tMessage = await getTranslations("contactForm");
 
   return (
     <main>
@@ -80,13 +84,19 @@ export default async function ContactPage({
           le header transparent hérite de ce fond sombre au lieu du fond clair
           du body — uniforme avec l'accueil et les pages services. */}
       <section className="relative bg-[var(--navy-deep)] overflow-hidden -mt-[var(--header-h)]">
-        <div className="absolute inset-0 bg-gradient-to-br from-[var(--navy-mid)]/70 via-[var(--navy-deep)] to-[var(--navy-deep)]" />
+        <Image
+          src={CONTACT_HERO_IMAGE.src}
+          alt={CONTACT_HERO_IMAGE.alt}
+          fill
+          sizes="100vw"
+          loading="eager"
+          className="object-cover"
+        />
+        {/* Voile noir simple : même traitement que les héros à photo (HeroCarousel) */}
+        <div className="absolute inset-0 bg-black/60" />
         <div className="relative mx-auto max-w-7xl px-6 pt-[calc(var(--header-h)+5rem)] md:pt-[calc(var(--header-h)+7rem)] pb-20 md:pb-28">
           <Reveal>
-            <span className="font-mono text-[12.5px] uppercase tracking-[0.25em] text-[var(--amber)]">
-              {t("eyebrow")}
-            </span>
-            <h1 className="font-display font-extrabold text-5xl md:text-7xl text-white leading-[0.95] mt-4">
+            <h1 className="font-display font-extrabold text-5xl md:text-7xl text-white leading-[0.95]">
               {t("title")}
             </h1>
             <p className="text-[#cfd6e0] mt-5 max-w-xl leading-relaxed">
@@ -122,10 +132,7 @@ export default async function ContactPage({
         <div className="mx-auto max-w-7xl px-6 py-16 md:py-20 grid lg:grid-cols-2 gap-12 items-start">
           <div>
             <Reveal>
-              <span className="block font-mono text-[12.5px] uppercase tracking-[0.25em] text-[var(--red)]">
-                {t("sectionEyebrow")}
-              </span>
-              <h2 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)] mt-3">
+              <h2 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)]">
                 {t("sectionTitle")}
               </h2>
               <p className="text-[var(--steel)] mt-4 leading-relaxed max-w-md">
@@ -136,8 +143,8 @@ export default async function ContactPage({
             <div className="grid sm:grid-cols-2 gap-4 mt-9">
               {CONTACT_ITEMS.map((item, i) => {
                 const inner = (
-                  <div className="h-full bg-white border border-black/[0.06] rounded-2xl p-5 flex flex-col shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_28px_-18px_rgba(0,0,0,0.22)]">
-                    <div className="h-10 w-10 flex items-center justify-center bg-[var(--navy-deep)] text-[var(--amber)] rounded-xl">
+                  <div className="h-full bg-[var(--surface)] border border-black/[0.06] rounded-2xl p-5 flex flex-col ">
+                    <div className="h-10 w-10 flex items-center justify-center bg-[var(--navy-deep)] text-[var(--amber)] rounded-md">
                       <item.icon size={20} />
                     </div>
                     <span className="font-mono text-[11.5px] uppercase tracking-[0.2em] text-[var(--steel)] mt-4">
@@ -168,12 +175,12 @@ export default async function ContactPage({
                             ? "noopener noreferrer"
                             : undefined
                         }
-                        className="block h-full group hover:-translate-y-[3px] hover:shadow-[0_2px_4px_rgba(0,0,0,0.05),0_24px_44px_-22px_rgba(0,0,0,0.34)] transition-[transform,box-shadow] duration-300 ease-[cubic-bezier(0.2,0.7,0.2,1)]"
+                        className="block h-full group hover:-translate-y-[3px] transition-transform duration-300 ease-[cubic-bezier(0.2,0.7,0.2,1)]"
                       >
                         {inner}
                       </a>
                     ) : (
-                      <div className="block h-full group hover:-translate-y-[3px] hover:shadow-[0_2px_4px_rgba(0,0,0,0.05),0_24px_44px_-22px_rgba(0,0,0,0.34)] transition-[transform,box-shadow] duration-300 ease-[cubic-bezier(0.2,0.7,0.2,1)]">
+                      <div className="block h-full group">
                         {inner}
                       </div>
                     )}
@@ -191,7 +198,7 @@ export default async function ContactPage({
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={tSocial(labelKey)}
-                    className="h-11 w-11 flex items-center justify-center bg-white border border-[var(--line-soft)] text-[var(--navy-deep)] hover:border-[var(--red)] hover:text-[var(--red)] hover:-translate-y-0.5 transition-all"
+                    className="h-11 w-11 flex items-center justify-center bg-[var(--surface)] border border-[var(--line-soft)] text-[var(--navy-deep)] hover:border-[var(--red)] hover:text-[var(--red)] hover:-translate-y-0.5 transition-all"
                   >
                     <Icon size={18} />
                   </a>
@@ -209,7 +216,7 @@ export default async function ContactPage({
           </div>
 
           <Reveal delay={0.1} className="lg:sticky lg:top-32">
-            <div className="bg-white border-t-4 border-[var(--red)] shadow-2xl rounded-2xl p-7 md:p-10">
+            <div className="bg-[var(--surface)] border border-[var(--line-soft)] border-t-4 border-t-[var(--red)] rounded-2xl p-7 md:p-10">
               <h3 className="font-display uppercase text-2xl text-[var(--navy-deep)]">
                 {t("formTitle")}
               </h3>
@@ -224,14 +231,31 @@ export default async function ContactPage({
         </div>
       </section>
 
+      {/* ===== Message libre (hors demande de devis) ===== */}
+      <section className="bg-[var(--white-warm)]">
+        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20 grid lg:grid-cols-[1fr_1.2fr] gap-12 items-start">
+          <Reveal>
+            <h2 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)]">
+              {tMessage("title")}
+            </h2>
+            <p className="text-[var(--steel)] mt-4 leading-relaxed max-w-md">
+              {tMessage("intro")}
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.1}>
+            <div className="bg-[var(--surface)] border border-[var(--line-soft)] border-t-4 border-t-[var(--navy-deep)] rounded-2xl p-7 md:p-9">
+              <ContactMessageForm />
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       {/* ===== Plan d'accès ===== */}
       <section className="bg-[var(--white-warm)]">
-        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+        <div className="relative mx-auto max-w-7xl px-6 py-16 md:py-20">
           <Reveal>
-            <span className="block font-mono text-[12.5px] uppercase tracking-[0.25em] text-[var(--red)]">
-              {t("findEyebrow")}
-            </span>
-            <h2 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)] mt-3">
+            <h2 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)]">
               {t("findTitle")}
             </h2>
             <p className="text-[var(--steel)] mt-4 leading-relaxed max-w-xl">
@@ -239,16 +263,16 @@ export default async function ContactPage({
             </p>
           </Reveal>
 
-          <div className="grid sm:grid-cols-3 gap-5 mt-9">
+          <div className="grid sm:grid-cols-2 gap-5 mt-9">
             {SITES.map((site, i) => (
               <Reveal key={site.id} delay={0.1 + i * 0.05}>
                 <a
                   href={site.mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group block h-full bg-white border border-[var(--line-soft)] shadow-xl rounded-2xl p-6 hover:-translate-y-[3px] transition-transform duration-300 ease-[cubic-bezier(0.2,0.7,0.2,1)]"
+                  className="group block h-full bg-[var(--surface)] border border-[var(--line-soft)] rounded-2xl p-6 hover:-translate-y-[3px] transition-transform duration-300 ease-[cubic-bezier(0.2,0.7,0.2,1)]"
                 >
-                  <div className="h-10 w-10 flex items-center justify-center bg-[var(--navy-deep)] text-[var(--amber)] rounded-xl">
+                  <div className="h-10 w-10 flex items-center justify-center bg-[var(--navy-deep)] text-[var(--amber)] rounded-md">
                     <MapPin size={20} />
                   </div>
                   <span className="block font-display uppercase tracking-wide text-[16px] text-[var(--navy-deep)] mt-4 group-hover:text-[var(--red)] transition-colors">

@@ -7,17 +7,20 @@ export const SITE_URL = "https://gosta-trans.vercel.app";
 export const COMPANY = {
   name: "GOSTA TRANS LOGISTIQUE & BTP",
   shortName: "GOSTA TRANS",
-  // Siège social légal (JSON-LD, mentions légales, confidentialité). L'entreprise
-  // exploite aussi 2 autres sites (PK14 et PK20, route de Boali) — voir SITES
-  // dans lib/social.ts pour l'ensemble des adresses affichées sur le site.
+  // Siège social légal (JSON-LD, mentions légales, confidentialité), aligné sur
+  // le flyer de l'entreprise : quartier Gré-Vapendé, PK16 route de Boali.
   address: {
-    streetAddress: "SICA II, 2e arrondissement",
+    streetAddress: "Quartier Gré-Vapendé, PK16 route de Boali",
     addressLocality: "Bangui",
     addressCountry: "CF",
   },
-  phones: ["+23670120025", "+23672600533"],
+  phones: ["+23675200313", "+23670120025", "+23672600533"],
   whatsapp: "+23675200313",
-  email: "gostatranslogistiquebtp@outlook.fr",
+  email: "gostatranslogistiquelp@outlook.fr",
+  registration: {
+    rccm: "CA/BG/2025A2261",
+    niu: "2362025P255049",
+  },
   hours: "Mo-Sa 07:30-18:00",
   social: {
     facebook:

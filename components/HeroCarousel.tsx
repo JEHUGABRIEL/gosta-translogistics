@@ -7,10 +7,14 @@ import { Mouse } from "lucide-react";
 import HeroScene from "./HeroScene";
 import { useQuoteModal } from "./QuoteModalProvider";
 
+export type HeroCta = { label: string; href: string; openQuote?: boolean };
+
 export type HeroSlide = {
   title: ReactNode;
   image?: { src: string; alt: string };
-  primaryCta?: { label: string; href: string; openQuote?: boolean };
+  primaryCta?: HeroCta;
+  /** CTA secondaire, affiché à côté du principal (ex. « Nous contacter »). */
+  secondaryCta?: HeroCta;
 };
 
 export default function HeroCarousel({
@@ -37,6 +41,32 @@ export default function HeroCarousel({
   }, [slides.length, paused, reduceMotion]);
 
   const slide = slides[index];
+
+  const renderCta = (
+    cta: HeroCta,
+    variant: "primary" | "secondary",
+    key: string
+  ) => {
+    const className =
+      variant === "primary"
+        ? "btn-liquid bg-[var(--navy-deep)] text-white font-display uppercase tracking-wide text-base px-7 py-3.5"
+        : "inline-flex items-center border border-white/40 hover:border-[var(--red)] hover:text-[var(--red)] transition-colors text-white font-display uppercase tracking-wide text-base px-7 py-3.5";
+
+    return cta.openQuote ? (
+      <button
+        key={key}
+        type="button"
+        onClick={openQuote}
+        className={`${className} cursor-pointer`}
+      >
+        <span className="relative z-10">{cta.label}</span>
+      </button>
+    ) : (
+      <a key={key} href={cta.href} className={className}>
+        <span className="relative z-10">{cta.label}</span>
+      </a>
+    );
+  };
 
   return (
     /* -mt-[var(--header-h)] : la hero remonte derrière le header sticky.
@@ -78,6 +108,7 @@ export default function HeroCarousel({
         <div className="absolute inset-x-0 top-0 h-44 bg-gradient-to-b from-black from-[35%] to-transparent" />
       </div>
 
+      {/* Courbe elliptique : la fin du héros s'arrondit vers la section suivante */}
       {/* pb-24 md:pb-32 : espace sous les boutons. Quand la barre flottante existe
           (home, desktop), lg:pb-0 car elle assure l'espacement ; sans barre
           flottante (sous-pages), le padding bas reste appliqué à tous les écrans. */}
@@ -99,23 +130,9 @@ export default function HeroCarousel({
             </h1>
 
             <div className="flex flex-wrap gap-4 mt-14">
-              {slide.primaryCta &&
-                (slide.primaryCta.openQuote ? (
-                  <button
-                    type="button"
-                    onClick={openQuote}
-                    className="btn-liquid bg-[var(--navy-deep)] text-white font-display uppercase tracking-wide text-base px-7 py-3.5 cursor-pointer"
-                  >
-                    <span className="relative z-10">{slide.primaryCta.label}</span>
-                  </button>
-                ) : (
-                  <a
-                    href={slide.primaryCta.href}
-                    className="btn-liquid inline-block bg-[var(--navy-deep)] text-white font-display uppercase tracking-wide text-base px-7 py-3.5"
-                  >
-                    <span className="relative z-10">{slide.primaryCta.label}</span>
-                  </a>
-                ))}
+              {slide.primaryCta && renderCta(slide.primaryCta, "primary", "primary")}
+              {slide.secondaryCta &&
+                renderCta(slide.secondaryCta, "secondary", "secondary")}
             </div>
           </motion.div>
         </AnimatePresence>

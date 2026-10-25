@@ -30,10 +30,7 @@ export default async function LegalDocument({
             conteneur max-w-7xl, sans colonne étroite isolée à gauche. */}
         <div className="relative mx-auto max-w-7xl px-6 pt-[calc(var(--header-h)+5rem)] md:pt-[calc(var(--header-h)+6rem)] pb-20 md:pb-24">
           <Reveal>
-            <span className="font-mono text-[12.5px] uppercase tracking-[0.25em] text-[var(--amber)]">
-              {t("eyebrow")}
-            </span>
-            <h1 className="font-display font-extrabold text-4xl md:text-6xl text-white leading-[0.95] mt-4">
+            <h1 className="font-display font-extrabold text-4xl md:text-6xl text-white leading-[0.95]">
               {t("title")}
             </h1>
             <p className="font-mono text-[13px] text-[#cfd6e0] mt-5">
@@ -45,13 +42,13 @@ export default async function LegalDocument({
 
       {/* ===== Contenu ===== */}
       <section className="bg-[var(--sand)]">
-        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+        <div className="relative mx-auto max-w-7xl px-6 py-16 md:py-20">
           {/* Bandeau : ce document est un gabarit à faire valider */}
           <Reveal>
-            <div className="flex items-start gap-3 border-l-4 border-[var(--amber)] bg-white rounded-r-2xl p-5 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_28px_-18px_rgba(0,0,0,0.22)]">
+            <div className="flex items-start gap-3 border border-[var(--line)] bg-[var(--surface)] rounded-2xl p-5">
               <AlertTriangle
                 size={20}
-                className="text-[var(--amber)] mt-0.5 shrink-0"
+                className="text-[var(--red)] mt-0.5 shrink-0"
               />
               <p className="text-[14px] text-[var(--steel)] leading-relaxed">
                 {tLegal("disclaimer")}

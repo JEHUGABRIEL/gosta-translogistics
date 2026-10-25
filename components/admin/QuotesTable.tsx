@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState } from "react";
 import { Trash2 } from "lucide-react";
 import { updateQuoteStatusAction, deleteQuoteAction } from "@/app/admin/actions";
 import type { QuoteRequest } from "@/lib/db/queries";
@@ -8,9 +8,26 @@ import ConfirmModal from "./ConfirmModal";
 
 const STATUSES: QuoteRequest["status"][] = ["new", "contacted", "done"];
 
-export default function QuotesTable({ quotes }: { quotes: QuoteRequest[] }) {
-  const [isPending, startTransition] = useTransition();
+export default function QuotesTable({
+  quotes,
+  onChanged,
+}: {
+  quotes: QuoteRequest[];
+  /** Appelé après une mutation pour rafraîchir la liste côté Query. */
+  onChanged?: () => void;
+}) {
+  const [isPending, setIsPending] = useState(false);
   const [deleteId, setDeleteId] = useState<number | null>(null);
+
+  const run = async (action: () => Promise<unknown>) => {
+    setIsPending(true);
+    try {
+      await action();
+      onChanged?.();
+    } finally {
+      setIsPending(false);
+    }
+  };
 
   if (quotes.length === 0) {
     return (
@@ -22,7 +39,7 @@ export default function QuotesTable({ quotes }: { quotes: QuoteRequest[] }) {
   }
 
   return (
-    <div className="bg-white border border-[var(--line-soft)] rounded-2xl overflow-hidden">
+    <div className="bg-[var(--surface)] border border-[var(--line-soft)] rounded-2xl overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full text-left text-[14px]">
           <thead>
@@ -64,12 +81,11 @@ export default function QuotesTable({ quotes }: { quotes: QuoteRequest[] }) {
                   <select
                     defaultValue={q.status}
                     disabled={isPending}
-                    onChange={(e) =>
-                      startTransition(() =>
-                        updateQuoteStatusAction(q.id, e.target.value as QuoteRequest["status"])
-                      )
-                    }
-                    className="border border-[var(--line)] bg-white px-3 py-1.5 text-[13px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)] cursor-pointer"
+                    onChange={(e) => {
+                      const next = e.target.value as QuoteRequest["status"];
+                      void run(() => updateQuoteStatusAction(q.id, next));
+                    }}
+                    className="border border-[var(--line)] bg-[var(--surface)] px-3 py-1.5 text-[13px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)] cursor-pointer"
                   >
                     {STATUSES.map((s) => (
                       <option key={s} value={s}>
@@ -103,8 +119,9 @@ export default function QuotesTable({ quotes }: { quotes: QuoteRequest[] }) {
         danger
         onConfirm={() => {
           if (deleteId !== null) {
-            startTransition(() => deleteQuoteAction(deleteId));
+            const id = deleteId;
             setDeleteId(null);
+            void run(() => deleteQuoteAction(id));
           }
         }}
         onCancel={() => setDeleteId(null)}

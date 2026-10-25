@@ -11,12 +11,13 @@ export default function CTASection() {
 
   return (
     <section className="relative bg-[var(--red)] overflow-hidden">
-      <div className="mx-auto max-w-7xl px-6 py-12 flex flex-col lg:flex-row items-center justify-between gap-8 text-center lg:text-left">
+
+      <div className="relative mx-auto max-w-7xl px-6 py-12 flex flex-col lg:flex-row items-center justify-between gap-8 text-center lg:text-left">
         <Reveal>
           <h2 className="font-display font-extrabold text-4xl md:text-5xl text-white leading-tight">
             {t("title")}
           </h2>
-          <p className="text-white/85 mt-3 max-w-xl">
+          <p className="text-white mt-3 max-w-xl">
             {t("text")}
           </p>
         </Reveal>
@@ -37,8 +38,7 @@ export default function CTASection() {
             href="https://wa.me/23675200313"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1da851] transition-colors text-white font-display uppercase tracking-wide text-sm px-4 py-3 sm:text-base sm:px-7 sm:py-3.5"
-          >
+            className="inline-flex items-center justify-center gap-2 border border-white/60 hover:border-white transition-colors text-white font-display uppercase tracking-wide text-sm px-4 py-3 sm:text-base sm:px-7 sm:py-3.5">
             <MessageCircle size={20} strokeWidth={2} /> {t("whatsapp")}
           </a>
         </Reveal>

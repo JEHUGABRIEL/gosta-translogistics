@@ -46,9 +46,9 @@ export default async function AdminHomePage() {
           <Link
             key={label}
             href={href}
-            className="block bg-white border border-[var(--line-soft)] rounded-2xl p-6 hover:-translate-y-[2px] hover:shadow-[0_12px_28px_-18px_rgba(0,0,0,0.3)] transition-all"
+            className="block bg-[var(--surface)] border border-[var(--line-soft)] rounded-2xl p-6 hover:-translate-y-[2px] transition-transform"
           >
-            <div className="h-11 w-11 flex items-center justify-center bg-[var(--navy-deep)] text-[var(--amber)] rounded-xl">
+            <div className="h-11 w-11 flex items-center justify-center bg-[var(--navy-deep)] text-[var(--amber)] rounded-md">
               <Icon size={20} />
             </div>
             <p className="font-display font-extrabold text-3xl text-[var(--navy-deep)] mt-4">
@@ -62,7 +62,7 @@ export default async function AdminHomePage() {
         ))}
       </div>
 
-      <div className="mt-10 bg-white border border-[var(--line-soft)] rounded-2xl p-6">
+      <div className="mt-10 bg-[var(--surface)] border border-[var(--line-soft)] rounded-2xl p-6">
         <h2 className="font-display uppercase text-[15px] text-[var(--navy-deep)] flex items-center gap-2">
           <Clock size={16} className="text-[var(--red)]" /> Dernières demandes de devis
         </h2>

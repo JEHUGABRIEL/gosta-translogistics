@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import TopProgressBar from "@/components/TopProgressBar";
 
 const keyframes = `
@@ -18,6 +19,8 @@ const keyframes = `
 `;
 
 export default function Loading() {
+  const t = useTranslations("loading");
+
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: keyframes }} />
@@ -44,9 +47,15 @@ export default function Loading() {
           />
         </div>
 
-        {/* Brand text */}
+        {/* Brand text + libellé de ce qui charge */}
         <p className="mt-8 font-display text-lg font-bold tracking-wide text-[var(--navy-deep)]">
           GOSTA TRANS
+        </p>
+        <p
+          role="status"
+          className="mt-2 font-mono text-[12.5px] uppercase tracking-[0.2em] text-[var(--steel)]"
+        >
+          {t("page")}
         </p>
       </div>
     </>

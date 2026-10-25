@@ -13,6 +13,11 @@
   --sand: #F5F5F5;
   --white-warm: #FAFAF9;
   --sand-deep: #ECECEC;
+  /* Surface des cartes et panneaux : blanc cassé, jamais #FFFFFF. */
+  --surface: #FDFCF9;
+  /* Actions WhatsApp : vert assombri pour rester lisible sur texte blanc. */
+  --green: #0E7A3F;
+  --green-dark: #0A6132;
   --steel: #59626E;
   --amber: #E8A33D;
   --line: #D1D1D1;
@@ -65,8 +70,8 @@ select {
     -45deg,
     var(--red) 0px,
     var(--red) 18px,
-    #ffffff 18px,
-    #ffffff 36px
+    var(--surface) 18px,
+    var(--surface) 36px
   );
 }
 

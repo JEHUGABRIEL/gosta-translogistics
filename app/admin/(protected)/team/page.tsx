@@ -19,7 +19,7 @@ const ACTION_LABELS: Record<string, string> = {
   "auth.invite_accepted": "Invitation acceptée",
   "invite.created": "Invitation envoyée",
   "session.revoked": "Session fermée",
-  "quote.status_changed": "Devis — statut modifié",
+  "quote.status_changed": "Devis : statut modifié",
   "quote.deleted": "Devis supprimé",
   "testimonial.created": "Témoignage créé",
   "testimonial.updated": "Témoignage modifié",
@@ -46,7 +46,7 @@ export default async function AdminTeamPage() {
   return (
     <AdminShell title="Équipe">
       <div className="grid gap-8 max-w-2xl">
-        <div className="bg-white border border-[var(--line-soft)] rounded-2xl p-6">
+        <div className="bg-[var(--surface)] border border-[var(--line-soft)] rounded-2xl p-6">
           <h2 className="font-display uppercase text-[15px] text-[var(--navy-deep)]">
             Inviter un nouvel admin
           </h2>
@@ -59,7 +59,7 @@ export default async function AdminTeamPage() {
           </div>
         </div>
 
-        <div className="bg-white border border-[var(--line-soft)] rounded-2xl p-6">
+        <div className="bg-[var(--surface)] border border-[var(--line-soft)] rounded-2xl p-6">
           <h2 className="font-display uppercase text-[15px] text-[var(--navy-deep)]">
             Comptes admin
           </h2>
@@ -84,7 +84,7 @@ export default async function AdminTeamPage() {
         </div>
 
         {invites.length > 0 && (
-          <div className="bg-white border border-[var(--line-soft)] rounded-2xl p-6">
+          <div className="bg-[var(--surface)] border border-[var(--line-soft)] rounded-2xl p-6">
             <h2 className="font-display uppercase text-[15px] text-[var(--navy-deep)]">
               Invitations en attente
             </h2>
@@ -105,7 +105,7 @@ export default async function AdminTeamPage() {
           </div>
         )}
 
-        <div className="bg-white border border-[var(--line-soft)] rounded-2xl p-6">
+        <div className="bg-[var(--surface)] border border-[var(--line-soft)] rounded-2xl p-6">
           <h2 className="font-display uppercase text-[15px] text-[var(--navy-deep)]">
             Activité récente
           </h2>
@@ -127,7 +127,7 @@ export default async function AdminTeamPage() {
                       )}
                     </p>
                     <p className="text-[12.5px] text-[var(--steel)]">
-                      {entry.email ?? "compte supprimé"} — {dateFormat.format(new Date(entry.created_at))}
+                      {entry.email ?? "compte supprimé"} · {dateFormat.format(new Date(entry.created_at))}
                     </p>
                   </div>
                 </li>

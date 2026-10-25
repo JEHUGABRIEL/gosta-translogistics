@@ -1,4 +1,4 @@
-import { ChevronRight, CheckCircle2 } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 import Header from "@/components/Header";
 import HeroCarousel, { type HeroSlide } from "@/components/HeroCarousel";
@@ -8,6 +8,7 @@ import Reveal from "@/components/Reveal";
 import QuoteButton from "@/components/QuoteButton";
 import { Link } from "@/i18n/navigation";
 import type { Service } from "@/lib/services";
+import { POLE_HERO_IMAGES } from "@/lib/hero-images";
 
 export default async function ServiceDetailTemplate({
   base,
@@ -24,6 +25,7 @@ export default async function ServiceDetailTemplate({
   const slides: HeroSlide[] = [
     {
       title: service.title.toUpperCase(),
+      image: POLE_HERO_IMAGES[service.pole],
       primaryCta: { label: t("quote"), href: "#devis", openQuote: true },
     },
   ];
@@ -37,10 +39,7 @@ export default async function ServiceDetailTemplate({
         <div className="mx-auto max-w-7xl px-6 py-12 grid lg:grid-cols-[2fr_1fr] gap-16">
           <div>
             <Reveal>
-              <span className="block font-mono text-[12.5px] uppercase tracking-[0.25em] text-[var(--red)]">
-                {t("detailEyebrow")}
-              </span>
-              <h1 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)] mt-3">
+              <h1 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)]">
                 {service.title}
               </h1>
               <p
@@ -51,8 +50,11 @@ export default async function ServiceDetailTemplate({
 
             <Reveal delay={0.1} className="grid sm:grid-cols-2 gap-4 mt-8">
               {service.bullets.map((b) => (
-                <div key={b} className="flex items-start gap-3 bg-white border border-black/[0.06] rounded-xl p-4">
-                  <CheckCircle2 size={20} strokeWidth={2} className="text-[var(--red)] mt-0.5 shrink-0" />
+                <div key={b} className="flex items-start gap-3 bg-[var(--surface)] border border-black/[0.06] rounded-md p-4">
+                  <span
+                    aria-hidden="true"
+                    className="mt-[7px] h-1.5 w-1.5 shrink-0 bg-[var(--red)]"
+                  />
                   <span className="text-[14.5px] text-[var(--navy-deep)] leading-snug">{b}</span>
                 </div>
               ))}
@@ -85,12 +87,9 @@ export default async function ServiceDetailTemplate({
 
       {/* Même fond que la section précédente — séparée par l'espacement */}
       <section className="bg-[var(--sand)]">
-        <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+        <div className="relative mx-auto max-w-7xl px-6 py-16 md:py-20">
           <Reveal>
-            <span className="block font-mono text-[12.5px] uppercase tracking-[0.25em] text-[var(--red)]">
-              {t("relatedEyebrow")}
-            </span>
-            <h2 className="font-display font-extrabold text-3xl md:text-4xl text-[var(--navy-deep)] mt-3">
+            <h2 className="font-display font-extrabold text-3xl md:text-4xl text-[var(--navy-deep)]">
               {t("relatedTitle")}
             </h2>
           </Reveal>
@@ -100,15 +99,15 @@ export default async function ServiceDetailTemplate({
               <Reveal key={s.slug} delay={i * 0.06}>
                 <Link
                   href={`${base}/${s.slug}`}
-                  className="group flex items-center gap-4 bg-white border border-black/[0.06] shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_28px_-18px_rgba(0,0,0,0.22)] hover:-translate-y-[3px] hover:shadow-[0_2px_4px_rgba(0,0,0,0.05),0_24px_44px_-22px_rgba(0,0,0,0.34)] transition-[transform,box-shadow] duration-300 ease-[cubic-bezier(0.2,0.7,0.2,1)] rounded-2xl p-5"
+                  className="group flex items-center gap-4 bg-[var(--surface)] border border-black/[0.06] hover:-translate-y-[3px] transition-transform duration-300 ease-[cubic-bezier(0.2,0.7,0.2,1)] rounded-2xl p-5"
                 >
-                  <div className="h-10 w-10 flex items-center justify-center bg-[var(--navy-deep)] text-[var(--amber)] rounded-xl shrink-0">
+                  <div className="h-10 w-10 flex items-center justify-center bg-[var(--navy-deep)] text-[var(--amber)] rounded-md shrink-0">
                     <s.icon size={24} strokeWidth={1.8} />
                   </div>
                   <span className="font-display uppercase tracking-wide text-[15px] text-[var(--navy-deep)] group-hover:text-[var(--red)] transition-colors flex-1">
                     {s.title}
                   </span>
-                  <ChevronRight size={16} strokeWidth={2} className="text-[var(--steel)] group-hover:translate-x-1 transition-transform shrink-0" />
+                  <ChevronRight size={16} strokeWidth={2} className="text-[var(--steel)] shrink-0" />
                 </Link>
               </Reveal>
             ))}

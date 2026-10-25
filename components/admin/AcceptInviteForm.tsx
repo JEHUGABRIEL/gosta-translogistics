@@ -22,7 +22,7 @@ export default function AcceptInviteForm({ token }: { token: string }) {
             name="firstName"
             required
             autoFocus
-            className="w-full border border-[var(--line)] bg-white px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)]"
+            className="w-full border border-[var(--line)] bg-[var(--surface)] px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)]"
           />
         </div>
         <div>
@@ -32,7 +32,7 @@ export default function AcceptInviteForm({ token }: { token: string }) {
           <input
             name="lastName"
             required
-            className="w-full border border-[var(--line)] bg-white px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)]"
+            className="w-full border border-[var(--line)] bg-[var(--surface)] px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)]"
           />
         </div>
       </div>
@@ -47,7 +47,7 @@ export default function AcceptInviteForm({ token }: { token: string }) {
           required
           minLength={8}
           autoComplete="new-password"
-          className="w-full border border-[var(--line)] bg-white px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)]"
+          className="w-full border border-[var(--line)] bg-[var(--surface)] px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)]"
         />
       </div>
 
@@ -61,7 +61,7 @@ export default function AcceptInviteForm({ token }: { token: string }) {
           required
           minLength={8}
           autoComplete="new-password"
-          className="w-full border border-[var(--line)] bg-white px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)]"
+          className="w-full border border-[var(--line)] bg-[var(--surface)] px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)]"
         />
       </div>
 

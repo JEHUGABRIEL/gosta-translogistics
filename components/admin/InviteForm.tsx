@@ -17,7 +17,7 @@ export default function InviteForm() {
           name="email"
           required
           placeholder="email@exemple.com"
-          className="flex-1 border border-[var(--line)] bg-white px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)]"
+          className="flex-1 border border-[var(--line)] bg-[var(--surface)] px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)]"
         />
         <button
           type="submit"

@@ -51,7 +51,7 @@ export default function ConfirmModal({
       onClick={handleBackdropClick}
       className="backdrop:bg-black/40 bg-transparent rounded-2xl shadow-2xl p-0 w-full max-w-md"
     >
-      <div className="bg-white rounded-2xl overflow-hidden">
+      <div className="bg-[var(--surface)] rounded-2xl overflow-hidden">
         <div className="flex items-center justify-between px-6 pt-6 pb-2">
           <div className="flex items-center gap-3">
             <div

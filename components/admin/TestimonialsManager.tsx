@@ -38,7 +38,7 @@ export default function TestimonialsManager({ items }: { items: Testimonial[] })
               setShowForm(false);
             });
           }}
-          className="bg-white border border-[var(--line-soft)] rounded-2xl p-6 grid gap-4"
+          className="bg-[var(--surface)] border border-[var(--line-soft)] rounded-2xl p-6 grid gap-4"
         >
           <TestimonialFields />
           <button
@@ -58,7 +58,7 @@ export default function TestimonialsManager({ items }: { items: Testimonial[] })
           {items.map((item) => (
             <li
               key={item.id}
-              className="bg-white border border-[var(--line-soft)] rounded-2xl p-6"
+              className="bg-[var(--surface)] border border-[var(--line-soft)] rounded-2xl p-6"
             >
               {editingId === item.id ? (
                 <form
@@ -98,7 +98,7 @@ export default function TestimonialsManager({ items }: { items: Testimonial[] })
                       « {item.quote_fr} »
                     </p>
                     <p className="text-[12.5px] text-[var(--steel)] mt-2 leading-relaxed">
-                      EN — {item.role_en} · {item.context_en} : « {item.quote_en} »
+                      EN · {item.role_en} · {item.context_en} : « {item.quote_en} »
                     </p>
                   </div>
                   <div className="flex items-center gap-3 shrink-0">
@@ -173,7 +173,7 @@ function TestimonialFields({ defaults }: { defaults?: Testimonial }) {
           label="Contexte"
           name="context_fr"
           defaultValue={defaults?.context_fr}
-          placeholder="Construction d'une maison — Bangui"
+          placeholder="Construction d'une maison, Bangui"
         />
         <div className="sm:col-span-2">
           <label className="block font-display uppercase text-[13px] tracking-wide text-[var(--navy-deep)] mb-1.5">
@@ -184,7 +184,7 @@ function TestimonialFields({ defaults }: { defaults?: Testimonial }) {
             required
             rows={3}
             defaultValue={defaults?.quote_fr}
-            className="w-full border border-[var(--line)] bg-white px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)] resize-none"
+            className="w-full border border-[var(--line)] bg-[var(--surface)] px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)] resize-none"
           />
         </div>
       </fieldset>
@@ -198,7 +198,7 @@ function TestimonialFields({ defaults }: { defaults?: Testimonial }) {
           label="Context"
           name="context_en"
           defaultValue={defaults?.context_en}
-          placeholder="House construction — Bangui"
+          placeholder="House construction, Bangui"
         />
         <div className="sm:col-span-2">
           <label className="block font-display uppercase text-[13px] tracking-wide text-[var(--navy-deep)] mb-1.5">
@@ -209,7 +209,7 @@ function TestimonialFields({ defaults }: { defaults?: Testimonial }) {
             required
             rows={3}
             defaultValue={defaults?.quote_en}
-            className="w-full border border-[var(--line)] bg-white px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)] resize-none"
+            className="w-full border border-[var(--line)] bg-[var(--surface)] px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)] resize-none"
           />
         </div>
       </fieldset>
@@ -238,7 +238,7 @@ function Field({
         required
         defaultValue={defaultValue}
         placeholder={placeholder}
-        className="w-full border border-[var(--line)] bg-white px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)]"
+        className="w-full border border-[var(--line)] bg-[var(--surface)] px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)]"
       />
     </div>
   );

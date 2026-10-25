@@ -41,10 +41,7 @@ export default function Testimonials({ extra = [] }: { extra?: Comment[] }) {
     >
       <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
         <Reveal>
-          <span className="block font-mono text-[12.5px] uppercase tracking-[0.25em] text-[var(--red)]">
-            {t("eyebrow")}
-          </span>
-          <h2 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)] mt-3">
+          <h2 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)]">
             {t("title")}
           </h2>
         </Reveal>

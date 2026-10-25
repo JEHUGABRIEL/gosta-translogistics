@@ -53,7 +53,7 @@ export default function QuoteForm() {
   if (sent) {
     return (
       <div className="flex flex-col items-center text-center py-6">
-        <CheckCircle2 size={44} className="text-[#25D366]" />
+        <CheckCircle2 size={44} className="text-[var(--green)]" />
         <h3 className="font-display uppercase text-2xl text-[var(--navy-deep)] mt-4">
           {t("successTitle")}
         </h3>
@@ -77,7 +77,7 @@ export default function QuoteForm() {
         <select
           name="service"
           required
-          className="w-full border border-[var(--line)] bg-white px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)]"
+          className="w-full border border-[var(--line)] bg-[var(--surface)] px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)]"
         >
           <option value="">{t("select")}</option>
           {options.map((o) => (
@@ -101,12 +101,12 @@ export default function QuoteForm() {
           name="message"
           rows={4}
           placeholder={t("detailsPlaceholder")}
-          className="w-full border border-[var(--line)] bg-white px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)] resize-none"
+          className="w-full border border-[var(--line)] bg-[var(--surface)] px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)] resize-none"
         />
       </div>
       <button
         type="submit"
-        className="mt-2 inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1ebe5b] transition-colors text-white font-display uppercase tracking-wide text-base px-6 py-3.5 cursor-pointer"
+        className="mt-2 inline-flex items-center justify-center gap-2 bg-[var(--green)] hover:bg-[var(--green-dark)] transition-colors text-white font-display uppercase tracking-wide text-base px-6 py-3.5 cursor-pointer"
       >
         {t("send")}
         <Send size={20} strokeWidth={2} />
@@ -162,7 +162,7 @@ function Field({
         name={name}
         placeholder={placeholder}
         required={required}
-        className="w-full border border-[var(--line)] bg-white px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)]"
+        className="w-full border border-[var(--line)] bg-[var(--surface)] px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)]"
       />
     </div>
   );

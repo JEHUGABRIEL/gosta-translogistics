@@ -51,7 +51,7 @@ export default function FloatingActions() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 12, scale: 0.9 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="h-11 w-11 flex items-center justify-center rounded-full bg-white border border-[var(--line)] text-[var(--navy-deep)] hover:border-[var(--red)] hover:text-[var(--red)] shadow-[0_4px_14px_-4px_rgba(0,0,0,0.25)] transition-colors cursor-pointer"
+            className="h-11 w-11 flex items-center justify-center rounded-full bg-[var(--surface)] border border-[var(--line)] text-[var(--navy-deep)] hover:border-[var(--red)] hover:text-[var(--red)] shadow-[0_4px_14px_-4px_rgba(0,0,0,0.25)] transition-colors cursor-pointer"
           >
             <ArrowUp size={20} strokeWidth={2} />
           </motion.button>
@@ -84,7 +84,7 @@ export default function FloatingActions() {
                   <span className="bg-[var(--navy-deep)] text-white text-[13px] font-display uppercase tracking-wide px-3 py-1.5 rounded-full shadow-[0_4px_14px_-4px_rgba(0,0,0,0.3)] whitespace-nowrap">
                     {label}
                   </span>
-                  <span className="h-12 w-12 flex items-center justify-center rounded-full bg-white border border-[var(--line)] text-[var(--navy-deep)] group-hover:border-[var(--red)] group-hover:text-[var(--red)] shadow-[0_4px_14px_-4px_rgba(0,0,0,0.25)] transition-colors shrink-0">
+                  <span className="h-12 w-12 flex items-center justify-center rounded-full bg-[var(--surface)] border border-[var(--line)] text-[var(--navy-deep)] group-hover:border-[var(--red)] group-hover:text-[var(--red)] shadow-[0_4px_14px_-4px_rgba(0,0,0,0.25)] transition-colors shrink-0">
                     <Icon size={20} strokeWidth={2} />
                   </span>
                 </motion.a>
@@ -105,7 +105,7 @@ export default function FloatingActions() {
                 <span className="bg-[var(--navy-deep)] text-white text-[13px] font-display uppercase tracking-wide px-3 py-1.5 rounded-full shadow-[0_4px_14px_-4px_rgba(0,0,0,0.3)] whitespace-nowrap">
                   {t("quote")}
                 </span>
-                <span className="h-12 w-12 flex items-center justify-center rounded-full bg-white border border-[var(--line)] text-[var(--navy-deep)] group-hover:border-[var(--red)] group-hover:text-[var(--red)] shadow-[0_4px_14px_-4px_rgba(0,0,0,0.25)] transition-colors shrink-0">
+                <span className="h-12 w-12 flex items-center justify-center rounded-full bg-[var(--surface)] border border-[var(--line)] text-[var(--navy-deep)] group-hover:border-[var(--red)] group-hover:text-[var(--red)] shadow-[0_4px_14px_-4px_rgba(0,0,0,0.25)] transition-colors shrink-0">
                   <FileText size={20} strokeWidth={2} />
                 </span>
               </motion.button>

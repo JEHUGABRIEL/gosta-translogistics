@@ -17,8 +17,8 @@ export default async function Footer() {
   // Destinations réelles du site : pages + ancres de la page d'accueil.
   const navLinks = [
     { href: "/", label: tNav("home") },
-    { href: "/services/btp", label: tNav("btp") },
-    { href: "/services/logistique", label: tNav("logistique") },
+    { href: "/a-propos", label: tNav("about") },
+    { href: "/services", label: tNav("services") },
     { href: "/#realisations", label: t("realisations") },
     { href: "/#actualites", label: t("news") },
     { href: "/contact", label: tNav("contact") },
@@ -62,7 +62,7 @@ export default async function Footer() {
             {/* Joindre l'équipe tout de suite */}
             <div className="flex flex-wrap gap-3 mt-7">
               <a
-                href="tel:+23670120025"
+                href="tel:+23675200313"
                 className="btn-liquid inline-flex items-center gap-2 bg-[var(--navy-deep)] text-white font-display uppercase tracking-wide text-[13px] px-5 py-3"
               >
                 <Phone size={20} strokeWidth={2} /> {t("call")}
@@ -127,6 +127,9 @@ export default async function Footer() {
               <li className="flex gap-3">
                 <Phone size={20} strokeWidth={2} className="text-[var(--amber)] mt-0.5 shrink-0" />
                 <div className="flex flex-col font-mono">
+                  <a href="tel:+23675200313" className="hover:text-white transition-colors">
+                    75 20 03 13
+                  </a>
                   <a href="tel:+23670120025" className="hover:text-white transition-colors">
                     70 12 00 25
                   </a>
@@ -149,10 +152,10 @@ export default async function Footer() {
               <li className="flex gap-3">
                 <Mail size={20} strokeWidth={2} className="text-[var(--amber)] mt-0.5 shrink-0" />
                 <a
-                  href="mailto:gostatranslogistiquebtp@outlook.fr"
+                  href="mailto:gostatranslogistiquelp@outlook.fr"
                   className="hover:text-white transition-colors break-all"
                 >
-                  gostatranslogistiquebtp@outlook.fr
+                  gostatranslogistiquelp@outlook.fr
                 </a>
               </li>
               <li className="flex gap-3">
@@ -197,6 +200,15 @@ export default async function Footer() {
             © {year} GOSTA TRANS LOGISTIQUE &amp; BTP · Bangui, RCA
           </span>
           <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+            <Link
+              href="/a-propos"
+              className="hover:text-white transition-colors"
+            >
+              {t("about")}
+            </Link>
+            <span aria-hidden="true" className="text-white/20">
+              ·
+            </span>
             <Link
               href="/mentions-legales"
               className="hover:text-white transition-colors"

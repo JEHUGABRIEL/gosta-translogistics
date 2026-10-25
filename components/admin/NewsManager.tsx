@@ -10,6 +10,7 @@ import {
 } from "@/app/admin/actions";
 import type { NewsPost } from "@/lib/db/queries";
 import ConfirmModal from "./ConfirmModal";
+import ImageUploadField from "./ImageUploadField";
 
 export default function NewsManager({ items }: { items: NewsPost[] }) {
   const [isPending, startTransition] = useTransition();
@@ -38,7 +39,7 @@ export default function NewsManager({ items }: { items: NewsPost[] }) {
               setShowForm(false);
             });
           }}
-          className="bg-white border border-[var(--line-soft)] rounded-2xl p-6 grid gap-4"
+          className="bg-[var(--surface)] border border-[var(--line-soft)] rounded-2xl p-6 grid gap-4"
         >
           <NewsFields />
           <button
@@ -56,7 +57,7 @@ export default function NewsManager({ items }: { items: NewsPost[] }) {
       ) : (
         <ul className="grid gap-4">
           {items.map((item) => (
-            <li key={item.id} className="bg-white border border-[var(--line-soft)] rounded-2xl p-6">
+            <li key={item.id} className="bg-[var(--surface)] border border-[var(--line-soft)] rounded-2xl p-6">
               {editingId === item.id ? (
                 <form
                   action={(formData) => {
@@ -100,7 +101,7 @@ export default function NewsManager({ items }: { items: NewsPost[] }) {
                       </p>
                     )}
                     <p className="text-[12.5px] text-[var(--steel)] mt-2 leading-relaxed">
-                      EN — {item.date_label_en} : {item.title_en}
+                      EN · {item.date_label_en} : {item.title_en}
                     </p>
                   </div>
                   <div className="flex items-center gap-3 shrink-0">
@@ -166,6 +167,8 @@ export default function NewsManager({ items }: { items: NewsPost[] }) {
 function NewsFields({ defaults }: { defaults?: NewsPost }) {
   return (
     <div className="grid gap-5">
+      <ImageUploadField defaultValue={defaults?.image_url} />
+
       <fieldset className="grid gap-4">
         <legend className="font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--red)] mb-1">
           Français
@@ -179,7 +182,7 @@ function NewsFields({ defaults }: { defaults?: NewsPost }) {
               name="title_fr"
               required
               defaultValue={defaults?.title_fr}
-              className="w-full border border-[var(--line)] bg-white px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)]"
+              className="w-full border border-[var(--line)] bg-[var(--surface)] px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)]"
             />
           </div>
           <div>
@@ -191,7 +194,7 @@ function NewsFields({ defaults }: { defaults?: NewsPost }) {
               required
               placeholder="Août 2026"
               defaultValue={defaults?.date_label_fr}
-              className="w-full border border-[var(--line)] bg-white px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)]"
+              className="w-full border border-[var(--line)] bg-[var(--surface)] px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)]"
             />
           </div>
         </div>
@@ -203,7 +206,7 @@ function NewsFields({ defaults }: { defaults?: NewsPost }) {
             name="content_fr"
             rows={3}
             defaultValue={defaults?.content_fr ?? ""}
-            className="w-full border border-[var(--line)] bg-white px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)] resize-none"
+            className="w-full border border-[var(--line)] bg-[var(--surface)] px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)] resize-none"
           />
         </div>
       </fieldset>
@@ -221,7 +224,7 @@ function NewsFields({ defaults }: { defaults?: NewsPost }) {
               name="title_en"
               required
               defaultValue={defaults?.title_en}
-              className="w-full border border-[var(--line)] bg-white px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)]"
+              className="w-full border border-[var(--line)] bg-[var(--surface)] px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)]"
             />
           </div>
           <div>
@@ -233,7 +236,7 @@ function NewsFields({ defaults }: { defaults?: NewsPost }) {
               required
               placeholder="August 2026"
               defaultValue={defaults?.date_label_en}
-              className="w-full border border-[var(--line)] bg-white px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)]"
+              className="w-full border border-[var(--line)] bg-[var(--surface)] px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)]"
             />
           </div>
         </div>
@@ -245,7 +248,7 @@ function NewsFields({ defaults }: { defaults?: NewsPost }) {
             name="content_en"
             rows={3}
             defaultValue={defaults?.content_en ?? ""}
-            className="w-full border border-[var(--line)] bg-white px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)] resize-none"
+            className="w-full border border-[var(--line)] bg-[var(--surface)] px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)] resize-none"
           />
         </div>
       </fieldset>

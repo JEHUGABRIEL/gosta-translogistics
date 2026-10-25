@@ -113,3 +113,55 @@ CREATE INDEX IF NOT EXISTS admin_activity_created_at_idx ON admin_activity (crea
 -- à zéro indéfiniment.
 ALTER TABLE admin_invites ADD COLUMN IF NOT EXISTS resend_count INTEGER NOT NULL DEFAULT 0;
 ALTER TABLE admin_invites ADD COLUMN IF NOT EXISTS last_sent_at TIMESTAMPTZ;
+
+-- ---------- Double authentification (TOTP) ----------
+
+-- `mfa_secret` porte un secret enrôlé mais pas encore confirmé : il n'est
+-- jamais affiché en dehors de la page « Mon compte » et ne suffit pas à
+-- ouvrir une session tant que `mfa_enabled` est faux.
+ALTER TABLE admin_users ADD COLUMN IF NOT EXISTS mfa_secret TEXT;
+ALTER TABLE admin_users ADD COLUMN IF NOT EXISTS mfa_enabled BOOLEAN NOT NULL DEFAULT false;
+
+-- Défi intermédiaire entre le mot de passe et le code TOTP. Aucune session
+-- n'est créée tant que le code n'est pas validé. Le cookie ne porte qu'un
+-- token opaque dont le hachage vit ici.
+-- NB : le script de migration découpe le fichier sur le point-virgule — donc
+-- aucun point-virgule dans les commentaires.
+CREATE TABLE IF NOT EXISTS admin_mfa_challenges (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER NOT NULL REFERENCES admin_users(id) ON DELETE CASCADE,
+  token_hash TEXT UNIQUE NOT NULL,
+  attempts INTEGER NOT NULL DEFAULT 0,
+  expires_at TIMESTAMPTZ NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS admin_mfa_challenges_expires_at_idx
+  ON admin_mfa_challenges (expires_at);
+
+-- ---------- FAQ gérées depuis le dashboard ----------
+
+CREATE TABLE IF NOT EXISTS faqs (
+  id SERIAL PRIMARY KEY,
+  question_fr TEXT NOT NULL, question_en TEXT NOT NULL,
+  answer_fr TEXT NOT NULL, answer_en TEXT NOT NULL,
+  published BOOLEAN NOT NULL DEFAULT true,
+  sort_order INTEGER NOT NULL DEFAULT 0,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+-- ---------- Messages de contact (formulaire libre, hors devis) ----------
+
+CREATE TABLE IF NOT EXISTS contact_messages (
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+  email TEXT,
+  phone TEXT,
+  message TEXT NOT NULL,
+  status TEXT NOT NULL DEFAULT 'new', -- new | read | archived
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+-- ---------- Visuel des actualités (upload Cloudinary) ----------
+
+ALTER TABLE news_posts ADD COLUMN IF NOT EXISTS image_url TEXT;

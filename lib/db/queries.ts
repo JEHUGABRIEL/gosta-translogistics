@@ -61,8 +61,30 @@ export type NewsPost = {
   date_label_en: string;
   content_fr: string | null;
   content_en: string | null;
+  image_url: string | null;
   published: boolean;
   sort_order: number;
+  created_at: string;
+};
+
+export type Faq = {
+  id: number;
+  question_fr: string;
+  question_en: string;
+  answer_fr: string;
+  answer_en: string;
+  published: boolean;
+  sort_order: number;
+  created_at: string;
+};
+
+export type ContactMessage = {
+  id: number;
+  name: string;
+  email: string | null;
+  phone: string | null;
+  message: string;
+  status: "new" | "read" | "archived";
   created_at: string;
 };
 
@@ -168,11 +190,12 @@ export async function createNewsPost(input: {
   date_label_en: string;
   content_fr?: string;
   content_en?: string;
+  image_url?: string;
 }) {
   const sql = getDb();
   await sql`
-    INSERT INTO news_posts (title_fr, title_en, date_label_fr, date_label_en, content_fr, content_en)
-    VALUES (${input.title_fr}, ${input.title_en}, ${input.date_label_fr}, ${input.date_label_en}, ${input.content_fr ?? null}, ${input.content_en ?? null})
+    INSERT INTO news_posts (title_fr, title_en, date_label_fr, date_label_en, content_fr, content_en, image_url)
+    VALUES (${input.title_fr}, ${input.title_en}, ${input.date_label_fr}, ${input.date_label_en}, ${input.content_fr ?? null}, ${input.content_en ?? null}, ${input.image_url ?? null})
   `;
 }
 
@@ -185,6 +208,7 @@ export async function updateNewsPost(
     date_label_en: string;
     content_fr?: string;
     content_en?: string;
+    image_url?: string;
   }
 ) {
   const sql = getDb();
@@ -192,7 +216,8 @@ export async function updateNewsPost(
     UPDATE news_posts
     SET title_fr = ${input.title_fr}, title_en = ${input.title_en},
         date_label_fr = ${input.date_label_fr}, date_label_en = ${input.date_label_en},
-        content_fr = ${input.content_fr ?? null}, content_en = ${input.content_en ?? null}
+        content_fr = ${input.content_fr ?? null}, content_en = ${input.content_en ?? null},
+        image_url = ${input.image_url ?? null}
     WHERE id = ${id}
   `;
 }
@@ -205,6 +230,168 @@ export async function setNewsPostPublished(id: number, published: boolean) {
 export async function deleteNewsPost(id: number) {
   const sql = getDb();
   await sql`DELETE FROM news_posts WHERE id = ${id}`;
+}
+
+// ---------- FAQ ----------
+
+export async function listFaqs(onlyPublished = false): Promise<Faq[]> {
+  const sql = getDb();
+  const rows = onlyPublished
+    ? await sql`SELECT * FROM faqs WHERE published = true ORDER BY sort_order ASC, created_at ASC`
+    : await sql`SELECT * FROM faqs ORDER BY sort_order ASC, created_at ASC`;
+  return rows as Faq[];
+}
+
+export async function createFaq(input: {
+  question_fr: string;
+  question_en: string;
+  answer_fr: string;
+  answer_en: string;
+}) {
+  const sql = getDb();
+  await sql`
+    INSERT INTO faqs (question_fr, question_en, answer_fr, answer_en)
+    VALUES (${input.question_fr}, ${input.question_en}, ${input.answer_fr}, ${input.answer_en})
+  `;
+}
+
+export async function updateFaq(
+  id: number,
+  input: {
+    question_fr: string;
+    question_en: string;
+    answer_fr: string;
+    answer_en: string;
+  }
+) {
+  const sql = getDb();
+  await sql`
+    UPDATE faqs
+    SET question_fr = ${input.question_fr}, question_en = ${input.question_en},
+        answer_fr = ${input.answer_fr}, answer_en = ${input.answer_en}
+    WHERE id = ${id}
+  `;
+}
+
+export async function setFaqPublished(id: number, published: boolean) {
+  const sql = getDb();
+  await sql`UPDATE faqs SET published = ${published} WHERE id = ${id}`;
+}
+
+export async function deleteFaq(id: number) {
+  const sql = getDb();
+  await sql`DELETE FROM faqs WHERE id = ${id}`;
+}
+
+// ---------- Messages de contact ----------
+
+export async function createContactMessage(input: {
+  name: string;
+  email?: string;
+  phone?: string;
+  message: string;
+}) {
+  const sql = getDb();
+  await sql`
+    INSERT INTO contact_messages (name, email, phone, message)
+    VALUES (${input.name}, ${input.email ?? null}, ${input.phone ?? null}, ${input.message})
+  `;
+}
+
+export async function listContactMessages(): Promise<ContactMessage[]> {
+  const sql = getDb();
+  const rows = await sql`
+    SELECT id, name, email, phone, message, status, created_at
+    FROM contact_messages
+    ORDER BY created_at DESC
+  `;
+  return rows as ContactMessage[];
+}
+
+export async function updateContactMessageStatus(
+  id: number,
+  status: ContactMessage["status"]
+) {
+  const sql = getDb();
+  await sql`UPDATE contact_messages SET status = ${status} WHERE id = ${id}`;
+}
+
+export async function deleteContactMessage(id: number) {
+  const sql = getDb();
+  await sql`DELETE FROM contact_messages WHERE id = ${id}`;
+}
+
+// ---------- Double authentification (TOTP) ----------
+
+export async function getAdminMfaState(userId: number) {
+  const sql = getDb();
+  const rows = await sql`
+    SELECT mfa_secret, mfa_enabled FROM admin_users WHERE id = ${userId}
+  `;
+  return rows[0] as { mfa_secret: string | null; mfa_enabled: boolean } | undefined;
+}
+
+export async function setAdminMfaSecret(userId: number, secret: string | null) {
+  const sql = getDb();
+  await sql`UPDATE admin_users SET mfa_secret = ${secret} WHERE id = ${userId}`;
+}
+
+export async function enableAdminMfa(userId: number) {
+  const sql = getDb();
+  await sql`UPDATE admin_users SET mfa_enabled = true WHERE id = ${userId}`;
+}
+
+export async function disableAdminMfa(userId: number) {
+  const sql = getDb();
+  await sql`
+    UPDATE admin_users SET mfa_enabled = false, mfa_secret = NULL WHERE id = ${userId}
+  `;
+}
+
+export type MfaChallenge = {
+  id: number;
+  user_id: number;
+  attempts: number;
+  expires_at: string;
+};
+
+export async function createMfaChallenge(input: {
+  userId: number;
+  tokenHash: string;
+  expiresAt: string;
+}) {
+  const sql = getDb();
+  // Entretien : les défis expirés ne servent plus à rien.
+  await sql`DELETE FROM admin_mfa_challenges WHERE expires_at < now()`;
+  await sql`
+    INSERT INTO admin_mfa_challenges (user_id, token_hash, expires_at)
+    VALUES (${input.userId}, ${input.tokenHash}, ${input.expiresAt})
+  `;
+}
+
+export async function findMfaChallenge(tokenHash: string): Promise<MfaChallenge | undefined> {
+  const sql = getDb();
+  const rows = await sql`
+    SELECT id, user_id, attempts, expires_at
+    FROM admin_mfa_challenges
+    WHERE token_hash = ${tokenHash} AND expires_at > now()
+  `;
+  return rows[0] as MfaChallenge | undefined;
+}
+
+export async function incrementMfaChallengeAttempts(id: number) {
+  const sql = getDb();
+  await sql`UPDATE admin_mfa_challenges SET attempts = attempts + 1 WHERE id = ${id}`;
+}
+
+export async function deleteMfaChallenge(id: number) {
+  const sql = getDb();
+  await sql`DELETE FROM admin_mfa_challenges WHERE id = ${id}`;
+}
+
+export async function deleteMfaChallengesForUser(userId: number) {
+  const sql = getDb();
+  await sql`DELETE FROM admin_mfa_challenges WHERE user_id = ${userId}`;
 }
 
 // ---------- Sessions ----------

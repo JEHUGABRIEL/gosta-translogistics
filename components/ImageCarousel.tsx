@@ -65,7 +65,7 @@ export default function ImageCarousel({
             type="button"
             onClick={() => go(-1)}
             aria-label="Photo précédente"
-            className="absolute left-2 top-1/2 -translate-y-1/2 h-9 w-9 flex items-center justify-center bg-black/40 hover:bg-[var(--red)] text-white backdrop-blur transition-colors opacity-100 md:opacity-0 md:group-hover/carousel:opacity-100 md:focus:opacity-100 cursor-pointer"
+            className="absolute left-2 top-1/2 -translate-y-1/2 h-9 w-9 flex items-center justify-center bg-black/55 hover:bg-[var(--red)] text-white transition-colors opacity-100 md:opacity-0 md:group-hover/carousel:opacity-100 md:focus:opacity-100 cursor-pointer"
           >
             <ChevronLeft size={18} />
           </button>
@@ -73,7 +73,7 @@ export default function ImageCarousel({
             type="button"
             onClick={() => go(1)}
             aria-label="Photo suivante"
-            className="absolute right-2 top-1/2 -translate-y-1/2 h-9 w-9 flex items-center justify-center bg-black/40 hover:bg-[var(--red)] text-white backdrop-blur transition-colors opacity-100 md:opacity-0 md:group-hover/carousel:opacity-100 md:focus:opacity-100 cursor-pointer"
+            className="absolute right-2 top-1/2 -translate-y-1/2 h-9 w-9 flex items-center justify-center bg-black/55 hover:bg-[var(--red)] text-white transition-colors opacity-100 md:opacity-0 md:group-hover/carousel:opacity-100 md:focus:opacity-100 cursor-pointer"
           >
             <ChevronRight size={18} />
           </button>
@@ -92,7 +92,7 @@ export default function ImageCarousel({
               className={`h-1.5 rounded-full transition-all cursor-pointer ${
                 i === index
                   ? "w-5 bg-[var(--red)]"
-                  : "w-1.5 bg-white/60 hover:bg-white"
+                  : "w-1.5 bg-white/60 hover:bg-[var(--surface)]"
               }`}
             />
           ))}

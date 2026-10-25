@@ -114,7 +114,7 @@ export default function LanguageSwitcher({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 6, scale: 0.97 }}
             transition={{ duration: 0.16, ease: "easeOut" }}
-            className="absolute right-0 top-full mt-2 w-full min-w-[160px] z-[60] bg-white shadow-2xl border-t-2 border-[var(--red)] py-1.5 origin-top"
+            className="absolute right-0 top-full mt-2 w-full min-w-[160px] z-[60] bg-[var(--surface)] shadow-2xl border-t-2 border-[var(--red)] py-1.5 origin-top"
           >
             {LOCALES.map((l, i) => (
               <button

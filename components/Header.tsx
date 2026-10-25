@@ -19,7 +19,7 @@ import {
   InstagramIcon,
   WhatsAppIcon,
 } from "./SocialIcons";
-import { getServices, type Service } from "@/lib/services";
+import { getServices } from "@/lib/services";
 import { SOCIAL_LINKS } from "@/lib/social";
 import { useQuoteModal } from "./QuoteModalProvider";
 import SearchModal from "./SearchModal";
@@ -31,113 +31,121 @@ const SIMPLE_NAV = [
   { key: "contact", href: "/contact" },
 ];
 
-// Numéros du bandeau, affichés un à la fois à tour de rôle
-const PHONES = ["70 12 00 25", "72 60 05 33"];
+// Numéros du bandeau (flyer), affichés un à la fois à tour de rôle
+const PHONES = ["75 20 03 13", "70 12 00 25", "72 60 05 33"];
 
-function DesktopDropdown({
-  label,
-  base,
-  items,
-}: {
-  label: string;
-  base: string;
-  items: Service[];
-}) {
+function ServicesMegaMenu() {
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState<string | null>(null);
+  const locale = useLocale();
   const t = useTranslations("nav");
+  const { poles, byPole } = getServices(locale);
+  // Aucun survol encore : le premier pôle occupe le panneau de droite.
+  const current = poles.find((pole) => pole.id === active) ?? poles[0];
 
   return (
     <div
-      className="relative"
+      className="relative h-full flex items-center"
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
+      onFocus={() => setOpen(true)}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setOpen(false);
+      }}
     >
       <Link
-        href={base}
+        href="/services"
+        aria-expanded={open}
         className="h-full flex items-center gap-1 font-display font-semibold text-[15px] uppercase tracking-wide text-[#dfe4ec] hover:text-[var(--red)] transition-colors"
       >
-        {label}
+        {t("services")}
         <ChevronDown
           size={14}
           className={`transition-transform duration-200 ${open ? "rotate-180" : ""}`}
         />
       </Link>
       <AnimatePresence>
-        {open && (
+        {open && current && (
           <motion.div
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 8 }}
             transition={{ duration: 0.18, ease: "easeOut" }}
-            className="absolute left-1/2 -translate-x-1/2 top-full pt-3 w-[340px] z-50"
+            className="absolute left-1/2 -translate-x-1/2 top-full pt-3 w-[min(56rem,calc(100vw-3rem))] z-50"
           >
-            <div className="bg-white shadow-2xl border-t-2 border-[var(--red)] py-2">
-              {items.map((item) => (
-                <Link
-                  key={item.slug}
-                  href={`${base}/${item.slug}`}
-                  className="flex items-start gap-3 px-5 py-3 hover:bg-[var(--sand)] transition-colors group"
-                >
-                  <item.icon
-                    size={18}
-                    className="text-[var(--navy-deep)] group-hover:text-[var(--red)] transition-colors mt-0.5 shrink-0"
-                  />
-                  <span>
-                    <span className="block font-display uppercase tracking-wide text-[14.5px] text-[var(--navy-deep)] group-hover:text-[var(--red)] transition-colors">
-                      {item.title}
-                    </span>
-                    <span className="block text-[12.5px] text-[var(--steel)] mt-0.5">
-                      {item.short}
-                    </span>
-                  </span>
-                </Link>
-              ))}
-              <Link
-                href={base}
-                className="flex items-center justify-between px-5 py-3 mt-1 border-t border-[var(--line-soft)] font-display uppercase tracking-wide text-[13px] text-[var(--red)]"
-              >
-                {t("allServices")} <ChevronRight size={15} />
-              </Link>
+            <div className="flex bg-[var(--surface)] shadow-2xl border-t-2 border-[var(--red)]">
+              {/* Sidebar : la liste des services */}
+              <aside className="w-56 shrink-0 bg-[var(--sand)] border-r border-[var(--line-soft)] py-3">
+                <p className="px-5 pb-2 font-mono text-[10.5px] uppercase tracking-[0.2em] text-[var(--steel)]">
+                  {t("allServices")}
+                </p>
+                <ul>
+                  {poles.map((pole) => {
+                    const Icon = pole.icon;
+                    const isActive = current.id === pole.id;
+                    return (
+                      <li key={pole.id}>
+                        <Link
+                          href={`/services/${pole.id}`}
+                          onMouseEnter={() => setActive(pole.id)}
+                          onFocus={() => setActive(pole.id)}
+                          className={`flex items-center gap-3 px-5 py-2.5 font-display uppercase tracking-wide text-[13.5px] transition-colors ${
+                            isActive
+                              ? "bg-[var(--surface)] text-[var(--red)]"
+                              : "text-[var(--navy-deep)] hover:text-[var(--red)]"
+                          }`}
+                        >
+                          <Icon size={16} strokeWidth={1.8} className="shrink-0" />
+                          {pole.label}
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </aside>
+
+              {/* Layout : les sous-services du pôle sélectionné */}
+              <div className="flex-1 min-w-0 p-6">
+                <div className="flex items-start justify-between gap-4 pb-4 border-b border-[var(--line-soft)]">
+                  <div>
+                    <h3 className="font-display font-extrabold uppercase tracking-wide text-[17px] text-[var(--navy-deep)]">
+                      {current.label}
+                    </h3>
+                    <p className="text-[13px] text-[var(--steel)] mt-1">
+                      {current.tagline}
+                    </p>
+                  </div>
+                  <Link
+                    href={`/services/${current.id}`}
+                    className="inline-flex items-center gap-1.5 shrink-0 font-mono text-[11.5px] uppercase tracking-[0.18em] text-[var(--red)] hover:text-[var(--red-dark)] transition-colors"
+                  >
+                    {t("viewPole")} <ChevronRight size={13} strokeWidth={2} />
+                  </Link>
+                </div>
+
+                <ul className="grid grid-cols-3 gap-x-5 gap-y-3.5 mt-4">
+                  {byPole[current.id].map((service) => (
+                    <li key={service.slug}>
+                      <Link
+                        href={`/services/${current.id}/${service.slug}`}
+                        className="group block"
+                      >
+                        <span className="block font-display uppercase tracking-wide text-[13.5px] leading-snug text-[var(--navy-deep)] group-hover:text-[var(--red)] transition-colors">
+                          {service.title}
+                        </span>
+                        <span className="block text-[12px] leading-snug text-[var(--steel)] mt-0.5">
+                          {service.short}
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
     </div>
-  );
-}
-
-function MobileServiceGroup({
-  label,
-  base,
-  onNavigate,
-  index,
-}: {
-  label: string;
-  base: string;
-  onNavigate: () => void;
-  index: number;
-}) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 28 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{
-        delay: 0.12 + index * 0.07,
-        duration: 0.55,
-        ease: [0.16, 1, 0.3, 1],
-      }}
-      className="border-b border-white/10 py-5"
-    >
-      <Link
-        href={base}
-        onClick={onNavigate}
-        className="group inline-flex items-baseline gap-4"
-      >
-        <span className="font-display font-extrabold text-4xl uppercase tracking-wide text-white group-hover:text-[var(--red)] transition-colors">
-          {label}
-        </span>
-      </Link>
-    </motion.div>
   );
 }
 
@@ -148,12 +156,11 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const reduceMotion = useReducedMotion();
   const { openQuote } = useQuoteModal();
-  const locale = useLocale();
   const t = useTranslations("nav");
   const tTopbar = useTranslations("topbar");
   const tSocial = useTranslations("social");
 
-  const { btp, logistique } = getServices(locale);
+  // Le catalogue est lu par le méga-menu « Nos prestations » (voir ServicesMegaMenu).
 
   // Fait défiler les numéros du bandeau, un à la fois
   useEffect(() => {
@@ -226,7 +233,7 @@ export default function Header() {
             </span>
             <span className="hidden sm:flex items-center gap-1.5 whitespace-nowrap shrink-0">
               <Mail size={13} className="text-[var(--amber)]" />
-              gostatranslogistiquebtp@outlook.fr
+              gostatranslogistiquelp@outlook.fr
             </span>
           </div>
           <div className="flex items-center gap-4">
@@ -268,13 +275,23 @@ export default function Header() {
             {/* Langue dans la topbar, après les réseaux sociaux */}
             <span className="hidden sm:block h-4 w-px bg-white/15" />
             <LanguageSwitcher />
+            {/* CTA du bandeau : accessible depuis toutes les pages, même
+                quand la navbar est en haut de page. Masqué sur mobile, où le
+                bouton vit déjà dans le drawer. */}
+            <button
+              type="button"
+              onClick={openQuote}
+              className="hidden md:inline-flex items-center bg-[var(--red)] hover:bg-[var(--red-dark)] transition-colors text-white font-display uppercase tracking-wide text-[12px] px-3.5 py-1.5 cursor-pointer whitespace-nowrap"
+            >
+              {t("quote")}
+            </button>
           </div>
         </div>
       </div>
 
       {/* main nav — transparent en haut de page, fond bleu au scroll */}
       <div
-        className={`${scrolled ? "bg-[var(--navy-mid)]/95 backdrop-blur" : "bg-[var(--navy-deep)]"} transition-colors duration-300`}
+        className={`${scrolled ? "bg-[var(--navy-mid)]/95" : "bg-[var(--navy-deep)]"} transition-colors duration-300`}
       >
         <div className="mx-auto max-w-7xl px-6 flex items-center justify-between h-[var(--header-nav-h)]">
           <Link href="/" className="flex items-center">
@@ -295,12 +312,13 @@ export default function Header() {
             >
               {t("home")}
             </Link>
-            <DesktopDropdown label={t("btp")} base="/services/btp" items={btp} />
-            <DesktopDropdown
-              label={t("logistique")}
-              base="/services/logistique"
-              items={logistique}
-            />
+            <ServicesMegaMenu />
+            <Link
+              href="/a-propos"
+              className="h-full flex items-center font-display font-semibold text-[15px] uppercase tracking-wide text-[#dfe4ec] hover:text-[var(--red)] transition-colors"
+            >
+              {t("about")}
+            </Link>
             {SIMPLE_NAV.slice(1).map((item) => (
               <Link
                 key={item.href}
@@ -410,22 +428,42 @@ export default function Header() {
                     </span>
                   </Link>
                 </motion.div>
-                <MobileServiceGroup
-                  label={t("btp")}
-                  base="/services/btp"
-                  onNavigate={() => setOpen(false)}
-                  index={0}
-                />
-                <MobileServiceGroup
-                  label={t("logistique")}
-                  base="/services/logistique"
-                  onNavigate={() => setOpen(false)}
-                  index={1}
-                />
                 <motion.div
                   initial={{ opacity: 0, y: 28 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.12 + 3 * 0.07, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ delay: 0.12, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                  className="border-b border-white/10"
+                >
+                  <Link
+                    href="/services"
+                    onClick={() => setOpen(false)}
+                    className="flex items-baseline gap-4 py-5 group"
+                  >
+                    <span className="font-display font-extrabold text-4xl uppercase tracking-wide text-white group-hover:text-[var(--red)] transition-colors">
+                      {t("services")}
+                    </span>
+                  </Link>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 28 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.19, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                  className="border-b border-white/10"
+                >
+                  <Link
+                    href="/a-propos"
+                    onClick={() => setOpen(false)}
+                    className="flex items-baseline gap-4 py-5 group"
+                  >
+                    <span className="font-display font-extrabold text-4xl uppercase tracking-wide text-white group-hover:text-[var(--red)] transition-colors">
+                      {t("about")}
+                    </span>
+                  </Link>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 28 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.26, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
                   className="border-b border-white/10"
                 >
                   <Link

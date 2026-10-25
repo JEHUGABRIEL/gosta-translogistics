@@ -15,7 +15,7 @@ export default async function VerifyInvitePage({
     return (
       <AuthCard subtitle="Confirmation">
         <p className="text-[14.5px] text-[var(--steel)]">
-          Rien à confirmer ici — commencez par le lien d&apos;invitation reçu par email.
+          Rien à confirmer ici : commencez par le lien d&apos;invitation reçu par email.
         </p>
       </AuthCard>
     );

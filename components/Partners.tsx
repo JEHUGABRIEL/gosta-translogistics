@@ -20,18 +20,15 @@ export default async function Partners() {
       {/* Séparation par l'espacement (py-16) plutôt que par un filet */}
       <div className="mx-auto max-w-7xl px-6 py-16">
         <Reveal className="text-center">
-          <span className="block font-mono text-[12.5px] uppercase tracking-[0.25em] text-[var(--red)]">
-            {t("eyebrow")}
-          </span>
-          <h2 className="font-display font-extrabold text-3xl md:text-4xl text-[var(--navy-deep)] mt-3">
+          <h2 className="font-display font-extrabold text-3xl md:text-4xl text-[var(--navy-deep)]">
             {t("title")}
           </h2>
         </Reveal>
       </div>
 
       <div className="relative mt-10 py-8">
-        <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-white to-transparent z-10" />
-        <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-white to-transparent z-10" />
+        <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[var(--white-warm)] to-transparent z-10" />
+        <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[var(--white-warm)] to-transparent z-10" />
         <div className="flex w-max animate-[marquee_28s_linear_infinite] gap-16">
           {loop.map(({ icon: Icon, label }, i) => (
             <div

@@ -19,7 +19,7 @@ export default function About() {
           <div className="relative w-full max-w-md mb-16">
             {/* 2e image — la base, pleine cadre. Cadre portrait 4:5 (l'ancienne
                 hauteur), recadrage object-cover de la photo source. */}
-            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl shadow-[0_30px_60px_-20px_rgba(0,0,0,0.35)]">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl">
               <Image
                 src="/hero_section/hero-5.png"
                 alt="GOSTA TRANS, chantier"
@@ -37,7 +37,7 @@ export default function About() {
                 alignée à droite du cadre (right-0) pour ne pas être rognée
                 par overflow-x-clip ; le débord de 15 % n'est appliqué
                 qu'à partir de lg, quand la colonne est assez large. */}
-            <div className="absolute -bottom-[6%] right-0 lg:-right-[15%] w-[55%] aspect-[3/4] overflow-hidden rounded-2xl shadow-[0_20px_40px_-12px_rgba(0,0,0,0.4)]">
+            <div className="absolute -bottom-[6%] right-0 lg:-right-[15%] w-[55%] aspect-[3/4] overflow-hidden rounded-2xl">
               <Image
                 src="/hero_section/hero-2.png"
                 alt="GOSTA TRANS Logistique & BTP"
@@ -52,10 +52,7 @@ export default function About() {
         {/* Texte — un seul bloc, sans onglets : les trois contenus
             (présentation, méthode, engagement) s'enchaînent à la suite. */}
         <Reveal delay={0.1} className="order-1 lg:order-2">
-          <span className="block font-mono text-[12.5px] uppercase tracking-[0.25em] text-[var(--red)]">
-            {t("eyebrow")}
-          </span>
-          <h2 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)] mt-3">
+          <h2 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)]">
             {t("title")}
           </h2>
 
@@ -76,7 +73,7 @@ export default function About() {
             className="btn-liquid inline-flex items-center gap-2 mt-8 bg-[var(--navy-deep)] text-white font-display uppercase tracking-wide text-[14px] px-6 py-3"
           >
             {t("contactUs")}
-            <ArrowRight size={16} strokeWidth={2} className="transition-transform duration-200 group-hover:translate-x-1" />
+            <ArrowRight size={16} strokeWidth={2} />
           </Link>
         </Reveal>
       </div>

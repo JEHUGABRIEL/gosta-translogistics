@@ -25,7 +25,7 @@ const securityHeaders = [
       "default-src 'self'",
       `script-src ${scriptSrc}`,
       "style-src 'self' 'unsafe-inline'",
-      "img-src 'self' https://images.unsplash.com data: blob:",
+      "img-src 'self' https://images.unsplash.com https://res.cloudinary.com data: blob:",
       "font-src 'self' https://fonts.gstatic.com",
       "connect-src 'self'",
       "object-src 'none'",
@@ -72,6 +72,11 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "images.unsplash.com",
+      },
+      {
+        // Visuels d'actualités téléversés depuis le dashboard admin.
+        protocol: "https",
+        hostname: "res.cloudinary.com",
       },
     ],
   },

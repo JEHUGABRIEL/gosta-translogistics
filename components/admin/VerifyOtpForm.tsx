@@ -28,7 +28,7 @@ export default function VerifyOtpForm({ token }: { token: string }) {
             maxLength={6}
             autoFocus
             placeholder="000000"
-            className="w-full border border-[var(--line)] bg-white px-3.5 py-2.5 text-[22px] tracking-[0.3em] text-center text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)]"
+            className="w-full border border-[var(--line)] bg-[var(--surface)] px-3.5 py-2.5 text-[22px] tracking-[0.3em] text-center text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)]"
           />
         </div>
 
