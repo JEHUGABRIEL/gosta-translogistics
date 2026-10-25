@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -14,12 +15,12 @@ export default function NotFound() {
       <p className="font-display text-xl mt-4 opacity-80">
         Page introuvable
       </p>
-      <a
+      <Link
         href="/"
         className="mt-8 inline-flex items-center gap-2 bg-[var(--red)] hover:opacity-90 transition-opacity text-white font-display uppercase tracking-wide text-sm px-6 py-3"
       >
         Retour à l&apos;accueil
-      </a>
+      </Link>
     </div>
   );
 }

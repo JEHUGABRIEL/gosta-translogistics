@@ -1,4 +1,4 @@
-import { requireAdmin } from "../actions";
+import { requireAdmin } from "../../actions";
 import AdminShell from "@/components/admin/AdminShell";
 import QuotesTable from "@/components/admin/QuotesTable";
 import { listQuoteRequests } from "@/lib/db/queries";

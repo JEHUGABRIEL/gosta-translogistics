@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Scaffolding du SDK d'agent (non versionné, types génériques qui
+    // utilisent `any` volontairement) : ce n'est pas du code de l'application.
+    ".agents/**",
   ]),
 ]);
 

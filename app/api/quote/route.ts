@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createQuoteRequest } from "@/lib/db/queries";
 import { isRateLimited } from "@/lib/rate-limit";
+import { getClientIpFromRequest } from "@/lib/request-ip";
 
 // 10 requêtes / 10 minutes par IP
 const QUOTE_MAX = 10;
@@ -12,16 +13,15 @@ const MAX_PHONE = 30;
 const MAX_SERVICE = 200;
 const MAX_MESSAGE = 2000;
 
-function getClientIp(request: Request): string {
-  const forwarded = request.headers.get("x-forwarded-for");
-  if (forwarded) return forwarded.split(",")[0].trim();
-  return "unknown";
+/** Retire les caractères de contrôle (sauts de ligne inclus) des champs courts. */
+function clean(value: string) {
+  return value.replace(/[\u0000-\u001F\u007F]/g, " ").replace(/\s+/g, " ").trim();
 }
 
 export async function POST(request: Request) {
-  const ip = getClientIp(request);
+  const ip = getClientIpFromRequest(request);
 
-  if (isRateLimited(ip, QUOTE_MAX, QUOTE_WINDOW_MS)) {
+  if (await isRateLimited("quote", ip, QUOTE_MAX, QUOTE_WINDOW_MS)) {
     return NextResponse.json(
       { error: "Trop de demandes. Réessayez dans quelques minutes." },
       { status: 429 }
@@ -29,10 +29,21 @@ export async function POST(request: Request) {
   }
 
   const body = await request.json().catch(() => null);
-  const name = typeof body?.name === "string" ? body.name.trim().slice(0, MAX_NAME) : "";
-  const phone = typeof body?.phone === "string" ? body.phone.trim().slice(0, MAX_PHONE) : "";
-  const service = typeof body?.service === "string" ? body.service.trim().slice(0, MAX_SERVICE) : undefined;
-  const message = typeof body?.message === "string" ? body.message.trim().slice(0, MAX_MESSAGE) : undefined;
+
+  // Honeypot : champ invisible pour les humains. Un bot qui le remplit reçoit
+  // une réponse de succès mais rien n'est enregistré.
+  if (typeof body?.website === "string" && body.website.trim() !== "") {
+    return NextResponse.json({ ok: true });
+  }
+
+  const name = typeof body?.name === "string" ? clean(body.name).slice(0, MAX_NAME) : "";
+  const phone = typeof body?.phone === "string" ? clean(body.phone).slice(0, MAX_PHONE) : "";
+  const service =
+    typeof body?.service === "string" ? clean(body.service).slice(0, MAX_SERVICE) : undefined;
+  const message =
+    typeof body?.message === "string"
+      ? body.message.trim().slice(0, MAX_MESSAGE)
+      : undefined;
 
   if (!name || !phone) {
     return NextResponse.json({ error: "name and phone are required" }, { status: 400 });

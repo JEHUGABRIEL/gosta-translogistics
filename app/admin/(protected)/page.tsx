@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { MessageSquareText, Newspaper, Star, Clock } from "lucide-react";
-import { requireAdmin } from "./actions";
+import { requireAdmin } from "../actions";
 import AdminShell from "@/components/admin/AdminShell";
 import { listQuoteRequests, listTestimonials, listNewsPosts } from "@/lib/db/queries";
 

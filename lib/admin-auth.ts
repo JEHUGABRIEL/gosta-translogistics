@@ -1,7 +1,10 @@
+import "server-only";
+
 import { randomBytes, randomInt, scrypt, timingSafeEqual, createHash } from "node:crypto";
 import { promisify } from "node:util";
 import { cookies } from "next/headers";
 import { getDb } from "./db/client";
+import { deleteExpiredSessions } from "./db/queries";
 
 const scryptAsync = promisify(scrypt) as (
   password: string,
@@ -10,9 +13,21 @@ const scryptAsync = promisify(scrypt) as (
 ) => Promise<Buffer>;
 
 const COOKIE_NAME = "admin_session";
+// Le cookie est restreint à /admin : il n'est jamais envoyé au site public ni
+// à /api. Toute suppression doit donc réutiliser ce même path (cf.
+// destroySession) : un Set-Cookie avec Path=/ ne remplace pas un cookie
+// scope /admin, il en crée un second.
+const COOKIE_PATH = "/admin";
 const SESSION_TTL_MS = 12 * 60 * 60 * 1000;
 const SCRYPT_N = 16384;
 const SCRYPT_KEYLEN = 64;
+
+// Hash factice, au bon format et de bonne longueur : il sert à exécuter un
+// scrypt complet quand l'email n'existe pas, pour que le temps de réponse ne
+// révèle pas l'existence d'un compte.
+const DUMMY_PASSWORD_HASH =
+  "scrypt:16384:ed2c4181bdd3ab08d8d173d9954c3383:ef8420bf2fda3a699cf9d6179c395c66eac43c7161c3d2f9ad83dedbcd6def16b42dadd33ef54070f327955c5a9f0bdb6455a5e843df27558e637d9879965f88";
+export const MAX_PASSWORD_LENGTH = 128;
 
 export async function hashPassword(password: string): Promise<string> {
   const salt = randomBytes(16);
@@ -24,6 +39,7 @@ export async function verifyPassword(
   password: string,
   stored: string
 ): Promise<boolean> {
+  if (password.length > MAX_PASSWORD_LENGTH) return false;
   const parts = stored.split(":");
   if (parts.length !== 4 || parts[0] !== "scrypt") return false;
   const [, , saltHex, hashHex] = parts;
@@ -59,6 +75,9 @@ export async function createSession(userId: number) {
   const tokenHash = hashToken(token);
   const expiresAt = new Date(Date.now() + SESSION_TTL_MS);
 
+  // Entretien : les sessions expirées ne servent plus à rien.
+  await deleteExpiredSessions();
+
   const sql = getDb();
   await sql`
     INSERT INTO sessions (user_id, token_hash, expires_at)
@@ -70,7 +89,7 @@ export async function createSession(userId: number) {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
-    path: "/admin",
+    path: COOKIE_PATH,
     expires: expiresAt,
   });
 }
@@ -82,7 +101,34 @@ export async function destroySession() {
     const sql = getDb();
     await sql`DELETE FROM sessions WHERE token_hash = ${hashToken(token)}`;
   }
-  store.delete(COOKIE_NAME);
+  // cookies().delete() émet un Set-Cookie avec Path=/ par défaut, qui ne
+  // supprime pas le cookie scope /admin. On le réécrit vide sur le bon path.
+  store.set(COOKIE_NAME, "", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: COOKIE_PATH,
+    maxAge: 0,
+  });
+}
+
+/**
+ * Exécute un scrypt de coût équivalent pour un email inconnu, puis échoue.
+ * Empêche l'énumération de comptes par mesure de temps de réponse.
+ */
+export async function verifyAgainstDummyHash(password: string) {
+  await verifyPassword(password, DUMMY_PASSWORD_HASH);
+  return false;
+}
+
+/**
+ * Empreinte du token de la session courante, pour distinguer « cette session »
+ * des autres dans la liste des sessions actives.
+ */
+export async function getCurrentSessionTokenHash(): Promise<string | null> {
+  const store = await cookies();
+  const token = store.get(COOKIE_NAME)?.value;
+  return token ? hashToken(token) : null;
 }
 
 export type AdminUser = {

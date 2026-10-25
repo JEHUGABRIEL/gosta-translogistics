@@ -40,7 +40,13 @@ export default function QuoteForm() {
     fetch("/api/quote", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, phone, service, message: details }),
+      body: JSON.stringify({
+        name,
+        phone,
+        service,
+        message: details,
+        website: String(data.get("website") ?? ""),
+      }),
     }).catch(() => {});
   };
 
@@ -79,6 +85,14 @@ export default function QuoteForm() {
           ))}
         </select>
       </div>
+      {/* Honeypot anti-bot : hors écran, hors tabulation, ignoré des humains. */}
+      <div aria-hidden="true" className="absolute left-[-9999px] h-0 w-0 overflow-hidden">
+        <label>
+          Site web
+          <input name="website" type="text" tabIndex={-1} autoComplete="off" />
+        </label>
+      </div>
+
       <div>
         <label className="block font-display uppercase text-[13px] tracking-wide text-[var(--navy-deep)] mb-1.5">
           {t("details")}

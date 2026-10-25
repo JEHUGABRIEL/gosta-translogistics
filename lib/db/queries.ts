@@ -1,3 +1,5 @@
+import "server-only";
+
 import { getDb } from "./client";
 
 export type AdminUserRow = {
@@ -22,6 +24,8 @@ export type AdminInvite = {
   otp_hash: string | null;
   otp_expires_at: string | null;
   otp_attempts: number;
+  resend_count: number;
+  last_sent_at: string | null;
   expires_at: string;
   created_at: string;
 };
@@ -203,6 +207,156 @@ export async function deleteNewsPost(id: number) {
   await sql`DELETE FROM news_posts WHERE id = ${id}`;
 }
 
+// ---------- Sessions ----------
+
+export type SessionRow = {
+  id: number;
+  token_hash: string;
+  created_at: string;
+  expires_at: string;
+};
+
+export async function deleteExpiredSessions() {
+  const sql = getDb();
+  await sql`DELETE FROM sessions WHERE expires_at < now()`;
+}
+
+export async function listSessionsForUser(userId: number): Promise<SessionRow[]> {
+  const sql = getDb();
+  const rows = await sql`
+    SELECT id, token_hash, created_at, expires_at
+    FROM sessions
+    WHERE user_id = ${userId} AND expires_at > now()
+    ORDER BY created_at DESC
+  `;
+  return rows as SessionRow[];
+}
+
+export async function deleteSessionById(id: number, userId: number) {
+  const sql = getDb();
+  await sql`DELETE FROM sessions WHERE id = ${id} AND user_id = ${userId}`;
+}
+
+export async function deleteSessionsForUser(userId: number) {
+  const sql = getDb();
+  await sql`DELETE FROM sessions WHERE user_id = ${userId}`;
+}
+
+export async function updateAdminPassword(userId: number, passwordHash: string) {
+  const sql = getDb();
+  await sql`UPDATE admin_users SET password_hash = ${passwordHash} WHERE id = ${userId}`;
+}
+
+// ---------- Journal d'activité ----------
+
+export type ActivityRow = {
+  id: number;
+  action: string;
+  target: string | null;
+  created_at: string;
+  email: string | null;
+};
+
+export async function logAdminActivity(input: {
+  userId: number | null;
+  action: string;
+  target?: string | null;
+}) {
+  const sql = getDb();
+  // Le journal est best-effort : une panne d'écriture ne doit pas faire
+  // échouer la mutation elle-même (ni bloquer la connexion avant migration).
+  try {
+    await sql`
+      INSERT INTO admin_activity (user_id, action, target)
+      VALUES (${input.userId}, ${input.action}, ${input.target ?? null})
+    `;
+  } catch (error) {
+    console.error("[admin-activity] écriture impossible", error);
+  }
+}
+
+export async function listRecentActivity(limit = 20): Promise<ActivityRow[]> {
+  const sql = getDb();
+  const rows = await sql`
+    SELECT a.id, a.action, a.target, a.created_at, u.email
+    FROM admin_activity a
+    LEFT JOIN admin_users u ON u.id = a.user_id
+    ORDER BY a.created_at DESC
+    LIMIT ${limit}
+  `;
+  return rows as ActivityRow[];
+}
+
+// ---------- Limitation de débit (état partagé en base) ----------
+
+/**
+ * Incrémente le compteur de `key` sur une fenêtre glissante.
+ * Retourne le nombre de coups déjà enregistrés dans la fenêtre courante.
+ * Le verrou éventuel est remis à zéro : il est reposé explicitement par
+ * `lockRateLimit` quand le seuil est atteint.
+ */
+export async function hitRateLimit(key: string, windowSeconds: number) {
+  const sql = getDb();
+  const rows = await sql`
+    INSERT INTO rate_limits (key, count, window_start, locked_until, updated_at)
+    VALUES (${key}, 1, now(), NULL, now())
+    ON CONFLICT (key) DO UPDATE SET
+      count = CASE
+        WHEN rate_limits.locked_until IS NOT NULL AND rate_limits.locked_until <= now() THEN 1
+        WHEN rate_limits.window_start <= now() - make_interval(secs => ${windowSeconds}::double precision) THEN 1
+        ELSE rate_limits.count + 1
+      END,
+      window_start = CASE
+        WHEN (rate_limits.locked_until IS NOT NULL AND rate_limits.locked_until <= now())
+          OR rate_limits.window_start <= now() - make_interval(secs => ${windowSeconds}::double precision)
+          THEN now()
+        ELSE rate_limits.window_start
+      END,
+      locked_until = NULL,
+      updated_at = now()
+    RETURNING count
+  `;
+  return (rows[0] as { count: number }).count;
+}
+
+export async function lockRateLimit(key: string, lockSeconds: number) {
+  const sql = getDb();
+  await sql`
+    UPDATE rate_limits
+    SET locked_until = now() + make_interval(secs => ${lockSeconds}::double precision),
+        updated_at = now()
+    WHERE key = ${key}
+  `;
+}
+
+export async function getRateLimitRow(
+  key: string
+): Promise<{ count: number; locked_until: string | null } | undefined> {
+  const sql = getDb();
+  const rows = await sql`
+    SELECT count, locked_until FROM rate_limits WHERE key = ${key}
+  `;
+  return rows[0] as { count: number; locked_until: string | null } | undefined;
+}
+
+export async function clearRateLimits(keys: string[]) {
+  const sql = getDb();
+  // Une suppression par clé plutôt qu'un tableau en paramètre : on ne dépend
+  // pas de la sérialisation des arrays JS par le driver HTTP.
+  for (const key of keys) {
+    await sql`DELETE FROM rate_limits WHERE key = ${key}`;
+  }
+}
+
+/**
+ * Purge les compteurs inactifs. Sans ça, la table grossirait indéfiniment au
+ * rythme des adresses email essayées sur le formulaire de connexion.
+ */
+export async function purgeStaleRateLimits() {
+  const sql = getDb();
+  await sql`DELETE FROM rate_limits WHERE updated_at < now() - interval '1 day'`;
+}
+
 export async function listAdminUsers(): Promise<AdminUserRow[]> {
   const sql = getDb();
   const rows = await sql`
@@ -255,7 +409,8 @@ export async function setInviteSignup(input: {
     UPDATE admin_invites
     SET first_name = ${input.firstName}, last_name = ${input.lastName},
         password_hash = ${input.passwordHash}, otp_hash = ${input.otpHash},
-        otp_expires_at = ${input.otpExpiresAt}, otp_attempts = 0, status = 'otp_sent'
+        otp_expires_at = ${input.otpExpiresAt}, otp_attempts = 0,
+        resend_count = 0, last_sent_at = now(), status = 'otp_sent'
     WHERE token_hash = ${input.tokenHash}
   `;
 }
@@ -266,9 +421,13 @@ export async function refreshInviteOtp(input: {
   otpExpiresAt: string;
 }) {
   const sql = getDb();
+  // resend_count journalise les renvois : sans plafond, l'endpoint de renvoi
+  // permettrait un envoi d'emails illimité et une remise à zéro permanente
+  // des tentatives (chaque nouveau code repart à 5 essais).
   await sql`
     UPDATE admin_invites
-    SET otp_hash = ${input.otpHash}, otp_expires_at = ${input.otpExpiresAt}, otp_attempts = 0
+    SET otp_hash = ${input.otpHash}, otp_expires_at = ${input.otpExpiresAt},
+        otp_attempts = 0, resend_count = resend_count + 1, last_sent_at = now()
     WHERE token_hash = ${input.tokenHash}
   `;
 }

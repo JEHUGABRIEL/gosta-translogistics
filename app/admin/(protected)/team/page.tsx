@@ -1,15 +1,47 @@
 import { redirect } from "next/navigation";
 import { getSessionUser } from "@/lib/admin-auth";
-import { listAdminUsers, listPendingInvites } from "@/lib/db/queries";
+import { listAdminUsers, listPendingInvites, listRecentActivity } from "@/lib/db/queries";
 import AdminShell from "@/components/admin/AdminShell";
 import InviteForm from "@/components/admin/InviteForm";
-import { Mail, Clock } from "lucide-react";
+import { Mail, Clock, History } from "lucide-react";
+
+const dateFormat = new Intl.DateTimeFormat("fr-FR", {
+  dateStyle: "short",
+  timeStyle: "short",
+  timeZone: "Africa/Bangui",
+});
+
+// Libellés du journal d'activité (codes écrits par app/admin/actions.ts).
+const ACTION_LABELS: Record<string, string> = {
+  "auth.login": "Connexion",
+  "auth.logout": "Déconnexion",
+  "auth.password_changed": "Mot de passe modifié",
+  "auth.invite_accepted": "Invitation acceptée",
+  "invite.created": "Invitation envoyée",
+  "session.revoked": "Session fermée",
+  "quote.status_changed": "Devis — statut modifié",
+  "quote.deleted": "Devis supprimé",
+  "testimonial.created": "Témoignage créé",
+  "testimonial.updated": "Témoignage modifié",
+  "testimonial.published": "Témoignage publié",
+  "testimonial.unpublished": "Témoignage dépublié",
+  "testimonial.deleted": "Témoignage supprimé",
+  "news.created": "Actualité créée",
+  "news.updated": "Actualité modifiée",
+  "news.published": "Actualité publiée",
+  "news.unpublished": "Actualité dépubliée",
+  "news.deleted": "Actualité supprimée",
+};
 
 export default async function AdminTeamPage() {
   const me = await getSessionUser();
   if (!me) redirect("/admin/login");
 
-  const [users, invites] = await Promise.all([listAdminUsers(), listPendingInvites()]);
+  const [users, invites, activity] = await Promise.all([
+    listAdminUsers(),
+    listPendingInvites(),
+    listRecentActivity(20),
+  ]);
 
   return (
     <AdminShell title="Équipe">
@@ -72,6 +104,37 @@ export default async function AdminTeamPage() {
             </ul>
           </div>
         )}
+
+        <div className="bg-white border border-[var(--line-soft)] rounded-2xl p-6">
+          <h2 className="font-display uppercase text-[15px] text-[var(--navy-deep)]">
+            Activité récente
+          </h2>
+          <p className="text-[12.5px] text-[var(--steel)] mt-1">
+            Les 20 dernières actions effectuées dans le dashboard.
+          </p>
+          {activity.length === 0 ? (
+            <p className="mt-4 text-[13.5px] text-[var(--steel)]">Aucune action enregistrée.</p>
+          ) : (
+            <ul className="mt-4 divide-y divide-[var(--line-soft)]">
+              {activity.map((entry) => (
+                <li key={entry.id} className="py-3 flex items-start gap-3">
+                  <History size={16} className="shrink-0 text-[var(--red)] mt-0.5" />
+                  <div className="min-w-0">
+                    <p className="text-[13.5px] text-[var(--navy-deep)]">
+                      {ACTION_LABELS[entry.action] ?? entry.action}
+                      {entry.target && (
+                        <span className="text-[var(--steel)]"> · {entry.target}</span>
+                      )}
+                    </p>
+                    <p className="text-[12.5px] text-[var(--steel)]">
+                      {entry.email ?? "compte supprimé"} — {dateFormat.format(new Date(entry.created_at))}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </div>
     </AdminShell>
   );

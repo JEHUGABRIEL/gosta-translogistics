@@ -77,3 +77,39 @@ CREATE TABLE IF NOT EXISTS news_posts (
   sort_order INTEGER NOT NULL DEFAULT 0,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
+
+-- ---------- Sécurité : limitation de débit partagée ----------
+
+-- Remplace les compteurs en mémoire (perdus à chaque cold start et non
+-- partagés entre instances serverless). Une ligne par clé suivie
+-- (login:email:ip, login-email:email, ip:...).
+CREATE TABLE IF NOT EXISTS rate_limits (
+  key TEXT PRIMARY KEY,
+  count INTEGER NOT NULL DEFAULT 0,
+  window_start TIMESTAMPTZ NOT NULL DEFAULT now(),
+  locked_until TIMESTAMPTZ,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS rate_limits_updated_at_idx ON rate_limits (updated_at);
+
+-- ---------- Journal d'activité admin ----------
+
+-- Trace des mutations faites dans le dashboard : qui a fait quoi, quand.
+CREATE TABLE IF NOT EXISTS admin_activity (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER REFERENCES admin_users(id) ON DELETE SET NULL,
+  action TEXT NOT NULL,
+  target TEXT,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS admin_activity_created_at_idx ON admin_activity (created_at DESC);
+
+-- ---------- Colonnes ajoutées après coup (idempotent) ----------
+
+-- Quota de renvois d'OTP par invitation : sans lui, l'endpoint de renvoi
+-- permet de spammer la boîte mail de l'invité et de remettre les tentatives
+-- à zéro indéfiniment.
+ALTER TABLE admin_invites ADD COLUMN IF NOT EXISTS resend_count INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE admin_invites ADD COLUMN IF NOT EXISTS last_sent_at TIMESTAMPTZ;
