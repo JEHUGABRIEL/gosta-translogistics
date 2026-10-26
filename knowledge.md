@@ -84,9 +84,19 @@ npm run db:seed-admin -- you@example.com   # or: node scripts/seed-admin.mjs <em
 
 `db:seed-admin` prints a generated password once and resets it if the user already exists.
 
+```bash
+NODE_COMPILE_CACHE= vercel whoami     # CLI Vercel — sans le préfixe il reste bloqué
+NODE_COMPILE_CACHE= vercel --prod     # déploiement prod (sinon : push sur main = intégration Git)
+```
+
 ### Tests
 
-Vitest 4 (`vitest.config.ts`). Two suites, in `test/`:
+Vitest 4 (`vitest.config.ts`). Three suites, in `test/`:
+
+- **`activity-export.test.ts`** — `GET /api/admin/activity/export` : 401 hors session, BOM
+  UTF-8 vérifié sur les octets, séparateur `;`, échappement des guillemets et des retours à
+  la ligne, transmission des filtres `q`/`action` et marqueur d'export tronqué. Tout est
+  mocké, la suite tourne hors ligne.
 
 - **`admin-actions.test.ts`** — the admin Server Actions with everything mocked (queries,
   rate limiter, `next/headers`, `next/navigation`, `next/cache`, email). Covers authorization

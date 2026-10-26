@@ -83,36 +83,7 @@ export default function MessagesManager({ items }: { items: MessageItem[] }) {
 
   return (
     <div className="space-y-6">
-      <AdminToolbar description="Les messages envoyés depuis le formulaire de contact du site arrivent ici. Marquez-les comme lus, archivez-les ou supprimez-les.">
-        <div className="flex flex-wrap gap-2">
-          {(["all", "new", "read", "archived"] as const).map((key) => {
-            const count =
-              key === "all"
-                ? items.length
-                : items.filter((item) => item.status === key).length;
-            return (
-              <button
-                key={key}
-                type="button"
-                onClick={() => {
-                  setFilter(key);
-                  setPage(1);
-                }}
-                className={`border px-3.5 py-1.5 font-display text-[12.5px] uppercase tracking-wide transition-colors ${
-                  filter === key
-                    ? "border-[var(--navy-deep)] bg-[var(--navy-deep)] text-white"
-                    : "border-[var(--line)] text-[var(--steel)] hover:border-[var(--navy-deep)] hover:text-[var(--navy-deep)]"
-                }`}
-              >
-                {key === "all" ? "Tous" : STATUS_LABEL[key]}
-                <span className="ml-2 font-mono text-[10.5px] opacity-70">
-                  {count}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-      </AdminToolbar>
+      <AdminToolbar description="Les messages envoyés depuis le formulaire de contact du site arrivent ici. Marquez-les comme lus, archivez-les ou supprimez-les." />
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <AdminSearch
@@ -123,9 +94,25 @@ export default function MessagesManager({ items }: { items: MessageItem[] }) {
           }}
           placeholder="Rechercher un message…"
         />
-        <p className="font-mono text-[11px] uppercase tracking-wide text-[var(--steel)]">
-          {filtered.length} message{filtered.length > 1 ? "s" : ""}
-        </p>
+        <div className="flex flex-wrap gap-2">
+          {(["all", "new", "read", "archived"] as const).map((key) => (
+            <button
+              key={key}
+              type="button"
+              onClick={() => {
+                setFilter(key);
+                setPage(1);
+              }}
+              className={`border px-3.5 py-1.5 font-display text-[12.5px] uppercase tracking-wide transition-colors ${
+                filter === key
+                  ? "border-[var(--navy-deep)] bg-[var(--navy-deep)] text-white"
+                  : "border-[var(--line)] text-[var(--steel)] hover:border-[var(--navy-deep)] hover:text-[var(--navy-deep)]"
+              }`}
+            >
+              {key === "all" ? "Tous" : STATUS_LABEL[key]}
+            </button>
+          ))}
+        </div>
       </div>
 
       {visible.length === 0 ? (

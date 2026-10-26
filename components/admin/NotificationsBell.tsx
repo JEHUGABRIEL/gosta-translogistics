@@ -3,10 +3,14 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
-import { Bell, Inbox, MessageSquareText } from "lucide-react";
+import { Bell, Inbox, MessageSquareText, CheckCheck } from "lucide-react";
 import type { NotificationsPayload } from "@/lib/admin-notifications";
+import { useAdminToast } from "./ToastProvider";
 
 const REFRESH_MS = 30_000;
+// Horodatage du dernier « tout effacer », côté client uniquement : le serveur
+// n'est interrogé que pour ce qui est survenu après.
+const STORAGE_KEY = "gosta-admin-notifications-cleared-at";
 
 const dateFormat = new Intl.DateTimeFormat("fr-FR", {
   dateStyle: "short",
@@ -15,11 +19,22 @@ const dateFormat = new Intl.DateTimeFormat("fr-FR", {
 
 export default function NotificationsBell() {
   const [open, setOpen] = useState(false);
+  // Lu une seule fois, au montage : le badge est vide tant que la requête n'a
+  // pas répondu, la valeur locale ne crée donc aucun décalque de rendu.
+  const [clearedAt, setClearedAt] = useState<string | null>(() =>
+    typeof window === "undefined"
+      ? null
+      : window.localStorage.getItem(STORAGE_KEY)
+  );
   const containerRef = useRef<HTMLDivElement>(null);
+  const toast = useAdminToast();
+
   const { data, refetch } = useQuery<NotificationsPayload>({
-    queryKey: ["admin", "notifications"],
+    queryKey: ["admin", "notifications", clearedAt ?? ""],
     queryFn: async () => {
-      const response = await fetch("/api/admin/notifications", {
+      const url = new URL("/api/admin/notifications", window.location.origin);
+      if (clearedAt) url.searchParams.set("since", clearedAt);
+      const response = await fetch(url, {
         cache: "no-store",
       });
       if (!response.ok) throw new Error("Notifications indisponibles");
@@ -51,6 +66,14 @@ export default function NotificationsBell() {
 
   const total = data ? data.quotes.count + data.messages.count : 0;
 
+  const clearAll = () => {
+    const now = new Date().toISOString();
+    window.localStorage.setItem(STORAGE_KEY, now);
+    setClearedAt(now);
+    setOpen(false);
+    toast.success("Notifications effacées.");
+  };
+
   return (
     <div ref={containerRef} className="relative">
       <button
@@ -73,10 +96,20 @@ export default function NotificationsBell() {
 
       {open && (
         <div className="absolute right-0 top-full z-50 mt-2 w-[min(20rem,calc(100vw-2rem))] overflow-hidden rounded-2xl border border-[var(--line-soft)] bg-[var(--surface)] shadow-2xl">
-          <div className="border-b border-[var(--line-soft)] px-4 py-3">
+          <div className="flex items-center justify-between gap-3 border-b border-[var(--line-soft)] px-4 py-3">
             <p className="font-display text-[13px] uppercase tracking-wide text-[var(--navy-deep)]">
               Notifications
             </p>
+            {total > 0 && (
+              <button
+                type="button"
+                onClick={clearAll}
+                className="inline-flex items-center gap-1.5 font-mono text-[10.5px] uppercase tracking-wide text-[var(--steel)] transition-colors hover:text-[var(--red)]"
+              >
+                <CheckCheck size={13} />
+                Tout effacer
+              </button>
+            )}
           </div>
 
           <div className="divide-y divide-[var(--line-soft)]">

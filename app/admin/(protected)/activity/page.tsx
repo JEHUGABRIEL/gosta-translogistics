@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { Download, History } from "lucide-react";
+import { Download } from "lucide-react";
 import { requireAdmin } from "../../actions";
 import AdminShell from "@/components/admin/AdminShell";
+import ActivityList from "@/components/admin/ActivityList";
+import ResetJournalButton from "@/components/admin/ResetJournalButton";
 import {
-  AdminBadge,
-  AdminCard,
   AdminEmptyState,
   AdminToolbar,
   fieldClass,
@@ -13,20 +13,6 @@ import { searchActivity } from "@/lib/db/queries";
 import { ADMIN_ACTION_LABELS } from "@/lib/admin-activity";
 
 const PER_PAGE = 20;
-
-const dateFormat = new Intl.DateTimeFormat("fr-FR", {
-  dateStyle: "short",
-  timeStyle: "short",
-  timeZone: "Africa/Bangui",
-});
-
-/** Tonne des pastilles : regroupe les actions par famille de préfixe. */
-function toneFor(action: string): "red" | "amber" | "green" | "steel" {
-  if (action.startsWith("auth.")) return "green";
-  if (action.startsWith("invite.")) return "amber";
-  if (action.endsWith(".deleted")) return "red";
-  return "steel";
-}
 
 function first(value: string | string[] | undefined) {
   return (Array.isArray(value) ? value[0] : value) ?? "";
@@ -82,6 +68,7 @@ export default async function ActivityPage({
             <Download size={14} />
             Exporter en CSV
           </a>
+          <ResetJournalButton />
         </AdminToolbar>
 
         <form
@@ -136,44 +123,7 @@ export default async function ActivityPage({
             }
           />
         ) : (
-          <AdminCard className="overflow-hidden">
-            <ul className="divide-y divide-[var(--line-soft)]">
-              {rows.map((entry) => (
-                <li
-                  key={entry.id}
-                  className="flex flex-wrap items-start justify-between gap-3 px-5 py-4"
-                >
-                  <div className="flex min-w-0 items-start gap-3">
-                    <History size={16} className="mt-0.5 shrink-0 text-[var(--red)]" />
-                    <div className="min-w-0">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <AdminBadge tone={toneFor(entry.action)}>
-                          {ADMIN_ACTION_LABELS[entry.action] ?? entry.action}
-                        </AdminBadge>
-                        <span className="font-mono text-[11px] uppercase tracking-wide text-[var(--steel)]">
-                          {entry.action}
-                        </span>
-                      </div>
-                      {entry.target && (
-                        <p className="mt-1.5 truncate text-[13.5px] text-[var(--navy-deep)]">
-                          {entry.target}
-                        </p>
-                      )}
-                      <p className="mt-0.5 text-[12.5px] text-[var(--steel)]">
-                        {entry.email ?? "compte supprimé"}
-                      </p>
-                    </div>
-                  </div>
-                  <time
-                    dateTime={entry.created_at}
-                    className="shrink-0 whitespace-nowrap font-mono text-[11.5px] text-[var(--steel)]"
-                  >
-                    {dateFormat.format(new Date(entry.created_at))}
-                  </time>
-                </li>
-              ))}
-            </ul>
-          </AdminCard>
+          <ActivityList entries={rows} />
         )}
 
         {total > 0 && (

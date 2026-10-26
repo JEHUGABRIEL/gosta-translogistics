@@ -46,6 +46,7 @@ import {
   deleteSessionsForUser,
   deleteTestimonial,
   logAdminActivity,
+  resetAdminActivity,
   setNewsPostPublished,
   setTestimonialPublished,
   updateAdminPassword,
@@ -342,6 +343,22 @@ export async function updateProfileAction(_prevState: unknown, formData: FormDat
   revalidatePath("/admin/team");
 
   return { success: "Profil mis à jour." };
+}
+
+/**
+ * Purge tout le journal d'activité, puis ré-inscrit l'effacement lui-même :
+ * la trace de la réinitialisation reste la première ligne du nouveau journal.
+ */
+export async function resetActivityAction() {
+  const admin = await requireAdmin();
+
+  await resetAdminActivity();
+  await logAdminActivity({
+    userId: admin.id,
+    action: "journal.reset",
+    target: "Journal réinitialisé",
+  });
+  revalidatePath("/admin/activity");
 }
 
 // ---------- Demandes de devis ----------

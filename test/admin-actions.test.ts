@@ -116,8 +116,11 @@ vi.mock("@/lib/db/queries", () => {
     deleteSessionById: fn(),
     deleteSessionsForUser: fn(),
     updateAdminPassword: fn(),
+    updateAdminProfile: fn(),
     logAdminActivity: fn(),
     listRecentActivity: fn(),
+    searchActivity: fn(),
+    resetAdminActivity: fn(),
     // limiteur (non exercé ici : voir test/rate-limit.test.ts)
     hitRateLimit: fn(),
     lockRateLimit: fn(),
@@ -152,6 +155,7 @@ vi.mock("@/lib/admin-auth", async (importOriginal) => {
 
 import * as actions from "@/app/admin/actions";
 import * as queries from "@/lib/db/queries";
+import { revalidatePath } from "next/cache";
 import {
   createSession,
   destroySession,
@@ -226,6 +230,8 @@ const WRITE_QUERIES = [
   queries.deleteSessionById,
   queries.deleteSessionsForUser,
   queries.updateAdminPassword,
+  queries.updateAdminProfile,
+  queries.resetAdminActivity,
   queries.createFaq,
   queries.updateFaq,
   queries.setFaqPublished,
@@ -725,5 +731,111 @@ describe("parcours d'invitation", () => {
       expect.objectContaining({ action: "auth.invite_accepted", userId: 7 })
     );
     expect(createSession).toHaveBeenCalledWith(7);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Profil administrateur
+// ---------------------------------------------------------------------------
+
+describe("updateProfileAction", () => {
+  it("redirige vers la connexion sans session", async () => {
+    vi.mocked(getSessionUser).mockResolvedValue(null);
+
+    await expectRedirectTo(() =>
+      actions.updateProfileAction(
+        undefined,
+        form({ firstName: "Ada", lastName: "Lovelace" })
+      )
+    );
+
+    expect(queries.updateAdminProfile).not.toHaveBeenCalled();
+    expectNoWrite();
+  });
+
+  it("exige au moins un prénom ou un nom", async () => {
+    const result = await actions.updateProfileAction(
+      undefined,
+      form({ firstName: "   ", lastName: "" })
+    );
+
+    expect(result.error).toMatch(/prénom ou un nom/);
+    expect(queries.updateAdminProfile).not.toHaveBeenCalled();
+    expect(queries.logAdminActivity).not.toHaveBeenCalled();
+  });
+
+  it("nettoie les caractères parasites, borne à 60 caractères et journalise", async () => {
+    const result = await actions.updateProfileAction(
+      undefined,
+      form({
+        firstName: "  Ada\u0000  \n Lovelace ",
+        lastName: "x".repeat(80),
+      })
+    );
+
+    expect(result.success).toBe("Profil mis à jour.");
+    expect(queries.updateAdminProfile).toHaveBeenCalledWith(
+      ADMIN.id,
+      "Ada Lovelace",
+      "x".repeat(60)
+    );
+    expect(queries.logAdminActivity).toHaveBeenCalledWith({
+      userId: ADMIN.id,
+      action: "profile.updated",
+      target: `Ada Lovelace ${"x".repeat(60)}`,
+    });
+    expect(revalidatePath).toHaveBeenCalledWith("/admin/account");
+    expect(revalidatePath).toHaveBeenCalledWith("/admin/team");
+  });
+
+  it("accepte un prénom seul et efface le nom restant", async () => {
+    const result = await actions.updateProfileAction(
+      undefined,
+      form({ firstName: "Ada", lastName: "" })
+    );
+
+    expect(result.success).toBe("Profil mis à jour.");
+    expect(queries.updateAdminProfile).toHaveBeenCalledWith(ADMIN.id, "Ada", null);
+    expect(queries.logAdminActivity).toHaveBeenCalledWith(
+      expect.objectContaining({ action: "profile.updated", target: "Ada" })
+    );
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Réinitialisation du journal
+// ---------------------------------------------------------------------------
+
+describe("resetActivityAction", () => {
+  it("redirige vers la connexion sans session", async () => {
+    vi.mocked(getSessionUser).mockResolvedValue(null);
+
+    await expectRedirectTo(() => actions.resetActivityAction());
+
+    expect(queries.resetAdminActivity).not.toHaveBeenCalled();
+    expectNoWrite();
+  });
+
+  it("purge tout le journal puis enregistre l'effacement", async () => {
+    await actions.resetActivityAction();
+
+    expect(queries.resetAdminActivity).toHaveBeenCalledTimes(1);
+    expect(queries.logAdminActivity).toHaveBeenCalledWith({
+      userId: ADMIN.id,
+      action: "journal.reset",
+      target: "Journal réinitialisé",
+    });
+    expect(revalidatePath).toHaveBeenCalledWith("/admin/activity");
+  });
+
+  it("ne journalise pas la trace si la purge échoue", async () => {
+    vi.mocked(queries.resetAdminActivity).mockRejectedValueOnce(
+      new Error("base indisponible")
+    );
+
+    await expect(actions.resetActivityAction()).rejects.toThrow(
+      "base indisponible"
+    );
+    expect(queries.logAdminActivity).not.toHaveBeenCalled();
   });
 });

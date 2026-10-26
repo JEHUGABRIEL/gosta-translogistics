@@ -547,6 +547,16 @@ export async function searchActivity(
   };
 }
 
+/**
+ * Purge intégrale du journal (« réinitialiser le journal » depuis le
+ * dashboard). L'entrée qui trace l'effacement est écrite après l'appel,
+ * dans `resetActivityAction`.
+ */
+export async function resetAdminActivity() {
+  const sql = getDb();
+  await sql`DELETE FROM admin_activity`;
+}
+
 // ---------- Limitation de débit (état partagé en base) ----------
 
 /**

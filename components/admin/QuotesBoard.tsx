@@ -107,9 +107,6 @@ export default function QuotesBoard({
             ))}
           </select>
         </div>
-        <p className="shrink-0 font-mono text-[11px] uppercase tracking-wide text-[var(--steel)]">
-          {filtered.length} demande{filtered.length > 1 ? "s" : ""}
-        </p>
       </div>
 
       {visible.length === 0 ? (

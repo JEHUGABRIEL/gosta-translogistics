@@ -28,4 +28,5 @@ export const ADMIN_ACTION_LABELS: Record<string, string> = {
   "message.status_changed": "Message : statut modifié",
   "message.deleted": "Message supprimé",
   "profile.updated": "Profil mis à jour",
+  "journal.reset": "Journal réinitialisé",
 };

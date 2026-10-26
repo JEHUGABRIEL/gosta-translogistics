@@ -47,7 +47,7 @@ export default async function AdminAccountPage() {
 
   return (
     <AdminShell title="Mon compte">
-      <div className="grid max-w-3xl gap-6">
+      <div className="mx-auto grid w-full max-w-3xl gap-6">
         <AdminCard className="p-6">
           <h2 className="font-display uppercase text-[15px] text-[var(--navy-deep)]">
             Mon profil

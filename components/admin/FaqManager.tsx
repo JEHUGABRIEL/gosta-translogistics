@@ -62,19 +62,7 @@ export default function FaqManager({ items }: { items: Faq[] }) {
 
   return (
     <div className="space-y-6">
-      <AdminToolbar description="Les questions publiées remplacent la liste statique de l'accueil. Sans question publiée, le site affiche ses messages par défaut — la page publique ne dépend jamais de la base.">
-        <button
-          type="button"
-          onClick={() => {
-            setEditing(null);
-            setFormOpen(true);
-          }}
-          className="btn-liquid inline-flex items-center gap-2 bg-[var(--navy-deep)] px-4 py-2.5 font-display text-[13px] uppercase tracking-wide text-white"
-        >
-          <Plus size={15} />
-          Ajouter une question
-        </button>
-      </AdminToolbar>
+      <AdminToolbar description="Les questions publiées remplacent la liste statique de l'accueil. Sans question publiée, le site affiche ses messages par défaut — la page publique ne dépend jamais de la base." />
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <AdminSearch
@@ -85,9 +73,17 @@ export default function FaqManager({ items }: { items: Faq[] }) {
           }}
           placeholder="Rechercher une question…"
         />
-        <p className="font-mono text-[11px] uppercase tracking-wide text-[var(--steel)]">
-          {filtered.length} question{filtered.length > 1 ? "s" : ""}
-        </p>
+        <button
+          type="button"
+          onClick={() => {
+            setEditing(null);
+            setFormOpen(true);
+          }}
+          className="btn-liquid inline-flex items-center justify-center gap-2 bg-[var(--navy-deep)] px-4 py-2.5 font-display text-[13px] uppercase tracking-wide text-white"
+        >
+          <Plus size={15} />
+          Ajouter une question
+        </button>
       </div>
 
       {filtered.length === 0 ? (
