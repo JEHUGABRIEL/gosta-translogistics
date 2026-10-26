@@ -13,11 +13,11 @@ const scryptAsync = promisify(scrypt) as (
 ) => Promise<Buffer>;
 
 const COOKIE_NAME = "admin_session";
-// Le cookie est restreint à /admin : il n'est jamais envoyé au site public ni
-// à /api. Toute suppression doit donc réutiliser ce même path (cf.
-// destroySession) : un Set-Cookie avec Path=/ ne remplace pas un cookie
-// scope /admin, il en crée un second.
-const COOKIE_PATH = "/admin";
+// Le cookie doit couvrir `/api/admin/*` : les route handlers (rafraîchissement
+// des devis, notifications) lisent la session via `getSessionUser()`. Un path
+// limité à `/admin` les laissait sans cookie et renvoyait 401.
+// Il est httpOnly + sameSite=lax ; le path n'est pas une frontière de sécurité.
+const COOKIE_PATH = "/";
 const SESSION_TTL_MS = 12 * 60 * 60 * 1000;
 const SCRYPT_N = 16384;
 const SCRYPT_KEYLEN = 64;
@@ -101,15 +101,17 @@ export async function destroySession() {
     const sql = getDb();
     await sql`DELETE FROM sessions WHERE token_hash = ${hashToken(token)}`;
   }
-  // cookies().delete() émet un Set-Cookie avec Path=/ par défaut, qui ne
-  // supprime pas le cookie scope /admin. On le réécrit vide sur le bon path.
-  store.set(COOKIE_NAME, "", {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    path: COOKIE_PATH,
-    maxAge: 0,
-  });
+  // Émet un Set-Cookie vide sur `/` et sur l'ancien path `/admin`, pour
+  // nettoyer aussi les sessions créées avant l'élargissement du cookie.
+  for (const path of [COOKIE_PATH, "/admin"]) {
+    store.set(COOKIE_NAME, "", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path,
+      maxAge: 0,
+    });
+  }
 }
 
 /**

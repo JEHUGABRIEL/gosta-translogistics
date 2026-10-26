@@ -3,6 +3,8 @@ import { getSessionUser } from "@/lib/admin-auth";
 import { listAdminUsers, listPendingInvites, listRecentActivity } from "@/lib/db/queries";
 import AdminShell from "@/components/admin/AdminShell";
 import InviteForm from "@/components/admin/InviteForm";
+import { AdminCard } from "@/components/admin/ui";
+import { ADMIN_ACTION_LABELS } from "@/lib/admin-activity";
 import { Mail, Clock, History } from "lucide-react";
 
 const dateFormat = new Intl.DateTimeFormat("fr-FR", {
@@ -10,28 +12,6 @@ const dateFormat = new Intl.DateTimeFormat("fr-FR", {
   timeStyle: "short",
   timeZone: "Africa/Bangui",
 });
-
-// Libellés du journal d'activité (codes écrits par app/admin/actions.ts).
-const ACTION_LABELS: Record<string, string> = {
-  "auth.login": "Connexion",
-  "auth.logout": "Déconnexion",
-  "auth.password_changed": "Mot de passe modifié",
-  "auth.invite_accepted": "Invitation acceptée",
-  "invite.created": "Invitation envoyée",
-  "session.revoked": "Session fermée",
-  "quote.status_changed": "Devis : statut modifié",
-  "quote.deleted": "Devis supprimé",
-  "testimonial.created": "Témoignage créé",
-  "testimonial.updated": "Témoignage modifié",
-  "testimonial.published": "Témoignage publié",
-  "testimonial.unpublished": "Témoignage dépublié",
-  "testimonial.deleted": "Témoignage supprimé",
-  "news.created": "Actualité créée",
-  "news.updated": "Actualité modifiée",
-  "news.published": "Actualité publiée",
-  "news.unpublished": "Actualité dépubliée",
-  "news.deleted": "Actualité supprimée",
-};
 
 export default async function AdminTeamPage() {
   const me = await getSessionUser();
@@ -45,8 +25,8 @@ export default async function AdminTeamPage() {
 
   return (
     <AdminShell title="Équipe">
-      <div className="grid gap-8 max-w-2xl">
-        <div className="bg-[var(--surface)] border border-[var(--line-soft)] rounded-2xl p-6">
+      <div className="grid max-w-3xl gap-6">
+        <AdminCard className="p-6">
           <h2 className="font-display uppercase text-[15px] text-[var(--navy-deep)]">
             Inviter un nouvel admin
           </h2>
@@ -57,9 +37,9 @@ export default async function AdminTeamPage() {
           <div className="mt-5">
             <InviteForm />
           </div>
-        </div>
+        </AdminCard>
 
-        <div className="bg-[var(--surface)] border border-[var(--line-soft)] rounded-2xl p-6">
+        <AdminCard className="p-6">
           <h2 className="font-display uppercase text-[15px] text-[var(--navy-deep)]">
             Comptes admin
           </h2>
@@ -81,10 +61,10 @@ export default async function AdminTeamPage() {
               );
             })}
           </ul>
-        </div>
+        </AdminCard>
 
         {invites.length > 0 && (
-          <div className="bg-[var(--surface)] border border-[var(--line-soft)] rounded-2xl p-6">
+          <AdminCard className="p-6">
             <h2 className="font-display uppercase text-[15px] text-[var(--navy-deep)]">
               Invitations en attente
             </h2>
@@ -102,10 +82,10 @@ export default async function AdminTeamPage() {
                 </li>
               ))}
             </ul>
-          </div>
+          </AdminCard>
         )}
 
-        <div className="bg-[var(--surface)] border border-[var(--line-soft)] rounded-2xl p-6">
+        <AdminCard className="p-6">
           <h2 className="font-display uppercase text-[15px] text-[var(--navy-deep)]">
             Activité récente
           </h2>
@@ -121,7 +101,7 @@ export default async function AdminTeamPage() {
                   <History size={16} className="shrink-0 text-[var(--red)] mt-0.5" />
                   <div className="min-w-0">
                     <p className="text-[13.5px] text-[var(--navy-deep)]">
-                      {ACTION_LABELS[entry.action] ?? entry.action}
+                      {ADMIN_ACTION_LABELS[entry.action] ?? entry.action}
                       {entry.target && (
                         <span className="text-[var(--steel)]"> · {entry.target}</span>
                       )}
@@ -134,7 +114,7 @@ export default async function AdminTeamPage() {
               ))}
             </ul>
           )}
-        </div>
+        </AdminCard>
       </div>
     </AdminShell>
   );

@@ -2,8 +2,10 @@ import { redirect } from "next/navigation";
 import QRCode from "qrcode";
 import AdminShell from "@/components/admin/AdminShell";
 import ChangePasswordForm from "@/components/admin/ChangePasswordForm";
+import ProfileForm from "@/components/admin/ProfileForm";
 import MfaCard from "@/components/admin/MfaCard";
 import SessionsList from "@/components/admin/SessionsList";
+import { AdminCard } from "@/components/admin/ui";
 import { getCurrentSessionTokenHash, getSessionUser } from "@/lib/admin-auth";
 import { buildTotpUri } from "@/lib/mfa";
 import { getAdminMfaState, listSessionsForUser } from "@/lib/db/queries";
@@ -45,15 +47,32 @@ export default async function AdminAccountPage() {
 
   return (
     <AdminShell title="Mon compte">
-      <div className="max-w-md grid gap-6">
-        <div className="bg-[var(--surface)] border border-[var(--line-soft)] rounded-2xl p-6">
-          <p className="text-[14px] text-[var(--steel)]">
-            Connecté en tant que <span className="text-[var(--navy-deep)]">{user.email}</span>
+      <div className="grid max-w-3xl gap-6">
+        <AdminCard className="p-6">
+          <h2 className="font-display uppercase text-[15px] text-[var(--navy-deep)]">
+            Mon profil
+          </h2>
+          <p className="mt-1 text-[12.5px] text-[var(--steel)]">
+            Connecté en tant que{" "}
+            <span className="text-[var(--navy-deep)]">{user.email}</span>. Prénom et nom
+            sont affichés dans l&apos;équipe et le journal d&apos;activité.
           </p>
-          <div className="mt-6">
+          <div className="mt-5">
+            <ProfileForm
+              firstName={user.first_name ?? ""}
+              lastName={user.last_name ?? ""}
+            />
+          </div>
+        </AdminCard>
+
+        <AdminCard className="p-6">
+          <h2 className="font-display uppercase text-[15px] text-[var(--navy-deep)]">
+            Mot de passe
+          </h2>
+          <div className="mt-5">
             <ChangePasswordForm />
           </div>
-        </div>
+        </AdminCard>
 
         <MfaCard
           enabled={mfaEnabled}
@@ -61,7 +80,7 @@ export default async function AdminAccountPage() {
           qrDataUrl={qrDataUrl}
         />
 
-        <div className="bg-[var(--surface)] border border-[var(--line-soft)] rounded-2xl p-6">
+        <AdminCard className="p-6">
           <h2 className="font-display uppercase text-[15px] text-[var(--navy-deep)]">
             Sessions actives
           </h2>
@@ -72,7 +91,7 @@ export default async function AdminAccountPage() {
           <div className="mt-4">
             <SessionsList sessions={sessionItems} />
           </div>
-        </div>
+        </AdminCard>
       </div>
     </AdminShell>
   );

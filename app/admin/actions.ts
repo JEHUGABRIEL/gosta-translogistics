@@ -49,6 +49,7 @@ import {
   setNewsPostPublished,
   setTestimonialPublished,
   updateAdminPassword,
+  updateAdminProfile,
   updateNewsPost,
   updateQuoteRequestStatus,
   updateTestimonial,
@@ -307,6 +308,40 @@ export async function revokeSessionAction(id: number) {
     target: String(id),
   });
   revalidatePath("/admin/account");
+}
+
+/**
+ * Met à jour le prénom / nom affichés dans le dashboard.
+ * Champs optionnels, bornés et nettoyés : ils ne servent qu'à l'affichage.
+ */
+export async function updateProfileAction(_prevState: unknown, formData: FormData) {
+  const user = await getSessionUser();
+  if (!user) redirect("/admin/login");
+
+  const clean = (value: unknown) =>
+    String(value ?? "")
+      .replace(/[\u0000-\u001F\u007F]/g, " ")
+      .replace(/\s+/g, " ")
+      .trim()
+      .slice(0, 60);
+
+  const firstName = clean(formData.get("firstName"));
+  const lastName = clean(formData.get("lastName"));
+
+  if (!firstName && !lastName) {
+    return { error: "Renseignez au moins un prénom ou un nom." };
+  }
+
+  await updateAdminProfile(user.id, firstName || null, lastName || null);
+  await logAdminActivity({
+    userId: user.id,
+    action: "profile.updated",
+    target: [firstName, lastName].filter(Boolean).join(" ") || null,
+  });
+  revalidatePath("/admin/account");
+  revalidatePath("/admin/team");
+
+  return { success: "Profil mis à jour." };
 }
 
 // ---------- Demandes de devis ----------

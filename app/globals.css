@@ -56,6 +56,37 @@ select {
   outline-offset: 2px;
 }
 
+/* Les champs portent leur propre état de focus : une seule bordure + un halo.
+   Cette règle est volontairement hors layer : le `focus:outline-none` de
+   Tailwind vit dans `@layer utilities` et perdrait contre l'outline global
+   ci-dessus, ce qui dessinait une bordure rouge doublée d'un outline. */
+input:not([type="hidden"]):focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: none;
+  border-color: var(--red);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--red) 16%, transparent);
+}
+
+input:not([type="hidden"]),
+select,
+textarea {
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+/* Le dashboard garde l'identité de la marque (pilules) côté public, mais des
+   angles plus sobres côté administration. */
+.admin-ui button,
+.admin-ui a[role="button"] {
+  border-radius: 0.75rem;
+}
+
+.admin-ui input:not([type="hidden"]),
+.admin-ui select,
+.admin-ui textarea {
+  border-radius: 0.625rem;
+}
+
 .font-display {
   font-family: var(--font-display);
 }

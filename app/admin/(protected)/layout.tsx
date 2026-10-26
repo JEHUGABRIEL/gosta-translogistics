@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { getSessionUser } from "@/lib/admin-auth";
+import { AdminToastProvider } from "@/components/admin/ToastProvider";
 
 /**
  * Garde en profondeur du dashboard.
@@ -18,5 +19,5 @@ export default async function ProtectedAdminLayout({
   const user = await getSessionUser();
   if (!user) redirect("/admin/login");
 
-  return <>{children}</>;
+  return <AdminToastProvider>{children}</AdminToastProvider>;
 }

@@ -151,13 +151,13 @@ Rules that matter:
   characters, and uses a hidden `website` honeypot field that returns fake success without
   inserting. Keep all three layers when touching `components/QuoteForm.tsx` or the route.
 - **Admin auth details.** Passwords are `scrypt:16384:<salt>:<hash>`; sessions are hashed
-  tokens in the `sessions` table with an httpOnly cookie scoped to `path: /admin` (12 h).
+  tokens in the `sessions` table with an httpOnly cookie at `path: /` (12 h) — it must
+  cover `/api/admin/*`, whose route handlers authenticate with `getSessionUser()`.
   Invites are two-step (link → form → email OTP, 48 h / 10 min TTLs, max 5 resends); nothing
   is written to `admin_users` until the OTP is validated. Changing a password revokes every
   session and rotates the current one.
-- **Session cookie must be cleared on the `/admin` path.** `cookies().delete()` emits a
-  `Set-Cookie` with `Path=/`, which does not remove a cookie scoped to `/admin`. Use
-  `store.set(COOKIE_NAME, "", { path: "/admin", maxAge: 0 })` (see `destroySession`).
+- **Session cookie clearing.** `destroySession` writes an empty cookie on both `/` and
+  the legacy `/admin` path, so sessions issued before the cookie was widened are removed too.
 - **Rate limiting is database-backed, not in memory.** State lives in the `rate_limits`
   table so all serverless instances share it. If the DB call fails the limiter **fails
   open** and logs — never let throttling turn into an outage. Login is limited per

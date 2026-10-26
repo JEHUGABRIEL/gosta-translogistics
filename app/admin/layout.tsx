@@ -18,7 +18,7 @@ export default function AdminLayout({
 }) {
   return (
     <html lang="fr">
-      <body className="antialiased bg-[var(--sand)] text-[#1B2430] font-sans">
+      <body className="admin-ui antialiased bg-[var(--sand)] text-[#1B2430] font-sans">
         <QueryProvider>{children}</QueryProvider>
       </body>
     </html>

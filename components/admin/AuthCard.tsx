@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { X } from "lucide-react";
+import { ArrowLeft, X } from "lucide-react";
 
 export default function AuthCard({
   subtitle,
@@ -30,6 +30,13 @@ export default function AuthCard({
           </Link>
         </div>
         <div className="mt-6">{children}</div>
+        <Link
+          href="/"
+          className="mt-6 inline-flex items-center gap-1.5 font-mono text-[11.5px] uppercase tracking-[0.18em] text-[var(--steel)] hover:text-[var(--red)] transition-colors"
+        >
+          <ArrowLeft size={13} strokeWidth={2} />
+          Retour sur le site
+        </Link>
       </div>
     </div>
   );

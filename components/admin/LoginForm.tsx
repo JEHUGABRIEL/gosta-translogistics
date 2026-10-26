@@ -1,42 +1,50 @@
 "use client";
 
-import { useActionState } from "react";
-import { Lock } from "lucide-react";
+import { useActionState, useState } from "react";
+import { Eye, EyeOff, Lock } from "lucide-react";
 import { loginAction } from "@/app/admin/actions";
+import { AdminField, fieldClass } from "./ui";
 
 export default function LoginForm() {
   const [state, formAction, pending] = useActionState(loginAction, undefined as
     | { error: string }
     | undefined);
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <form action={formAction} className="grid gap-4">
-      <div>
-        <label className="block font-display uppercase text-[13px] tracking-wide text-[var(--navy-deep)] mb-1.5">
-          Email
-        </label>
+      <AdminField label="Email" htmlFor="admin-email" required>
         <input
+          id="admin-email"
           type="email"
           name="email"
           required
           autoFocus
           autoComplete="username"
-          className="w-full border border-[var(--line)] bg-[var(--surface)] px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)]"
+          className={fieldClass}
         />
-      </div>
+      </AdminField>
 
-      <div>
-        <label className="block font-display uppercase text-[13px] tracking-wide text-[var(--navy-deep)] mb-1.5">
-          Mot de passe
-        </label>
-        <input
-          type="password"
-          name="password"
-          required
-          autoComplete="current-password"
-          className="w-full border border-[var(--line)] bg-[var(--surface)] px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)]"
-        />
-      </div>
+      <AdminField label="Mot de passe" htmlFor="admin-password" required>
+        <div className="relative">
+          <input
+            id="admin-password"
+            type={showPassword ? "text" : "password"}
+            name="password"
+            required
+            autoComplete="current-password"
+            className={`${fieldClass} pr-11`}
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword((current) => !current)}
+            aria-label={showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe"}
+            className="absolute right-1.5 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center text-[var(--steel)] transition-colors hover:bg-[var(--sand)] hover:text-[var(--navy-deep)]"
+          >
+            {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+          </button>
+        </div>
+      </AdminField>
 
       {state?.error && (
         <p className="text-[13.5px] text-[var(--red)]">{state.error}</p>
@@ -45,7 +53,7 @@ export default function LoginForm() {
       <button
         type="submit"
         disabled={pending}
-        className="inline-flex items-center justify-center gap-2 bg-[var(--navy-deep)] hover:bg-[var(--navy-mid)] disabled:opacity-60 transition-colors text-white font-display uppercase tracking-wide text-[14px] px-6 py-3 cursor-pointer"
+        className="inline-flex items-center justify-center gap-2 bg-[var(--navy-deep)] px-6 py-3 font-display text-[14px] uppercase tracking-wide text-white transition-colors hover:bg-[var(--navy-mid)] disabled:opacity-60"
       >
         <Lock size={16} />
         {pending ? "Connexion…" : "Se connecter"}

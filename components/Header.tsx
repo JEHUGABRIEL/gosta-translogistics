@@ -39,6 +39,7 @@ function ServicesMegaMenu() {
   const [active, setActive] = useState<string | null>(null);
   const locale = useLocale();
   const t = useTranslations("nav");
+  const { openQuote } = useQuoteModal();
   const { poles, byPole } = getServices(locale);
   // Aucun survol encore : le premier pôle occupe le panneau de droite.
   const current = poles.find((pole) => pole.id === active) ?? poles[0];
@@ -73,73 +74,89 @@ function ServicesMegaMenu() {
             transition={{ duration: 0.18, ease: "easeOut" }}
             className="absolute left-1/2 -translate-x-1/2 top-full pt-3 w-[min(56rem,calc(100vw-3rem))] z-50"
           >
-            <div className="flex bg-[var(--surface)] shadow-2xl border-t-2 border-[var(--red)]">
-              {/* Sidebar : la liste des services */}
-              <aside className="w-56 shrink-0 bg-[var(--sand)] border-r border-[var(--line-soft)] py-3">
-                <p className="px-5 pb-2 font-mono text-[10.5px] uppercase tracking-[0.2em] text-[var(--steel)]">
-                  {t("allServices")}
-                </p>
-                <ul>
-                  {poles.map((pole) => {
-                    const Icon = pole.icon;
-                    const isActive = current.id === pole.id;
-                    return (
-                      <li key={pole.id}>
+            <div className="bg-[var(--surface)] shadow-2xl border-t-2 border-[var(--red)]">
+              <div className="flex">
+                {/* Sidebar : la liste des services */}
+                <aside className="w-56 shrink-0 bg-[var(--sand)] border-r border-[var(--line-soft)] py-3">
+                  <p className="px-5 pb-2 font-mono text-[10.5px] uppercase tracking-[0.2em] text-[var(--steel)]">
+                    {t("allServices")}
+                  </p>
+                  <ul>
+                    {poles.map((pole) => {
+                      const Icon = pole.icon;
+                      const isActive = current.id === pole.id;
+                      return (
+                        <li key={pole.id}>
+                          <Link
+                            href={`/services/${pole.id}`}
+                            onMouseEnter={() => setActive(pole.id)}
+                            onFocus={() => setActive(pole.id)}
+                            className={`flex items-center gap-3 px-5 py-2.5 font-display uppercase tracking-wide text-[13.5px] transition-colors ${
+                              isActive
+                                ? "bg-[var(--surface)] text-[var(--red)]"
+                                : "text-[var(--navy-deep)] hover:text-[var(--red)]"
+                            }`}
+                          >
+                            <Icon size={16} strokeWidth={1.8} className="shrink-0" />
+                            {pole.label}
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </aside>
+
+                {/* Layout : les sous-services du pôle sélectionné */}
+                <div className="flex-1 min-w-0 p-6">
+                  <div className="flex items-start justify-between gap-4 pb-4 border-b border-[var(--line-soft)]">
+                    <div>
+                      <h3 className="font-display font-extrabold uppercase tracking-wide text-[17px] text-[var(--navy-deep)]">
+                        {current.label}
+                      </h3>
+                      <p className="text-[13px] text-[var(--steel)] mt-1">
+                        {current.tagline}
+                      </p>
+                    </div>
+                    <Link
+                      href={`/services/${current.id}`}
+                      className="inline-flex items-center gap-1.5 shrink-0 font-mono text-[11.5px] uppercase tracking-[0.18em] text-[var(--red)] hover:text-[var(--red-dark)] transition-colors"
+                    >
+                      {t("viewPole")} <ChevronRight size={13} strokeWidth={2} />
+                    </Link>
+                  </div>
+
+                  <ul className="grid grid-cols-3 gap-x-5 gap-y-3.5 mt-4">
+                    {byPole[current.id].map((service) => (
+                      <li key={service.slug}>
                         <Link
-                          href={`/services/${pole.id}`}
-                          onMouseEnter={() => setActive(pole.id)}
-                          onFocus={() => setActive(pole.id)}
-                          className={`flex items-center gap-3 px-5 py-2.5 font-display uppercase tracking-wide text-[13.5px] transition-colors ${
-                            isActive
-                              ? "bg-[var(--surface)] text-[var(--red)]"
-                              : "text-[var(--navy-deep)] hover:text-[var(--red)]"
-                          }`}
+                          href={`/services/${current.id}/${service.slug}`}
+                          className="group block"
                         >
-                          <Icon size={16} strokeWidth={1.8} className="shrink-0" />
-                          {pole.label}
+                          <span className="block font-display uppercase tracking-wide text-[13.5px] leading-snug text-[var(--navy-deep)] group-hover:text-[var(--red)] transition-colors">
+                            {service.title}
+                          </span>
+                          <span className="block text-[12px] leading-snug text-[var(--steel)] mt-0.5">
+                            {service.short}
+                          </span>
                         </Link>
                       </li>
-                    );
-                  })}
-                </ul>
-              </aside>
-
-              {/* Layout : les sous-services du pôle sélectionné */}
-              <div className="flex-1 min-w-0 p-6">
-                <div className="flex items-start justify-between gap-4 pb-4 border-b border-[var(--line-soft)]">
-                  <div>
-                    <h3 className="font-display font-extrabold uppercase tracking-wide text-[17px] text-[var(--navy-deep)]">
-                      {current.label}
-                    </h3>
-                    <p className="text-[13px] text-[var(--steel)] mt-1">
-                      {current.tagline}
-                    </p>
-                  </div>
-                  <Link
-                    href={`/services/${current.id}`}
-                    className="inline-flex items-center gap-1.5 shrink-0 font-mono text-[11.5px] uppercase tracking-[0.18em] text-[var(--red)] hover:text-[var(--red-dark)] transition-colors"
-                  >
-                    {t("viewPole")} <ChevronRight size={13} strokeWidth={2} />
-                  </Link>
+                    ))}
+                  </ul>
                 </div>
+              </div>
 
-                <ul className="grid grid-cols-3 gap-x-5 gap-y-3.5 mt-4">
-                  {byPole[current.id].map((service) => (
-                    <li key={service.slug}>
-                      <Link
-                        href={`/services/${current.id}/${service.slug}`}
-                        className="group block"
-                      >
-                        <span className="block font-display uppercase tracking-wide text-[13.5px] leading-snug text-[var(--navy-deep)] group-hover:text-[var(--red)] transition-colors">
-                          {service.title}
-                        </span>
-                        <span className="block text-[12px] leading-snug text-[var(--steel)] mt-0.5">
-                          {service.short}
-                        </span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+              {/* Pied du panneau : le CTA devis, accessible depuis le méga-menu */}
+              <div className="flex items-center justify-end border-t border-[var(--line-soft)] bg-[var(--sand)] px-6 py-3">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setOpen(false);
+                    openQuote();
+                  }}
+                  className="btn-liquid [--liquid-fill:var(--red-dark)] inline-flex items-center bg-[var(--red)] text-white font-display uppercase tracking-wide text-[13px] px-5 py-2.5 cursor-pointer"
+                >
+                  <span className="relative z-10">{t("quote")}</span>
+                </button>
               </div>
             </div>
           </motion.div>
@@ -275,16 +292,6 @@ export default function Header() {
             {/* Langue dans la topbar, après les réseaux sociaux */}
             <span className="hidden sm:block h-4 w-px bg-white/15" />
             <LanguageSwitcher />
-            {/* CTA du bandeau : accessible depuis toutes les pages, même
-                quand la navbar est en haut de page. Masqué sur mobile, où le
-                bouton vit déjà dans le drawer. */}
-            <button
-              type="button"
-              onClick={openQuote}
-              className="hidden md:inline-flex items-center bg-[var(--red)] hover:bg-[var(--red-dark)] transition-colors text-white font-display uppercase tracking-wide text-[12px] px-3.5 py-1.5 cursor-pointer whitespace-nowrap"
-            >
-              {t("quote")}
-            </button>
           </div>
         </div>
       </div>

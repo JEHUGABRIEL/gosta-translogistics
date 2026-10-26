@@ -434,6 +434,19 @@ export async function updateAdminPassword(userId: number, passwordHash: string) 
   await sql`UPDATE admin_users SET password_hash = ${passwordHash} WHERE id = ${userId}`;
 }
 
+/** Met à jour l'identité affichée de l'admin (prénom / nom). */
+export async function updateAdminProfile(
+  userId: number,
+  firstName: string | null,
+  lastName: string | null
+) {
+  const sql = getDb();
+  await sql`
+    UPDATE admin_users SET first_name = ${firstName}, last_name = ${lastName}
+    WHERE id = ${userId}
+  `;
+}
+
 // ---------- Journal d'activité ----------
 
 export type ActivityRow = {
@@ -472,6 +485,66 @@ export async function listRecentActivity(limit = 20): Promise<ActivityRow[]> {
     LIMIT ${limit}
   `;
   return rows as ActivityRow[];
+}
+
+export type ActivityFilters = {
+  /** Recherche libre (action, cible ou email de l'auteur). */
+  q?: string;
+  /** Code d'action exact, pour le filtre de la page. */
+  action?: string;
+};
+
+/** Échappe les jokers ILIKE saisis par l'utilisateur. */
+function likePattern(value: string) {
+  return `%${value.replace(/[\\%_]/g, (char) => `\\${char}`)}%`;
+}
+
+function activityWhere(filters: ActivityFilters) {
+  return {
+    q: (filters.q ?? "").trim(),
+    action: (filters.action ?? "").trim(),
+  };
+}
+
+/**
+ * Journal d'activité paginé (page /admin/activity) : recherche + filtre par
+ * action, compté en SQL pour que la pagination serveur reste juste.
+ */
+export async function searchActivity(
+  filters: ActivityFilters,
+  limit: number,
+  offset: number
+): Promise<{ rows: ActivityRow[]; total: number }> {
+  const sql = getDb();
+  const { q, action } = activityWhere(filters);
+
+  // L'expression de recherche est écrite en dur dans le template (une valeur
+  // interpolée deviendrait un paramètre lieur) ; seuls le motif et le filtre
+  // d'action sont paramétrés. `COALESCE` évite qu'un email manquant (compte
+  // supprimé) fasse sortir la ligne de la recherche.
+  const rows = await sql`
+    SELECT a.id, a.action, a.target, a.created_at, u.email
+    FROM admin_activity a
+    LEFT JOIN admin_users u ON u.id = a.user_id
+    WHERE COALESCE(a.action, '') || ' ' || COALESCE(a.target, '') || ' ' || COALESCE(u.email, '')
+          ILIKE ${likePattern(q)}
+      AND (${action} = '' OR a.action = ${action})
+    ORDER BY a.created_at DESC
+    LIMIT ${limit} OFFSET ${offset}
+  `;
+  const count = await sql`
+    SELECT count(*)::int AS total
+    FROM admin_activity a
+    LEFT JOIN admin_users u ON u.id = a.user_id
+    WHERE COALESCE(a.action, '') || ' ' || COALESCE(a.target, '') || ' ' || COALESCE(u.email, '')
+          ILIKE ${likePattern(q)}
+      AND (${action} = '' OR a.action = ${action})
+  `;
+
+  return {
+    rows: rows as ActivityRow[],
+    total: (count[0] as { total: number } | undefined)?.total ?? 0,
+  };
 }
 
 // ---------- Limitation de débit (état partagé en base) ----------

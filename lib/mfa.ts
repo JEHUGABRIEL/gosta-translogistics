@@ -18,7 +18,8 @@ import { createMfaChallenge } from "./db/queries";
 
 const ISSUER = "GOSTA TRANS Admin";
 
-// Même contrainte de path que la session : le cookie n'est envoyé qu'à /admin.
+// Le défi MFA n'est lu que sur les pages /admin : garder le path restreint
+// limite sa portée sans gêner le parcours de connexion.
 const CHALLENGE_COOKIE = "admin_mfa_challenge";
 const CHALLENGE_PATH = "/admin";
 const CHALLENGE_TTL_MS = 10 * 60 * 1000;

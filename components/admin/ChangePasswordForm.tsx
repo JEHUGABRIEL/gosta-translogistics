@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 import { KeyRound } from "lucide-react";
 import { changePasswordAction } from "@/app/admin/actions";
+import { AdminField, fieldClass } from "./ui";
 
 export default function ChangePasswordForm() {
   const [state, formAction, pending] = useActionState(changePasswordAction, undefined as
@@ -11,32 +12,26 @@ export default function ChangePasswordForm() {
 
   return (
     <form action={formAction} className="grid gap-4">
-      <div>
-        <label className="block font-display uppercase text-[13px] tracking-wide text-[var(--navy-deep)] mb-1.5">
-          Mot de passe actuel
-        </label>
+      <AdminField label="Mot de passe actuel" required>
         <input
           type="password"
           name="currentPassword"
           required
           autoComplete="current-password"
-          className="w-full border border-[var(--line)] bg-[var(--surface)] px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)]"
+          className={fieldClass}
         />
-      </div>
+      </AdminField>
 
-      <div>
-        <label className="block font-display uppercase text-[13px] tracking-wide text-[var(--navy-deep)] mb-1.5">
-          Nouveau mot de passe
-        </label>
+      <AdminField label="Nouveau mot de passe" required>
         <input
           type="password"
           name="newPassword"
           required
           minLength={8}
           autoComplete="new-password"
-          className="w-full border border-[var(--line)] bg-[var(--surface)] px-3.5 py-2.5 text-[15px] text-[var(--navy-deep)] focus:outline-none focus:border-[var(--red)]"
+          className={fieldClass}
         />
-      </div>
+      </AdminField>
 
       {state?.error && <p className="text-[13.5px] text-[var(--red)]">{state.error}</p>}
       {state?.success && <p className="text-[13.5px] text-emerald-600">{state.success}</p>}
@@ -44,7 +39,7 @@ export default function ChangePasswordForm() {
       <button
         type="submit"
         disabled={pending}
-        className="justify-self-start inline-flex items-center gap-2 bg-[var(--navy-deep)] hover:bg-[var(--navy-mid)] disabled:opacity-60 transition-colors text-white font-display uppercase tracking-wide text-[14px] px-6 py-3 cursor-pointer"
+        className="inline-flex items-center gap-2 justify-self-start bg-[var(--navy-deep)] px-5 py-2.5 font-display text-[13px] uppercase tracking-wide text-white transition-colors hover:bg-[var(--navy-mid)] disabled:opacity-60"
       >
         <KeyRound size={16} />
         {pending ? "Mise à jour…" : "Changer le mot de passe"}

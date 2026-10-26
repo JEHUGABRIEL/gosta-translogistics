@@ -1,7 +1,8 @@
 // Crée le tout premier compte admin (ou en réinitialise le mot de passe s'il
 // existe déjà). Le mot de passe est généré aléatoirement et affiché une
 // seule fois — note-le immédiatement, il n'est jamais stocké en clair.
-// Usage : node scripts/seed-admin.mjs email@exemple.com
+// Usage : node scripts/seed-admin.mjs email@exemple.com [mot-de-passe]
+// Le mot de passe explicite est réservé aux environnements de test.
 import { randomBytes, scrypt } from "node:crypto";
 import { promisify } from "node:util";
 import { neon } from "@neondatabase/serverless";
@@ -31,7 +32,7 @@ async function hashPassword(password) {
   return `scrypt:16384:${salt.toString("hex")}:${derived.toString("hex")}`;
 }
 
-const password = generatePassword();
+const password = process.argv[3]?.trim() || generatePassword();
 const passwordHash = await hashPassword(password);
 
 const sql = neon(url);

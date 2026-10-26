@@ -43,7 +43,7 @@ export default function ImageUploadField({
       <input type="hidden" name="image_url" value={url} />
 
       <div className="flex flex-wrap items-center gap-3">
-        <label className="inline-flex items-center gap-2 border border-[var(--line)] hover:border-[var(--navy-deep)] transition-colors px-3.5 py-2 text-[12.5px] font-display uppercase tracking-wide text-[var(--navy-deep)] cursor-pointer">
+        <label className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-[var(--line)] px-3.5 py-2 font-display text-[12.5px] uppercase tracking-wide text-[var(--navy-deep)] transition-colors hover:border-[var(--navy-deep)]">
           <Upload size={14} />
           {isPending ? "Envoi…" : "Téléverser une image"}
           <input
@@ -74,7 +74,7 @@ export default function ImageUploadField({
           width={320}
           height={180}
           unoptimized={url.startsWith("/")}
-          className="h-[180px] w-[320px] object-cover border border-[var(--line-soft)]"
+          className="h-[180px] w-[320px] rounded-lg border border-[var(--line-soft)] object-cover"
         />
       )}
 

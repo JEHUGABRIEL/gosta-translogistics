@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { MonitorSmartphone, X } from "lucide-react";
 import { revokeSessionAction } from "@/app/admin/actions";
+import { useAdminToast } from "./ToastProvider";
 
 export type SessionItem = {
   id: number;
@@ -14,6 +15,7 @@ export type SessionItem = {
 export default function SessionsList({ sessions }: { sessions: SessionItem[] }) {
   const [pending, startTransition] = useTransition();
   const [pendingId, setPendingId] = useState<number | null>(null);
+  const toast = useAdminToast();
 
   if (sessions.length === 0) {
     return <p className="text-[13.5px] text-[var(--steel)]">Aucune session active.</p>;
@@ -43,8 +45,14 @@ export default function SessionsList({ sessions }: { sessions: SessionItem[] }) 
             onClick={() => {
               setPendingId(session.id);
               startTransition(async () => {
-                await revokeSessionAction(session.id);
-                setPendingId(null);
+                try {
+                  await revokeSessionAction(session.id);
+                  toast.success("Session fermée.");
+                } catch {
+                  toast.error("Impossible de fermer cette session.");
+                } finally {
+                  setPendingId(null);
+                }
               });
             }}
             className="inline-flex items-center gap-1.5 text-[12.5px] text-[var(--steel)] hover:text-[var(--red)] transition-colors cursor-pointer disabled:opacity-60"
