@@ -81,6 +81,9 @@ export default function AdminShell({
             <span className="font-display text-xl font-extrabold tracking-wide">
               GOSTA <span className="text-[var(--red)]">TRANS</span>
             </span>
+            <span className="mt-1 block font-display text-[12.5px] uppercase tracking-[0.18em] text-white/75">
+              Logistique et BTP
+            </span>
             <span className="mt-1 block font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--amber)]">
               Dashboard admin
             </span>

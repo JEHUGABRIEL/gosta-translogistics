@@ -17,6 +17,9 @@ export default function AuthCard({
             <span className="font-display font-extrabold text-2xl tracking-wide text-[var(--navy-deep)]">
               GOSTA <span className="text-[var(--red)]">TRANS</span>
             </span>
+            <p className="font-display text-[12.5px] uppercase tracking-[0.18em] text-[var(--navy-deep)] mt-1">
+              Logistique et BTP
+            </p>
             <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--steel)] mt-1">
               {subtitle}
             </p>
