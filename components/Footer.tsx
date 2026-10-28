@@ -197,7 +197,7 @@ export default async function Footer() {
       <div className="border-t border-white/10">
         <div className="mx-auto max-w-7xl px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-[13px] font-mono text-[#8b96a8]">
           <span>
-            © {year} GOSTA TRANS LOGISTIQUE &amp; BTP · Bangui, RCA
+            © {year} GOSTA TRANS LOGISTIQUE ET BTP · Bangui, RCA
           </span>
           <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
             <Link

@@ -82,7 +82,7 @@ export default function HeroScene() {
         {/* trailer */}
         <rect x="470" y="500" width="180" height="70" rx="4" fill="#f5f2ec" stroke="#0A2540" strokeWidth="3" />
         <text x="480" y="540" fontFamily="var(--font-display)" fontSize="20" fill="#C2410C" fontWeight="700">GOSTA TRANS</text>
-        <text x="480" y="558" fontFamily="var(--font-body)" fontSize="10" fill="#123A5C">LOGISTIQUE &amp; BTP</text>
+        <text x="480" y="558" fontFamily="var(--font-body)" fontSize="10" fill="#123A5C">LOGISTIQUE ET BTP</text>
         {/* cab */}
         <path d="M650 500 L700 500 L718 528 L718 570 L650 570 Z" fill="#C2410C" stroke="#9A3412" strokeWidth="2" />
         <rect x="662" y="510" width="30" height="20" rx="2" fill="#d2d2d2" opacity="0.8" />

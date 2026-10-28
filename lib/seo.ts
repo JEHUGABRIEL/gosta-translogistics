@@ -5,8 +5,7 @@ import { routing } from "@/i18n/routing";
 export const SITE_URL = "https://gosta-trans.vercel.app";
 
 export const COMPANY = {
-  name: "GOSTA TRANS LOGISTIQUE & BTP",
-  shortName: "GOSTA TRANS",
+  name: "GOSTA TRANS LOGISTIQUE ET BTP",
   // Siège social légal (JSON-LD, mentions légales, confidentialité), aligné sur
   // le flyer de l'entreprise : quartier Gré-Vapendé, PK16 route de Boali.
   address: {
@@ -81,7 +80,7 @@ export function pageMetadata({
     openGraph: {
       type: "website",
       url,
-      siteName: COMPANY.shortName,
+      siteName: COMPANY.name,
       title,
       description,
       locale: locale === "fr" ? "fr_FR" : "en_US",

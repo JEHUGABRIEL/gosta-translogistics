@@ -211,7 +211,7 @@ export default function MessagesManager({ items }: { items: MessageItem[] }) {
                       <>
                         <a
                           href={`mailto:${item.email}?subject=${encodeURIComponent(
-                            "Re : votre message via GOSTA TRANS"
+                            "Re : votre message via GOSTA TRANS Logistique et BTP"
                           )}&body=${encodeURIComponent(
                             `Bonjour ${item.name},\n\n`
                           )}`}

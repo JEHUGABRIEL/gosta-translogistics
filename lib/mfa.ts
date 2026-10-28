@@ -16,7 +16,7 @@ import { createMfaChallenge } from "./db/queries";
  * validé.
  */
 
-const ISSUER = "GOSTA TRANS Admin";
+const ISSUER = "GOSTA TRANS Logistique et BTP Admin";
 
 // Le défi MFA n'est lu que sur les pages /admin : garder le path restreint
 // limite sa portée sans gêner le parcours de connexion.

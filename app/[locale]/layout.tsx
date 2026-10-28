@@ -29,7 +29,7 @@ export async function generateMetadata({
     title: t("title"),
     description: t("description"),
     keywords: t("keywords"),
-    applicationName: COMPANY.shortName,
+    applicationName: COMPANY.name,
     robots: {
       index: true,
       follow: true,
@@ -42,7 +42,7 @@ export async function generateMetadata({
     },
     openGraph: {
       type: "website",
-      siteName: COMPANY.shortName,
+      siteName: COMPANY.name,
       locale: locale === "fr" ? "fr_FR" : "en_US",
       // URL absolue : les images relatives du layout racine sont résolues
       // avant que son propre metadataBase ne prenne effet (cf. page 404).
@@ -60,7 +60,7 @@ const jsonLd = {
   "@type": "LocalBusiness",
   name: COMPANY.name,
   description:
-    "GOSTA TRANS LOGISTIQUE & BTP : maritime, transport et logistique de chantier à Bangui. Location d'engins, gros œuvre, second œuvre, voirie et travaux publics.",
+    "GOSTA TRANS LOGISTIQUE ET BTP : maritime, transport et logistique de chantier à Bangui. Location d'engins, gros œuvre, second œuvre, voirie et travaux publics.",
   url: SITE_URL,
   telephone: COMPANY.phones[0],
   email: COMPANY.email,

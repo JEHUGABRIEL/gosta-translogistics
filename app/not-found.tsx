@@ -4,7 +4,7 @@ import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "Page introuvable | GOSTA TRANS",
+  title: "Page introuvable | GOSTA TRANS Logistique et BTP",
   robots: { index: false, follow: false },
 };
 

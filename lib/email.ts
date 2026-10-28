@@ -23,7 +23,7 @@ export async function sendEmail({
 
   // Tant qu'aucun domaine n'est vérifié sur Resend, l'expéditeur doit rester
   // onboarding@resend.dev (limite du compte gratuit sans domaine à soi).
-  const from = process.env.RESEND_FROM_EMAIL ?? "GOSTA TRANS <onboarding@resend.dev>";
+  const from = process.env.RESEND_FROM_EMAIL ?? "GOSTA TRANS Logistique et BTP <onboarding@resend.dev>";
 
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -80,7 +80,7 @@ export function inviteEmailHtml({
     "Invitation au dashboard admin",
     `
     <p style="font-size:14.5px;line-height:1.6;color:#59626E;">
-      ${invitedByEmail} vous invite à rejoindre le dashboard admin de GOSTA TRANS Logistique &amp; BTP.
+      ${invitedByEmail} vous invite à rejoindre le dashboard admin de GOSTA TRANS Logistique et BTP.
     </p>
     <p style="margin:24px 0;">
       <a href="${acceptUrl}" style="display:inline-block;background:${BRAND.red};color:#ffffff;text-decoration:none;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;font-size:13px;padding:12px 24px;border-radius:4px;">

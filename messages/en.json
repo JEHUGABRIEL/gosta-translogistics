@@ -1,6 +1,6 @@
 { "metadata": {
-  "title": "GOSTA TRANS Logistics & Construction | Bangui, CAR",
-  "description": "GOSTA TRANS LOGISTICS & BTP: maritime, transport and construction-site logistics in Bangui. Equipment rental, structural works, finishing works, roadworks and public works.",
+  "title": "GOSTA TRANS Logistique et BTP | Bangui, CAR",
+  "description": "GOSTA TRANS LOGISTIQUE ET BTP: maritime, transport and construction-site logistics in Bangui. Equipment rental, structural works, finishing works, roadworks and public works.",
   "keywords": "GOSTA TRANS, logistics Bangui, building materials transport, equipment rental, construction Central African Republic, structural works, finishing works, suspended ceilings, roadworks, public works, CAR"
  },
   "nav": {
@@ -17,7 +17,7 @@
     "closeMenu": "Close menu",
     "search": "Search a service",
     "allServices": "View all services",
-    "tagline": "Logistics & Construction"
+    "tagline": "Logistique et BTP"
   },
   "topbar": {
     "hours": "Mon – Sat · 07:30 – 18:00",
@@ -147,7 +147,7 @@
       "badgeNumber": "2",
       "badgeText": "trades, one single contact",
       "contactUs": "Contact us",
-      "presentation": "GOSTA TRANS LOGISTICS & BTP is a Central African company based in Bangui, in the Gré-Vapendé district at PK16 on Boali Road. It brings together under one structure materials transport, equipment rental with operator and construction works, from structural to finishing works.",
+      "presentation": "GOSTA TRANS LOGISTIQUE ET BTP is a Central African company based in Bangui, in the Gré-Vapendé district at PK16 on Boali Road. It brings together under one structure materials transport, equipment rental with operator and construction works, from structural to finishing works.",
       "methode": "Every request follows the same thread: receiving the need, mobilising resources (trucks, equipment, teams), then supervised execution on site. This continuity between logistics and construction limits delays caused by supply breaks.",
       "engagement": "The team works on individual houses as well as residential, commercial or industrial buildings, and on roadworks and urban sanitation projects, with the reliability of a single point of contact from start to finish."
     },
@@ -217,7 +217,7 @@
     }
   },
   "footer": {
-    "tagline": "Logistics & Construction",
+    "tagline": "Logistique et BTP",
     "text": "Maritime, transport and construction for individuals, companies and institutions in the Bangui area.",
     "copyright": "Your trusted partner in transport and logistics",
     "call": "Call",
@@ -239,8 +239,8 @@
     "privacy": "Privacy policy"
   },
   "contact": {
-    "metadataTitle": "Contact | GOSTA TRANS Logistics & Construction, Bangui",
-    "metadataDescription": "Contact GOSTA TRANS LOGISTICS & BTP in Bangui: materials transport, equipment rental and construction. Phone, WhatsApp, email and access map.",
+    "metadataTitle": "Contact | GOSTA TRANS Logistique et BTP, Bangui",
+    "metadataDescription": "Contact GOSTA TRANS LOGISTIQUE ET BTP in Bangui: materials transport, equipment rental and construction. Phone, WhatsApp, email and access map.",
     "title": "CONTACT",
     "intro": "A question, a transport or construction project? Our team replies within 24 business hours.",
     "call": "Call us",
@@ -264,8 +264,8 @@
     }
   },
   "about": {
-    "metadataTitle": "About | GOSTA TRANS Logistics & Construction",
-    "metadataDescription": "GOSTA TRANS LOGISTICS & BTP in Bangui: transport, logistics, construction, electrical, air conditioning, solar panels and cleaning. One team, one point of contact.",
+    "metadataTitle": "About | GOSTA TRANS Logistique et BTP",
+    "metadataDescription": "GOSTA TRANS LOGISTIQUE ET BTP in Bangui: transport, logistics, construction, electrical, air conditioning, solar panels and cleaning. One team, one point of contact.",
     "title": "About GOSTA TRANS",
     "intro": "Transport, construction, energy and cleaning brought together under one structure in Bangui.",
     "factsTitle": "Key facts",
@@ -320,7 +320,7 @@
   },
   "services": {
     "hub": {
-      "metadataTitle": "Our services | GOSTA TRANS Logistics & Construction",
+      "metadataTitle": "Our services | GOSTA TRANS Logistique et BTP",
       "metadataDescription": "Road transport, logistics, construction, electrical, air conditioning, solar panels and facility cleaning: GOSTA TRANS's seven service areas in Bangui.",
       "title": "Seven service areas, one team",
       "intro": "Transport, construction, energy and cleaning: GOSTA TRANS services combine on the same project, with a single point of contact.",
@@ -328,7 +328,7 @@
       "seeService": "View details"
     },
     "btp": {
-      "metadataTitle": "BTP Services | GOSTA TRANS Logistics & Construction",
+      "metadataTitle": "BTP Services | GOSTA TRANS Logistique et BTP",
       "metadataDescription": "Structural works, finishing works, roadworks, earthworks and renovation in Bangui: GOSTA TRANS's construction services.",
       "heading": "BTP services",
       "intro": "From structural works to finishing works, including public works: each service can be mobilised alone or combined with materials transport.",
@@ -338,7 +338,7 @@
       "seeRealisations": "Our projects"
     },
     "logistique": {
-      "metadataTitle": "Logistics Services | GOSTA TRANS Logistics & Construction",
+      "metadataTitle": "Logistics Services | GOSTA TRANS Logistique et BTP",
       "metadataDescription": "Materials transport, equipment rental, logistics management and site supply in Bangui: GOSTA TRANS's logistics services.",
       "heading": "Logistics services",
       "intro": "Transport, equipment rental and site coordination: available separately or as a full service, in direct link with the construction side.",
@@ -361,15 +361,15 @@
     "disclaimer": "This document is a template provided for guidance only. It must be completed and reviewed by a legal professional before publication. The bracketed [TO COMPLETE] passages must be filled in with your information.",
     "backToSite": "Back to home",
     "mentions": {
-      "metadataTitle": "Legal notice | GOSTA TRANS Logistics & Construction",
-      "metadataDescription": "Legal notice for the GOSTA TRANS LOGISTICS & BTP website: publisher, host and terms of use.",
+      "metadataTitle": "Legal notice | GOSTA TRANS Logistique et BTP",
+      "metadataDescription": "Legal notice for the GOSTA TRANS LOGISTIQUE ET BTP website: publisher, host and terms of use.",
       "title": "Legal notice",
       "updated": "Last updated: 19 August 2026",
       "sections": [
         {
           "heading": "Site publisher",
           "body": [
-            "This website is published by GOSTA TRANS LOGISTIQUE & BTP, whose registered office is located in the Gré-Vapendé district, PK16 Boali Road, Bangui, Central African Republic.",
+            "This website is published by GOSTA TRANS LOGISTIQUE ET BTP, whose registered office is located in the Gré-Vapendé district, PK16 Boali Road, Bangui, Central African Republic.",
             "Trade register (RCCM): CA/BG/2025A2261. Unique identification number (NIU): 2362025P255049.",
             "Phone: 75 20 03 13 / 70 12 00 25 / 72 60 05 33. WhatsApp: 75 20 03 13. Email: gostatranslogistiquelp@outlook.fr."
           ]
@@ -384,14 +384,14 @@
           "heading": "Intellectual property",
           "body": [
             "All content on this site (text, photographs, logos, graphic elements and layout) is protected by intellectual property law.",
-            "Any reproduction, representation or distribution, in whole or in part, without the prior written consent of GOSTA TRANS LOGISTIQUE & BTP is prohibited."
+            "Any reproduction, representation or distribution, in whole or in part, without the prior written consent of GOSTA TRANS LOGISTIQUE ET BTP is prohibited."
           ]
         },
         {
           "heading": "Liability",
           "body": [
-            "The information published on this site is provided for guidance only and may change. GOSTA TRANS LOGISTIQUE & BTP strives to ensure its accuracy but cannot guarantee it in all circumstances.",
-            "The site may contain links to third-party sites whose content GOSTA TRANS LOGISTIQUE & BTP does not control and for which it cannot be held responsible."
+            "The information published on this site is provided for guidance only and may change. GOSTA TRANS LOGISTIQUE ET BTP strives to ensure its accuracy but cannot guarantee it in all circumstances.",
+            "The site may contain links to third-party sites whose content GOSTA TRANS LOGISTIQUE ET BTP does not control and for which it cannot be held responsible."
           ]
         },
         {
@@ -411,15 +411,15 @@
       ]
     },
     "privacy": {
-      "metadataTitle": "Privacy policy | GOSTA TRANS Logistics & Construction",
-      "metadataDescription": "Privacy policy for the GOSTA TRANS LOGISTICS & BTP website: data collected, purposes and your rights.",
+      "metadataTitle": "Privacy policy | GOSTA TRANS Logistique et BTP",
+      "metadataDescription": "Privacy policy for the GOSTA TRANS LOGISTIQUE ET BTP website: data collected, purposes and your rights.",
       "title": "Privacy policy",
       "updated": "Last updated: 19 August 2026",
       "sections": [
         {
           "heading": "Data controller",
           "body": [
-            "The data controller is GOSTA TRANS LOGISTIQUE & BTP, Gré-Vapendé district, PK16 Boali Road, Bangui, Central African Republic.",
+            "The data controller is GOSTA TRANS LOGISTIQUE ET BTP, Gré-Vapendé district, PK16 Boali Road, Bangui, Central African Republic.",
             "For any question about your data: gostatranslogistiquelp@outlook.fr."
           ]
         },
@@ -466,8 +466,8 @@
   },
   "whatsappInfo": "Hello GOSTA TRANS, I would like some information.",
   "faq": {
-    "metadataTitle": "Frequently Asked Questions | GOSTA TRANS Logistics & BTP",
-    "metadataDescription": "Quotes, timelines, service areas, equipment rental, payment: answers to the most frequent questions about GOSTA TRANS Logistics & BTP in Bangui.",
+    "metadataTitle": "Frequently Asked Questions | GOSTA TRANS Logistique et BTP",
+    "metadataDescription": "Quotes, timelines, service areas, equipment rental, payment: answers to the most frequent questions about GOSTA TRANS Logistique et BTP in Bangui.",
     "title": "FAQ",
     "intro": "Answers to the most common questions about our transport, equipment rental and construction services. Still have a question? Contact us directly.",
     "ctaText": "Can't find the answer to your question?",

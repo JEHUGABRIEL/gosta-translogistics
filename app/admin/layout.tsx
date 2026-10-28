@@ -5,7 +5,7 @@ import "../globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "Admin | GOSTA TRANS",
+  title: "Admin | GOSTA TRANS Logistique et BTP",
   robots: { index: false, follow: false },
 };
 

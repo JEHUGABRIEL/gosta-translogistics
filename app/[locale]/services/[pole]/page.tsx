@@ -20,7 +20,7 @@ export async function generateMetadata({
   const meta = getPole(locale, pole);
   if (!meta) return {};
   return pageMetadata({
-    title: `${meta.label} | GOSTA TRANS Logistique & BTP`,
+    title: `${meta.label} | GOSTA TRANS Logistique et BTP`,
     description: meta.tagline,
     pathname: `/services/${pole}`,
     locale,

@@ -586,7 +586,7 @@ export async function inviteAdminAction(_prevState: unknown, formData: FormData)
   const acceptUrl = `${SITE_URL}/admin/accept-invite?token=${token}`;
   await sendEmail({
     to: email,
-    subject: "Invitation au dashboard admin · GOSTA TRANS",
+    subject: "Invitation au dashboard admin · GOSTA TRANS Logistique et BTP",
     html: inviteEmailHtml({ acceptUrl, invitedByEmail: inviter.email }),
   });
 
@@ -641,7 +641,7 @@ export async function submitInviteSignupAction(_prevState: unknown, formData: Fo
 
   await sendEmail({
     to: invite.email,
-    subject: "Votre code de confirmation · GOSTA TRANS",
+    subject: "Votre code de confirmation · GOSTA TRANS Logistique et BTP",
     html: otpEmailHtml({ code: otp }),
   });
 
@@ -673,7 +673,7 @@ export async function resendInviteOtpAction(token: string) {
   });
   await sendEmail({
     to: invite.email,
-    subject: "Votre code de confirmation · GOSTA TRANS",
+    subject: "Votre code de confirmation · GOSTA TRANS Logistique et BTP",
     html: otpEmailHtml({ code: otp }),
   });
   return { success: "Nouveau code envoyé." };

@@ -1,6 +1,6 @@
 # GOSTA TRANS — project knowledge
 
-Marketing site + small admin dashboard for **GOSTA TRANS LOGISTIQUE & BTP**, a Bangui
+Marketing site + small admin dashboard for **GOSTA TRANS LOGISTIQUE ET BTP** (nom officiel complet, jamais « & »), a Bangui
 (Central African Republic) logistics and construction company. Bilingual FR/EN public
 site, French-only admin dashboard, Neon Postgres for admin-managed content and quote
 requests. Deployed on Vercel. UI copy, code comments and commit context are in **French** —

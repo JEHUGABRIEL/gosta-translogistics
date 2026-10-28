@@ -40,7 +40,7 @@ export default function About() {
             <div className="absolute -bottom-[6%] right-0 lg:-right-[15%] w-[55%] aspect-[3/4] overflow-hidden rounded-2xl">
               <Image
                 src="/hero_section/hero-2.png"
-                alt="GOSTA TRANS Logistique & BTP"
+                alt="GOSTA TRANS Logistique et BTP"
                 fill
                 sizes="280px"
                 className="object-cover"
