@@ -34,7 +34,7 @@ const SIMPLE_NAV = [
 // Numéros du bandeau (flyer), affichés un à la fois à tour de rôle
 const PHONES = ["75 20 03 13", "70 12 00 25", "72 60 05 33"];
 
-function ServicesMegaMenu() {
+function ServicesMegaMenu({ light = false }: { light?: boolean }) {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<string | null>(null);
   const locale = useLocale();
@@ -57,7 +57,11 @@ function ServicesMegaMenu() {
       <Link
         href="/services"
         aria-expanded={open}
-        className="h-full flex items-center gap-1 font-display font-semibold text-[15px] uppercase tracking-wide text-[#dfe4ec] hover:text-[var(--red)] transition-colors"
+        className={`h-full flex items-center gap-1 font-display font-semibold text-[15px] uppercase tracking-wide transition-colors ${
+          light
+            ? "text-[var(--navy-deep)] hover:text-[var(--red)]"
+            : "text-[#dfe4ec] hover:text-[var(--red)]"
+        }`}
       >
         {t("services")}
         <ChevronDown
@@ -166,12 +170,32 @@ function ServicesMegaMenu() {
   );
 }
 
-export default function Header() {
+/**
+ * `tone` reprend la couleur du hero de la page : `light` pour l'accueil, dont
+ * le hero éditorial est clair (`--white-warm`) ; `dark` partout ailleurs, où le
+ * hero passe derrière le header (`-mt-[var(--header-h)]`) — la barre reste donc
+ * transparente et c'est le fond du hero qui affleure. Une fois la page
+ * défilée, la barre reprend le bleu du site dans les deux cas.
+ */
+export default function Header({ tone = "dark" }: { tone?: "light" | "dark" }) {
   const [open, setOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [phoneIndex, setPhoneIndex] = useState(0);
   const [scrolled, setScrolled] = useState(false);
   const reduceMotion = useReducedMotion();
+  // Barre claire = hero clair et page encore en haut
+  const lightTone = tone === "light" && !scrolled;
+  const navLinkClass = `h-full flex items-center font-display font-semibold text-[15px] uppercase tracking-wide transition-colors ${
+    lightTone
+      ? "text-[var(--navy-deep)] hover:text-[var(--red)]"
+      : "text-[#dfe4ec] hover:text-[var(--red)]"
+  }`;
+  const topBarLinkClass = `${
+    lightTone ? "text-[var(--steel)]" : "text-[#cfd6e0]"
+  } hover:text-[var(--red)] transition-colors p-1 -m-1`;
+  const topBarIconClass = lightTone
+    ? "text-[var(--red)]"
+    : "text-[var(--amber)]";
   const { openQuote } = useQuoteModal();
   const t = useTranslations("nav");
   const tTopbar = useTranslations("topbar");
@@ -226,14 +250,27 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50">
-      {/* top info bar — fond bleu permanent */}
-      <div className="bg-[var(--navy-deep)] text-[#cfd6e0] font-mono text-[12.5px]">
+      {/* top info bar — même teinte que le hero, comme la barre de navigation */}
+      <div
+        className={`${
+          scrolled
+            ? "bg-[var(--navy-mid)]/95"
+            : tone === "light"
+              ? "bg-[var(--white-warm)]"
+              : "bg-transparent"
+        } ${
+          lightTone ? "text-[var(--steel)]" : "text-[#cfd6e0]"
+        } font-mono text-[12.5px] transition-colors duration-300`}
+      >
         {/* justify-between : numéros à gauche, réseaux sociaux à droite,
             y compris sur mobile */}
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 flex flex-wrap items-center justify-between gap-x-6 gap-y-1 py-2 md:py-0 md:min-h-[var(--topbar-h)]">
+        {/* Hauteur fixe = `--topbar-h` : sinon, sur mobile, le bandeau grandit
+            avec son contenu et le hero (remonté de `--header-h`) laisse une
+            bande claire au-dessus de la barre. */}
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 flex flex-nowrap items-center justify-between gap-x-6 h-[var(--topbar-h)]">
           <div className="flex items-center gap-4 md:gap-6">
             <span className="flex items-center gap-1.5 whitespace-nowrap shrink-0">
-              <Phone size={13} className="text-[var(--amber)]" />
+              <Phone size={13} className={topBarIconClass} />
               <span className="relative inline-flex items-center h-4 overflow-hidden">
                 <AnimatePresence mode="wait" initial={false}>
                   <motion.span
@@ -249,24 +286,28 @@ export default function Header() {
               </span>
             </span>
             <span className="hidden sm:flex items-center gap-1.5 whitespace-nowrap shrink-0">
-              <Mail size={13} className="text-[var(--amber)]" />
+              <Mail size={13} className={topBarIconClass} />
               gostatranslogistiquelp@outlook.fr
             </span>
           </div>
           <div className="flex items-center gap-4">
             <span className="hidden lg:flex items-center gap-1.5 whitespace-nowrap shrink-0">
-              <Clock size={13} className="text-[var(--amber)]" />
+              <Clock size={13} className={topBarIconClass} />
               <span>{tTopbar("hours")}</span>
               <span className="hidden xl:inline">{tTopbar("addressSuffix")}</span>
             </span>
-            <span className="hidden sm:block h-4 w-px bg-white/15" />
+            <span
+              className={`hidden sm:block h-4 w-px ${
+                lightTone ? "bg-black/10" : "bg-white/15"
+              }`}
+            />
             <div className="flex items-center gap-3">
               <a
                 href={SOCIAL_LINKS.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={tSocial("facebook")}
-                className="text-[#cfd6e0] hover:text-[var(--red)] transition-colors p-1 -m-1"
+                className={topBarLinkClass}
               >
                 <FacebookIcon size={14} />
               </a>
@@ -275,7 +316,7 @@ export default function Header() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={tSocial("instagram")}
-                className="text-[#cfd6e0] hover:text-[var(--red)] transition-colors p-1 -m-1"
+                className={topBarLinkClass}
               >
                 <InstagramIcon size={14} />
               </a>
@@ -284,21 +325,33 @@ export default function Header() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={tSocial("whatsapp")}
-                className="text-[#cfd6e0] hover:text-[var(--red)] transition-colors p-1 -m-1"
+                className={topBarLinkClass}
               >
                 <WhatsAppIcon size={14} />
               </a>
             </div>
             {/* Langue dans la topbar, après les réseaux sociaux */}
-            <span className="hidden sm:block h-4 w-px bg-white/15" />
-            <LanguageSwitcher />
+            <span
+              className={`hidden sm:block h-4 w-px ${
+                lightTone ? "bg-black/10" : "bg-white/15"
+              }`}
+            />
+            <LanguageSwitcher light={lightTone} />
           </div>
         </div>
       </div>
 
-      {/* main nav — transparent en haut de page, fond bleu au scroll */}
+      {/* main nav — hérite de la couleur du hero de la page (claire sur
+          l'accueil, transparente par-dessus les héros sombres), puis bleu au
+          scroll */ }
       <div
-        className={`${scrolled ? "bg-[var(--navy-mid)]/95" : "bg-[var(--navy-deep)]"} transition-colors duration-300`}
+        className={`${
+          scrolled
+            ? "bg-[var(--navy-mid)]/95"
+            : tone === "light"
+              ? "bg-[var(--white-warm)]"
+              : "bg-transparent"
+        } transition-colors duration-300`}
       >
         <div className="mx-auto max-w-7xl px-6 flex items-center justify-between h-[var(--header-nav-h)]">
           <Link href="/" className="flex items-center">
@@ -313,24 +366,18 @@ export default function Header() {
           </Link>
 
           <nav className="hidden lg:flex h-full items-stretch gap-8">
-            <Link
-              href="/"
-              className="h-full flex items-center font-display font-semibold text-[15px] uppercase tracking-wide text-[#dfe4ec] hover:text-[var(--red)] transition-colors"
-            >
+            <Link href="/" className={navLinkClass}>
               {t("home")}
             </Link>
-            <ServicesMegaMenu />
-            <Link
-              href="/a-propos"
-              className="h-full flex items-center font-display font-semibold text-[15px] uppercase tracking-wide text-[#dfe4ec] hover:text-[var(--red)] transition-colors"
-            >
+            <ServicesMegaMenu light={lightTone} />
+            <Link href="/a-propos" className={navLinkClass}>
               {t("about")}
             </Link>
             {SIMPLE_NAV.slice(1).map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="h-full flex items-center font-display font-semibold text-[15px] uppercase tracking-wide text-[#dfe4ec] hover:text-[var(--red)] transition-colors"
+                className={navLinkClass}
               >
                 {t(item.key)}
               </Link>
@@ -343,14 +390,14 @@ export default function Header() {
               type="button"
               onClick={() => setSearchOpen(true)}
               aria-label={t("search")}
-              className="text-white hover:text-[var(--red)] transition-colors p-1.5"
+              className={`${lightTone ? "text-[var(--navy-deep)]" : "text-white"} hover:text-[var(--red)] transition-colors p-1.5`}
             >
               <Search size={20} strokeWidth={2} />
             </button>
             <button
               type="button"
               onClick={openQuote}
-              className="btn-liquid inline-flex items-center bg-[var(--navy-deep)] text-white font-display uppercase tracking-wide text-[15px] px-5 py-2.5 cursor-pointer"
+              className="btn-liquid [--liquid-fill:var(--red-dark)] inline-flex items-center bg-[var(--red)] text-white font-display uppercase tracking-wide text-[15px] px-5 py-2.5 cursor-pointer"
             >
               <span className="relative z-10">{t("quote")}</span>
             </button>
@@ -364,12 +411,12 @@ export default function Header() {
                 setSearchOpen(true);
               }}
               aria-label={t("search")}
-              className="text-white hover:text-[var(--red)] transition-colors p-1.5"
+              className={`${lightTone ? "text-[var(--navy-deep)]" : "text-white"} hover:text-[var(--red)] transition-colors p-1.5`}
             >
               <Search size={20} strokeWidth={2} />
             </button>
             <button
-              className="text-white z-50"
+              className={`${lightTone ? "text-[var(--navy-deep)]" : "text-white"} z-50`}
               onClick={() => setOpen((o) => !o)}
               aria-label={open ? t("closeMenu") : t("openMenu")}
             >
@@ -497,7 +544,7 @@ export default function Header() {
                       setOpen(false);
                       openQuote();
                     }}
-                    className="btn-liquid inline-flex items-center justify-center bg-[var(--navy-deep)] text-white font-display uppercase tracking-wide text-[15px] px-6 py-3.5 cursor-pointer"
+                    className="btn-liquid [--liquid-fill:var(--red-dark)] inline-flex items-center justify-center bg-[var(--red)] text-white font-display uppercase tracking-wide text-[15px] px-6 py-3.5 cursor-pointer"
                   >
                     <span className="relative z-10">{t("quote")}</span>
                   </button>

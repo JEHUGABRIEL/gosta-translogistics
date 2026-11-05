@@ -1,11 +1,13 @@
 /** Libellés des codes écrits par `logAdminActivity` dans app/admin/actions.ts. */
 export const ADMIN_ACTION_LABELS: Record<string, string> = {
   "auth.login": "Connexion",
+  "auth.login_failed": "Connexion échouée",
   "auth.logout": "Déconnexion",
   "auth.password_changed": "Mot de passe modifié",
   "auth.invite_accepted": "Invitation acceptée",
   "auth.mfa_enabled": "Double authentification activée",
   "auth.mfa_disabled": "Double authentification désactivée",
+  "auth.mfa_failed": "Code de double authentification refusé",
   "invite.created": "Invitation envoyée",
   "session.revoked": "Session fermée",
   "quote.status_changed": "Devis : statut modifié",

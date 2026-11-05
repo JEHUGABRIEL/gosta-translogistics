@@ -17,8 +17,8 @@ import {
   timingSafeEqualHex,
   verifyAgainstDummyHash,
   MAX_PASSWORD_LENGTH,
-  type AdminUser,
 } from "@/lib/admin-auth";
+import { requireAdmin, requireOwner } from "@/lib/admin-guard";
 import {
   clearLoginFailures,
   isInviteIpRateLimited,
@@ -99,16 +99,6 @@ function validatePasswordStrength(password: string): string | null {
   return null;
 }
 
-/**
- * Garde d'autorisation des Server Actions et des pages protégées.
- * Retourne l'admin courant, ou redirige vers la connexion.
- */
-export async function requireAdmin(): Promise<AdminUser> {
-  const user = await getSessionUser();
-  if (!user) redirect("/admin/login");
-  return user;
-}
-
 // ---------- Authentification ----------
 
 export async function loginAction(_prevState: unknown, formData: FormData) {
@@ -142,6 +132,14 @@ export async function loginAction(_prevState: unknown, formData: FormData) {
 
   if (!user || !passwordOk) {
     const { locked } = await registerLoginFailure(email, ip);
+    // Trace des échecs : les compteurs `rate_limits` sont anonymes, donc sans
+    // cette ligne une campagne de bruteforce ne laisse aucune trace lisible.
+    // Aucun mot de passe ni état du compte n'est journalisé.
+    await logAdminActivity({
+      userId: user?.id ?? null,
+      action: "auth.login_failed",
+      target: email,
+    });
     // Message générique : ni l'existence du compte ni le nombre d'essais
     // restants ne sont divulgués.
     return {
@@ -200,6 +198,10 @@ export async function verifyMfaLoginAction(_prevState: unknown, formData: FormDa
   const state = await getAdminMfaState(challenge.user_id);
   if (!state?.mfa_secret || !verifyTotp(state.mfa_secret, code)) {
     await incrementMfaChallengeAttempts(challenge.id);
+    await logAdminActivity({
+      userId: challenge.user_id,
+      action: "auth.mfa_failed",
+    });
     return { error: "Code incorrect." };
   }
 
@@ -235,6 +237,11 @@ export async function confirmMfaEnrollmentAction(_prevState: unknown, formData: 
   }
 
   await enableAdminMfa(admin.id);
+  // Activer la 2FA invalide les sessions ouvertes avant elle : sinon un cookie
+  // volé resterait valable sans jamais repasser par un code. La session
+  // courante est recréée pour ne pas déconnecter ce navigateur.
+  await deleteSessionsForUser(admin.id);
+  await createSession(admin.id);
   await logAdminActivity({ userId: admin.id, action: "auth.mfa_enabled" });
   revalidatePath("/admin/account");
   return { success: "Double authentification activée." };
@@ -256,6 +263,10 @@ export async function disableMfaAction(_prevState: unknown, formData: FormData) 
   }
 
   await disableAdminMfa(admin.id);
+  // Même logique à la désactivation : les sessions d'avant ne doivent pas
+  // survivre à un changement du facteur d'authentification.
+  await deleteSessionsForUser(admin.id);
+  await createSession(admin.id);
   await logAdminActivity({ userId: admin.id, action: "auth.mfa_disabled" });
   revalidatePath("/admin/account");
   return { success: "Double authentification désactivée." };
@@ -350,7 +361,8 @@ export async function updateProfileAction(_prevState: unknown, formData: FormDat
  * la trace de la réinitialisation reste la première ligne du nouveau journal.
  */
 export async function resetActivityAction() {
-  const admin = await requireAdmin();
+  // Effacement irréversible : réservé au propriétaire du compte.
+  const admin = await requireOwner();
 
   await resetAdminActivity();
   await logAdminActivity({
@@ -561,6 +573,10 @@ export async function deleteNewsPostAction(id: number) {
 export async function inviteAdminAction(_prevState: unknown, formData: FormData) {
   const inviter = await getSessionUser();
   if (!inviter) redirect("/admin/login");
+  // Inviter crée un accès complet : seul le propriétaire peut le faire.
+  if (inviter.role !== "owner") {
+    return { error: "Seul le propriétaire du compte peut inviter un admin." };
+  }
 
   const ip = await getRequestIp();
   if (await isInviteIpRateLimited(ip)) {

@@ -1,32 +1,22 @@
-import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { getDb } from "@/lib/db/client";
+import { applyMigrations } from "../../scripts/lib/migrations-runner.mjs";
 
 /** Les tests SQL ne tournent que si une base de test dédiée est fournie. */
 export const hasTestDatabase = Boolean(process.env.TEST_DATABASE_URL?.trim());
 
+const migrationsDir = fileURLToPath(new URL("../../migrations", import.meta.url));
+
 let schemaApplied = false;
 
 /**
- * Applique `lib/db/schema.sql` exactement comme `scripts/migrate.mjs` le fait
- * (découpage sur `;`) : le bootstrap des tests valide donc aussi le chemin de
- * migration. Le schéma est idempotent (`IF NOT EXISTS`).
+ * Applique `migrations/` avec le runner de production : le bootstrap des tests
+ * valide donc aussi le chemin de migration (découpage SQL, transactions,
+ * enregistrement des versions).
  */
 export async function ensureSchema() {
   if (schemaApplied) return;
-
-  const sql = getDb();
-  const schemaPath = fileURLToPath(
-    new URL("../../lib/db/schema.sql", import.meta.url)
-  );
-  const statements = readFileSync(schemaPath, "utf8")
-    .split(";")
-    .map((statement) => statement.trim())
-    .filter(Boolean);
-
-  for (const statement of statements) {
-    await sql.query(statement);
-  }
+  await applyMigrations({ sql: getDb(), dir: migrationsDir });
   schemaApplied = true;
 }
 

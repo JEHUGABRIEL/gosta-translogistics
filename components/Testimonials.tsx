@@ -12,7 +12,14 @@ type Comment = {
   quote: string;
 };
 
-export default function Testimonials({ extra = [] }: { extra?: Comment[] }) {
+export default function Testimonials({
+  extra = [],
+  compact = false,
+}: {
+  extra?: Comment[];
+  /** Rendu sans fond ni marge de section, pour l'insérer dans une grille. */
+  compact?: boolean;
+}) {
   const t = useTranslations("home.testimonials");
   // Témoignages ajoutés depuis le dashboard admin, affichés à la suite des
   // témoignages d'origine — n'affecte rien si `extra` est vide (par défaut).
@@ -33,15 +40,19 @@ export default function Testimonials({ extra = [] }: { extra?: Comment[] }) {
 
   return (
     <section
-      className="bg-[var(--sand)]"
+      className={compact ? "" : "bg-[var(--sand)]"}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocusCapture={() => setPaused(true)}
       onBlurCapture={() => setPaused(false)}
     >
-      <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+      <div className={compact ? "" : "mx-auto max-w-7xl px-6 py-16 md:py-20"}>
         <Reveal>
-          <h2 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)]">
+          <h2
+            className={`font-display font-extrabold text-[var(--navy-deep)] ${
+              compact ? "text-3xl md:text-4xl" : "text-4xl md:text-5xl"
+            }`}
+          >
             {t("title")}
           </h2>
         </Reveal>

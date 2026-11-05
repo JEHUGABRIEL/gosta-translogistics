@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { requireAdmin } from "@/app/admin/actions";
+import { requireAdmin } from "@/lib/admin-guard";
 import { searchActivity } from "@/lib/db/queries";
 import { ADMIN_ACTION_LABELS } from "@/lib/admin-activity";
 

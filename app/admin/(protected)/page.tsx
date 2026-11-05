@@ -12,11 +12,15 @@ import {
   UserPlus,
   Users,
 } from "lucide-react";
-import { requireAdmin } from "../actions";
+import { requireAdmin } from "@/lib/admin-guard";
 import AdminShell from "@/components/admin/AdminShell";
 import { AdminBadge, AdminCard } from "@/components/admin/ui";
 import { ADMIN_ACTION_LABELS } from "@/lib/admin-activity";
 import {
+  countContactMessages,
+  countNewContactMessagesSince,
+  countNewQuoteRequestsSince,
+  countQuoteRequests,
   listAdminUsers,
   listContactMessages,
   listFaqs,
@@ -47,31 +51,45 @@ const MESSAGE_STATUS: Record<string, { label: string; tone: "red" | "amber" | "s
 export default async function AdminHomePage() {
   await requireAdmin();
 
-  const [quotes, messages, testimonials, news, faqs, admins, activity] =
-    await Promise.all([
-      listQuoteRequests(),
-      listContactMessages(),
-      listTestimonials(),
-      listNewsPosts(),
-      listFaqs(),
-      listAdminUsers(),
-      listRecentActivity(6),
-    ]);
-
-  const newQuotes = quotes.filter((quote) => quote.status === "new").length;
-  const newMessages = messages.filter((message) => message.status === "new").length;
+  // Totaux via COUNT (les listes sont paginées) et extraits courts pour les
+  // panneaux « dernières demandes » / « messages récents ».
+  const [
+    quoteTotal,
+    messageTotal,
+    newQuotes,
+    newMessages,
+    recentQuotes,
+    recentMessages,
+    testimonials,
+    news,
+    faqs,
+    admins,
+    activity,
+  ] = await Promise.all([
+    countQuoteRequests(),
+    countContactMessages(),
+    countNewQuoteRequestsSince(null),
+    countNewContactMessagesSince(null),
+    listQuoteRequests({ limit: 5 }),
+    listContactMessages({ limit: 4 }),
+    listTestimonials(),
+    listNewsPosts(),
+    listFaqs(),
+    listAdminUsers(),
+    listRecentActivity(6),
+  ]);
 
   const stats = [
     {
       label: "Demandes de devis",
-      value: quotes.length,
+      value: quoteTotal,
       hint: newQuotes > 0 ? `${newQuotes} nouvelle${newQuotes > 1 ? "s" : ""}` : "à jour",
       icon: MessageSquareText,
       href: "/admin/quotes",
     },
     {
       label: "Messages de contact",
-      value: messages.length,
+      value: messageTotal,
       hint: newMessages > 0 ? `${newMessages} non lu${newMessages > 1 ? "s" : ""}` : "à jour",
       icon: Inbox,
       href: "/admin/messages",
@@ -157,13 +175,13 @@ export default async function AdminHomePage() {
             </Link>
           </div>
 
-          {quotes.length === 0 ? (
+          {recentQuotes.length === 0 ? (
             <p className="mt-4 text-[13.5px] text-[var(--steel)]">
               Aucune demande reçue pour le moment.
             </p>
           ) : (
             <ul className="mt-4 divide-y divide-[var(--line-soft)]">
-              {quotes.slice(0, 5).map((quote) => {
+              {recentQuotes.map((quote) => {
                 const status = QUOTE_STATUS[quote.status];
                 return (
                   <li key={quote.id} className="flex items-start justify-between gap-4 py-3">
@@ -197,13 +215,13 @@ export default async function AdminHomePage() {
             </Link>
           </div>
 
-          {messages.length === 0 ? (
+          {recentMessages.length === 0 ? (
             <p className="mt-4 text-[13.5px] text-[var(--steel)]">
               Aucun message reçu pour le moment.
             </p>
           ) : (
             <ul className="mt-4 divide-y divide-[var(--line-soft)]">
-              {messages.slice(0, 4).map((message) => {
+              {recentMessages.map((message) => {
                 const status = MESSAGE_STATUS[message.status];
                 return (
                   <li key={message.id} className="py-3">

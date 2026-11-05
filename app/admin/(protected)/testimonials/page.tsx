@@ -1,4 +1,4 @@
-import { requireAdmin } from "../../actions";
+import { requireAdmin } from "@/lib/admin-guard";
 import AdminShell from "@/components/admin/AdminShell";
 import TestimonialsManager from "@/components/admin/TestimonialsManager";
 import { listTestimonials } from "@/lib/db/queries";

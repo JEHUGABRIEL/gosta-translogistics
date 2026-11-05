@@ -7,6 +7,7 @@ export type AdminUserRow = {
   email: string;
   first_name: string | null;
   last_name: string | null;
+  role: "owner" | "admin";
   email_verified_at: string | null;
   created_at: string;
   last_login_at: string | null;
@@ -101,17 +102,100 @@ export async function createQuoteRequest(input: {
   `;
 }
 
-export async function listQuoteRequests(): Promise<QuoteRequest[]> {
+/** Patron `ILIKE` nullable, pour les filtres optionnels du dashboard. */
+function ilikePattern(value?: string) {
+  const trimmed = value?.trim();
+  return trimmed ? `%${trimmed}%` : null;
+}
+
+/**
+ * Page de devis, filtrée et paginée en SQL : les filtres du dashboard portent
+ * sur toute la table, pas seulement sur la page affichée.
+ */
+export async function listQuoteRequests(
+  options: {
+    limit?: number;
+    offset?: number;
+    query?: string;
+    status?: QuoteRequest["status"] | "all";
+  } = {}
+): Promise<QuoteRequest[]> {
+  const { limit = 20, offset = 0, status = "all" } = options;
+  const needle = ilikePattern(options.query);
   const sql = getDb();
   const rows = await sql`
     SELECT id, name, phone, service, message, status, created_at
     FROM quote_requests
+    WHERE (${status} = 'all' OR status = ${status})
+      AND (
+        ${needle}::text IS NULL
+        OR name ILIKE ${needle}
+        OR phone ILIKE ${needle}
+        OR COALESCE(service, '') ILIKE ${needle}
+        OR COALESCE(message, '') ILIKE ${needle}
+      )
     ORDER BY created_at DESC
+    LIMIT ${limit} OFFSET ${offset}
   `;
   return rows as QuoteRequest[];
 }
 
+/** Total correspondant aux mêmes filtres, pour la pagination. */
+export async function countQuoteRequests(
+  options: { query?: string; status?: QuoteRequest["status"] | "all" } = {}
+): Promise<number> {
+  const { status = "all" } = options;
+  const needle = ilikePattern(options.query);
+  const sql = getDb();
+  const rows = await sql`
+    SELECT count(*)::int AS total
+    FROM quote_requests
+    WHERE (${status} = 'all' OR status = ${status})
+      AND (
+        ${needle}::text IS NULL
+        OR name ILIKE ${needle}
+        OR phone ILIKE ${needle}
+        OR COALESCE(service, '') ILIKE ${needle}
+        OR COALESCE(message, '') ILIKE ${needle}
+      )
+  `;
+  return (rows[0] as { total: number } | undefined)?.total ?? 0;
+}
+
+/**
+ * Badge du dashboard : comptage et extraits filtrés en SQL. Sans ces fonctions,
+ * chaque poll chargeait l'intégralité des deux tables pour compter en JS.
+ */
+export async function countNewQuoteRequestsSince(sinceIso: string | null) {
+  const sql = getDb();
+  const rows = await sql`
+    SELECT count(*)::int AS total
+    FROM quote_requests
+    WHERE status = 'new'
+      AND (${sinceIso}::timestamptz IS NULL OR created_at > ${sinceIso}::timestamptz)
+  `;
+  return (rows[0] as { total: number } | undefined)?.total ?? 0;
+}
+
+export async function listNewQuoteRequestsSince(sinceIso: string | null, limit = 3) {
+  const sql = getDb();
+  const rows = await sql`
+    SELECT id, name, created_at
+    FROM quote_requests
+    WHERE status = 'new'
+      AND (${sinceIso}::timestamptz IS NULL OR created_at > ${sinceIso}::timestamptz)
+    ORDER BY created_at DESC
+    LIMIT ${limit}
+  `;
+  return rows as { id: number; name: string; created_at: string }[];
+}
+
+const QUOTE_STATUSES: readonly QuoteRequest["status"][] = ["new", "contacted", "done"];
+
 export async function updateQuoteRequestStatus(id: number, status: QuoteRequest["status"]) {
+  // Les Server Actions reçoivent des arguments non validés (le type TS est
+  // effacé côté client) : on refuse toute valeur hors du domaine attendu.
+  if (!QUOTE_STATUSES.includes(status)) throw new Error("Statut de devis invalide.");
   const sql = getDb();
   await sql`UPDATE quote_requests SET status = ${status} WHERE id = ${id}`;
 }
@@ -298,20 +382,91 @@ export async function createContactMessage(input: {
   `;
 }
 
-export async function listContactMessages(): Promise<ContactMessage[]> {
+/**
+ * Page de messages, filtrée et paginée en SQL (mêmes principes que les devis).
+ */
+export async function listContactMessages(
+  options: {
+    limit?: number;
+    offset?: number;
+    query?: string;
+    status?: ContactMessage["status"] | "all";
+  } = {}
+): Promise<ContactMessage[]> {
+  const { limit = 20, offset = 0, status = "all" } = options;
+  const needle = ilikePattern(options.query);
   const sql = getDb();
   const rows = await sql`
     SELECT id, name, email, phone, message, status, created_at
     FROM contact_messages
+    WHERE (${status} = 'all' OR status = ${status})
+      AND (
+        ${needle}::text IS NULL
+        OR name ILIKE ${needle}
+        OR COALESCE(email, '') ILIKE ${needle}
+        OR COALESCE(phone, '') ILIKE ${needle}
+        OR message ILIKE ${needle}
+      )
     ORDER BY created_at DESC
+    LIMIT ${limit} OFFSET ${offset}
   `;
   return rows as ContactMessage[];
+}
+
+/** Total correspondant aux mêmes filtres, pour la pagination. */
+export async function countContactMessages(
+  options: { query?: string; status?: ContactMessage["status"] | "all" } = {}
+): Promise<number> {
+  const { status = "all" } = options;
+  const needle = ilikePattern(options.query);
+  const sql = getDb();
+  const rows = await sql`
+    SELECT count(*)::int AS total
+    FROM contact_messages
+    WHERE (${status} = 'all' OR status = ${status})
+      AND (
+        ${needle}::text IS NULL
+        OR name ILIKE ${needle}
+        OR COALESCE(email, '') ILIKE ${needle}
+        OR COALESCE(phone, '') ILIKE ${needle}
+        OR message ILIKE ${needle}
+      )
+  `;
+  return (rows[0] as { total: number } | undefined)?.total ?? 0;
+}
+
+export async function countNewContactMessagesSince(sinceIso: string | null) {
+  const sql = getDb();
+  const rows = await sql`
+    SELECT count(*)::int AS total
+    FROM contact_messages
+    WHERE status = 'new'
+      AND (${sinceIso}::timestamptz IS NULL OR created_at > ${sinceIso}::timestamptz)
+  `;
+  return (rows[0] as { total: number } | undefined)?.total ?? 0;
+}
+
+export async function listNewContactMessagesSince(sinceIso: string | null, limit = 3) {
+  const sql = getDb();
+  const rows = await sql`
+    SELECT id, name, created_at
+    FROM contact_messages
+    WHERE status = 'new'
+      AND (${sinceIso}::timestamptz IS NULL OR created_at > ${sinceIso}::timestamptz)
+    ORDER BY created_at DESC
+    LIMIT ${limit}
+  `;
+  return rows as { id: number; name: string; created_at: string }[];
 }
 
 export async function updateContactMessageStatus(
   id: number,
   status: ContactMessage["status"]
 ) {
+  // Même garde que pour les devis : argument de Server Action non fiable.
+  if (!["new", "read", "archived"].includes(status)) {
+    throw new Error("Statut de message invalide.");
+  }
   const sql = getDb();
   await sql`UPDATE contact_messages SET status = ${status} WHERE id = ${id}`;
 }
@@ -630,7 +785,7 @@ export async function purgeStaleRateLimits() {
 export async function listAdminUsers(): Promise<AdminUserRow[]> {
   const sql = getDb();
   const rows = await sql`
-    SELECT id, email, first_name, last_name, email_verified_at, created_at, last_login_at
+    SELECT id, email, first_name, last_name, role, email_verified_at, created_at, last_login_at
     FROM admin_users
     ORDER BY created_at ASC
   `;

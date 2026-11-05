@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import Header from "@/components/Header";
 import About from "@/components/About";
+import BrushUnderline from "@/components/BrushUnderline";
 import QuoteForm from "@/components/QuoteForm";
 import ContactMessageForm from "@/components/ContactMessageForm";
 import Reveal from "@/components/Reveal";
@@ -96,9 +97,10 @@ export default async function ContactPage({
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative mx-auto max-w-7xl px-6 pt-[calc(var(--header-h)+5rem)] md:pt-[calc(var(--header-h)+7rem)] pb-20 md:pb-28">
           <Reveal>
-            <h1 className="font-display font-extrabold text-5xl md:text-7xl text-white leading-[0.95]">
+            <h1 className="font-display font-extrabold text-5xl md:text-7xl text-white leading-[0.95] tracking-[-0.01em] [text-wrap:balance] [text-shadow:0_2px_30px_rgba(0,0,0,0.45)]">
               {t("title")}
             </h1>
+            <BrushUnderline className="mt-4 block h-3 w-32 md:w-40 text-[var(--amber)]" />
             <p className="text-[#cfd6e0] mt-5 max-w-xl leading-relaxed">
               {t("intro")}
             </p>

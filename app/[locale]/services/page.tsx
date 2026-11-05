@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CTASection from "@/components/CTASection";
 import Reveal from "@/components/Reveal";
+import BrushUnderline from "@/components/BrushUnderline";
 import { Link } from "@/i18n/navigation";
 import { getServices } from "@/lib/services";
 import { pageMetadata } from "@/lib/seo";
@@ -53,9 +54,10 @@ export default async function ServicesPage({
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative mx-auto max-w-7xl px-6 pt-[calc(var(--header-h)+5rem)] md:pt-[calc(var(--header-h)+6rem)] pb-16 md:pb-20">
           <Reveal>
-            <h1 className="font-display font-extrabold text-4xl md:text-6xl text-white leading-[0.95] mt-4 max-w-3xl">
+            <h1 className="font-display font-extrabold text-4xl md:text-6xl text-white leading-[0.95] mt-4 max-w-3xl tracking-[-0.01em] [text-wrap:balance] [text-shadow:0_2px_30px_rgba(0,0,0,0.45)]">
               {t("title")}
             </h1>
+            <BrushUnderline className="mt-4 block h-3 w-32 md:w-40 text-[var(--amber)]" />
             <p className="text-[#cfd6e0] mt-5 max-w-xl leading-relaxed">
               {t("intro")}
             </p>

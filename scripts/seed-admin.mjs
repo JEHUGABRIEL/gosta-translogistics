@@ -36,10 +36,14 @@ const password = process.argv[3]?.trim() || generatePassword();
 const passwordHash = await hashPassword(password);
 
 const sql = neon(url);
+// Ce script crée le compte de bootstrap : il est propriétaire (`owner`), le
+// seul rôle autorisé à inviter d'autres admins et à purger le journal.
 await sql`
-  INSERT INTO admin_users (email, password_hash)
-  VALUES (${email}, ${passwordHash})
-  ON CONFLICT (email) DO UPDATE SET password_hash = EXCLUDED.password_hash
+  INSERT INTO admin_users (email, password_hash, role)
+  VALUES (${email}, ${passwordHash}, 'owner')
+  ON CONFLICT (email) DO UPDATE SET
+    password_hash = EXCLUDED.password_hash,
+    role = 'owner'
 `;
 
 console.log("");

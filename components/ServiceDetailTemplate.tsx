@@ -33,9 +33,12 @@ export default async function ServiceDetailTemplate({
   return (
     <main>
       <Header />
-      <HeroCarousel slides={slides} />
+      <HeroCarousel slides={slides} scrollTo="contenu" />
 
-      <section className="bg-[var(--white-warm)]">
+      <section
+        id="contenu"
+        className="bg-[var(--white-warm)] scroll-mt-[var(--header-h)]"
+      >
         <div className="mx-auto max-w-7xl px-6 py-12 grid lg:grid-cols-[2fr_1fr] gap-16">
           <div>
             <Reveal>

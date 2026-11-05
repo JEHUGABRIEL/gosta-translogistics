@@ -1,26 +1,24 @@
 import { NextResponse } from "next/server";
 import { createQuoteRequest } from "@/lib/db/queries";
-import { isRateLimited } from "@/lib/rate-limit";
+import { isGlobalRateLimited, isRateLimited } from "@/lib/rate-limit";
 import { getClientIpFromRequest } from "@/lib/request-ip";
+import { FIELD_LIMITS, readMultiline, readSingleLine } from "@/lib/validation";
 
-// 10 requêtes / 10 minutes par IP
+// 10 requêtes / 10 minutes par IP, plus un plafond global indépendant de l'IP
+// pour résister à une attaque distribuée (IP tournantes).
 const QUOTE_MAX = 10;
+const QUOTE_GLOBAL_MAX = 300;
 const QUOTE_WINDOW_MS = 10 * 60 * 1000;
 
-// Longueurs maximales des champs
-const MAX_NAME = 200;
-const MAX_PHONE = 30;
-const MAX_SERVICE = 200;
-const MAX_MESSAGE = 2000;
-
-/** Retire les caractères de contrôle (sauts de ligne inclus) des champs courts. */
-function clean(value: string) {
-  return value.replace(/[\u0000-\u001F\u007F]/g, " ").replace(/\s+/g, " ").trim();
-}
-
 export async function POST(request: Request) {
-  const ip = getClientIpFromRequest(request);
+  if (await isGlobalRateLimited("quote", QUOTE_GLOBAL_MAX, QUOTE_WINDOW_MS)) {
+    return NextResponse.json(
+      { error: "Service momentanément saturé. Réessayez dans quelques minutes." },
+      { status: 429 }
+    );
+  }
 
+  const ip = getClientIpFromRequest(request);
   if (await isRateLimited("quote", ip, QUOTE_MAX, QUOTE_WINDOW_MS)) {
     return NextResponse.json(
       { error: "Trop de demandes. Réessayez dans quelques minutes." },
@@ -32,27 +30,27 @@ export async function POST(request: Request) {
 
   // Honeypot : champ invisible pour les humains. Un bot qui le remplit reçoit
   // une réponse de succès mais rien n'est enregistré.
-  if (typeof body?.website === "string" && body.website.trim() !== "") {
+  const honeypot = (body as Record<string, unknown> | null)?.website;
+  if (typeof honeypot === "string" && honeypot.trim() !== "") {
     return NextResponse.json({ ok: true });
   }
 
-  const name = typeof body?.name === "string" ? clean(body.name).slice(0, MAX_NAME) : "";
-  const phone = typeof body?.phone === "string" ? clean(body.phone).slice(0, MAX_PHONE) : "";
-  const service =
-    typeof body?.service === "string" ? clean(body.service).slice(0, MAX_SERVICE) : undefined;
-  const message =
-    typeof body?.message === "string"
-      ? body.message.trim().slice(0, MAX_MESSAGE)
-      : undefined;
+  const name = readSingleLine(body, "name", FIELD_LIMITS.name) ?? "";
+  const phone = readSingleLine(body, "phone", FIELD_LIMITS.phone) ?? "";
+  const service = readSingleLine(body, "service", FIELD_LIMITS.service);
+  const message = readMultiline(body, "message", FIELD_LIMITS.message);
 
   if (!name || !phone) {
-    return NextResponse.json({ error: "name and phone are required" }, { status: 400 });
+    return NextResponse.json(
+      { error: "Le nom et le téléphone sont requis." },
+      { status: 400 }
+    );
   }
 
   try {
     await createQuoteRequest({ name, phone, service, message });
     return NextResponse.json({ ok: true });
   } catch {
-    return NextResponse.json({ error: "failed to save" }, { status: 500 });
+    return NextResponse.json({ error: "Enregistrement impossible." }, { status: 500 });
   }
 }

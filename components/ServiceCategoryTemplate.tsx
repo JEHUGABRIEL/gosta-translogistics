@@ -26,9 +26,12 @@ export default async function ServiceCategoryTemplate({
   return (
     <main>
       <Header />
-      <HeroCarousel slides={slides} />
+      <HeroCarousel slides={slides} scrollTo="prestations" />
 
-      <section className="bg-[var(--sand)]">
+      <section
+        id="prestations"
+        className="bg-[var(--sand)] scroll-mt-[var(--header-h)]"
+      >
         <div className="relative mx-auto max-w-7xl px-6 py-12">
           <Reveal className="max-w-2xl">
             <h1 className="font-display font-extrabold text-4xl md:text-5xl text-[var(--navy-deep)]">

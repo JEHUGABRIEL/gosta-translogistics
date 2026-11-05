@@ -1,27 +1,29 @@
 import { NextResponse } from "next/server";
 import { createContactMessage } from "@/lib/db/queries";
-import { isRateLimited } from "@/lib/rate-limit";
+import { isGlobalRateLimited, isRateLimited } from "@/lib/rate-limit";
 import { getClientIpFromRequest } from "@/lib/request-ip";
+import {
+  EMAIL_PATTERN,
+  FIELD_LIMITS,
+  readMultiline,
+  readSingleLine,
+} from "@/lib/validation";
 
-// 10 messages / 10 minutes par IP : même seuil que les demandes de devis.
+// Mêmes seuils que les demandes de devis : 10 / 10 min par IP, avec un plafond
+// global plus bas (le formulaire libre est plus facile à abuser).
 const CONTACT_MAX = 10;
+const CONTACT_GLOBAL_MAX = 120;
 const CONTACT_WINDOW_MS = 10 * 60 * 1000;
 
-const MAX_NAME = 200;
-const MAX_EMAIL = 320;
-const MAX_PHONE = 30;
-const MAX_MESSAGE = 2000;
-
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-
-/** Retire les caractères de contrôle (sauts de ligne inclus) des champs courts. */
-function clean(value: string) {
-  return value.replace(/[\u0000-\u001F\u007F]/g, " ").replace(/\s+/g, " ").trim();
-}
-
 export async function POST(request: Request) {
-  const ip = getClientIpFromRequest(request);
+  if (await isGlobalRateLimited("contact", CONTACT_GLOBAL_MAX, CONTACT_WINDOW_MS)) {
+    return NextResponse.json(
+      { error: "Service momentanément saturé. Réessayez dans quelques minutes." },
+      { status: 429 }
+    );
+  }
 
+  const ip = getClientIpFromRequest(request);
   if (await isRateLimited("contact", ip, CONTACT_MAX, CONTACT_WINDOW_MS)) {
     return NextResponse.json(
       { error: "Trop de messages. Réessayez dans quelques minutes." },
@@ -32,15 +34,15 @@ export async function POST(request: Request) {
   const body = await request.json().catch(() => null);
 
   // Honeypot : succès simulé, rien n'est enregistré.
-  if (typeof body?.website === "string" && body.website.trim() !== "") {
+  const honeypot = (body as Record<string, unknown> | null)?.website;
+  if (typeof honeypot === "string" && honeypot.trim() !== "") {
     return NextResponse.json({ ok: true });
   }
 
-  const name = typeof body?.name === "string" ? clean(body.name).slice(0, MAX_NAME) : "";
-  const email = typeof body?.email === "string" ? clean(body.email).slice(0, MAX_EMAIL) : "";
-  const phone = typeof body?.phone === "string" ? clean(body.phone).slice(0, MAX_PHONE) : "";
-  const message =
-    typeof body?.message === "string" ? body.message.trim().slice(0, MAX_MESSAGE) : "";
+  const name = readSingleLine(body, "name", FIELD_LIMITS.name) ?? "";
+  const email = readSingleLine(body, "email", FIELD_LIMITS.email) ?? "";
+  const phone = readSingleLine(body, "phone", FIELD_LIMITS.phone) ?? "";
+  const message = readMultiline(body, "message", FIELD_LIMITS.message) ?? "";
 
   if (!name || !message) {
     return NextResponse.json(
