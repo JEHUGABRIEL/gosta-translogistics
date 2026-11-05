@@ -1,8 +1,9 @@
-{ "metadata": {
-  "title": "GOSTA TRANS Logistique et BTP | Bangui, RCA",
-  "description": "GOSTA TRANS LOGISTIQUE ET BTP : maritime, transport et logistique de chantier à Bangui. Location d'engins, gros œuvre, second œuvre, voirie et travaux publics.",
-  "keywords": "GOSTA TRANS, logistique Bangui, transport de matériaux, location d'engins, BTP Centrafrique, gros œuvre, second œuvre, plafond staff, voirie, travaux publics, RCA"
- },
+{
+  "metadata": {
+    "title": "GOSTA TRANS Logistique et BTP | Bangui, RCA",
+    "description": "GOSTA TRANS LOGISTIQUE ET BTP : maritime, transport et logistique de chantier à Bangui. Location d'engins, gros œuvre, second œuvre, voirie et travaux publics.",
+    "keywords": "GOSTA TRANS, logistique Bangui, transport de matériaux, location d'engins, BTP Centrafrique, gros œuvre, second œuvre, plafond staff, voirie, travaux publics, RCA"
+  },
   "nav": {
     "home": "Accueil",
     "btp": "BTP",
@@ -77,6 +78,7 @@
   },
   "home": {
     "hero": {
+      "eyebrow": "Transport · Logistique · BTP",
       "slide1": {
         "line1": "DU PORT AU CHANTIER,",
         "line2": "ON LIVRE. ON CONSTRUIT."
@@ -94,17 +96,11 @@
       "seeLogistique": "Voir les services logistique",
       "seeBtp": "Voir les services BTP",
       "writeUs": "Nous écrire",
-      "contact": "Nous contacter"
-    },
-    "featured": {
-      "title": "Sept pôles, une seule équipe",
-      "intro": "Transport, construction, énergie et entretien : les prestations se combinent sur le même chantier, avec un interlocuteur unique du devis à la livraison.",
-      "hint": "Survolez pour le détail",
-      "discover": "En savoir plus",
       "contact": "Nous contacter",
-      "seeAll": "Toutes les prestations"
+      "scroll": "Faire défiler vers le contenu"
     },
     "why": {
+      "eyebrow": "Nos atouts",
       "title": "Pourquoi nous",
       "intro": "Ce qui revient le plus souvent quand un client compare deux prestataires sur un chantier.",
       "items": [
@@ -126,6 +122,79 @@
         }
       ]
     },
+    "figures": {
+      "intro": [
+        {
+          "text": "GOSTA TRANS réunit "
+        },
+        {
+          "text": "le transport, la logistique et la construction",
+          "strong": true
+        },
+        {
+          "text": " au sein d'une même entreprise basée à Bangui. Les matériaux commandés arrivent sur le chantier, les engins sont mobilisés avec leur opérateur et les travaux sont exécutés par les mêmes équipes : "
+        },
+        {
+          "text": "un seul interlocuteur",
+          "strong": true
+        },
+        {
+          "text": " suit le dossier, du devis à la livraison."
+        }
+      ],
+      "items": [
+        {
+          "value": "2",
+          "label": "métiers réunis : logistique et BTP"
+        },
+        {
+          "value": "7",
+          "label": "pôles de prestations"
+        },
+        {
+          "value": "1",
+          "label": "interlocuteur du devis à la livraison"
+        },
+        {
+          "value": "24h",
+          "label": "délai de réponse à une demande de devis"
+        }
+      ],
+      "more": "En savoir plus sur GOSTA TRANS"
+    },
+    "expertise": {
+      "titleTop": "Plongez dans",
+      "titleBottom": "notre savoir-faire",
+      "intro": "Transport de matériaux, location d'engins avec opérateur, gros œuvre, finitions et voirie : les mêmes équipes interviennent d'un bout à l'autre du chantier, ce qui évite les ruptures d'approvisionnement.",
+      "cardAction": "Voir le détail",
+      "seeAll": "Toutes les prestations",
+      "cards": [
+        {
+          "title": "Transport & logistique",
+          "text": "Camions, bennes et conteneurs pour acheminer vos matériaux du port jusqu'au chantier, avec un suivi de la marchandise à chaque étape."
+        },
+        {
+          "title": "Location d'engins",
+          "text": "Pelles, chargeuses et camions-grues mobilisés avec leur opérateur, sans dépendre de votre propre parc ni d'un loueur extérieur."
+        },
+        {
+          "title": "Gros œuvre",
+          "text": "Fondations, structures et maçonnerie réalisées par nos équipes, avec les matériaux livrés par notre propre logistique."
+        },
+        {
+          "title": "Second œuvre & finitions",
+          "text": "Cloisons, plafonds staff, peinture et menuiserie : le chantier est terminé par les équipes qui l'ont construit."
+        },
+        {
+          "title": "Voirie & assainissement",
+          "text": "Terrassement, assainissement et revêtement des voiries urbaines, entretien des accès de chantier inclus."
+        },
+        {
+          "title": "Électricité & froid",
+          "text": "Installation, entretien et dépannage de vos équipements électriques, de climatisation et de panneaux solaires."
+        }
+      ]
+    },
     "team": {
       "title": "Notre équipe",
       "intro": "Chauffeurs, conducteurs de travaux, opérateurs d'engins, électriciens, techniciens climatisation et agents d'entretien : chaque pôle est tenu par des spécialistes de leur métier, qui interviennent avec le même interlocuteur.",
@@ -138,11 +207,8 @@
         "Panneaux solaires & entretien"
       ]
     },
-    "quote": {
-      "title": "Demandez votre devis",
-      "text": "Décrivez votre besoin (transport, location d'engins ou travaux de construction) et notre équipe vous revient avec une estimation adaptée au terrain centrafricain."
-    },
     "about": {
+      "eyebrow": "À propos",
       "title": "À propos de GOSTA TRANS",
       "badgeNumber": "2",
       "badgeText": "métiers, un seul interlocuteur",
@@ -156,14 +222,9 @@
       "prev": "Précédent",
       "next": "Suivant",
       "readMore": "Lire la suite",
-      "items": [
-        { "title": "Plafond staff", "tag": "Second œuvre" },
-        { "title": "Immeubles résidentiels & commerciaux", "tag": "Gros œuvre" },
-        { "title": "Voirie & aménagement urbain", "tag": "Travaux publics" },
-        { "title": "Bâtiments industriels", "tag": "Gros œuvre" },
-        { "title": "Approvisionnement de chantiers", "tag": "Transport" },
-        { "title": "Rénovation & réhabilitation", "tag": "BTP" }
-      ]
+      "back": "Retour aux réalisations",
+      "other": "Autres réalisations",
+      "all": "Toutes les réalisations"
     },
     "testimonials": {
       "title": "Commentaires",
@@ -202,19 +263,45 @@
     "news": {
       "title": "Actualités",
       "readMore": "Lire la suite",
-      "posts": [
-        { "date": "Fin juillet 2026", "title": "Visite à Mme le Maire de Bangui" },  {
-   "date": "Août 2026",
-   "title": "Lutte contre l'insalubrité sur l'axe Gbenguewé–Marché KM5 avec les jeunes"
-  }
-      ]
+      "back": "Retour aux actualités",
+      "other": "Autres actualités",
+      "all": "Toutes les actualités"
+    },
+    "contactBand": {
+      "title": "Contact",
+      "intro": "Un projet de transport, de location d'engins ou de construction ? Écrivez-nous : notre équipe vous répond sous 24h ouvrées."
     },
     "cta": {
       "title": "Prêt à parler de votre projet ?",
       "text": "Transport, location d'engins ou chantier de construction : décrivez votre besoin, on s'occupe du reste.",
       "quote": "Demander un devis",
-      "whatsapp": "WhatsApp"
+      "whatsapp": "WhatsApp",
+      "callLabel": "Une livraison ou un chantier à organiser ?"
     }
+  },
+  "projects": {
+    "hub": {
+      "metadataTitle": "Réalisations | GOSTA TRANS Logistique et BTP",
+      "metadataDescription": "Transport, voirie, gros œuvre et finitions : les réalisations conduites par GOSTA TRANS à Bangui et ses environs.",
+      "title": "Nos réalisations",
+      "intro": "Quelques travaux conduits par nos équipes, du gros œuvre aux finitions, en transport comme en construction.",
+      "seeProject": "Voir la réalisation"
+    }
+  },
+  "news": {
+    "hub": {
+      "metadataTitle": "Actualités | GOSTA TRANS Logistique et BTP",
+      "metadataDescription": "La vie de GOSTA TRANS : rencontres, actions de terrain et informations sur ses activités de transport, de logistique et de construction.",
+      "title": "Actualités",
+      "intro": "La vie de l'entreprise : rencontres, actions de terrain et informations sur nos activités de transport, de logistique et de construction.",
+      "seeArticle": "Lire la suite"
+    }
+  },
+  "pagination": {
+    "previous": "Précédent",
+    "next": "Suivant",
+    "label": "Pagination",
+    "page": "Page {current} sur {total}"
   },
   "footer": {
     "tagline": "Logistique et BTP",
@@ -232,7 +319,10 @@
     "instagram": "@Gosta_trans_Logistique_et_BTP",
     "maps": "Ouvrir dans Google Maps",
     "sites": {
-      "vapende": { "label": "Quartier Gré-Vapendé, PK16", "value": "Route de Boali, Bangui" }
+      "vapende": {
+        "label": "Quartier Gré-Vapendé, PK16",
+        "value": "Route de Boali, Bangui"
+      }
     },
     "about": "À propos",
     "mentions": "Mentions légales",
@@ -248,11 +338,26 @@
     "sectionTitle": "Parlons de votre projet",
     "sectionText": "Transport de matériaux, location d'engins, gros œuvre ou finitions : décrivez votre besoin, on s'occupe du reste.",
     "items": {
-      "address": { "label": "Adresse", "value": "Quartier Gré-Vapendé, PK16 route de Boali" },
-      "phone": { "label": "Téléphone", "value": "75 20 03 13 / 70 12 00 25 / 72 60 05 33" },
-      "whatsapp": { "label": "WhatsApp", "value": "75 20 03 13" },
-      "email": { "label": "Email", "value": "gostatranslogistiquelp@outlook.fr" },
-      "hours": { "label": "Horaires", "value": "Lun – Sam · 07h30 – 18h00" }
+      "address": {
+        "label": "Adresse",
+        "value": "Quartier Gré-Vapendé, PK16 route de Boali"
+      },
+      "phone": {
+        "label": "Téléphone",
+        "value": "75 20 03 13 / 70 12 00 25 / 72 60 05 33"
+      },
+      "whatsapp": {
+        "label": "WhatsApp",
+        "value": "75 20 03 13"
+      },
+      "email": {
+        "label": "Email",
+        "value": "gostatranslogistiquelp@outlook.fr"
+      },
+      "hours": {
+        "label": "Horaires",
+        "value": "Lun – Sam · 07h30 – 18h00"
+      }
     },
     "maps": "Ouvrir dans Google Maps",
     "formTitle": "Écrivez-nous",
@@ -260,7 +365,10 @@
     "findTitle": "Nous trouver",
     "findText": "L'entreprise est installée au quartier Gré-Vapendé, au PK16 de la route de Boali, à Bangui : un seul site qui regroupe le siège social et l'exploitation.",
     "sites": {
-      "vapende": { "label": "Quartier Gré-Vapendé, PK16", "value": "Route de Boali, Bangui, RCA" }
+      "vapende": {
+        "label": "Quartier Gré-Vapendé, PK16",
+        "value": "Route de Boali, Bangui, RCA"
+      }
     }
   },
   "about": {
@@ -268,14 +376,53 @@
     "metadataDescription": "GOSTA TRANS LOGISTIQUE ET BTP à Bangui : transport, logistique, BTP, électricité, climatisation, panneaux solaires et entretien. Une équipe, un seul interlocuteur.",
     "title": "À propos de GOSTA TRANS",
     "intro": "Transport, construction, énergie et entretien réunis dans une même structure, à Bangui.",
+    "discover": "Découvrez",
+    "heroNote": "Transport de matériaux, location d'engins avec opérateur, construction et travaux publics : la même structure réunit les moyens d'un chantier, de l'approvisionnement à la réception des travaux.",
+    "vision": {
+      "title": "Notre vision du chantier",
+      "text1": "Livrer les matériaux au bon moment et exécuter les travaux avec les mêmes équipes : c'est cette continuité entre logistique et construction qui évite les ruptures d'approvisionnement, si coûteuses en jours perdus.",
+      "text2": "Installés à Bangui, nous connaissons les routes, les saisons et les contraintes du terrain. Nos camions, nos engins et nos équipes se mobilisent dans les mêmes délais, y compris en dehors de la capitale."
+    },
+    "process": {
+      "title": "Une structure solide et transparente",
+      "photo": "Équipe GOSTA TRANS sur un chantier",
+      "items": [
+        {
+          "title": "Analyse du besoin",
+          "text": "Nous partons du chantier, du volume à transporter et du délai à tenir : le devis est établi sur cette base, poste par poste."
+        },
+        {
+          "title": "Mobilisation des moyens",
+          "text": "Véhicules, engins avec opérateur et équipes sont affectés à l'opération, avec un interlocuteur unique du devis à la livraison."
+        },
+        {
+          "title": "Exécution suivie",
+          "text": "Transport, construction et second œuvre avancent sous le contrôle du même référent, qui rend compte de l'avancement et des aléas."
+        },
+        {
+          "title": "Réception des travaux",
+          "text": "À la livraison, chaque prestation est vérifiée avec le client ; l'entretien et la maintenance peuvent ensuite être assurés."
+        }
+      ]
+    },
     "factsTitle": "Repères",
     "facts": [
-      { "label": "Siège", "value": "Quartier Gré-Vapendé, PK16 route de Boali, Bangui" },
-      { "label": "Horaires", "value": "Lundi au samedi, 07h30 – 18h00" },
-      { "label": "Téléphones", "value": "75 20 03 13 / 70 12 00 25 / 72 60 05 33" },
-      { "label": "Email", "value": "gostatranslogistiquelp@outlook.fr" },
-      { "label": "RCCM", "value": "CA/BG/2025A2261" },
-      { "label": "NIU", "value": "2362025P255049" }
+      {
+        "label": "Siège",
+        "value": "Quartier Gré-Vapendé, PK16 route de Boali, Bangui"
+      },
+      {
+        "label": "Horaires",
+        "value": "Lundi au samedi, 07h30 – 18h00"
+      },
+      {
+        "label": "Téléphones",
+        "value": "75 20 03 13 / 70 12 00 25 / 72 60 05 33"
+      },
+      {
+        "label": "Email",
+        "value": "gostatranslogistiquelp@outlook.fr"
+      }
     ]
   },
   "values": {
@@ -313,6 +460,7 @@
     "message": "Message",
     "messagePlaceholder": "Votre question…",
     "contactOptional": "Email ou téléphone : au moins un des deux, pour vous répondre.",
+    "consent": "J'accepte d'être recontacté au sujet de ma demande.",
     "send": "Envoyer le message",
     "sending": "Envoi…",
     "success": "Message reçu. Nous vous répondons dès que possible.",
@@ -332,8 +480,14 @@
       "metadataDescription": "Gros œuvre, second œuvre, voirie, terrassement et rénovation à Bangui : les services BTP de GOSTA TRANS.",
       "heading": "Services BTP",
       "intro": "Du gros œuvre aux finitions, en passant par les travaux publics : chaque service peut être mobilisé seul ou combiné avec le transport de matériaux.",
-      "slide1": { "line1": "DU GROS ŒUVRE", "line2": "AUX FINITIONS." },
-      "slide2": { "line1": "VOIRIE, TERRASSEMENT,", "line2": "ASSAINISSEMENT." },
+      "slide1": {
+        "line1": "DU GROS ŒUVRE",
+        "line2": "AUX FINITIONS."
+      },
+      "slide2": {
+        "line1": "VOIRIE, TERRASSEMENT,",
+        "line2": "ASSAINISSEMENT."
+      },
       "seeLogistique": "Voir la logistique",
       "seeRealisations": "Nos réalisations"
     },
@@ -342,8 +496,14 @@
       "metadataDescription": "Transport de matériaux, location d'engins, gestion logistique et approvisionnement de chantiers à Bangui : les services logistique de GOSTA TRANS.",
       "heading": "Services logistique",
       "intro": "Transport, location d'engins et coordination de chantier : mobilisables séparément ou comme prestation complète, en lien direct avec le volet BTP.",
-      "slide1": { "line1": "VOS MATÉRIAUX,", "line2": "LIVRÉS SANS RUPTURE." },
-      "slide2": { "line1": "DU PORT", "line2": "AU CHANTIER." },
+      "slide1": {
+        "line1": "VOS MATÉRIAUX,",
+        "line2": "LIVRÉS SANS RUPTURE."
+      },
+      "slide2": {
+        "line1": "DU PORT",
+        "line2": "AU CHANTIER."
+      },
       "seeBtp": "Voir le BTP",
       "seeRealisations": "Nos réalisations"
     },
@@ -370,7 +530,6 @@
           "heading": "Éditeur du site",
           "body": [
             "Le présent site est édité par GOSTA TRANS LOGISTIQUE ET BTP, dont le siège social est situé au quartier Gré-Vapendé, PK16 route de Boali, Bangui, République Centrafricaine.",
-            "Immatriculation RCCM : CA/BG/2025A2261. Numéro d'identification unique (NIU) : 2362025P255049.",
             "Téléphone : 75 20 03 13 / 70 12 00 25 / 72 60 05 33. WhatsApp : 75 20 03 13. Courriel : gostatranslogistiquelp@outlook.fr."
           ]
         },

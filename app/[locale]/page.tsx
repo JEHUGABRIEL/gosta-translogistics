@@ -1,24 +1,25 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { pageMetadata } from "@/lib/seo";
 import Header from "@/components/Header";
 import HeroCarousel from "@/components/HeroCarousel";
-import FeaturedServices from "@/components/FeaturedServices";
+import TypewriterLine from "@/components/TypewriterLine";
 import WhyUs from "@/components/WhyUs";
-import Values from "@/components/Values";
-import OurTeam from "@/components/OurTeam";
-import { buildServicesPayload } from "@/lib/services-payload";
-import QuoteSection from "@/components/QuoteSection";
+import KeyFigures from "@/components/KeyFigures";
+import Expertise from "@/components/Expertise";
+import ContactBand from "@/components/ContactBand";
 import About from "@/components/About";
 import Projects from "@/components/Projects";
 import Testimonials from "@/components/Testimonials";
-import Partners from "@/components/Partners";
 import News from "@/components/News";
+import Partners from "@/components/Partners";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 import FAQAccordion from "@/components/FAQAccordion";
 import Reveal from "@/components/Reveal";
 import { listFaqs, listNewsPosts, listTestimonials } from "@/lib/db/queries";
+import { newsSlug } from "@/lib/news";
 
 export async function generateMetadata({
   params,
@@ -44,46 +45,63 @@ export default async function HomePage({
   setRequestLocale(locale);
   const t = await getTranslations("home");
 
-  const slides = Array.from({ length: 8 }, (_, i) => ({
+  const isFrPage = locale !== "en";
+  // Une slide par message (3), chacune avec un visuel qui la raconte : port et
+  // camion, terminal logistique, chantier.
+  const slideImages = [
+    {
+      src: "/hero_section/hero-1.png",
+      alt: isFrPage
+        ? "Camion et porte-conteneurs dans un terminal portuaire"
+        : "Truck and container ship in a port terminal",
+    },
+    {
+      src: "/hero_section/hero-4.png",
+      alt: isFrPage
+        ? "Chariot élévateur et camion au déchargement des conteneurs"
+        : "Forklift and truck unloading containers",
+    },
+    {
+      src: "/hero_section/hero-2.png",
+      alt: isFrPage
+        ? "Chantier de construction avec grue et camion toupie"
+        : "Construction site with crane and concrete mixer truck",
+    },
+  ];
+
+  const slides = Array.from({ length: 3 }, (_, i) => ({
     title: [
       <>
         {t("hero.slide1.line1")}
         <br />
-        {t("hero.slide1.line2")}
+        <TypewriterLine text={t("hero.slide1.line2")} />
       </>,
       <>
         {t("hero.slide2.line1")}
         <br />
-        {t("hero.slide2.line2")}
+        <TypewriterLine text={t("hero.slide2.line2")} />
       </>,
       <>
         {t("hero.slide3.line1")}
         <br />
-        {t("hero.slide3.line2")}
+        <TypewriterLine text={t("hero.slide3.line2")} />
       </>,
     ][i % 3],
-    image: {
-      src: `/hero_section/hero-${i + 1}.png`,
-      alt: "GOSTA TRANS, activités logistiques et BTP",
-    },
+    image: slideImages[i],
+    // Un seul appel à l'action par slide, comme sur les héros de pôle.
     ...[
-      {
-        primaryCta: { label: t("hero.quote"), href: "#devis", openQuote: true },
-        secondaryCta: { label: t("hero.contact"), href: `/${locale}/contact` },
-      },
+      { primaryCta: { label: t("hero.quote"), href: "#devis", openQuote: true } },
       {
         primaryCta: {
           label: t("hero.seeLogistique"),
           href: `/${locale}/services/logistique`,
         },
-        secondaryCta: { label: t("hero.quote"), href: "#devis", openQuote: true },
       },
       {
         primaryCta: {
           label: t("hero.seeBtp"),
           href: `/${locale}/services/btp`,
         },
-        secondaryCta: { label: t("hero.quote"), href: "#devis", openQuote: true },
       },
     ][i % 3],
   }));
@@ -107,6 +125,8 @@ export default async function HomePage({
   const extraNews =
     newsResult.status === "fulfilled"
       ? newsResult.value.map((row) => ({
+          // Slug calculé sur le titre français : même URL dans les deux langues.
+          slug: newsSlug(row.title_fr),
           date: isEn ? row.date_label_en : row.date_label_fr,
           title: isEn ? row.title_en : row.title_fr,
           image: row.image_url,
@@ -127,19 +147,47 @@ export default async function HomePage({
   return (
     <main>
       <Header />
-      <HeroCarousel id="accueil" slides={slides} />
+      {/* Même hero que les pages pôle / prestation : panneau navy, visuel dans
+          un cadre à droite, un seul appel à l'action par slide. */}
+      <HeroCarousel id="accueil" slides={slides} scrollTo="chiffres" />
+      <KeyFigures id="chiffres" />
+      <Expertise />
       <About />
-      <FeaturedServices locale={locale} initialData={buildServicesPayload(locale)} />
-      <WhyUs />
-      <Values />
-      <QuoteSection />
-      <Projects />
-      <Testimonials extra={extraTestimonials} />
-      <OurTeam />
-      <Partners />
+
+      {/* Image plein cadre, sans texte : « Pourquoi nous » remonte dessus au
+          défilement (l'image reste épinglée derrière la section). */}
+      <div className="relative">
+        <div className="sticky top-0 z-0 h-[55svh] md:h-[80svh] overflow-hidden bg-[var(--navy-deep)]">
+          <Image
+            src="/hero_section/hero-3.png"
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover"
+          />
+        </div>
+        <div className="relative z-10">
+          <WhyUs />
+        </div>
+      </div>
+
+      {/* Réalisations épinglées : le formulaire de contact remonte et les masque */}
+      <div className="relative">
+        <div className="sticky top-0 z-0">
+          <Projects />
+        </div>
+        <div className="relative z-10">
+          <ContactBand />
+        </div>
+      </div>
+
       <News extra={extraNews} />
+      <Partners />
 
       <FAQSection locale={locale} items={faqItems} />
+
+      {/* Section réservée aux commentaires clients */}
+      <Testimonials extra={extraTestimonials} />
 
       <CTASection />
       <Footer />

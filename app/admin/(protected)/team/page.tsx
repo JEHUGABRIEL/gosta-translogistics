@@ -26,18 +26,21 @@ export default async function AdminTeamPage() {
   return (
     <AdminShell title="Équipe">
       <div className="mx-auto grid w-full max-w-3xl gap-6">
-        <AdminCard className="p-6">
-          <h2 className="font-display uppercase text-[15px] text-[var(--navy-deep)]">
-            Inviter un nouvel admin
-          </h2>
-          <p className="text-[13.5px] text-[var(--steel)] mt-1">
-            La personne invitée reçoit un email avec un lien pour créer son compte, puis confirme
-            son adresse par un code envoyé par email.
-          </p>
-          <div className="mt-5">
-            <InviteForm />
-          </div>
-        </AdminCard>
+        {/* Inviter crée un accès complet : réservé au propriétaire du compte. */}
+        {me.role === "owner" && (
+          <AdminCard className="p-6">
+            <h2 className="font-display uppercase text-[15px] text-[var(--navy-deep)]">
+              Inviter un nouvel admin
+            </h2>
+            <p className="text-[13.5px] text-[var(--steel)] mt-1">
+              La personne invitée reçoit un email avec un lien pour créer son compte, puis confirme
+              son adresse par un code envoyé par email.
+            </p>
+            <div className="mt-5">
+              <InviteForm />
+            </div>
+          </AdminCard>
+        )}
 
         <AdminCard className="p-6">
           <h2 className="font-display uppercase text-[15px] text-[var(--navy-deep)]">
@@ -53,6 +56,11 @@ export default async function AdminTeamPage() {
                     {u.id === me.id && (
                       <span className="ml-2 font-mono text-[11px] uppercase tracking-wide text-[var(--red)]">
                         (vous)
+                      </span>
+                    )}
+                    {u.role === "owner" && (
+                      <span className="ml-2 font-mono text-[10.5px] uppercase tracking-wide text-[var(--amber)]">
+                        propriétaire
                       </span>
                     )}
                   </p>

@@ -15,10 +15,16 @@ const LABELS: Record<Locale, string> = {
   en: "English",
 };
 
+/**
+ * `light` : variante pour un bandeau clair (hero clair de l'accueil) — le
+ * déclencheur passe en navy/rouge sur fond `--white-warm`.
+ */
 export default function LanguageSwitcher({
   className,
+  light = false,
 }: {
   className?: string;
+  light?: boolean;
 }) {
   const locale = useLocale();
   const pathname = usePathname();
@@ -91,7 +97,11 @@ export default function LanguageSwitcher({
         aria-expanded={open}
         aria-controls={listboxId}
         aria-label="Choisir la langue / Choose language"
-        className="flex items-center gap-2 cursor-pointer bg-[var(--navy-mid)] border border-white/25 text-[var(--amber)] hover:border-[var(--red)] focus:border-[var(--amber)] focus:outline-none font-mono text-[12.5px] uppercase tracking-wide px-3 py-1.5 transition-colors"
+        className={`flex items-center gap-2 cursor-pointer border focus:outline-none font-mono text-[12.5px] uppercase tracking-wide px-3 py-1.5 transition-colors ${
+          light
+            ? "bg-[var(--white-warm)] border-[var(--navy-deep)]/25 text-[var(--red)] hover:border-[var(--red)] focus:border-[var(--red)]"
+            : "bg-[var(--navy-mid)] border-white/25 text-[var(--amber)] hover:border-[var(--red)] focus:border-[var(--amber)]"
+        }`}
       >
         {/* Globe masqué sur mobile (< sm), visible dès la tablette */}
         <Globe size={13} className="hidden sm:block" />

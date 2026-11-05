@@ -16,10 +16,6 @@ export const COMPANY = {
   phones: ["+23675200313", "+23670120025", "+23672600533"],
   whatsapp: "+23675200313",
   email: "gostatranslogistiquelp@outlook.fr",
-  registration: {
-    rccm: "CA/BG/2025A2261",
-    niu: "2362025P255049",
-  },
   hours: "Mo-Sa 07:30-18:00",
   social: {
     facebook:

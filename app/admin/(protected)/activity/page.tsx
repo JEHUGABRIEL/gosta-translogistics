@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Download } from "lucide-react";
-import { requireAdmin } from "../../actions";
+import { requireAdmin } from "@/lib/admin-guard";
 import AdminShell from "@/components/admin/AdminShell";
 import ActivityList from "@/components/admin/ActivityList";
 import ResetJournalButton from "@/components/admin/ResetJournalButton";

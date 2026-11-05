@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { AdminInvite } from "@/lib/db/queries";
+import { requireAdmin } from "@/lib/admin-guard";
 
 // ---------------------------------------------------------------------------
 // Mocks : les Server Actions exigent un contexte de requête Next, on les
@@ -183,6 +184,7 @@ const ADMIN = {
   email: "admin@test.local",
   first_name: "Ada",
   last_name: "Lovelace",
+  role: "owner" as const,
 };
 
 const form = (values: Record<string, string>) => {
@@ -315,7 +317,7 @@ describe("autorisation des Server Actions", () => {
   });
 
   it("requireAdmin renvoie l'admin courant quand la session existe", async () => {
-    await expect(actions.requireAdmin()).resolves.toEqual(ADMIN);
+    await expect(requireAdmin()).resolves.toEqual(ADMIN);
   });
 
   it("revokeSessionAction ne vise que les sessions de l'admin courant", async () => {
@@ -837,5 +839,57 @@ describe("resetActivityAction", () => {
       "base indisponible"
     );
     expect(queries.logAdminActivity).not.toHaveBeenCalled();
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Rôles : moindre privilège
+// ---------------------------------------------------------------------------
+
+describe("rôles admin", () => {
+  it("refuse l'invitation depuis un compte qui n'est pas propriétaire", async () => {
+    vi.mocked(getSessionUser).mockResolvedValue({ ...ADMIN, role: "admin" });
+
+    const result = await actions.inviteAdminAction(
+      null,
+      form({ email: "nouveau@test.local" })
+    );
+
+    expect(result).toEqual({
+      error: "Seul le propriétaire du compte peut inviter un admin.",
+    });
+    expect(queries.createInvite).not.toHaveBeenCalled();
+    expect(sendEmail).not.toHaveBeenCalled();
+  });
+
+  it("réserve la purge du journal au propriétaire", async () => {
+    vi.mocked(getSessionUser).mockResolvedValue({ ...ADMIN, role: "admin" });
+
+    await expect(actions.resetActivityAction()).rejects.toThrow(/propriétaire/);
+    expect(queries.resetAdminActivity).not.toHaveBeenCalled();
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Journalisation des échecs de connexion
+// ---------------------------------------------------------------------------
+
+describe("journalisation des connexions échouées", () => {
+  it("trace la tentative avec l'email, jamais le mot de passe", async () => {
+    vi.mocked(findUserByEmail).mockResolvedValue(undefined);
+
+    await actions.loginAction(
+      null,
+      form({ email: "intrus@test.local", password: "secret-en-clair" })
+    );
+
+    expect(queries.logAdminActivity).toHaveBeenCalledWith({
+      userId: null,
+      action: "auth.login_failed",
+      target: "intrus@test.local",
+    });
+    expect(JSON.stringify(vi.mocked(queries.logAdminActivity).mock.calls)).not.toContain(
+      "secret-en-clair"
+    );
   });
 });

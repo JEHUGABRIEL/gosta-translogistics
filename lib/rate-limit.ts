@@ -124,6 +124,21 @@ export async function clearLoginFailures(email: string, ip: string | null) {
  * fourni aucune adresse : on ne regroupe alors pas tout le monde dans un même
  * compteur (ce qui permettrait à un seul client d'épuiser le quota de tous).
  */
+async function hitWithinWindow(
+  key: string,
+  maxRequests: number,
+  windowMs: number
+): Promise<boolean> {
+  await maybePurge();
+  try {
+    const count = await hitRateLimit(key, Math.ceil(windowMs / 1000));
+    return count > maxRequests;
+  } catch (error) {
+    report(error, `limitation ${key}`);
+    return false;
+  }
+}
+
 export async function isRateLimited(
   key: string,
   ip: string | null,
@@ -131,17 +146,20 @@ export async function isRateLimited(
   windowMs: number
 ): Promise<boolean> {
   if (!ip) return false;
-  await maybePurge();
-  try {
-    const count = await hitRateLimit(
-      `${key}:${ip}`,
-      Math.ceil(windowMs / 1000)
-    );
-    return count > maxRequests;
-  } catch (error) {
-    report(error, `limitation ${key}`);
-    return false;
-  }
+  return hitWithinWindow(`${key}:${ip}`, maxRequests, windowMs);
+}
+
+/**
+ * Plafond global, indépendant de l'IP : une attaque distribuée (botnet, IP
+ * tournantes) passe sous les quotas par IP mais pas sous ce compteur. Seuils
+ * volontairement larges pour ne jamais gêner un trafic légitime.
+ */
+export function isGlobalRateLimited(
+  key: string,
+  maxRequests: number,
+  windowMs: number
+): Promise<boolean> {
+  return hitWithinWindow(`${key}:global`, maxRequests, windowMs);
 }
 
 /** Throttle des tentatives de connexion, toutes adresses email confondues. */

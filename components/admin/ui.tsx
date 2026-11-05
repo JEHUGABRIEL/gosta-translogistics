@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Link from "next/link";
 import {
   ChevronLeft,
   ChevronRight,
@@ -143,6 +144,119 @@ export function AdminSearch({
   );
 }
 
+/** Numéros de page à afficher, avec ellipses autour de la page courante. */
+function paginationRange(page: number, totalPages: number): (number | "…")[] {
+  const pages: (number | "…")[] = [];
+
+  if (totalPages <= 7) {
+    for (let i = 1; i <= totalPages; i++) pages.push(i);
+    return pages;
+  }
+
+  pages.push(1);
+  if (page > 3) pages.push("…");
+  for (let i = Math.max(2, page - 1); i <= Math.min(totalPages - 1, page + 1); i++) {
+    pages.push(i);
+  }
+  if (page < totalPages - 2) pages.push("…");
+  pages.push(totalPages);
+  return pages;
+}
+
+const pagerItemClass =
+  "inline-flex h-8 min-w-8 items-center justify-center px-2 text-[12.5px] font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-35";
+
+/**
+ * Pagination pilotée par des liens : la page est rendue côté serveur, donc
+ * l'URL porte la page, la recherche et le filtre (lien partageable, retour
+ * arrière du navigateur fidèle).
+ */
+export function AdminPaginationLinks({
+  page,
+  perPage,
+  total,
+  hrefFor,
+}: {
+  page: number;
+  perPage: number;
+  total: number;
+  hrefFor: (page: number) => string;
+}) {
+  const totalPages = Math.max(1, Math.ceil(total / perPage));
+  if (total === 0) return null;
+
+  const start = (page - 1) * perPage + 1;
+  const end = Math.min(page * perPage, total);
+  const pages = paginationRange(page, totalPages);
+
+  return (
+    <div className="flex flex-col gap-3 border-t border-[var(--line-soft)] px-1 pt-4 sm:flex-row sm:items-center sm:justify-between">
+      <p className="font-mono text-[11px] uppercase tracking-wide text-[var(--steel)]">
+        {start}–{end} sur {total}
+      </p>
+      <nav aria-label="Pagination" className="flex items-center gap-1">
+        {page > 1 ? (
+          <Link
+            href={hrefFor(page - 1)}
+            aria-label="Page précédente"
+            className={`${pagerItemClass} text-[var(--steel)] hover:bg-[var(--sand)] hover:text-[var(--navy-deep)]`}
+          >
+            <ChevronLeft size={15} />
+          </Link>
+        ) : (
+          <span
+            aria-disabled="true"
+            className={`${pagerItemClass} cursor-not-allowed text-[var(--steel)] opacity-35`}
+          >
+            <ChevronLeft size={15} />
+          </span>
+        )}
+
+        {pages.map((item, index) =>
+          item === "…" ? (
+            <span
+              key={`dots-${index}`}
+              className="w-8 text-center text-[12px] text-[var(--steel)]"
+            >
+              …
+            </span>
+          ) : (
+            <Link
+              key={item}
+              href={hrefFor(item)}
+              aria-current={item === page ? "page" : undefined}
+              className={`${pagerItemClass} ${
+                item === page
+                  ? "bg-[var(--navy-deep)] text-white"
+                  : "text-[var(--steel)] hover:bg-[var(--sand)] hover:text-[var(--navy-deep)]"
+              }`}
+            >
+              {item}
+            </Link>
+          )
+        )}
+
+        {page < totalPages ? (
+          <Link
+            href={hrefFor(page + 1)}
+            aria-label="Page suivante"
+            className={`${pagerItemClass} text-[var(--steel)] hover:bg-[var(--sand)] hover:text-[var(--navy-deep)]`}
+          >
+            <ChevronRight size={15} />
+          </Link>
+        ) : (
+          <span
+            aria-disabled="true"
+            className={`${pagerItemClass} cursor-not-allowed text-[var(--steel)] opacity-35`}
+          >
+            <ChevronRight size={15} />
+          </span>
+        )}
+      </nav>
+    </div>
+  );
+}
+
 export function AdminPagination({
   page,
   perPage,
@@ -159,22 +273,9 @@ export function AdminPagination({
 
   const start = (page - 1) * perPage + 1;
   const end = Math.min(page * perPage, total);
-  const pages: (number | "…")[] = [];
+  const pages = paginationRange(page, totalPages);
 
-  if (totalPages <= 7) {
-    for (let i = 1; i <= totalPages; i++) pages.push(i);
-  } else {
-    pages.push(1);
-    if (page > 3) pages.push("…");
-    for (let i = Math.max(2, page - 1); i <= Math.min(totalPages - 1, page + 1); i++) {
-      pages.push(i);
-    }
-    if (page < totalPages - 2) pages.push("…");
-    pages.push(totalPages);
-  }
-
-  const buttonClass =
-    "inline-flex h-8 min-w-8 items-center justify-center px-2 text-[12.5px] font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-35";
+  const buttonClass = pagerItemClass;
 
   return (
     <div className="flex flex-col gap-3 border-t border-[var(--line-soft)] px-1 pt-4 sm:flex-row sm:items-center sm:justify-between">

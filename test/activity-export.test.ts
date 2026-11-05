@@ -7,7 +7,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 // filtres, pas l'exécution SQL.
 // ---------------------------------------------------------------------------
 
-vi.mock("@/app/admin/actions", () => ({
+vi.mock("@/lib/admin-guard", () => ({
   requireAdmin: vi.fn(),
 }));
 
@@ -16,7 +16,7 @@ vi.mock("@/lib/db/queries", () => ({
 }));
 
 import { GET } from "@/app/api/admin/activity/export/route";
-import { requireAdmin } from "@/app/admin/actions";
+import { requireAdmin } from "@/lib/admin-guard";
 import { searchActivity } from "@/lib/db/queries";
 import type { ActivityRow } from "@/lib/db/queries";
 

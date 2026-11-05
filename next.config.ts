@@ -24,7 +24,9 @@ const securityHeaders = [
     value: [
       "default-src 'self'",
       `script-src ${scriptSrc}`,
-      "style-src 'self' 'unsafe-inline'",
+      // fonts.googleapis.com sert la feuille @font-face (Manrope, JetBrains Mono) ;
+      // sans elle le site retombait sur la police système.
+      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "img-src 'self' https://images.unsplash.com https://res.cloudinary.com data: blob:",
       "font-src 'self' https://fonts.gstatic.com",
       "connect-src 'self'",
@@ -89,8 +91,26 @@ const nextConfig: NextConfig = {
       {
         // Les liens d'invitation portent un token en query string : on évite
         // qu'il fuie via l'en-tête Referer vers un domaine tiers.
+        // `no-store` : après déconnexion, le HTML du dashboard ne doit rester
+        // ni en cache partagé, ni dans le bfcache d'un poste partagé.
         source: "/admin/:path*",
-        headers: [{ key: "Referrer-Policy", value: "no-referrer" }],
+        headers: [
+          { key: "Referrer-Policy", value: "no-referrer" },
+          {
+            key: "Cache-Control",
+            value: "no-store, max-age=0, must-revalidate",
+          },
+        ],
+      },
+      {
+        // Les réponses admin portent des données personnelles (devis, messages).
+        source: "/api/admin/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "no-store, max-age=0, must-revalidate",
+          },
+        ],
       },
     ];
   },

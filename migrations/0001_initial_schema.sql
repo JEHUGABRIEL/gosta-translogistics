@@ -1,5 +1,6 @@
--- Schéma du dashboard admin GOSTA TRANS.
--- Exécuté via `npm run db:migrate` (scripts/migrate.mjs).
+-- 0001 — Schéma initial du dashboard admin.
+-- Appliquée par `npm run db:migrate`. Une migration appliquée ne se modifie
+-- plus : sa somme de contrôle est enregistrée dans `schema_migrations`.
 
 -- ---------- Authentification ----------
 
@@ -54,9 +55,7 @@ CREATE TABLE IF NOT EXISTS quote_requests (
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
--- ---------- Contenu bilingue (une ligne par élément, colonnes _fr/_en —
--- messages/fr.json et messages/en.json sont déjà des arbres parallèles
--- indexés à l'identique, aucun composant ne gère un contenu mono-langue) ----------
+-- ---------- Contenu bilingue (une ligne par élément, colonnes _fr/_en) ----------
 
 CREATE TABLE IF NOT EXISTS testimonials (
   id SERIAL PRIMARY KEY,
@@ -80,9 +79,7 @@ CREATE TABLE IF NOT EXISTS news_posts (
 
 -- ---------- Sécurité : limitation de débit partagée ----------
 
--- Remplace les compteurs en mémoire (perdus à chaque cold start et non
--- partagés entre instances serverless). Une ligne par clé suivie
--- (login:email:ip, login-email:email, ip:...).
+-- Une ligne par clé suivie (login:email:ip, login-email:email, ip:...).
 CREATE TABLE IF NOT EXISTS rate_limits (
   key TEXT PRIMARY KEY,
   count INTEGER NOT NULL DEFAULT 0,
@@ -95,7 +92,6 @@ CREATE INDEX IF NOT EXISTS rate_limits_updated_at_idx ON rate_limits (updated_at
 
 -- ---------- Journal d'activité admin ----------
 
--- Trace des mutations faites dans le dashboard : qui a fait quoi, quand.
 CREATE TABLE IF NOT EXISTS admin_activity (
   id SERIAL PRIMARY KEY,
   user_id INTEGER REFERENCES admin_users(id) ON DELETE SET NULL,
@@ -105,39 +101,6 @@ CREATE TABLE IF NOT EXISTS admin_activity (
 );
 
 CREATE INDEX IF NOT EXISTS admin_activity_created_at_idx ON admin_activity (created_at DESC);
-
--- ---------- Colonnes ajoutées après coup (idempotent) ----------
-
--- Quota de renvois d'OTP par invitation : sans lui, l'endpoint de renvoi
--- permet de spammer la boîte mail de l'invité et de remettre les tentatives
--- à zéro indéfiniment.
-ALTER TABLE admin_invites ADD COLUMN IF NOT EXISTS resend_count INTEGER NOT NULL DEFAULT 0;
-ALTER TABLE admin_invites ADD COLUMN IF NOT EXISTS last_sent_at TIMESTAMPTZ;
-
--- ---------- Double authentification (TOTP) ----------
-
--- `mfa_secret` porte un secret enrôlé mais pas encore confirmé : il n'est
--- jamais affiché en dehors de la page « Mon compte » et ne suffit pas à
--- ouvrir une session tant que `mfa_enabled` est faux.
-ALTER TABLE admin_users ADD COLUMN IF NOT EXISTS mfa_secret TEXT;
-ALTER TABLE admin_users ADD COLUMN IF NOT EXISTS mfa_enabled BOOLEAN NOT NULL DEFAULT false;
-
--- Défi intermédiaire entre le mot de passe et le code TOTP. Aucune session
--- n'est créée tant que le code n'est pas validé. Le cookie ne porte qu'un
--- token opaque dont le hachage vit ici.
--- NB : le script de migration découpe le fichier sur le point-virgule — donc
--- aucun point-virgule dans les commentaires.
-CREATE TABLE IF NOT EXISTS admin_mfa_challenges (
-  id SERIAL PRIMARY KEY,
-  user_id INTEGER NOT NULL REFERENCES admin_users(id) ON DELETE CASCADE,
-  token_hash TEXT UNIQUE NOT NULL,
-  attempts INTEGER NOT NULL DEFAULT 0,
-  expires_at TIMESTAMPTZ NOT NULL,
-  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
-);
-
-CREATE INDEX IF NOT EXISTS admin_mfa_challenges_expires_at_idx
-  ON admin_mfa_challenges (expires_at);
 
 -- ---------- FAQ gérées depuis le dashboard ----------
 
@@ -161,7 +124,3 @@ CREATE TABLE IF NOT EXISTS contact_messages (
   status TEXT NOT NULL DEFAULT 'new', -- new | read | archived
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
-
--- ---------- Visuel des actualités (upload Cloudinary) ----------
-
-ALTER TABLE news_posts ADD COLUMN IF NOT EXISTS image_url TEXT;

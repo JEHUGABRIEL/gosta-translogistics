@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "framer-motion";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import {
   PaintRoller,
   Landmark,
@@ -15,35 +15,13 @@ import {
   ChevronRight,
   ArrowRight,
 } from "lucide-react";
+import { Link } from "@/i18n/navigation";
+import { getProjects } from "@/lib/projects";
 import Reveal from "./Reveal";
 import ImageCarousel from "./ImageCarousel";
 
+// Une icône par carte, dans l'ordre de `lib/projects.ts`.
 const PROJECT_ICONS = [PaintRoller, Landmark, Route, Warehouse, Anchor, Wrench];
-
-// Une image (ou plusieurs pour les cartes en carrousel) par carte de réalisation
-const PROJECT_GALLERIES: string[][] = [
-  // Plafond staff — 3 photos de plafonds
-  [
-    "/realisations/plafonds/plafond-1.png",
-    "/realisations/plafonds/plafond-2.png",
-    "/realisations/realisations-3.png",
-  ],
-  // Immeubles résidentiels & commerciaux — maison avec colonnes
-  ["/realisations/realisations-1.png"],
-  // Voirie & aménagement urbain — chantier urbain
-  ["/realisations/realisations-5.png"],
-  // Bâtiments industriels — structure métallique
-  ["/realisations/pergolats/pergola-1.jpg"],
-  // Approvisionnement de chantiers — pose sur site
-  ["/realisations/pergolats/pergola-2.jpg"],
-  // Rénovation & réhabilitation — bâtiment en travaux
-  ["/realisations/realisations-5.png"],
-];
-
-type ProjectItem = {
-  title: string;
-  tag: string;
-};
 
 const CARD_GAP = 24; // gap-6
 
@@ -52,7 +30,7 @@ export default function Projects() {
   const [paused, setPaused] = useState(false);
   const reduceMotion = useReducedMotion();
   const t = useTranslations("home.projects");
-  const items = t.raw("items") as ProjectItem[];
+  const projects = getProjects(useLocale());
 
   const scroll = (dir: 1 | -1) => {
     const el = track.current;
@@ -97,7 +75,16 @@ export default function Projects() {
             </h2>
           </Reveal>
 
-          <div className="flex gap-3">
+          <div className="flex items-center gap-5">
+            <Link
+              href="/realisations"
+              className="inline-flex items-center gap-1.5 font-display uppercase tracking-wide text-[13px] text-[var(--red)]"
+            >
+              {t("all")}
+              <ArrowRight size={15} strokeWidth={2} />
+            </Link>
+
+            <div className="flex gap-3">
             <button
               onClick={() => scroll(-1)}
               aria-label={t("prev")}
@@ -112,6 +99,7 @@ export default function Projects() {
             >
               <ChevronRight size={20} strokeWidth={2} />
             </button>
+            </div>
           </div>
         </div>
 
@@ -121,16 +109,18 @@ export default function Projects() {
           onMouseLeave={() => setPaused(false)}
           className="flex gap-6 mt-8 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
         >
-          {items.map(({ title, tag }, i) => {
+          {projects.map(({ slug, title, tag, gallery }, i) => {
             const Icon = PROJECT_ICONS[i % PROJECT_ICONS.length];
-            const gallery = PROJECT_GALLERIES[i % PROJECT_GALLERIES.length];
             return (
               <Reveal
-                key={title}
+                key={slug}
                 delay={i * 0.06}
                 className="snap-start shrink-0 w-[calc(100vw-3rem)] sm:w-[450px]"
               >
-                <div className="h-full bg-[var(--surface)] border border-black/[0.06] rounded-2xl overflow-hidden">
+                <Link
+                  href={`/realisations/${slug}`}
+                  className="group block h-full bg-[var(--surface)] border border-black/[0.06] rounded-2xl overflow-hidden transition-colors hover:border-[var(--red)]/40"
+                >
                   <div className="overflow-hidden">
                   {gallery.length > 1 ? (
                     <ImageCarousel
@@ -157,7 +147,7 @@ export default function Projects() {
                       {tag}
                     </span>
                   </div>
-                  <h3 className="font-display uppercase tracking-wide text-xl text-[var(--navy-deep)] mt-5 leading-snug">
+                  <h3 className="font-display uppercase tracking-wide text-xl text-[var(--navy-deep)] mt-5 leading-snug group-hover:text-[var(--red)] transition-colors">
                     {title}
                   </h3>
                   <span className="inline-flex items-center gap-1.5 font-display uppercase tracking-wide text-[14px] text-[var(--red)] mt-5">
@@ -165,7 +155,7 @@ export default function Projects() {
                     <ArrowRight size={16} />
                   </span>
                 </div>
-                </div>
+                </Link>
               </Reveal>
             );
           })}

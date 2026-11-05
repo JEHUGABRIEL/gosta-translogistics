@@ -1,6 +1,7 @@
 import createMiddleware from "next-intl/middleware";
 import { NextResponse, type NextRequest } from "next/server";
 import { routing } from "./i18n/routing";
+import { ADMIN_SESSION_COOKIE } from "./lib/admin-session-cookie";
 
 const intlMiddleware = createMiddleware(routing);
 
@@ -23,7 +24,7 @@ export default function proxy(request: NextRequest) {
     // session, sans requête base (elle serait coûteuse sur chaque asset admin).
     // La vérification réelle (session valide en base) reste dans le layout
     // protégé, les pages et chaque Server Action.
-    if (!request.cookies.has("admin_session")) {
+    if (!request.cookies.has(ADMIN_SESSION_COOKIE)) {
       return NextResponse.redirect(new URL("/admin/login", request.url));
     }
     return NextResponse.next();

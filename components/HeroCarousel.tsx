@@ -3,7 +3,9 @@
 import { useEffect, useState, type ReactNode } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { Mouse } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+import BrushUnderline from "./BrushUnderline";
+import HeroScrollBump from "./HeroScrollBump";
 import HeroScene from "./HeroScene";
 import { useQuoteModal } from "./QuoteModalProvider";
 
@@ -17,27 +19,47 @@ export type HeroSlide = {
   secondaryCta?: HeroCta;
 };
 
+/**
+ * Un seul carrousel pour toutes les héros du site (accueil, pages pôle et
+ * prestation). La photo de la slide occupe tout le fond de la section, avec le
+ * même voile sombre que la hero de /a-propos ; le texte se pose dessus, à
+ * gauche. Autoplay, pause au survol/focus et `prefers-reduced-motion`
+ * (WCAG 2.2.2).
+ *
+ * Le titre est calibré pour tenir sur **deux lignes** (une par ligne de
+ * message) : la taille suit la largeur disponible (`clamp`) et la colonne
+ * occupe toute la largeur utile, de sorte que la ligne la plus longue du site
+ * (FR et EN) ne se replie jamais.
+ *
+ * Aucun bouton ni point de navigation : une pastille (« bosse ») dépasse sous
+ * le bord bas de la hero et fait défiler jusqu'à la section suivante, dont
+ * l'id est passé en `scrollTo`.
+ */
 export default function HeroCarousel({
   id,
   slides,
-  floating,
+  scrollTo,
 }: {
   id?: string;
   slides: HeroSlide[];
-  floating?: ReactNode;
+  /** Id (sans #) de la section suivante, cible de la pastille de défilement. */
+  scrollTo?: string;
 }) {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
-  const { openQuote } = useQuoteModal();
   const reduceMotion = useReducedMotion();
+  const locale = useLocale();
+  const t = useTranslations("home.hero");
+  const { openQuote } = useQuoteModal();
 
   useEffect(() => {
     // Respecte « réduire les animations » : pas de défilement auto (WCAG 2.2.2)
     if (slides.length < 2 || paused || reduceMotion) return;
-    const t = setInterval(() => {
-      setIndex((i) => (i + 1) % slides.length);
-    }, 6000);
-    return () => clearInterval(t);
+    const timer = setInterval(
+      () => setIndex((i) => (i + 1) % slides.length),
+      6000
+    );
+    return () => clearInterval(timer);
   }, [slides.length, paused, reduceMotion]);
 
   const slide = slides[index];
@@ -49,8 +71,8 @@ export default function HeroCarousel({
   ) => {
     const className =
       variant === "primary"
-        ? "btn-liquid bg-[var(--navy-deep)] text-white font-display uppercase tracking-wide text-base px-7 py-3.5"
-        : "inline-flex items-center border border-white/40 hover:border-[var(--red)] hover:text-[var(--red)] transition-colors text-white font-display uppercase tracking-wide text-base px-7 py-3.5";
+        ? "btn-liquid [--liquid-fill:var(--red-dark)] bg-[var(--red)] text-white font-display uppercase tracking-wide text-base px-7 py-3.5"
+        : "inline-flex items-center border border-white/40 hover:border-white transition-colors text-white font-display uppercase tracking-wide text-base px-7 py-3.5";
 
     return cta.openQuote ? (
       <button
@@ -69,102 +91,92 @@ export default function HeroCarousel({
   };
 
   return (
-    /* -mt-[var(--header-h)] : la hero remonte derrière le header sticky.
-       Le header étant transparent en haut de page, sa navbar affiche alors
-       le fond de la hero (image + dégradé navy) au lieu du fond du body. */
-    <section
-      id={id}
-      className="relative bg-[var(--navy-deep)] -mt-[var(--header-h)]"
+    /* -mt-[var(--header-h)] : la hero remonte derrière le header sticky, qui est
+       transparent en haut de page. `relative z-10` : la pastille qui dépasse en
+       bas doit passer au-dessus de la section suivante. */
+    <div
+      className="relative z-10 -mt-[var(--header-h)]"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
+      onFocusCapture={() => setPaused(true)}
+      onBlurCapture={() => setPaused(false)}
     >
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          key={index}
-          initial={{ scale: 1.06, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute inset-0"
-        >
-          {slide.image ? (
-            <Image
-              src={slide.image.src}
-              alt={slide.image.alt}
-              fill
-              sizes="100vw"
-              loading="eager"
-              style={{ objectFit: "cover" }}
-            />
-          ) : (
-            <HeroScene />
-          )}
-        </motion.div>
-        {/* Voile noir simple (style de la section devis) : assombrit
-            uniformément l'image, sans dégradé ni flou. */}
-        <div className="absolute inset-0 bg-black/60" />
-        {/* Scrim haut : le noir plein du topbar (#000) se prolonge derrière la
-            navbar transparente puis s'estompe sur la photo. Supprime la couture
-            qui séparait visuellement le topbar de la navbar. */}
-        <div className="absolute inset-x-0 top-0 h-44 bg-gradient-to-b from-black from-[35%] to-transparent" />
-      </div>
-
-      {/* Courbe elliptique : la fin du héros s'arrondit vers la section suivante */}
-      {/* pb-24 md:pb-32 : espace sous les boutons. Quand la barre flottante existe
-          (home, desktop), lg:pb-0 car elle assure l'espacement ; sans barre
-          flottante (sous-pages), le padding bas reste appliqué à tous les écrans. */}
-      {/* Le padding top compense -mt-[var(--header-h)] pour que le contenu
-          reste exactement à la même position qu'avant le chevauchement. */}
-      <div
-        className={`relative mx-auto max-w-7xl px-6 pt-[calc(var(--header-h)+8rem)] md:pt-[calc(var(--header-h)+12rem)] pb-12 md:pb-24 ${floating ? "lg:pb-0" : ""}`}
+      <section
+        id={id}
+        className="relative flex min-h-[clamp(30rem,86svh,52rem)] flex-col justify-end overflow-hidden bg-[var(--navy-deep)]"
       >
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -14 }}
-            transition={{ duration: 0.55, ease: "easeOut" }}
-          >
-            <h1 className="font-display font-extrabold text-white leading-[0.95] text-[clamp(2.5rem,13vw,4.5rem)] max-w-4xl">
-              {slide.title}
-            </h1>
-
-            <div className="flex flex-wrap gap-4 mt-14">
-              {slide.primaryCta && renderCta(slide.primaryCta, "primary", "primary")}
-              {slide.secondaryCta &&
-                renderCta(slide.secondaryCta, "secondary", "secondary")}
-            </div>
-          </motion.div>
-        </AnimatePresence>
-
-      </div>
-
-      {/* Scroll indicator — mouse icon */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 0.8 }}
-      >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
-          className="flex flex-col items-center gap-2"
-        >
-          <Mouse className="w-5 h-5 text-white/70" strokeWidth={1.5} />
-        </motion.div>
-      </motion.div>
-
-      {floating && (
-        /* hidden lg:block : la barre de recherche ne s'affiche que sur desktop.
-           Sur mobile, la recherche se fait via l'icône de la navbar (SearchModal). */
-        <div className="relative mx-auto max-w-7xl px-6 pt-10 md:pt-14 hidden lg:block">
-          {/* translate-y-1/2 : la barre est décalée de la moitié de sa propre
-              hauteur → exactement à moitié dans la hero section, à moitié dehors.
-              z-10 : elle se peint par-dessus la section suivante */}
-          <div className="relative z-10 translate-y-1/2">{floating}</div>
+        {/* Photo de la slide en plein cadre, fondu enchaîné d'une slide à l'autre */}
+        <div className="absolute inset-0">
+          <AnimatePresence>
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, scale: 1.04 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute inset-0"
+            >
+              {slide.image ? (
+                <Image
+                  src={slide.image.src}
+                  alt={slide.image.alt}
+                  fill
+                  sizes="100vw"
+                  loading="eager"
+                  className="object-cover"
+                />
+              ) : (
+                <HeroScene />
+              )}
+            </motion.div>
+          </AnimatePresence>
+          {/* Voile noir + dégradé bas : même traitement que la hero de /a-propos,
+              pour la lisibilité du titre et des boutons sur la photo. */}
+          <div className="absolute inset-0 bg-black/55" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
         </div>
-      )}
-    </section>
+
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pt-[calc(var(--header-h)+4rem)] md:pt-[calc(var(--header-h)+5rem)] pb-24 md:pb-28">
+          <p className="flex items-center gap-3 font-mono text-[11.5px] uppercase tracking-[0.24em] text-[var(--amber)]">
+            <span aria-hidden="true" className="h-px w-8 bg-[var(--amber)]" />
+            {t("eyebrow")}
+          </p>
+
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -14 }}
+              transition={{ duration: 0.55, ease: "easeOut" }}
+            >
+              {/* Taille réglée sur la ligne la plus longue de chaque langue : le
+                  titre reste sur deux lignes, jamais trois. Les messages anglais
+                  étant plus longs, leur taille est plus petite. */}
+              <h1
+                className={`font-display font-extrabold text-white leading-[1.02] mt-5 tracking-[-0.01em] [text-shadow:0_2px_30px_rgba(0,0,0,0.45)] ${
+                  locale === "en"
+                    ? "text-[clamp(0.8rem,4vw,3.6rem)]"
+                    : "text-[clamp(0.85rem,5vw,3.6rem)]"
+                }`}
+              >
+                {slide.title}
+              </h1>
+              <BrushUnderline className="mt-4 block h-3 w-32 md:w-40 text-[var(--amber)]" />
+
+              <div className="flex flex-wrap gap-4 mt-8">
+                {slide.primaryCta &&
+                  renderCta(slide.primaryCta, "primary", "primary")}
+                {slide.secondaryCta &&
+                  renderCta(slide.secondaryCta, "secondary", "secondary")}
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </section>
+
+      {/* Bosse de défilement, partagée avec la hero de /a-propos. */}
+      {scrollTo && <HeroScrollBump target={scrollTo} label={t("scroll")} />}
+    </div>
   );
 }

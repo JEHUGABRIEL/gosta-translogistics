@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { Mail, Phone, Trash2, Check, Archive, Copy, Reply } from "lucide-react";
 import {
   updateContactMessageStatusAction,
@@ -9,12 +10,12 @@ import {
 import type { ContactMessage } from "@/lib/db/queries";
 import ConfirmModal from "./ConfirmModal";
 import { useAdminToast } from "./ToastProvider";
+import AdminSearchDebounced from "./AdminSearchDebounced";
 import {
   AdminBadge,
   AdminCard,
   AdminEmptyState,
-  AdminPagination,
-  AdminSearch,
+  AdminPaginationLinks,
   AdminToolbar,
 } from "./ui";
 
@@ -43,15 +44,56 @@ const STATUS_TONE: Record<
   archived: "steel",
 };
 
-const PER_PAGE = 6;
-
-export default function MessagesManager({ items }: { items: MessageItem[] }) {
+export default function MessagesManager({
+  items,
+  total,
+  page,
+  pageSize,
+  query,
+  status,
+}: {
+  items: MessageItem[];
+  total: number;
+  page: number;
+  pageSize: number;
+  query: string;
+  status: "all" | ContactMessage["status"];
+}) {
+  const router = useRouter();
+  const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
   const [deleteId, setDeleteId] = useState<number | null>(null);
-  const [filter, setFilter] = useState<"all" | ContactMessage["status"]>("all");
-  const [query, setQuery] = useState("");
-  const [page, setPage] = useState(1);
   const toast = useAdminToast();
+
+  // L'URL porte page, recherche et filtre : le rendu serveur reste la source
+  // de vérité et un lien partagé affiche exactement la même page.
+  const navigate = (next: {
+    page?: number;
+    query?: string;
+    status?: "all" | ContactMessage["status"];
+  }) => {
+    const params = new URLSearchParams();
+    const nextQuery = next.query ?? query;
+    const nextStatus = next.status ?? status;
+    const nextPage = next.page ?? page;
+    if (nextQuery) params.set("q", nextQuery);
+    if (nextStatus !== "all") params.set("status", nextStatus);
+    if (nextPage > 1) params.set("page", String(nextPage));
+    const search = params.toString();
+    startTransition(() => {
+      router.push(search ? `${pathname}?${search}` : pathname, { scroll: false });
+    });
+  };
+
+
+  const hrefFor = (target: number) => {
+    const params = new URLSearchParams();
+    if (query) params.set("q", query);
+    if (status !== "all") params.set("status", status);
+    if (target > 1) params.set("page", String(target));
+    const search = params.toString();
+    return search ? `${pathname}?${search}` : pathname;
+  };
 
   /** Copie l'adresse de l'expéditeur pour répondre depuis un autre client. */
   const copyEmail = async (email: string) => {
@@ -63,35 +105,16 @@ export default function MessagesManager({ items }: { items: MessageItem[] }) {
     }
   };
 
-  const filtered = useMemo(() => {
-    const needle = query.trim().toLowerCase();
-    return items.filter((item) => {
-      if (filter !== "all" && item.status !== filter) return false;
-      if (!needle) return true;
-      return [item.name, item.email ?? "", item.phone ?? "", item.message].some(
-        (value) => value.toLowerCase().includes(needle)
-      );
-    });
-  }, [items, filter, query]);
-
-  const pageCount = Math.max(1, Math.ceil(filtered.length / PER_PAGE));
-  const currentPage = Math.min(page, pageCount);
-  const visible = filtered.slice(
-    (currentPage - 1) * PER_PAGE,
-    currentPage * PER_PAGE
-  );
+  const emptyIsUnfiltered = total === 0 && !query && status === "all";
 
   return (
     <div className="space-y-6">
       <AdminToolbar description="Les messages envoyés depuis le formulaire de contact du site arrivent ici. Marquez-les comme lus, archivez-les ou supprimez-les." />
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <AdminSearch
-          value={query}
-          onChange={(value) => {
-            setQuery(value);
-            setPage(1);
-          }}
+        <AdminSearchDebounced
+          initialValue={query}
+          onChange={(value) => navigate({ page: 1, query: value })}
           placeholder="Rechercher un message…"
         />
         <div className="flex flex-wrap gap-2">
@@ -99,12 +122,10 @@ export default function MessagesManager({ items }: { items: MessageItem[] }) {
             <button
               key={key}
               type="button"
-              onClick={() => {
-                setFilter(key);
-                setPage(1);
-              }}
+              onClick={() => navigate({ page: 1, status: key })}
+              aria-pressed={status === key}
               className={`border px-3.5 py-1.5 font-display text-[12.5px] uppercase tracking-wide transition-colors ${
-                filter === key
+                status === key
                   ? "border-[var(--navy-deep)] bg-[var(--navy-deep)] text-white"
                   : "border-[var(--line)] text-[var(--steel)] hover:border-[var(--navy-deep)] hover:text-[var(--navy-deep)]"
               }`}
@@ -115,11 +136,11 @@ export default function MessagesManager({ items }: { items: MessageItem[] }) {
         </div>
       </div>
 
-      {visible.length === 0 ? (
+      {items.length === 0 ? (
         <AdminEmptyState
-          title={items.length === 0 ? "Aucun message pour le moment" : "Aucun résultat"}
+          title={emptyIsUnfiltered ? "Aucun message pour le moment" : "Aucun résultat"}
           description={
-            items.length === 0
+            emptyIsUnfiltered
               ? "Les messages du formulaire de contact apparaîtront ici."
               : "Essayez un autre filtre ou un autre mot-clé."
           }
@@ -127,7 +148,7 @@ export default function MessagesManager({ items }: { items: MessageItem[] }) {
       ) : (
         <>
           <ul className="grid gap-4">
-            {visible.map((item) => (
+            {items.map((item) => (
               <li key={item.id}>
                 <AdminCard
                   className={`p-5 ${
@@ -228,8 +249,8 @@ export default function MessagesManager({ items }: { items: MessageItem[] }) {
                         <button
                           type="button"
                           onClick={() => void copyEmail(item.email ?? "")}
-                          aria-label="Copier l&apos;adresse"
-                          title="Copier l&apos;adresse"
+                          aria-label="Copier l'adresse"
+                          title="Copier l'adresse"
                           className="inline-flex items-center gap-1.5 text-[13px] text-[var(--steel)] transition-colors hover:text-[var(--navy-deep)]"
                         >
                           <Copy size={15} /> Copier l&apos;adresse
@@ -255,11 +276,11 @@ export default function MessagesManager({ items }: { items: MessageItem[] }) {
             ))}
           </ul>
 
-          <AdminPagination
-            page={currentPage}
-            perPage={PER_PAGE}
-            total={filtered.length}
-            onPageChange={setPage}
+          <AdminPaginationLinks
+            page={page}
+            perPage={pageSize}
+            total={total}
+            hrefFor={hrefFor}
           />
         </>
       )}

@@ -3,6 +3,7 @@ import "server-only";
 import { randomBytes, randomInt, scrypt, timingSafeEqual, createHash } from "node:crypto";
 import { promisify } from "node:util";
 import { cookies } from "next/headers";
+import { ADMIN_SESSION_COOKIE } from "./admin-session-cookie";
 import { getDb } from "./db/client";
 import { deleteExpiredSessions } from "./db/queries";
 
@@ -12,7 +13,9 @@ const scryptAsync = promisify(scrypt) as (
   keylen: number
 ) => Promise<Buffer>;
 
-const COOKIE_NAME = "admin_session";
+// Nom partagé avec `proxy.ts` : un renommage ici doit se propager à la
+// première barrière, sinon la garde ne trouve plus le cookie.
+const COOKIE_NAME = ADMIN_SESSION_COOKIE;
 // Le cookie doit couvrir `/api/admin/*` : les route handlers (rafraîchissement
 // des devis, notifications) lisent la session via `getSessionUser()`. Un path
 // limité à `/admin` les laissait sans cookie et renvoyait 401.
@@ -133,11 +136,15 @@ export async function getCurrentSessionTokenHash(): Promise<string | null> {
   return token ? hashToken(token) : null;
 }
 
+/** `owner` : compte fondateur (invitations, purge du journal). */
+export type AdminRole = "owner" | "admin";
+
 export type AdminUser = {
   id: number;
   email: string;
   first_name: string | null;
   last_name: string | null;
+  role: AdminRole;
 };
 
 export async function getSessionUser(): Promise<AdminUser | null> {
@@ -147,7 +154,7 @@ export async function getSessionUser(): Promise<AdminUser | null> {
 
   const sql = getDb();
   const rows = await sql`
-    SELECT u.id, u.email, u.first_name, u.last_name
+    SELECT u.id, u.email, u.first_name, u.last_name, u.role
     FROM sessions s
     JOIN admin_users u ON u.id = s.user_id
     WHERE s.token_hash = ${hashToken(token)} AND s.expires_at > now()
